@@ -4,7 +4,6 @@ import { Link } from 'react-router'
 import classNames from 'classnames'
 import Avatar from '../assets/Avatar'
 import BackgroundImage from '../assets/BackgroundImage'
-import { ShareIcon } from '../assets/Icons'
 import RelationshipContainer from '../../containers/RelationshipContainer'
 import {
   UserFeaturedButton,
@@ -15,6 +14,7 @@ import {
   UserNamesCell,
   UserNamesCellCard,
   UserProfileButtons,
+  UserShareButton,
   UserStatsCell,
 } from './UserParts'
 
@@ -314,10 +314,16 @@ export class UserProfile extends PureComponent {
           name={name}
           username={username}
         >
-          {onClickOpenFeaturedModal && !totalViewsCount &&
+          {onClickOpenFeaturedModal &&
             <UserFeaturedButton
-              className="inUserProfile withoutTotalViewCount"
+              className="inUserProfile"
               onClick={onClickOpenFeaturedModal}
+            />
+          }
+          {onClickShareProfile &&
+            <UserShareButton
+              className="inUserProfile"
+              onClick={onClickShareProfile}
             />
           }
           {isLoggedIn && !isSelf ?
@@ -329,16 +335,11 @@ export class UserProfile extends PureComponent {
             /> : null
           }
         </UserNamesCell>
-        {totalViewsCount ?
+        {totalViewsCount &&
           <UserFiguresCell
             className="inUserProfile"
-            onClickOpenFeaturedModal={onClickOpenFeaturedModal}
-            onClickShareProfile={onClickShareProfile}
             totalViewsCount={totalViewsCount}
-          /> :
-          <button className="UserFiguresShareButton withoutTotalViewCount" onClick={onClickShareProfile} >
-            <ShareIcon />
-          </button>
+          />
         }
         <UserStatsCell
           className="inUserProfile"

@@ -168,6 +168,7 @@ class UserContainer extends Component {
       isHireable,
       isFeatured,
       isLoggedIn,
+      isMobile,
       isShortBioTruncated,
     } = this.props
     const collabFunc = isLoggedIn ? this.onOpenCollabModal : this.onOpenSignupModal
@@ -178,7 +179,7 @@ class UserContainer extends Component {
       onClickOpenBio: isShortBioTruncated ? this.onClickOpenBio : null,
       onClickOpenFeaturedModal: isFeatured ? this.onClickOpenFeaturedModal : null,
       onClickReInvite: this.onClickReInvite,
-      onClickShareProfile: this.onClickShareProfile,
+      onClickShareProfile: isMobile ? this.onClickShareProfile : null,
     }
   }
 
