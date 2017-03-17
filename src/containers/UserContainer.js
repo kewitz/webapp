@@ -159,7 +159,7 @@ class UserContainer extends Component {
     onClickOpenBio: PropTypes.func,
     onClickOpenFeaturedModal: PropTypes.func,
     onClickReInvite: PropTypes.func,
-    onClickShareProfile: PropTypes.func.isRequired,
+    onClickShareProfile: PropTypes.func,
   }
 
   getChildContext() {

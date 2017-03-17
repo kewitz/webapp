@@ -233,7 +233,7 @@ export class UserProfile extends PureComponent {
     onClickHireMe: PropTypes.func,
     onClickOpenBio: PropTypes.func,
     onClickOpenFeaturedModal: PropTypes.func,
-    onClickShareProfile: PropTypes.func.isRequired,
+    onClickShareProfile: PropTypes.func,
   }
   static propTypes = {
     avatar: PropTypes.object.isRequired,
