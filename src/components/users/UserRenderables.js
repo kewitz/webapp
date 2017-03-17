@@ -4,7 +4,6 @@ import { Link } from 'react-router'
 import classNames from 'classnames'
 import Avatar from '../assets/Avatar'
 import BackgroundImage from '../assets/BackgroundImage'
-import { ShareIcon } from '../assets/Icons'
 import RelationshipContainer from '../../containers/RelationshipContainer'
 import {
   UserFeaturedButton,
@@ -15,6 +14,7 @@ import {
   UserNamesCell,
   UserNamesCellCard,
   UserProfileButtons,
+  UserShareButton,
   UserStatsCell,
 } from './UserParts'
 
@@ -233,7 +233,7 @@ export class UserProfile extends PureComponent {
     onClickHireMe: PropTypes.func,
     onClickOpenBio: PropTypes.func,
     onClickOpenFeaturedModal: PropTypes.func,
-    onClickShareProfile: PropTypes.func.isRequired,
+    onClickShareProfile: PropTypes.func,
   }
   static propTypes = {
     avatar: PropTypes.object.isRequired,
@@ -254,7 +254,7 @@ export class UserProfile extends PureComponent {
     name: PropTypes.string,
     postsCount: PropTypes.number.isRequired,
     relationshipPriority: PropTypes.string,
-    totalPostViewsCount: PropTypes.string,
+    totalViewsCount: PropTypes.string,
     truncatedShortBio: PropTypes.string.isRequired,
     useGif: PropTypes.bool.isRequired,
     username: PropTypes.string.isRequired,
@@ -265,7 +265,7 @@ export class UserProfile extends PureComponent {
     location: null,
     name: null,
     relationshipPriority: null,
-    totalPostViewsCount: null,
+    totalViewsCount: null,
   }
 
   render() {
@@ -292,7 +292,7 @@ export class UserProfile extends PureComponent {
       name,
       postsCount,
       relationshipPriority,
-      totalPostViewsCount,
+      totalViewsCount,
       truncatedShortBio,
       useGif,
       username,
@@ -314,10 +314,16 @@ export class UserProfile extends PureComponent {
           name={name}
           username={username}
         >
-          {onClickOpenFeaturedModal && !totalPostViewsCount &&
+          {onClickOpenFeaturedModal &&
             <UserFeaturedButton
-              className="inUserProfile withoutTotalViewCount"
+              className="inUserProfile"
               onClick={onClickOpenFeaturedModal}
+            />
+          }
+          {onClickShareProfile &&
+            <UserShareButton
+              className="inUserProfile"
+              onClick={onClickShareProfile}
             />
           }
           {isLoggedIn && !isSelf ?
@@ -329,16 +335,11 @@ export class UserProfile extends PureComponent {
             /> : null
           }
         </UserNamesCell>
-        {totalPostViewsCount ?
+        {totalViewsCount &&
           <UserFiguresCell
             className="inUserProfile"
-            onClickOpenFeaturedModal={onClickOpenFeaturedModal}
-            onClickShareProfile={onClickShareProfile}
-            totalPostViewsCount={totalPostViewsCount}
-          /> :
-          <button className="UserFiguresShareButton withoutTotalViewCount" onClick={onClickShareProfile} >
-            <ShareIcon />
-          </button>
+            totalViewsCount={totalViewsCount}
+          />
         }
         <UserStatsCell
           className="inUserProfile"

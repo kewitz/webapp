@@ -41,6 +41,15 @@ UserFeaturedButton.propTypes = {
   onClick: PropTypes.func.isRequired,
 }
 
+export const UserShareButton = ({ className, onClick }) =>
+  <button className={classNames('UserShareButton', className)} onClick={onClick} >
+    <ShareIcon />
+  </button>
+UserShareButton.propTypes = {
+  className: PropTypes.string.isRequired,
+  onClick: PropTypes.func.isRequired,
+}
+
 // -----------------
 
 export const UserNamesCell = ({ className, name, username, children }) =>
@@ -82,38 +91,14 @@ UserNamesCellCard.defaultProps = {
 
 // -----------------
 
-export const UserFiguresCell = ({
-  className,
-  onClickOpenFeaturedModal,
-  onClickShareProfile,
-  totalPostViewsCount,
-}) =>
+export const UserFiguresCell = ({ className, totalViewsCount }) =>
   <div className={classNames('UserCell UserFiguresCell', className)}>
-    { totalPostViewsCount ? <span className="UserFiguresCount uppercase">{totalPostViewsCount} </span> : null }
-    { totalPostViewsCount ? <span className="UserFiguresLabel">Total Views</span> : null }
-    { onClickOpenFeaturedModal || onClickShareProfile ?
-      <div className="UserFiguresButtons">
-        { onClickOpenFeaturedModal ?
-          <UserFeaturedButton className={className} onClick={onClickOpenFeaturedModal} />
-          : null
-        }
-        { onClickShareProfile ?
-          <button className="UserFiguresShareButton" onClick={onClickShareProfile} >
-            <ShareIcon />
-          </button> : null
-        }
-      </div> : null
-    }
+    <span className="UserFiguresCount uppercase">{totalViewsCount} </span>
+    <span className="UserFiguresLabel">Total Views</span>
   </div>
 UserFiguresCell.propTypes = {
   className: PropTypes.string.isRequired,
-  onClickOpenFeaturedModal: PropTypes.func,
-  onClickShareProfile: PropTypes.func.isRequired,
-  totalPostViewsCount: PropTypes.string,
-}
-UserFiguresCell.defaultProps = {
-  onClickOpenFeaturedModal: null,
-  totalPostViewsCount: null,
+  totalViewsCount: PropTypes.string.isRequired,
 }
 
 // -----------------

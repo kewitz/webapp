@@ -29,7 +29,7 @@ import {
   selectUserPostsAdultContent,
   selectUserPostsCount,
   selectUserRelationshipPriority,
-  selectUserTotalPostViewsCount,
+  selectUserTotalViewsCount,
   selectUserTruncatedShortBio,
   selectUserUsername,
 } from '../selectors/user'
@@ -76,7 +76,7 @@ export function makeMapStateToProps() {
       name: selectUserName(state, props),
       postsCount: selectUserPostsCount(state, props),
       relationshipPriority: selectUserRelationshipPriority(state, props),
-      totalPostViewsCount: selectUserTotalPostViewsCount(state, props),
+      totalViewsCount: selectUserTotalViewsCount(state, props),
       truncatedShortBio: truncatedShortBio.html,
       useGif: selectViewsAdultContent(state) || !selectUserPostsAdultContent(state, props),
       user: selectUser(state, props),
@@ -117,7 +117,7 @@ class UserContainer extends Component {
     name: PropTypes.string,
     postsCount: PropTypes.number.isRequired,
     relationshipPriority: PropTypes.string,
-    totalPostViewsCount: PropTypes.string,
+    totalViewsCount: PropTypes.string,
     truncatedShortBio: PropTypes.string.isRequired,
     type: PropTypes.oneOf([
       'compact',
@@ -144,7 +144,7 @@ class UserContainer extends Component {
     name: null,
     relationshipPriority: null,
     showBlockMuteButton: false,
-    totalPostViewsCount: null,
+    totalViewsCount: null,
     useGif: false,
     username: null,
   }
@@ -159,7 +159,7 @@ class UserContainer extends Component {
     onClickOpenBio: PropTypes.func,
     onClickOpenFeaturedModal: PropTypes.func,
     onClickReInvite: PropTypes.func,
-    onClickShareProfile: PropTypes.func.isRequired,
+    onClickShareProfile: PropTypes.func,
   }
 
   getChildContext() {
@@ -168,6 +168,7 @@ class UserContainer extends Component {
       isHireable,
       isFeatured,
       isLoggedIn,
+      isMobile,
       isShortBioTruncated,
     } = this.props
     const collabFunc = isLoggedIn ? this.onOpenCollabModal : this.onOpenSignupModal
@@ -178,7 +179,7 @@ class UserContainer extends Component {
       onClickOpenBio: isShortBioTruncated ? this.onClickOpenBio : null,
       onClickOpenFeaturedModal: isFeatured ? this.onClickOpenFeaturedModal : null,
       onClickReInvite: this.onClickReInvite,
-      onClickShareProfile: this.onClickShareProfile,
+      onClickShareProfile: isMobile ? this.onClickShareProfile : null,
     }
   }
 
@@ -298,7 +299,7 @@ class UserContainer extends Component {
       name,
       postsCount,
       relationshipPriority,
-      totalPostViewsCount,
+      totalViewsCount,
       truncatedShortBio,
       type,
       useGif,
@@ -364,7 +365,7 @@ class UserContainer extends Component {
               name,
               postsCount,
               relationshipPriority,
-              totalPostViewsCount,
+              totalViewsCount,
               truncatedShortBio,
               useGif,
               username,

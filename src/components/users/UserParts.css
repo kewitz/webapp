@@ -60,7 +60,7 @@ User Buttons */
 .UserProfileButtons.inUserProfile {
   position: absolute;
   top: 10px;
-  right: 30px;
+  right: 10px;
   z-index: 2;
 }
 
@@ -139,12 +139,6 @@ User Figures */
   color: #aaa;
 }
 
-.UserFiguresButtons {
-  position: absolute;
-  top: 15px;
-  right: 0;
-}
-
 .UserFeaturedButton {
   color: #00d101;
 }
@@ -153,8 +147,10 @@ User Figures */
   stroke: #fff;
 }
 
-.UserFeaturedButton.inUserProfile + .UserFiguresShareButton {
-  margin-left: 10px;
+.UserFeaturedButton.inUserProfile {
+  position: absolute;
+  top: -55px;
+  right: 0;
 }
 
 .UserFeaturedButton.inUserProfileCard {
@@ -164,32 +160,21 @@ User Figures */
   z-index: 2;
 }
 
-.UserFeaturedButton.inUserProfile.withoutTotalViewCount {
-  position: absolute;
-  top: -55px;
-  right: 0;
-}
-
-.UserFeaturedButton.withoutTotalViewCount + .RelationshipContainer .BlockMuteButton.inUserProfile {
+.UserFeaturedButton.inUserProfile + .RelationshipContainer .BlockMuteButton.inUserProfile {
   right: 40px;
 }
 
-.UserFiguresShareButton.withoutTotalViewCount {
-  display: none;
+.UserShareButton.inUserProfile {
+  position: absolute;
+  top: -55px;
+  right: 0;
+  z-index: 2;
+  display: block;
+  color: #aaa;
 }
 
-@media (--break-2-max) {
-  .UserFiguresShareButton {
-    color: #aaa;
-  }
-
-  .UserFiguresShareButton.withoutTotalViewCount {
-    position: absolute;
-    top: 240px;
-    right: 45px;
-    z-index: 2;
-    display: block;
-  }
+.UserFeaturedButton.inUserProfile + .UserShareButton {
+  right: 40px;
 }
 
 @media (--break-2) {
@@ -197,7 +182,7 @@ User Figures */
     color: #ccc;
   }
 
-  .UserFeaturedButton.inUserProfile.withoutTotalViewCount {
+  .UserFeaturedButton.inUserProfile {
     top: 2px;
   }
 }
