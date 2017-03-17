@@ -44,6 +44,7 @@ const createSelectLocationState = () => {
 function prerender(context, done) {
   const { accessToken, expiresAt, originalUrl, url, timingHeader } = context
   const startTime = new Date()
+  Honeybadger.setContext(context)
 
   console.log(`[prerender] Rendering ${url}`)
 

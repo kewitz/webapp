@@ -66,6 +66,8 @@ if (cluster.isMaster) {
   queue.process('render', simultaneousWorkerRenders, (job, done) => {
     let child = null
 
+    Honeybadger.setContext(job.data)
+
     // Don't process jobs whose request has already expired
     if ((new Date() - job.created_at) > renderJobTtl) {
       console.log('Render job is older than ttl; skipping.')
