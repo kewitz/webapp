@@ -130,9 +130,12 @@
     opacity: 0;
   }
 
+  /* stylelint-disable selector-max-specificity, selector-max-compound-selectors */
+  .no-touch .TabListStreamContainer .Comment:hover .ShyTool,
   .no-touch .CommentTools:hover .ShyTool {
     pointer-events: auto;
     opacity: 1;
   }
+  /* stylelint-enable selector-max-specificity, selector-max-compound-selectors */
 }
 

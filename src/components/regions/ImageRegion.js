@@ -47,11 +47,11 @@ class ImageRegion extends Component {
       const imageHeight = Number(asset.getIn(['attachment', 'original', 'metadata', 'height']))
       scale = innerHeight / imageHeight
     }
-
+    const isVideo = !!(asset && asset.getIn(['attachment', 'video'], Immutable.Map()).size)
     this.state = {
       marginBottom: null,
       scale: isNaN(scale) ? null : scale,
-      status: STATUS.REQUEST,
+      status: isVideo ? STATUS.SUCCESS : STATUS.REQUEST,
     }
   }
 

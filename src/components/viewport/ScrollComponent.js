@@ -15,7 +15,7 @@ function callMethod(component, method, scrollProperties) {
 }
 
 function getScrollDirection(scrollY) {
-  if (Math.abs(lastScrollY - scrollY) >= 5) {
+  if (Math.abs(lastScrollY - scrollY) >= 20) {
     return (scrollY > lastScrollY) ? 'down' : 'up'
   }
   return lastScrollDirection
