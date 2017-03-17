@@ -58,7 +58,7 @@ librato.start()
 app.use(librato.middleware())
 
 librato.on('error', (err) => {
-  console.log('ELLO LIBRATO ERROR', err)
+  console.log('[librato] ERROR', err)
 })
 
 // Use Helmet to lock things down
@@ -76,9 +76,9 @@ app.use('/static', express.static('public/static', { maxAge: '1y', index: false,
 function saveResponseToCache(cacheKey, body) {
   memcacheClient.set(cacheKey, body, (err) => {
     if (err) {
-      console.log('Memcache error', err)
+      console.log('[memcache] ERROR', err)
     } else {
-      console.log(`- Saved ${cacheKey} to memcache`)
+      console.log(`[memcache] Saved ${cacheKey}`)
     }
   })
 }
@@ -87,7 +87,7 @@ function renderFromServer(req, res, cacheKey, timingHeader) {
   currentToken().then((token) => {
     librato.timing('iso.render_time', (libratoDone) => {
       // Kick off the render
-      console.log('- Enqueueing render')
+      console.log('[render] Enqueueing render')
       const renderOpts = {
         accessToken: token.token.access_token,
         expiresAt: token.token.expires_at,
@@ -109,28 +109,28 @@ function renderFromServer(req, res, cacheKey, timingHeader) {
         const { type, location, body } = (result || {})
         switch (type) {
           case 'redirect':
-            console.log(`-- Redirecting to ${location}`)
+            console.log(`[render] Redirecting to ${location}`)
             librato.measure('webapp.server.render.redirect', 1)
             res.redirect(location)
             break
           case 'render':
-            console.log('-- Rendering ISO response')
+            console.log('[render] Rendering ISO response')
             librato.measure('webapp.server.render.success', 1)
             res.send(body)
             saveResponseToCache(cacheKey, body)
             break
           case 'error':
-            console.log('-- Rendering error response')
+            console.log('[render] Rendering error response')
             librato.measure('webapp.server.render.error', 1)
             res.status(500).end()
             break
           case '404':
-            console.log('-- Rendering 404 response')
+            console.log('[render] Rendering 404 response')
             librato.measure('webapp.server.render.404', 1)
             res.status(404).end()
             break
           default:
-            console.log('-- Received unrecognized response')
+            console.log('[render] Received unrecognized response')
             console.log(JSON.stringify(result))
             librato.measure('webapp.server.render.error', 1)
             // Fall through
@@ -140,8 +140,7 @@ function renderFromServer(req, res, cacheKey, timingHeader) {
       }
       const jobFailedCallback = (errorMessage) => {
         libratoDone()
-        console.log('- Render job failed!');
-        console.log(JSON.stringify(errorMessage))
+        console.log('[render] Job failed!', JSON.stringify(errorMessage))
         res.send(indexStr)
         librato.measure('webapp.server.render.timeout', 1)
         clearTimeout(renderTimeout)
@@ -149,7 +148,7 @@ function renderFromServer(req, res, cacheKey, timingHeader) {
 
       renderTimeout = setTimeout(() => {
         libratoDone()
-        console.log('- Render timed out; falling back to client-side rendering')
+        console.log('[render] Timed out; falling back to client-side rendering')
         librato.measure('webapp.server.render.timeout', 1)
         res.send(indexStr)
         job.removeListener('complete', jobCompleteCallback)
@@ -200,17 +199,17 @@ app.use((req, res) => {
 
   if (canPrerenderRequest(req)) {
     const cacheKey = cacheKeyForRequest(req)
-    console.log('Serving pre-rendered markup for path', req.url, cacheKey)
+    console.log('[handler] Serving pre-rendered markup for path', req.url, cacheKey)
     memcacheClient.get(cacheKey, (err, value) => {
       if (value) {
-        console.log('Cache hit!', req.url)
+        console.log('[memcache] Cache hit!', req.url)
         res.send(value.toString())
       } else {
         renderFromServer(req, res, cacheKey, timingHeader)
       }
     })
   } else {
-    console.log('Serving static markup for path', req.url)
+    console.log('[handler] Serving static markup for path', req.url)
     res.send(indexStr)
   }
 })

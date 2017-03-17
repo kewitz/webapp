@@ -85,13 +85,13 @@ function prerender(context, done) {
     )
 
     preRenderComponents(renderProps, store, sagaTask, startTime).then(() => {
-      console.log(`[prerender] Saga task completed in ${startTime - new Date()}ms, finalizing markup`)
+      console.log(`[prerender] Saga task complete after ${new Date() - startTime}ms, finalizing markup`)
       const componentHTML = renderToString(InitialComponent)
       const head = Helmet.rewind()
       const { css, ids } = renderStaticOptimized(() => componentHTML)
       const state = store.getState()
       if (state.stream.get('should404') === true) {
-        console.log(`[prerender] Rendering 404 (took ${startTime - new Date()}ms)`)
+        console.log(`[prerender] Rendering 404 (total ${new Date() - startTime}ms)`)
         done(false, { type: '404' })
       } else {
         Object.keys(state).forEach((key) => {
@@ -104,11 +104,11 @@ function prerender(context, done) {
           'rel="copyright">',
           `rel="copyright">${head.title.toString()} ${head.meta.toString()} ${head.link.toString()} ${timingHeader} <style>${css}</style>`,
         ).replace('<div id="root"></div>', `<div id="root">${componentHTML}</div>${initialStateTag} ${initialGlamTag}`)
-        console.log(`[prerender] Rendering 200 (took ${startTime - new Date()}ms)`)
+        console.log(`[prerender] Rendering 200 (total ${new Date() - startTime}ms)`)
         done(false, { type: 'render', body: html })
       }
     }).catch((err) => {
-      console.log(`[prerender] Caught error (took ${startTime - new Date()}ms)`, err)
+      console.log(`[prerender] Caught error (total ${new Date() - startTime}ms)`, err)
       Honeybadger.notify(err);
       done(false, { type: 'error' })
     })

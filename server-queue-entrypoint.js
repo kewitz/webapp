@@ -70,7 +70,7 @@ if (cluster.isMaster) {
 
     // Don't process jobs whose request has already expired
     if ((new Date() - job.created_at) > renderJobTtl) {
-      console.log('Render job is older than ttl; skipping.')
+      console.log('Render job is older than TTL; skipping.')
       done(null)
       return
     }
