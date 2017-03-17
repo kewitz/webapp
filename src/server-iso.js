@@ -98,7 +98,7 @@ function renderFromServer(req, res, cacheKey, timingHeader) {
 
       const job = queue
         .create('render', renderOpts)
-        .ttl(2 * preRenderTimeout) // So we don't lose the job mid-timeout
+        .ttl(1.1 * preRenderTimeout) // So we don't lose the job mid-timeout
         .removeOnComplete(true)
         .save()
 

@@ -12,6 +12,7 @@ const queue = kue.createQueue({ redis: process.env[process.env.REDIS_PROVIDER] }
 const clusterWorkerSize = parseInt(process.env.CLUSTER_WORKERS, 10) || 1
 const simultaneousWorkerRenders = parseInt(process.env.SIMULTANEOUS_RENDERS, 10) || 1
 const renderProcessTimeout = parseInt(process.env.RENDER_PROCESS_TIMEOUT, 10) || 60
+const renderJobTtl = (parseInt(process.env.RENDER_JOB_TTL, 10) || 30) * 1000
 
 // Periodically clear stuck jobs
 queue.watchStuckJobs()
@@ -64,6 +65,13 @@ if (cluster.isMaster) {
 } else {
   queue.process('render', simultaneousWorkerRenders, (job, done) => {
     let child = null
+
+    // Don't process jobs whose request has already expired
+    if ((new Date() - job.created_at) > renderJobTtl) {
+      console.log('Render job is older than ttl; skipping.')
+      done(null)
+      return
+    }
 
     // Set up a failsafe timeout to kill stuck child processes
     const renderTimeout = setTimeout(() => {
