@@ -12,12 +12,17 @@ const queue = kue.createQueue({ redis: process.env[process.env.REDIS_PROVIDER] }
 const clusterWorkerSize = parseInt(process.env.CLUSTER_WORKERS, 10) || 1
 const simultaneousWorkerRenders = parseInt(process.env.SIMULTANEOUS_RENDERS, 10) || 1
 const renderProcessTimeout = parseInt(process.env.RENDER_PROCESS_TIMEOUT, 10) || 60
+const renderJobTtl = (parseInt(process.env.RENDER_JOB_TTL, 10) || 30) * 1000
 
 // Periodically clear stuck jobs
 queue.watchStuckJobs()
 
 // Report Kue stats to Librato
-librato.configure({ email: process.env.LIBRATO_EMAIL, token: process.env.LIBRATO_TOKEN })
+librato.configure({
+  email: process.env.LIBRATO_EMAIL,
+  token: process.env.LIBRATO_TOKEN,
+  source: process.env.DYNO
+})
 librato.start()
 librato.on('error', (err) => {
   Honeybadger.notify(err)
@@ -27,22 +32,22 @@ librato.on('error', (err) => {
 const libratoReporter = setInterval(() => {
   queue.inactiveCount((err, total) => {
     if (!err) {
-      librato.measure('kue.inactive.count', total, { source: 'webapp' })
+      librato.measure('kue.inactive.count', total)
     }
   })
   queue.activeCount((err, total) => {
     if (!err) {
-      librato.measure('kue.active.count', total, { source: 'webapp' })
+      librato.measure('kue.active.count', total)
     }
   })
   queue.failedCount((err, total) => {
     if (!err) {
-      librato.measure('kue.failed.count', total, { source: 'webapp' })
+      librato.measure('kue.failed.count', total)
     }
   })
   queue.completeCount((err, total) => {
     if (!err) {
-      librato.measure('kue.complete.count', total, { source: 'webapp' })
+      librato.measure('kue.complete.count', total)
     }
   })
 }, 30 * 1000);
@@ -61,10 +66,19 @@ if (cluster.isMaster) {
   queue.process('render', simultaneousWorkerRenders, (job, done) => {
     let child = null
 
+    Honeybadger.setContext(job.data)
+
+    // Don't process jobs whose request has already expired
+    if ((new Date() - job.created_at) > renderJobTtl) {
+      console.log('Render job is older than TTL; skipping.')
+      done(null)
+      return
+    }
+
     // Set up a failsafe timeout to kill stuck child processes
     const renderTimeout = setTimeout(() => {
       console.log(`Render timed out after ${renderProcessTimeout}s; killing child process.`)
-      librato.increment('webapp-render-child-timeout')
+      librato.measure('webapp.server.render.timeout.child_process', 1)
       if (child) {
         child.kill('SIGKILL')
       }

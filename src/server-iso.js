@@ -7,7 +7,7 @@ import Honeybadger from 'honeybadger'
 import express from 'express'
 import cookieParser from 'cookie-parser'
 import helmet from 'helmet'
-import morgan from 'morgan'
+import logfmt from 'logfmt'
 import librato from 'librato-node'
 import path from 'path'
 import fs from 'fs'
@@ -42,19 +42,23 @@ const queue = kue.createQueue({ redis: process.env[process.env.REDIS_PROVIDER] }
 // Honeybadger "before everything" middleware
 app.use(Honeybadger.requestHandler);
 
-// Log requests with Morgan
-app.use(morgan('combined'))
+// Log requests with Heroku's logfmt
+app.use(logfmt.requestLogger({ immediate: true }))
 
 // Parse cookies (for determining to pre-render or not)
 app.use(cookieParser())
 
 // Send stats to Librato
-librato.configure({ email: process.env.LIBRATO_EMAIL, token: process.env.LIBRATO_TOKEN })
+librato.configure({
+  email: process.env.LIBRATO_EMAIL,
+  token: process.env.LIBRATO_TOKEN,
+  source: process.env.DYNO,
+})
 librato.start()
 app.use(librato.middleware())
 
 librato.on('error', (err) => {
-  console.log('ELLO LIBRATO ERROR', err)
+  console.log('[librato] ERROR', err)
 })
 
 // Use Helmet to lock things down
@@ -72,18 +76,19 @@ app.use('/static', express.static('public/static', { maxAge: '1y', index: false,
 function saveResponseToCache(cacheKey, body) {
   memcacheClient.set(cacheKey, body, (err) => {
     if (err) {
-      console.log('Memcache error', err)
+      console.log('[memcache] ERROR', err)
     } else {
-      console.log(`- Saved ${cacheKey} to memcache`)
+      console.log(`[memcache] Saved ${cacheKey}`)
     }
   })
 }
 
 function renderFromServer(req, res, cacheKey, timingHeader) {
+  const startTime = new Date()
   currentToken().then((token) => {
     librato.timing('iso.render_time', (libratoDone) => {
       // Kick off the render
-      console.log('- Enqueueing render')
+      console.log('[render] Enqueueing render')
       const renderOpts = {
         accessToken: token.token.access_token,
         expiresAt: token.token.expires_at,
@@ -94,7 +99,7 @@ function renderFromServer(req, res, cacheKey, timingHeader) {
 
       const job = queue
         .create('render', renderOpts)
-        .ttl(2 * preRenderTimeout) // So we don't lose the job mid-timeout
+        .ttl(1.1 * preRenderTimeout) // So we don't lose the job mid-timeout
         .removeOnComplete(true)
         .save()
 
@@ -105,30 +110,30 @@ function renderFromServer(req, res, cacheKey, timingHeader) {
         const { type, location, body } = (result || {})
         switch (type) {
           case 'redirect':
-            console.log(`-- Redirecting to ${location}`)
-            librato.increment('webapp-server-render-redirect')
+            console.log(`[render] Redirecting to ${location} (took ${new Date() - startTime}ms)`)
+            librato.measure('webapp.server.render.redirect', 1)
             res.redirect(location)
             break
           case 'render':
-            console.log('-- Rendering ISO response')
-            librato.increment('webapp-server-render-success')
+            console.log(`[render] Rendering ISO response (took ${new Date() - startTime}ms)`)
+            librato.measure('webapp.server.render.success', 1)
             res.send(body)
             saveResponseToCache(cacheKey, body)
             break
           case 'error':
-            console.log('-- Rendering error response')
-            librato.increment('webapp-server-render-error')
+            console.log(`[render] Rendering error response (took ${new Date() - startTime}ms)`)
+            librato.measure('webapp.server.render.error', 1)
             res.status(500).end()
             break
           case '404':
-            console.log('-- Rendering 404 response')
-            librato.increment('webapp-server-render-404')
+            console.log(`[render] Rendering 404 response (took ${new Date() - startTime}ms)`)
+            librato.measure('webapp.server.render.404', 1)
             res.status(404).end()
             break
           default:
-            console.log('-- Received unrecognized response')
+            console.log(`[render] Received unrecognized response (took ${new Date() - startTime}ms)`)
             console.log(JSON.stringify(result))
-            librato.increment('webapp-server-render-error')
+            librato.measure('webapp.server.render.error', 1)
             // Fall through
             res.status(500).end()
         }
@@ -136,17 +141,16 @@ function renderFromServer(req, res, cacheKey, timingHeader) {
       }
       const jobFailedCallback = (errorMessage) => {
         libratoDone()
-        console.log('- Render job failed!');
-        console.log(JSON.stringify(errorMessage))
+        console.log(`[render] Job failed (took ${new Date() - startTime}ms)`, JSON.stringify(errorMessage))
         res.send(indexStr)
-        librato.increment('webapp-server-render-timeout')
+        librato.measure('webapp.server.render.timeout', 1)
         clearTimeout(renderTimeout)
       }
 
       renderTimeout = setTimeout(() => {
         libratoDone()
-        console.log('- Render timed out; falling back to client-side rendering')
-        librato.increment('webapp-server-render-timeout')
+        console.log('[render] Timed out; falling back to client-side rendering')
+        librato.measure('webapp.server.render.timeout', 1)
         res.send(indexStr)
         job.removeListener('complete', jobCompleteCallback)
         job.removeListener('failed', jobFailedCallback)
@@ -196,17 +200,17 @@ app.use((req, res) => {
 
   if (canPrerenderRequest(req)) {
     const cacheKey = cacheKeyForRequest(req)
-    console.log('Serving pre-rendered markup for path', req.url, cacheKey)
+    console.log('[handler] Serving pre-rendered markup for path', req.url, cacheKey)
     memcacheClient.get(cacheKey, (err, value) => {
       if (value) {
-        console.log('Cache hit!', req.url)
+        console.log('[memcache] Cache hit!', req.url)
         res.send(value.toString())
       } else {
         renderFromServer(req, res, cacheKey, timingHeader)
       }
     })
   } else {
-    console.log('Serving static markup for path', req.url)
+    console.log('[handler] Serving static markup for path', req.url)
     res.send(indexStr)
   }
 })
