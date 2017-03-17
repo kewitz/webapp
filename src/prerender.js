@@ -22,7 +22,7 @@ const indexStr = fs.readFileSync(path.join(__dirname, '../public/index.html'), '
 function preRenderComponents(renderProps, store, sagaTask, startTime) {
   const promises = renderProps.components.map(component => ((component && component.preRender) ? component.preRender(store, renderProps) : null)).filter(component => !!component)
   return Promise.all(promises).then(() => {
-    console.log(`[prerender] component promises resolved in ${startTime - new Date()}ms, closing store`)
+    console.log(`[prerender] component promises resolved in ${new Date() - startTime}ms, closing store`)
     store.close()
     return sagaTask.done
   })

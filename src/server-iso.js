@@ -84,6 +84,7 @@ function saveResponseToCache(cacheKey, body) {
 }
 
 function renderFromServer(req, res, cacheKey, timingHeader) {
+  const startTime = new Date()
   currentToken().then((token) => {
     librato.timing('iso.render_time', (libratoDone) => {
       // Kick off the render
@@ -109,28 +110,28 @@ function renderFromServer(req, res, cacheKey, timingHeader) {
         const { type, location, body } = (result || {})
         switch (type) {
           case 'redirect':
-            console.log(`[render] Redirecting to ${location}`)
+            console.log(`[render] Redirecting to ${location} (took ${new Date() - startTime}ms)`)
             librato.measure('webapp.server.render.redirect', 1)
             res.redirect(location)
             break
           case 'render':
-            console.log('[render] Rendering ISO response')
+            console.log(`[render] Rendering ISO response (took ${new Date() - startTime}ms)`)
             librato.measure('webapp.server.render.success', 1)
             res.send(body)
             saveResponseToCache(cacheKey, body)
             break
           case 'error':
-            console.log('[render] Rendering error response')
+            console.log(`[render] Rendering error response (took ${new Date() - startTime}ms)`)
             librato.measure('webapp.server.render.error', 1)
             res.status(500).end()
             break
           case '404':
-            console.log('[render] Rendering 404 response')
+            console.log(`[render] Rendering 404 response (took ${new Date() - startTime}ms)`)
             librato.measure('webapp.server.render.404', 1)
             res.status(404).end()
             break
           default:
-            console.log('[render] Received unrecognized response')
+            console.log(`[render] Received unrecognized response (took ${new Date() - startTime}ms)`)
             console.log(JSON.stringify(result))
             librato.measure('webapp.server.render.error', 1)
             // Fall through
@@ -140,7 +141,7 @@ function renderFromServer(req, res, cacheKey, timingHeader) {
       }
       const jobFailedCallback = (errorMessage) => {
         libratoDone()
-        console.log('[render] Job failed!', JSON.stringify(errorMessage))
+        console.log(`[render] Job failed (took ${new Date() - startTime}ms)`, JSON.stringify(errorMessage))
         res.send(indexStr)
         librato.measure('webapp.server.render.timeout', 1)
         clearTimeout(renderTimeout)
