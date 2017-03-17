@@ -7,7 +7,7 @@ import Honeybadger from 'honeybadger'
 import express from 'express'
 import cookieParser from 'cookie-parser'
 import helmet from 'helmet'
-import morgan from 'morgan'
+import logfmt from 'logfmt'
 import librato from 'librato-node'
 import path from 'path'
 import fs from 'fs'
@@ -42,8 +42,8 @@ const queue = kue.createQueue({ redis: process.env[process.env.REDIS_PROVIDER] }
 // Honeybadger "before everything" middleware
 app.use(Honeybadger.requestHandler);
 
-// Log requests with Morgan
-app.use(morgan('combined'))
+// Log requests with Heroku's logfmt
+app.use(logfmt.requestLogger({ immediate: true }))
 
 // Parse cookies (for determining to pre-render or not)
 app.use(cookieParser())

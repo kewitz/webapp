@@ -113,18 +113,21 @@
           "ignorePureComponents": true
         }
       ],
-      "react/sort-comp": ["error", {
-        "order": [
-          "type-annotations",
-          "static-methods",
-          "lifecycle",
-          "/^on.+$/",
-          "/^(get|set)(?!(InitialState$|DefaultProps$|ChildContext$)).+$/",
-          "everything-else",
-          "/^render.+$/",
-          "render"
-        ]
-      }],
+      "react/sort-comp": [
+        "error",
+        {
+          "order": [
+            "type-annotations",
+            "static-methods",
+            "lifecycle",
+            "/^on.+$/",
+            "/^(get|set)(?!(InitialState$|DefaultProps$|ChildContext$)).+$/",
+            "everything-else",
+            "/^render.+$/",
+            "render"
+          ]
+        }
+      ],
       "semi": 0
     }
   },
@@ -187,8 +190,8 @@
     "kue": "^0.11.5",
     "librato-node": "4.1.0",
     "lodash": "4.17.4",
+    "logfmt": "^1.2.0",
     "memjs": "0.10.0",
-    "morgan": "1.8.1",
     "mousetrap": "1.6.0",
     "newrelic": "1.37.2",
     "node-libs-browser": "2.0.0",
