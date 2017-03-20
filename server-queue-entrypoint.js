@@ -65,19 +65,20 @@ if (cluster.isMaster) {
 } else {
   queue.process('render', simultaneousWorkerRenders, (job, done) => {
     let child = null
+    const { requestId } = job.data
 
     Honeybadger.setContext(job.data)
 
     // Don't process jobs whose request has already expired
     if ((new Date() - job.created_at) > renderJobTtl) {
-      console.log('Render job is older than TTL; skipping.')
+      console.log(`[${requestId}] Render job is older than TTL; skipping.`)
       done(null)
       return
     }
 
     // Set up a failsafe timeout to kill stuck child processes
     const renderTimeout = setTimeout(() => {
-      console.log(`Render timed out after ${renderProcessTimeout}s; killing child process.`)
+      console.log(`[${requestId}] Render timed out after ${renderProcessTimeout}s; killing child process.`)
       librato.measure('webapp.server.render.timeout.child_process', 1)
       if (child) {
         child.kill('SIGKILL')
@@ -96,7 +97,7 @@ if (cluster.isMaster) {
 
     // Ensure any lingering renderer processes are cleaned up at shutdown
     const exitHandler = () => {
-      console.log(`Killing child render process ${child.pid}`)
+      console.log(`[${requestId}] Killing child render process ${child.pid}`)
       child.kill('SIGKILL')
     }
     process.on('exit', exitHandler);
@@ -109,7 +110,7 @@ if (cluster.isMaster) {
 
       // Abnormal exit, may be in a dirty state
       if (code !== 0) {
-        console.log(`Child render process exited with ${code} due to ${signal}`)
+        console.log(`[${requestId}] Child render process exited with ${code} due to ${signal}`)
         done()
       }
     })

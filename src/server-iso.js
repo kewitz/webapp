@@ -85,16 +85,18 @@ function saveResponseToCache(cacheKey, body) {
 
 function renderFromServer(req, res, cacheKey, timingHeader) {
   const startTime = new Date()
+  const requestId = req.headers['x-request-id']
   currentToken().then((token) => {
     librato.timing('iso.render_time', (libratoDone) => {
       // Kick off the render
-      console.log('[render] Enqueueing render')
+      console.log(`[${requestId}][render] Enqueueing render`)
       const renderOpts = {
         accessToken: token.token.access_token,
         expiresAt: token.token.expires_at,
         originalUrl: req.originalUrl,
         url: req.url,
         timingHeader,
+        requestId,
       }
 
       const job = queue
@@ -110,28 +112,28 @@ function renderFromServer(req, res, cacheKey, timingHeader) {
         const { type, location, body } = (result || {})
         switch (type) {
           case 'redirect':
-            console.log(`[render] Redirecting to ${location} (took ${new Date() - startTime}ms)`)
+            console.log(`[${requestId}][render] Redirecting to ${location} (took ${new Date() - startTime}ms)`)
             librato.measure('webapp.server.render.redirect', 1)
             res.redirect(location)
             break
           case 'render':
-            console.log(`[render] Rendering ISO response (took ${new Date() - startTime}ms)`)
+            console.log(`[${requestId}][render] Rendering ISO response (took ${new Date() - startTime}ms)`)
             librato.measure('webapp.server.render.success', 1)
             res.send(body)
             saveResponseToCache(cacheKey, body)
             break
           case 'error':
-            console.log(`[render] Rendering error response (took ${new Date() - startTime}ms)`)
+            console.log(`[${requestId}][render] Rendering error response (took ${new Date() - startTime}ms)`)
             librato.measure('webapp.server.render.error', 1)
             res.status(500).end()
             break
           case '404':
-            console.log(`[render] Rendering 404 response (took ${new Date() - startTime}ms)`)
+            console.log(`[${requestId}][render] Rendering 404 response (took ${new Date() - startTime}ms)`)
             librato.measure('webapp.server.render.404', 1)
             res.status(404).end()
             break
           default:
-            console.log(`[render] Received unrecognized response (took ${new Date() - startTime}ms)`)
+            console.log(`[${requestId}][render] Received unrecognized response (took ${new Date() - startTime}ms)`)
             console.log(JSON.stringify(result))
             librato.measure('webapp.server.render.error', 1)
             // Fall through
@@ -141,7 +143,7 @@ function renderFromServer(req, res, cacheKey, timingHeader) {
       }
       const jobFailedCallback = (errorMessage) => {
         libratoDone()
-        console.log(`[render] Job failed (took ${new Date() - startTime}ms)`, JSON.stringify(errorMessage))
+        console.log(`[${requestId}][render] Job failed (took ${new Date() - startTime}ms)`, JSON.stringify(errorMessage))
         res.send(indexStr)
         librato.measure('webapp.server.render.timeout', 1)
         clearTimeout(renderTimeout)
@@ -149,7 +151,7 @@ function renderFromServer(req, res, cacheKey, timingHeader) {
 
       renderTimeout = setTimeout(() => {
         libratoDone()
-        console.log('[render] Timed out; falling back to client-side rendering')
+        console.log(`[${requestId}][render] Timed out; falling back to client-side rendering`)
         librato.measure('webapp.server.render.timeout', 1)
         res.send(indexStr)
         job.removeListener('complete', jobCompleteCallback)
@@ -195,22 +197,24 @@ app.use((req, res) => {
   res.setHeader('Cache-Control', 'public, max-age=60');
   res.setHeader('Expires', new Date(Date.now() + (1000 * 60)).toUTCString());
 
+  const requestId = req.headers['x-request-id']
+
   // This needs to be generated in the request, not a callback
   const timingHeader = newrelic.getBrowserTimingHeader()
 
   if (canPrerenderRequest(req)) {
     const cacheKey = cacheKeyForRequest(req)
-    console.log('[handler] Serving pre-rendered markup for path', req.url, cacheKey)
+    console.log(`[${requestId}][handler] Serving pre-rendered markup for path`, req.url, cacheKey)
     memcacheClient.get(cacheKey, (err, value) => {
       if (value) {
-        console.log('[memcache] Cache hit!', req.url)
+        console.log(`[${requestId}][memcache] Cache hit!`, req.url)
         res.send(value.toString())
       } else {
         renderFromServer(req, res, cacheKey, timingHeader)
       }
     })
   } else {
-    console.log('[handler] Serving static markup for path', req.url)
+    console.log(`[${requestId}][handler] Serving static markup for path`, req.url)
     res.send(indexStr)
   }
 })
