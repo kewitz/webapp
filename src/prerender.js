@@ -19,10 +19,10 @@ import { serverRoot } from './sagas'
 const indexStr = fs.readFileSync(path.join(__dirname, '../public/index.html'), 'utf-8')
 
 // Return promises for initial loads
-function preRenderComponents(renderProps, store, sagaTask, startTime) {
+function preRenderComponents(renderProps, store, sagaTask, startTime, requestId) {
   const promises = renderProps.components.map(component => ((component && component.preRender) ? component.preRender(store, renderProps) : null)).filter(component => !!component)
   return Promise.all(promises).then(() => {
-    console.log(`[prerender] component promises resolved in ${new Date() - startTime}ms, closing store`)
+    console.log(`[${requestId}][prerender] component promises resolved in ${new Date() - startTime}ms, closing store`)
     store.close()
     return sagaTask.done
   })
@@ -42,11 +42,16 @@ const createSelectLocationState = () => {
 }
 
 function prerender(context, done) {
-  const { accessToken, expiresAt, originalUrl, url, timingHeader } = context
+  const { accessToken,
+          expiresAt,
+          originalUrl,
+          url,
+          timingHeader,
+          requestId } = context
   const startTime = new Date()
   Honeybadger.setContext(context)
 
-  console.log(`[prerender] Rendering ${url}`)
+  console.log(`[${requestId}][prerender] Rendering ${url}`)
 
   const memoryHistory = createMemoryHistory(originalUrl)
   const store = createServerStore(memoryHistory, {
@@ -66,14 +71,14 @@ function prerender(context, done) {
   match({ history, routes, location: url }, (error, redirectLocation, renderProps) => {
     // populate the router store object for initial render
     if (error) {
-      console.log('[prerender] MATCH ERROR', error)
+      console.log(`[${requestId}][prerender] MATCH ERROR`, error)
       // TODO: Should we abort here?
     } else if (redirectLocation) {
-      console.log(`[prerender] Rendering redirect to ${redirectLocation.pathname}`)
+      console.log(`[${requestId}][prerender] Rendering redirect to ${redirectLocation.pathname}`)
       done(false, { type: 'redirect', location: redirectLocation.pathname })
       return
     } else if (!renderProps) {
-      console.log('[prerender] NO RENDER PROPS')
+      console.log(`[${requestId}][prerender] NO RENDER PROPS`)
       done(true)
       return
     }
@@ -84,14 +89,14 @@ function prerender(context, done) {
       </Provider>
     )
 
-    preRenderComponents(renderProps, store, sagaTask, startTime).then(() => {
-      console.log(`[prerender] Saga task complete after ${new Date() - startTime}ms, finalizing markup`)
+    preRenderComponents(renderProps, store, sagaTask, startTime, requestId).then(() => {
+      console.log(`[${requestId}][prerender] Saga task complete after ${new Date() - startTime}ms, finalizing markup`)
       const componentHTML = renderToString(InitialComponent)
       const head = Helmet.rewind()
       const { css, ids } = renderStaticOptimized(() => componentHTML)
       const state = store.getState()
       if (state.stream.get('should404') === true) {
-        console.log(`[prerender] Rendering 404 (total ${new Date() - startTime}ms)`)
+        console.log(`[${requestId}][prerender] Rendering 404 (total ${new Date() - startTime}ms)`)
         done(false, { type: '404' })
       } else {
         Object.keys(state).forEach((key) => {
@@ -104,11 +109,11 @@ function prerender(context, done) {
           'rel="copyright">',
           `rel="copyright">${head.title.toString()} ${head.meta.toString()} ${head.link.toString()} ${timingHeader} <style>${css}</style>`,
         ).replace('<div id="root"></div>', `<div id="root">${componentHTML}</div>${initialStateTag} ${initialGlamTag}`)
-        console.log(`[prerender] Rendering 200 (total ${new Date() - startTime}ms)`)
+        console.log(`[${requestId}][prerender] Rendering 200 (total ${new Date() - startTime}ms)`)
         done(false, { type: 'render', body: html })
       }
     }).catch((err) => {
-      console.log(`[prerender] Caught error (total ${new Date() - startTime}ms)`, err)
+      console.log(`[${requestId}][prerender] Caught error (total ${new Date() - startTime}ms)`, err)
       Honeybadger.notify(err);
       done(false, { type: 'error' })
     })
