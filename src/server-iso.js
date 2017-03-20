@@ -43,7 +43,11 @@ const queue = kue.createQueue({ redis: process.env[process.env.REDIS_PROVIDER] }
 app.use(Honeybadger.requestHandler);
 
 // Log requests with Heroku's logfmt
-app.use(logfmt.requestLogger({ immediate: true }))
+app.use(logfmt.requestLogger({ immediate: false }, (req, res) => {
+  const data = logfmt.requestLogger.commonFormatter(req, res)
+  data.useragent = req.headers['user-agent']
+  return data
+}))
 
 // Parse cookies (for determining to pre-render or not)
 app.use(cookieParser())
