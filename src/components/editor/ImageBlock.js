@@ -5,7 +5,16 @@ import { compose } from 'glamor'
 import Block from './Block'
 import ImageAsset from '../assets/ImageAsset'
 import { ArrowIcon } from '../assets/Icons'
-import { absolute, flex, flood, itemsCenter, justifyCenter, relative } from '../../styles/jso'
+import {
+  absolute,
+  bgcWhite,
+  colorA,
+  flex,
+  flood,
+  itemsCenter,
+  justifyCenter,
+  relative,
+} from '../../styles/jso'
 
 const busyWrapperStyle = compose(
   absolute,
@@ -18,11 +27,11 @@ const busyWrapperStyle = compose(
 
 const arrowStyle = compose(
   relative,
+  colorA,
+  bgcWhite,
   {
     padding: 4,
     borderRadius: '50%',
-    color: '#aaa',
-    backgroundColor: '#fff',
     transform: 'rotate(-90deg)',
   },
 )
