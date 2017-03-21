@@ -12,6 +12,10 @@ export const monoRegularFontStack = '"AtlasTypewriterRegular", "AtlasTypewriter-
 
 export const speed = '0.2s'
 
+export const ease = 'cubic-bezier(0.23, 1, 0.32, 1)'
+export const easeInOutQuart = 'cubic-bezier(0.77, 0, 0.175, 1)'
+export const easeInOutCubic = 'cubic-bezier(0.645, 0.045, 0.355, 1)'
+
 // -------------------------------------
 // Typography
 
@@ -57,6 +61,13 @@ export const breakWord = { wordWrap: 'break-word' }
 export const relative = { position: 'relative' }
 export const absolute = { position: 'absolute' }
 export const fixed = { position: 'fixed' }
+
+export const flood = {
+  top: 0,
+  right: 0,
+  bottom: 0,
+  left: 0,
+}
 
 // -------------------------------------
 // Layout

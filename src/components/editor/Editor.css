@@ -151,18 +151,6 @@
   margin-bottom: 10px;
 }
 
-.editor-block .isUploading::before {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  padding: 20px;
-  color: #fff;
-  content: "Uploading...";
-  background-color: rgba(0, 0, 0, 0.5);
-}
-
 /* 375 / 16 = 23.4375em */
 @media (min-width: 23.4375em) {
   .editor-actions .PostActionButton + .PostActionButton {

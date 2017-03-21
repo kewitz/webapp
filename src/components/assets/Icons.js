@@ -1,7 +1,9 @@
 // @flow
 import React from 'react'
 import classNames from 'classnames'
+import { compose } from 'glamor'
 import { SVGBox, SVGIcon } from './SVGComponents'
+import { easeInOutCubic } from '../../styles/jso'
 
 // -------------------------------------
 // Shapes for building icons
@@ -105,11 +107,23 @@ export const BadgeCheckIcon = () =>
 // -------------------------------------
 // SVG icons 20 x 20
 
-export const ArrowIcon = () =>
+type ArrowProps = {
+  isAnimated?: boolean,
+}
+
+const arrowStrokeAnimationStyle = compose(
+  { fill: '#fff' },
+  { animation: `animateUploaderMover 0.666s infinite ${easeInOutCubic}` },
+)
+
+export const ArrowIcon = (props: ArrowProps) =>
   <SVGIcon className="ArrowIcon">
     <g>
       <line x1="14.5" x2="4.5" y1="10" y2="10" />
     </g>
+    {props.isAnimated &&
+      <rect className={arrowStrokeAnimationStyle} height="4" width="4" x="0" y="8" />
+    }
     <g>
       <polyline points="10,5.5 14.5,10 10,14.5" />
     </g>

@@ -153,6 +153,7 @@ export default() =>
         XBoxIcon,
         XIcon,
         XIconLG,
+        // $FlowFixMe (Flow's not stoked about the meta nature here)
       ].map(icon => <button key={icon.name} title={icon.name}>{icon()}</button>) }
     </div>
     <h2 className={h2Style}>Social icons</h2>
