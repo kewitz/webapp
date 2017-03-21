@@ -1,11 +1,11 @@
 import Immutable from 'immutable'
 import React, { Component, PropTypes } from 'react'
 import classNames from 'classnames'
-import { before, compose } from 'glamor'
+import { compose } from 'glamor'
 import Block from './Block'
 import ImageAsset from '../assets/ImageAsset'
 import { ArrowIcon } from '../assets/Icons'
-import { absolute, flex, flood, easeInOutCubic, itemsCenter, justifyCenter, relative } from '../../styles/jso'
+import { absolute, flex, flood, itemsCenter, justifyCenter, relative } from '../../styles/jso'
 
 const busyWrapperStyle = compose(
   absolute,
@@ -25,23 +25,12 @@ const arrowStyle = compose(
     backgroundColor: '#fff',
     transform: 'rotate(-90deg)',
   },
-  before({
-    content: '""',
-    ...absolute,
-    top: 'calc(50% - 2px)',
-    left: 'calc(50% - 10px)',
-    width: 4,
-    height: 4,
-    zIndex: 10,
-    backgroundColor: '#fff',
-    animation: `animateUploaderMover 0.666s infinite ${easeInOutCubic}`,
-  }),
 )
 
 const Busy = () =>
   <div className={busyWrapperStyle}>
     <div className={arrowStyle}>
-      <ArrowIcon />
+      <ArrowIcon isAnimated />
     </div>
   </div>
 
