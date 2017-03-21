@@ -5,7 +5,6 @@ import { replace } from 'react-router-redux'
 import debounce from 'lodash/debounce'
 import set from 'lodash/set'
 import { isAndroid, isElloAndroid } from '../lib/jello'
-import { ONBOARDING_VERSION } from '../constants/application_types'
 import { FORM_CONTROL_STATUS as STATUS } from '../constants/status_types'
 import { selectHomeStream } from '../selectors/gui'
 import {
@@ -15,7 +14,7 @@ import {
   selectRegistrationId,
   selectWebOnboardingVersion,
 } from '../selectors/profile'
-import { loadProfile, requestPushSubscription, saveProfile } from '../actions/profile'
+import { loadProfile, requestPushSubscription } from '../actions/profile'
 import { signIn } from '../actions/authentication'
 import TextControl from '../components/forms/TextControl'
 import PasswordControl from '../components/forms/PasswordControl'
@@ -83,7 +82,6 @@ class EnterContainer extends PureComponent {
       const { dispatch, homeStream } = this.props
       if (!nextProps.webOnboardingVersionSeen) {
         dispatch(replace({ pathname: '/onboarding' }))
-        dispatch(saveProfile({ web_onboarding_version: ONBOARDING_VERSION }))
       } else {
         dispatch(replace({ pathname: homeStream }))
       }
