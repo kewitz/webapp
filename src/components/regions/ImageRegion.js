@@ -255,9 +255,12 @@ class ImageRegion extends Component {
         autoPlay
         height={height}
         loop
-        src={this.attachment.getIn(['video', 'url'])}
+        muted
+        playsInline
         width={width}
-      />
+      >
+        <source src={this.attachment.getIn(['video', 'url'])} />
+      </video>
     )
   }
 
