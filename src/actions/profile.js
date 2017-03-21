@@ -121,6 +121,14 @@ export function checkAvailability(vo) {
   }
 }
 
+export function resetAvailability() {
+  return {
+    type: PROFILE.AVAILABILITY_RESET,
+    meta: {},
+    payload: {},
+  }
+}
+
 export function requestInvite(email) {
   return {
     type: PROFILE.REQUEST_INVITE,
