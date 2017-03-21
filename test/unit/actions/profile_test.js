@@ -161,6 +161,19 @@ describe('profile actions', () => {
     })
   })
 
+  context('#resetAvailability', () => {
+    const action = subject.resetAvailability()
+
+    it('is an FSA compliant action', () => {
+      expect(isFSA(action)).to.be.true
+    })
+
+    it('has similar action.name and action.type')
+    // it('has a top level action.type', () => {
+    //   expect(isFSAName(action, subject.resetAvailability)).to.be.true
+    // })
+  })
+
   context('#requestInvite', () => {
     const action = subject.requestInvite('jabba@ello.co')
 

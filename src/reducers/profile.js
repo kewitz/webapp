@@ -25,6 +25,8 @@ export default (state = initialState, action) => {
           ...action.payload.response.availability,
         },
       })
+    case PROFILE.AVAILABILITY_RESET:
+      return state.set('availability', null)
     case AUTHENTICATION.LOGOUT_SUCCESS:
     case AUTHENTICATION.LOGOUT_FAILURE:
     case AUTHENTICATION.REFRESH_FAILURE:

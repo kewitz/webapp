@@ -80,6 +80,16 @@ describe('profile reducer', () => {
       expect(reduced.getIn(['availability', 'suggestions'])).to.exist
     })
 
+    it('PROFILE.AVAILABILITY_RESET sets availability to null', () => {
+      const state = stubUser({ username: 'username', availability: 'availability' })
+      state.set('availability', 'something')
+      let reduced = reducer(state, {})
+      expect(reduced).have.property('availability')
+      const action = { type: PROFILE.AVAILABILITY_RESET, payload: {} }
+      reduced = reducer(reduced, action)
+      expect(reduced).property('availability', null)
+    })
+
     it('PROFILE.EXPORT_SUCCESS adds the dataExport url on a 200', () => {
       const state = stubUser({ username: 'username' })
       const action = {

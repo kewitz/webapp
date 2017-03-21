@@ -11,7 +11,7 @@ import { selectAvailability } from '../selectors/profile'
 import { selectPathname } from '../selectors/routing'
 import { selectStreamType } from '../selectors/stream'
 import { trackEvent } from '../actions/analytics'
-import { checkAvailability } from '../actions/profile'
+import { checkAvailability, resetAvailability } from '../actions/profile'
 import { getEmailStateFromClient, getEmailStateFromServer } from '../components/forms/Validators'
 import { Footer } from '../components/footer/FooterRenderables'
 import type { Availability } from '../types/flowtypes'
@@ -153,13 +153,21 @@ class FooterContainer extends PureComponent {
     const { formStatus } = this.state
     const newState = getEmailStateFromServer({ availability, currentStatus: formStatus })
     if (newState.status === STATUS.SUCCESS) {
-      dispatch(trackEvent('Newsletter_signup_footer', { pathname }))
       this.setState({ formStatus: STATUS.SUCCESS, formMessage: 'Subscribed. See you tomorrow' })
+      dispatch(trackEvent('Newsletter_signup_footer', { pathname }))
+      dispatch(resetAvailability())
       setTimeout(() => {
         const el = document.getElementById('FooterEmailInput')
         // $FlowFixMe
         if (el) { el.value = '' }
-        this.setState({ formStatus: STATUS.INDETERMINATE, formMessage: '' })
+        emailValue = ''
+        this.setState({
+          emailStatus: STATUS.INDETERMINATE,
+          formMessage: '',
+          formStatus: STATUS.INDETERMINATE,
+          isFormDisabled: true,
+          isFormFocused: false,
+        })
       }, 1666)
     } else {
       this.setState({ formStatus: newState.status, formMessage: newState.message })
