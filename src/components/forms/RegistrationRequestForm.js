@@ -6,7 +6,7 @@ import { isAndroid } from '../../lib/jello'
 import { FORM_CONTROL_STATUS as STATUS } from '../../constants/status_types'
 import { trackEvent } from '../../actions/analytics'
 import { getInviteEmail } from '../../actions/invitations'
-import { checkAvailability } from '../../actions/profile'
+import { checkAvailability, resetAvailability } from '../../actions/profile'
 import EmailControl from './EmailControl'
 import FormButton from './FormButton'
 import JoinForm from './JoinForm'
@@ -141,6 +141,7 @@ class RegistrationRequestForm extends Component {
     const currentStatus = emailState.status
     const newState = getEmailStateFromServer({ availability, currentStatus })
     if (newState.status === STATUS.SUCCESS && availability.getIn(['original', 'is_signup'])) {
+      dispatch(resetAvailability())
       if (inModal) {
         dispatch(trackEvent('modal-registration-request-form-completion'))
       }
