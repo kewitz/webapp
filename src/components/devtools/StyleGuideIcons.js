@@ -1,6 +1,6 @@
 // @flow
 import React from 'react'
-import { css } from 'glamor'
+import { $, compose } from 'glamor'
 import {
   // Ello icons
   ElloMark,
@@ -57,46 +57,18 @@ import {
   TumblrIcon,
   TwitterIcon,
 } from '../assets/Icons'
-import {
-  combine,
-  flex,
-  flexColumn,
-  flexWrap,
-  wrapperPaddingX,
-} from '../../styles/cso'
+import { flex, flexColumn, flexWrap, fontSize16, mb10, mb40, mr10, my40, wrapperPaddingX } from '../../styles/jso'
 
-const sectionStyle = combine(
+const sectionStyle = compose(flex, flexColumn, flexWrap, wrapperPaddingX, my40)
+const h2Style = compose(mb10, fontSize16)
+const groupStyle = compose(
   flex,
-  flexColumn,
-  flexWrap,
-  wrapperPaddingX,
-  css({
-    marginTop: 40,
-    marginBottom: 40,
-  }),
+  mb40,
+  $('> *', mr10),
 )
 
-const h2Style = css({
-  marginBottom: 10,
-  fontSize: 16,
-})
-
-const groupStyle = combine(
-  flex,
-  css({
-    marginBottom: 40,
-    '> *': {
-      marginRight: 10,
-    },
-  }),
-)
-
-// TODO: Fix this
-const badgeStyle = css({
-  '& .CheckShape': {
-    stroke: 'white',
-  },
-})
+// TODO: Move to icons...
+const badgeStyle = $('& .CheckShape', { stroke: 'white' })
 
 export default() =>
   <section className={sectionStyle}>
@@ -153,8 +125,7 @@ export default() =>
         XBoxIcon,
         XIcon,
         XIconLG,
-        // $FlowFixMe (Flow's not stoked about the meta nature here)
-      ].map(icon => <button key={icon.name} title={icon.name}>{icon()}</button>) }
+      ].map(icon => <button key={icon.name} title={icon.name}>{icon({})}</button>) }
     </div>
     <h2 className={h2Style}>Social icons</h2>
     <div className={groupStyle} >

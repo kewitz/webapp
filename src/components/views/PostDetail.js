@@ -1,6 +1,5 @@
 import React, { PropTypes } from 'react'
-import { css } from 'glamor'
-import { minBreak2 } from '../../styles/cso'
+import { compose } from 'glamor'
 import Editor from '../editor/Editor'
 import PostContainer from '../../containers/PostContainer'
 import StreamContainer from '../../containers/StreamContainer'
@@ -8,14 +7,12 @@ import { MainView } from '../views/MainView'
 import { loadRelatedPosts } from '../../actions/posts'
 import { RelatedPostsButton } from '../posts/PostRenderables'
 import { TabListButtons } from '../tabs/TabList'
+import { relative } from '../../styles/jso'
 
-const navStyles = css({
-  position: 'relative',
-  marginBottom: -10,
-  [minBreak2]: {
-    marginBottom: -10,
-  },
-})
+const navStyle = compose(
+  relative,
+  { marginBottom: -10 },
+)
 
 export const PostDetail = (
   { activeType, columnCount, hasEditor, hasRelatedPostsButton, post, streamAction, tabs },
@@ -26,7 +23,7 @@ export const PostDetail = (
           <div className="StreamContainer PostDetailStreamContainer">
             <PostContainer postId={post.get('id')} />
             {tabs && tabs.length > 0 &&
-              <nav {...navStyles}>
+              <div className={navStyle}>
                 <TabListButtons
                   activeType={activeType}
                   className="SearchTabList"
@@ -36,7 +33,7 @@ export const PostDetail = (
                   tabs={tabs}
                 />
                 {hasRelatedPostsButton && <RelatedPostsButton />}
-              </nav>
+              </div>
             }
             {hasEditor && activeType === 'comments' && <Editor post={post} isComment />}
           </div>

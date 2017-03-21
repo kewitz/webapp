@@ -1,6 +1,6 @@
 /* eslint-disable react/no-multi-comp */
 import React, { PropTypes, PureComponent } from 'react'
-import { css } from 'glamor'
+import { $, compose, hover, parent } from 'glamor'
 import { Link } from 'react-router'
 import classNames from 'classnames'
 import Avatar from '../assets/Avatar'
@@ -8,6 +8,7 @@ import { ArrowIcon, RepostIcon } from '../assets/Icons'
 import ContentWarningButton from '../posts/ContentWarningButton'
 import RelationshipContainer from '../../containers/RelationshipContainer'
 import { RegionItems } from '../regions/RegionRenderables'
+import { absolute, colorA, colorBlack, fontSize18, transitionColor } from '../../styles/jso'
 
 const PostHeaderTimeAgoLink = ({ to, createdAt }) =>
   <Link className="PostHeaderTimeAgoLink" to={to}>
@@ -248,26 +249,20 @@ export class PostBody extends PureComponent {
   }
 }
 
-const relatedPostButtonStyles = css({
-  position: 'absolute',
-  right: 0,
-  top: 0,
-  fontSize: 18,
-  color: '#aaa',
-  transition: 'color 250ms',
-  '.no-touch &:hover': {
-    color: 'black',
-  },
-  '> .ArrowIcon': {
-    transform: 'rotate(90deg)',
-    marginLeft: 15,
-  },
-})
+const relatedPostButtonStyle = compose(
+  absolute,
+  { top: 0, right: 0 },
+  fontSize18,
+  colorA,
+  transitionColor,
+  parent('.no-touch', hover(colorBlack)),
+  $('> .ArrowIcon', { transform: 'rotate(90deg)', marginLeft: 15 }),
+)
 
 export const RelatedPostsButton = (props, { onClickScrollToRelatedPosts }) =>
   <button
+    className={relatedPostButtonStyle}
     onClick={onClickScrollToRelatedPosts}
-    {...relatedPostButtonStyles}
   >
     <span>Related Posts</span>
     <ArrowIcon />
