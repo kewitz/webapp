@@ -3,6 +3,7 @@ import Immutable from 'immutable'
 import React, { Component, PropTypes } from 'react'
 import { Link } from 'react-router'
 import classNames from 'classnames'
+import { isIOS } from '../../lib/jello'
 import ImageAsset from '../assets/ImageAsset'
 import { ElloBuyButton } from '../editor/ElloBuyButton'
 
@@ -47,7 +48,7 @@ class ImageRegion extends Component {
       const imageHeight = Number(asset.getIn(['attachment', 'original', 'metadata', 'height']))
       scale = innerHeight / imageHeight
     }
-    const isVideo = !!(asset && asset.getIn(['attachment', 'video'], Immutable.Map()).size)
+    const isVideo = !!(asset && asset.getIn(['attachment', 'video'], Immutable.Map()).size) && !isIOS()
     this.state = {
       marginBottom: null,
       scale: isNaN(scale) ? null : scale,
@@ -188,7 +189,7 @@ class ImageRegion extends Component {
   }
 
   isVideo() {
-    return this.attachment.getIn(['video'])
+    return this.attachment.getIn(['video']) && !isIOS()
   }
 
   renderGifAttachment() {
