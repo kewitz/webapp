@@ -1,5 +1,6 @@
 // @flow
-import React, { PropTypes, PureComponent } from 'react'
+import React, { Component, PropTypes } from 'react'
+import { is } from 'immutable'
 import { connect } from 'react-redux'
 import { isIOS, scrollToPosition } from '../lib/jello'
 import { FOOTER_LINKS as links } from '../constants/locales/en'
@@ -52,7 +53,7 @@ function mapStateToProps(state, props) {
   }
 }
 
-class FooterContainer extends PureComponent {
+class FooterContainer extends Component {
   props: Props
   state: State
 
@@ -94,6 +95,17 @@ class FooterContainer extends PureComponent {
     if (availability.has('email')) {
       this.validateEmailResponse(availability)
     }
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    const { isLoggedIn } = this.props
+    return !is(nextProps.availability, this.props.availability) ||
+      ['isGridMode', 'isLayoutToolHidden', 'isLoggedIn', 'isMobile', 'isPaginatoring'].some(prop =>
+        nextProps[prop] !== this.props[prop],
+      ) ||
+      (!isLoggedIn && ['emailStatus', 'formMessage', 'formStatus', 'isFormDisabled', 'isFormFocused'].some(prop =>
+        nextState[prop] !== this.state[prop],
+      ))
   }
 
   onChange = ({ FooterEmailInput: email }) => {
