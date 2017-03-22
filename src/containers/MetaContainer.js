@@ -1,4 +1,4 @@
-import React, { PropTypes, PureComponent } from 'react'
+import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { createSelector } from 'reselect'
 import Helmet from 'react-helmet'
@@ -62,7 +62,7 @@ function mapStateToProps(state, props) {
   }
 }
 
-class MetaContainer extends PureComponent {
+class MetaContainer extends Component {
   static propTypes = {
     defaultMetaRobots: PropTypes.string,
     discoverMetaDataDescription: PropTypes.string.isRequired,
@@ -99,6 +99,12 @@ class MetaContainer extends PureComponent {
     userMetaImage: null,
     userMetaRobots: null,
     userMetaTitle: null,
+  }
+
+  shouldComponentUpdate(nextProps) {
+    return ['pathname', 'nextPage', 'metaPageType'].some(prop =>
+      nextProps[prop] !== this.props[prop],
+    )
   }
 
   getDefaultTags({

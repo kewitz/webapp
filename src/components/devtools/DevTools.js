@@ -2,10 +2,12 @@ import React, { PureComponent } from 'react'
 import Mousetrap from 'mousetrap'
 import { SHORTCUT_KEYS } from '../../constants/application_types'
 
+export const whatUpdated = (thisProps, nextProps) =>
+  Object.keys(nextProps).filter(prop => nextProps[prop] !== thisProps[prop])
+
 function toggleContainerColors() {
   document.body.classList.toggle('highlightContainers')
 }
-
 
 function renderGrid(isVisible, type) {
   return (
