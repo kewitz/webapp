@@ -187,7 +187,10 @@ class NotificationsContainer extends Component {
   }
 
   onClickDocument = (e) => {
-    if (typeof e.target.closest === 'function' && e.target.closest('.NotificationsContainer')) { return }
+    if (e.target.classList.contains('AnnouncementNotificationX') ||
+      (typeof e.target.closest === 'function' && e.target.closest('.NotificationsContainer'))) {
+      return
+    }
     const { dispatch } = this.props
     dispatch(toggleNotifications({ isActive: false }))
     this.onMouseOut()
