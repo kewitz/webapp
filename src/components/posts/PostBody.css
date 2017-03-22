@@ -21,6 +21,10 @@
   margin-top: 10px;
 }
 
+.PostBody {
+  position: relative;
+}
+
 .PostBody + .PostBody,
 .TextRegion + .TextRegion,
 .TextRegion + .ImageRegion,

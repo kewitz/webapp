@@ -465,11 +465,15 @@ class PostContainer extends Component {
             isGridMode={isGridMode}
             isRepost={isRepost}
             postId={postId}
+            postCommentsCount={postCommentsCount}
+            postLovesCount={postLovesCount}
+            postRepostsCount={postRepostsCount}
+            postViewsCountRounded={postViewsCountRounded}
             repostContent={repostContent}
             summary={summary}
           />
         }
-        <PostTools
+        {!isGridMode && <PostTools
           author={author}
           detailPath={detailPath}
           isCommentsActive={this.state.isCommentsActive}
@@ -491,6 +495,7 @@ class PostContainer extends Component {
           postRepostsCount={postRepostsCount}
           postViewsCountRounded={postViewsCountRounded}
         />
+        }
         {isMobile && !isRelatedPost &&
           <WatchTool
             isMobile

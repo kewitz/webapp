@@ -9,6 +9,7 @@ import RelationshipContainer from '../../containers/RelationshipContainer'
 import { RegionItems } from '../regions/RegionRenderables'
 import { css, hover, select } from '../../styles/jss'
 import { absolute, colorA, colorBlack, fontSize18, transitionColor } from '../../styles/jso'
+import { PostToolsSpike } from './PostParts'
 
 const PostHeaderTimeAgoLink = ({ to, createdAt }) =>
   <Link className="PostHeaderTimeAgoLink" to={to}>
@@ -175,6 +176,10 @@ export class PostBody extends PureComponent {
     isGridMode: PropTypes.bool.isRequired,
     isRepost: PropTypes.bool.isRequired,
     postId: PropTypes.string.isRequired,
+    postCommentsCount: PropTypes.number.isRequired,
+    postLovesCount: PropTypes.number.isRequired,
+    postRepostsCount: PropTypes.number.isRequired,
+    postViewsCountRounded: PropTypes.string.isRequired,
     repostContent: PropTypes.object,
     summary: PropTypes.object.isRequired,
   }
@@ -195,10 +200,27 @@ export class PostBody extends PureComponent {
       isGridMode,
       isRepost,
       postId,
+      postCommentsCount,
+      postLovesCount,
+      postRepostsCount,
+      postViewsCountRounded,
       repostContent,
       summary,
     } = this.props
     const cells = []
+
+    if (isGridMode) {
+      cells.push(
+        <PostToolsSpike
+          detailPath={detailPath}
+          postCommentsCount={postCommentsCount}
+          postLovesCount={postLovesCount}
+          postRepostsCount={postRepostsCount}
+          postViewsCountRounded={postViewsCountRounded}
+          key={`PostToolsSpike_${postId}`}
+        />,
+      )
+    }
 
     if (contentWarning) {
       cells.push(<ContentWarningButton contentWarning={contentWarning} key={`contentWarning_${postId}`} />)

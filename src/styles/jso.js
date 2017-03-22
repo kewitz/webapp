@@ -207,7 +207,9 @@ export const sansBoldCSS = css(sansBold)
 export const sansBoldItalicCSS = css(sansBoldItalic)
 export const monoRegularCSS = css(monoRegular)
 
-export const fontSize16 = { fontSize16: 16 }
+export const fontSize12 = { fontSize: 12 }
+export const fontSize14 = { fontSize: 14 }
+export const fontSize16 = { fontSize: 16 }
 export const fontSize18 = { fontSize: 18 }
 export const fontSize24 = { fontSize: 24 }
 
@@ -241,10 +243,12 @@ export const borderBottom = { borderBottom: '1px solid' }
 // Transitions & animations
 
 export const transitionColor = { transition: 'color 0.2s ease' }
+export const transitionOpacity = { transition: 'opacity 0.2s ease' }
 
 // -------------------------------------
 // Utility
+export const pointer = { cursor: 'pointer' }
+export const invisible = { ...absolute, ...hidden, ...opacity0 }
 export const pointerNone = { pointerEvents: 'none' }
 export const pointerAuto = { pointerEvents: 'auto' }
-export const invisible = { ...absolute, ...hidden, ...opacity0 }
 

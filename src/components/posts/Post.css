@@ -6,7 +6,7 @@
 
 .Post {
   position: relative;
-  margin-bottom: 20px;
+  margin-bottom: 80px;
 }
 
 .Post.isPostHeaderHidden {
@@ -32,7 +32,7 @@
   }
 
   .Post {
-    margin-bottom: 40px;
+    margin-bottom: 100px;
   }
 
   .Column {
