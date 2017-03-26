@@ -1,8 +1,8 @@
 // @flow
 import React from 'react'
 import classNames from 'classnames'
-import { compose } from 'glamor'
 import { SVGBox, SVGIcon } from './SVGComponents'
+import { css } from '../../styles/jss'
 import { easeInOutCubic } from '../../styles/jso'
 
 // -------------------------------------
@@ -111,7 +111,7 @@ type ArrowProps = {
   isAnimated?: boolean,
 }
 
-const arrowStrokeAnimationStyle = compose(
+const arrowStrokeAnimationStyle = css(
   { fill: '#fff' },
   { animation: `animateUploaderMover 0.666s infinite ${easeInOutCubic}` },
 )

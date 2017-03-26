@@ -1,10 +1,10 @@
 import Immutable from 'immutable'
 import React, { Component, PropTypes } from 'react'
 import classNames from 'classnames'
-import { compose } from 'glamor'
 import Block from './Block'
 import ImageAsset from '../assets/ImageAsset'
 import { ArrowIcon } from '../assets/Icons'
+import { css } from '../../styles/jss'
 import {
   absolute,
   bgcWhite,
@@ -16,7 +16,7 @@ import {
   relative,
 } from '../../styles/jso'
 
-const busyWrapperStyle = compose(
+const busyWrapperStyle = css(
   absolute,
   flood,
   flex,
@@ -25,7 +25,7 @@ const busyWrapperStyle = compose(
   { backgroundColor: 'rgba(0, 0, 0, 0.5)' },
 )
 
-const arrowStyle = compose(
+const arrowStyle = css(
   relative,
   colorA,
   bgcWhite,
