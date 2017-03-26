@@ -2,6 +2,10 @@ import { isFSA, isFSAName } from '../../support/test_helpers'
 import * as subject from '../../../src/actions/authentication'
 
 describe('authentication actions', () => {
+  beforeEach(() => {
+    global.ENV.AUTH_CLIENT_ID = 'abc123'
+  })
+
   context('#signIn', () => {
     const action = subject.signIn('vader@ello.co', '12345666')
 
@@ -44,7 +48,7 @@ describe('authentication actions', () => {
 
     it('has the correct body in the action', () => {
       expect(action.payload.body).to.deep.equal({
-        client_id: undefined,
+        client_id: 'abc123',
         email: 'vader@ello.co',
         password: '12345666',
         grant_type: 'password',
