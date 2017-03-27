@@ -2,8 +2,15 @@
 import React from 'react'
 import classNames from 'classnames'
 import { SVGBox, SVGIcon } from './SVGComponents'
-import { css } from '../../styles/jss'
-import { easeInOutCubic } from '../../styles/jso'
+import { css, media, parent } from '../../styles/jss'
+import {
+  absolute,
+  easeInOutCubic,
+  minBreak3,
+  rotate90,
+  transformNone,
+  transitionTransform,
+} from '../../styles/jso'
 
 // -------------------------------------
 // Shapes for building icons
@@ -196,8 +203,13 @@ export const CheckIconSM = () =>
     </g>
   </SVGIcon>
 
+const chevronCircleStyle = css(
+  parent('.TreeButton', absolute, { top: 10, left: 0 }, rotate90, transitionTransform),
+  parent('.TreeButton.isCollapsed', transformNone),
+  media(minBreak3, parent('.TreeButton', { left: -30 })),
+)
 export const ChevronCircleIcon = () =>
-  <SVGIcon className="ChevronCircleIcon">
+  <SVGIcon className={`ChevronCircleIcon ${chevronCircleStyle}`}>
     <g>
       <circle cx="10" cy="10" r="7" />
     </g>

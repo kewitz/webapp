@@ -244,10 +244,16 @@ export const borderTop = { borderTop: '1px solid' }
 export const borderBottom = { borderBottom: '1px solid' }
 
 // -------------------------------------
+// Transforms
+export const transformNone = { transform: 'none' }
+export const rotate90 = { transform: 'rotate(90deg)' }
+
+// -------------------------------------
 // Transitions & animations
 
 export const transitionColor = { transition: 'color 0.2s ease' }
 export const transitionBgColor = { transition: 'background-color 0.2s ease' }
+export const transitionTransform = { transition: `transform 0.2s ${ease}` }
 
 // -------------------------------------
 // Utility

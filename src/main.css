@@ -51,9 +51,6 @@
 @import "components/navbar/NavbarParts.css";
 @import "components/navbar/NavbarRenderables.css";
 
-@import "components/navigation/TreeButton.css";
-@import "components/navigation/TreePanel.css";
-
 @import "components/notifications/Notification.css";
 @import "components/notifications/NotificationRenderables.css";
 
