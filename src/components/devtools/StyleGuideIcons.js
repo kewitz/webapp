@@ -1,6 +1,6 @@
 // @flow
 import React from 'react'
-import { $, compose } from 'glamor'
+import { css, select } from '../../styles/jss'
 import {
   // Ello icons
   ElloMark,
@@ -59,16 +59,16 @@ import {
 } from '../assets/Icons'
 import { flex, flexColumn, flexWrap, fontSize16, mb10, mb40, mr10, my40, wrapperPaddingX } from '../../styles/jso'
 
-const sectionStyle = compose(flex, flexColumn, flexWrap, wrapperPaddingX, my40)
-const h2Style = compose(mb10, fontSize16)
-const groupStyle = compose(
+const sectionStyle = css(flex, flexColumn, flexWrap, wrapperPaddingX, my40)
+const h2Style = css(mb10, fontSize16)
+const groupStyle = css(
   flex,
   mb40,
-  $('> *', mr10),
+  select('& > *', mr10),
 )
 
 // TODO: Move to icons...
-const badgeStyle = $('& .CheckShape', { stroke: 'white' })
+const badgeStyle = select('& .CheckShape', { stroke: 'white' })
 
 export default() =>
   <section className={sectionStyle}>

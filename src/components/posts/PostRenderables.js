@@ -1,6 +1,5 @@
 /* eslint-disable react/no-multi-comp */
 import React, { PropTypes, PureComponent } from 'react'
-import { $, compose, hover, parent } from 'glamor'
 import { Link } from 'react-router'
 import classNames from 'classnames'
 import Avatar from '../assets/Avatar'
@@ -8,6 +7,7 @@ import { ArrowIcon, RepostIcon } from '../assets/Icons'
 import ContentWarningButton from '../posts/ContentWarningButton'
 import RelationshipContainer from '../../containers/RelationshipContainer'
 import { RegionItems } from '../regions/RegionRenderables'
+import { css, hover, select } from '../../styles/jss'
 import { absolute, colorA, colorBlack, fontSize18, transitionColor } from '../../styles/jso'
 
 const PostHeaderTimeAgoLink = ({ to, createdAt }) =>
@@ -249,14 +249,14 @@ export class PostBody extends PureComponent {
   }
 }
 
-const relatedPostButtonStyle = compose(
+const relatedPostButtonStyle = css(
   absolute,
   { top: 0, right: 0 },
   fontSize18,
   colorA,
   transitionColor,
-  parent('.no-touch', hover(colorBlack)),
-  $('> .ArrowIcon', { transform: 'rotate(90deg)', marginLeft: 15 }),
+  hover(colorBlack),
+  select('& > .ArrowIcon', { transform: 'rotate(90deg)', marginLeft: 15 }),
 )
 
 export const RelatedPostsButton = (props, { onClickScrollToRelatedPosts }) =>

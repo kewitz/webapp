@@ -1,13 +1,9 @@
 // @flow
 // JavaScript Style Objects (jso)
-import { compose, css, media } from 'glamor'
+import { css, media } from './jss'
 
 // TODO: Note web vs native properties
 // TODO: Should web only props live in cso?
-
-// -------------------------------------
-// Helpers
-export const combine = (...styles: Array<string>) => styles.join(' ')
 
 // -------------------------------------
 // Configuration
@@ -128,7 +124,7 @@ export const px40 = { ...pr40, ...pl40 }
 export const py40 = { ...pt40, ...pb40 }
 
 // Web specific
-export const wrapperPaddingX = compose(
+export const wrapperPaddingX = css(
   px10,
   media(minBreak2, px20),
   media(minBreak4, px40),

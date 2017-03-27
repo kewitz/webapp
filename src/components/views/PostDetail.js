@@ -1,5 +1,4 @@
 import React, { PropTypes } from 'react'
-import { compose } from 'glamor'
 import Editor from '../editor/Editor'
 import PostContainer from '../../containers/PostContainer'
 import StreamContainer from '../../containers/StreamContainer'
@@ -7,9 +6,10 @@ import { MainView } from '../views/MainView'
 import { loadRelatedPosts } from '../../actions/posts'
 import { RelatedPostsButton } from '../posts/PostRenderables'
 import { TabListButtons } from '../tabs/TabList'
+import { css } from '../../styles/jss'
 import { relative } from '../../styles/jso'
 
-const navStyle = compose(
+const navStyle = css(
   relative,
   { marginBottom: -10 },
 )
