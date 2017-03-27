@@ -2,19 +2,6 @@ import * as MAPPING_TYPES from '../../constants/mapping_types'
 
 // the export methods need to return an object like:
 // { type: posts, ids: [1, 2, 3] }
-export function mostRecentPostsFromUsers(users) {
-  const result = { type: MAPPING_TYPES.POSTS, ids: [] }
-  users.forEach((user) => {
-    if (user.links.mostRecentPost) {
-      const mostRecentPostId = `${user.links.mostRecentPost.id}`
-      if (!result.ids.includes(mostRecentPostId)) {
-        result.ids.push(mostRecentPostId)
-      }
-    }
-  })
-  return result
-}
-
 export function postsFromLoves(loves) {
   const result = { type: MAPPING_TYPES.POSTS, ids: [] }
   loves.forEach((love) => {

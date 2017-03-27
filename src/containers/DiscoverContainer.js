@@ -8,7 +8,6 @@ import {
   loadCategoryPosts,
   // loadCommunities,
   loadDiscoverPosts,
-  loadDiscoverUsers,
   // loadFeaturedUsers,
 } from '../actions/discover'
 import { Discover } from '../components/views/Discover'
@@ -24,9 +23,8 @@ export function getStreamAction(type) {
     case 'recommended':
       return loadCategoryPosts()
     case 'recent':
-      return loadDiscoverPosts(type)
     case 'trending':
-      return loadDiscoverUsers(type)
+      return loadDiscoverPosts(type)
     case 'all':
       return getCategories()
     default:

@@ -151,17 +151,6 @@ export function pagePromotionals() {
   }
 }
 // Discover
-export function discoverUsers(type) {
-  const params = {
-    per_page: PER_PAGE,
-    include_recent_posts: true,
-    ...getPagingQueryParams(typeof window !== 'undefined' ? window.location.search : ''),
-  }
-  return {
-    path: getAPIPath(`discover/users/${type}`, params),
-    params,
-  }
-}
 export function discoverPosts(type) {
   const params = {
     per_page: PER_PAGE,

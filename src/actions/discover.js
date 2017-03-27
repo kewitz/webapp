@@ -45,21 +45,6 @@ export function loadCategoryPosts(type) {
   }
 }
 
-export function loadDiscoverUsers(type) {
-  return {
-    type: ACTION_TYPES.LOAD_STREAM,
-    payload: { endpoint: api.discoverUsers(type) },
-    meta: {
-      mappingType: MAPPING_TYPES.USERS,
-      renderStream: {
-        asList: StreamRenderables.postsAsList,
-        asGrid: StreamRenderables.postsAsGrid,
-      },
-      resultFilter: StreamFilters.mostRecentPostsFromUsers,
-    },
-  }
-}
-
 export function loadDiscoverPosts(type) {
   return {
     type: ACTION_TYPES.LOAD_STREAM,
