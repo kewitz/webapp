@@ -77,10 +77,11 @@ export const displayNone = { display: 'none' }
 export const visible = { visibility: 'visible' }
 export const hidden = { visibility: 'hidden' }
 export const fit = { maxWidth: '100%' }
+export const w100 = { width: '100%' }
 export const overflowVisible = { overflow: 'visible' }
 export const overflowHidden = { overflow: 'hidden' }
 export const overflowScroll = { overflow: 'scroll' }
-export const overflowScrollWeb = { WebkitOverflowScrolling: 'touch', overflowY: 'auto' }
+export const overflowScrollWebY = { WebkitOverflowScrolling: 'touch', overflowX: 'hidden', overflowY: 'auto' }
 
 // -------------------------------------
 // Alignment
@@ -207,7 +208,8 @@ export const sansBoldCSS = css(sansBold)
 export const sansBoldItalicCSS = css(sansBoldItalic)
 export const monoRegularCSS = css(monoRegular)
 
-export const fontSize16 = { fontSize16: 16 }
+export const fontSize14 = { fontSize: 14 }
+export const fontSize16 = { fontSize: 16 }
 export const fontSize18 = { fontSize: 18 }
 export const fontSize24 = { fontSize: 24 }
 
@@ -219,6 +221,7 @@ export const uppercase = { textTransform: 'uppercase' }
 export const lowercase = { textTransform: 'lowercase' }
 export const nowrap = { whiteSpace: 'nowrap' }
 export const breakWord = { wordWrap: 'break-word' }
+export const ellipsis = { textOverflow: 'ellipsis' }
 
 // -------------------------------------
 // Colors, backgrounds, opacity & fills
@@ -229,18 +232,21 @@ export const colorA = { color: '#aaa' }
 export const bgcTransparent = { backgroundColor: 'transparent' }
 export const bgcBlack = { backgroundColor: '#000' }
 export const bgcWhite = { backgroundColor: '#fff' }
+export const bgc4 = { backgroundColor: '#4d4d4d' }
 
 export const opacity0 = { opacity: 0 }
 export const opacity1 = { opacity: 1 }
 
 // -------------------------------------
 // Borders & strokes
+export const borderTop = { borderTop: '1px solid' }
 export const borderBottom = { borderBottom: '1px solid' }
 
 // -------------------------------------
 // Transitions & animations
 
 export const transitionColor = { transition: 'color 0.2s ease' }
+export const transitionBgColor = { transition: 'background-color 0.2s ease' }
 
 // -------------------------------------
 // Utility

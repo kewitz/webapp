@@ -13,9 +13,6 @@
 
 @import "components/comments/Comment.css";
 
-@import "components/completers/Completer.css";
-@import "components/completers/Completion.css";
-
 @import "components/devtools/DevTools.css";
 
 @import "components/dialogs/AdultPostsDialog.css";

@@ -1,6 +1,5 @@
 import Immutable from 'immutable'
 import React, { PropTypes, PureComponent } from 'react'
-import classNames from 'classnames'
 import { isIOS } from '../../lib/jello'
 import Avatar from '../assets/Avatar'
 import Emoji from '../assets/Emoji'
@@ -9,6 +8,18 @@ import Completion from './Completion'
 import { getPositionFromSelection } from '../editor/SelectionUtil'
 import { addKeyObject, removeKeyObject } from '../viewport/KeyComponent'
 import { addScrollObject, removeScrollObject } from '../viewport/ScrollComponent'
+import { css, media } from '../../styles/jss'
+import { fixed, fontSize14, minBreak2, overflowScrollWebY, w100, zIndex2 } from '../../styles/jso'
+
+const baseStyle = css(
+  fixed,
+  zIndex2,
+  w100,
+  { height: 235 },
+  overflowScrollWebY,
+  fontSize14,
+  media(minBreak2, { maxWidth: 240, height: 320 }),
+)
 
 export const emojiRegex = /\s?:{1}(\w+|\+|-):{0}$/
 export const userRegex = /(\s|^)@{1}\w+/
@@ -16,7 +27,6 @@ export const userRegex = /(\s|^)@{1}\w+/
 export default class Completer extends PureComponent {
 
   static propTypes = {
-    className: PropTypes.string,
     completions: PropTypes.object.isRequired,
     deviceSize: PropTypes.string,
     onCancel: PropTypes.func.isRequired,
@@ -139,7 +149,7 @@ export default class Completer extends PureComponent {
   }
 
   render() {
-    const { className, completions, deviceSize } = this.props
+    const { completions, deviceSize } = this.props
     if (!completions || !completions.get('data', Immutable.List()).size) {
       return null
     }
@@ -179,7 +189,7 @@ export default class Completer extends PureComponent {
         break
     }
     return (
-      <div style={style} className={classNames(className, 'Completer')}>
+      <div style={style} className={baseStyle}>
         {completed}
       </div>
     )
