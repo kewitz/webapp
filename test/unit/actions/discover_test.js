@@ -1,6 +1,5 @@
 import { isFSA, isFSAName } from '../../support/test_helpers'
 import * as subject from '../../../src/actions/discover'
-import { mostRecentPostsFromUsers } from '../../../src/components/streams/StreamFilters'
 import {
   postsAsGrid,
   postsAsList,
@@ -8,35 +7,6 @@ import {
 } from '../../../src/components/streams/StreamRenderables'
 
 describe('discover actions', () => {
-  context('#loadDiscoverUsers', () => {
-    const action = subject.loadDiscoverUsers('featured')
-
-    it('is an FSA compliant action', () => {
-      expect(isFSA(action)).to.be.true
-    })
-
-    it('has a top level action.type', () => {
-      expect(isFSAName(action, subject.loadDiscoverUsers)).to.be.true
-    })
-
-    it('has the correct api endpoint in the action', () => {
-      expect(action.payload.endpoint.path).to.contain('/discover/users/featured?per_page=25')
-    })
-
-    it('has the correct mapping type in the action', () => {
-      expect(action.meta.mappingType).to.equal('users')
-    })
-
-    it('has asList, asGrid and asZero properties on renderStreams in the action', () => {
-      expect(action.meta.renderStream.asList).to.equal(postsAsList)
-      expect(action.meta.renderStream.asGrid).to.equal(postsAsGrid)
-    })
-
-    it('has the correct resultFilter in the action', () => {
-      expect(action.meta.resultFilter).to.equal(mostRecentPostsFromUsers)
-    })
-  })
-
   context('#loadDiscoverPosts', () => {
     const action = subject.loadDiscoverPosts('trending')
 

@@ -38,12 +38,6 @@ describe('api.js', () => {
     })
   })
 
-  context('discover', () => {
-    it('#discoverUsers', () => {
-      expect(api.discoverUsers('trending').path).to.match(/\/discover\/users\/trending/)
-    })
-  })
-
   context('streams', () => {
     it('#followingStream', () => {
       expect(api.followingStream().path).to.match(/\/following\/posts\/recent\?/)
