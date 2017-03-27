@@ -1,27 +1,35 @@
 import React, { PureComponent } from 'react'
 import Mousetrap from 'mousetrap'
 import { SHORTCUT_KEYS } from '../../constants/application_types'
+import { css } from '../../styles/jss'
+import { fixed, flood, zGrid, pointerNone } from '../../styles/jso'
 
 export const whatUpdated = (thisProps, nextProps) =>
   Object.keys(nextProps).filter(prop => nextProps[prop] !== thisProps[prop])
 
-function toggleContainerColors() {
-  document.body.classList.toggle('highlightContainers')
-}
+/* eslint-disable quotes */
+const svgHorizontalLines = `<line stroke='rgba(255,0,255,0.5)' stroke-dasharray='8, 2' x1='0' y1='19.5' x2='40' y2='19.5'/><line stroke='rgb(255,0,255)' x1='0' y1='39.5' x2='40' y2='39.5'/>`
+const svgVerticalLines = `<line stroke='rgba(255,0,255,0.5)' stroke-dasharray='8, 2' x1='19.5' y1='0' x2='19.5' y2='40'/><line stroke='rgb(255,0,255)' x1='39.5' y1='0' x2='39.5' y2='40'/>`
+const svgUrlString = gridLines => `data:image/svg+xml;charset=utf8,<svg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'><g fill='none' stroke-miter-limit='10'>${gridLines}</g></svg>`
+/* eslint-enable quotes */
 
-function renderGrid(isVisible, type) {
-  return (
-    isVisible ? <div className={type} /> : <span />
-  )
-}
+const gridStyle = css(
+  fixed,
+  flood,
+  zGrid,
+  pointerNone,
+  { background: 'transparent 0 0 repeat' },
+  { opacity: 0.15 },
+)
 
-class DevTools extends PureComponent {
+const horizontalGridStyle = css({ backgroundImage: `url("${svgUrlString(svgHorizontalLines)}")` })
+const verticalGridStyle = css({ backgroundImage: `url("${svgUrlString(svgVerticalLines)}")` })
 
-  componentWillMount() {
-    this.state = {
-      isHorizontalGridVisible: false,
-      isVerticalGridVisible: false,
-    }
+export default class DevTools extends PureComponent {
+
+  state = {
+    isHorizontalGridVisible: false,
+    isVerticalGridVisible: false,
   }
 
   componentDidMount() {
@@ -31,10 +39,6 @@ class DevTools extends PureComponent {
 
     Mousetrap.bind(SHORTCUT_KEYS.DT_GRID_CYCLE, () => {
       this.nextGridForCycle()
-    })
-
-    Mousetrap.bind(SHORTCUT_KEYS.DT_CONTAINER_TOGGLE, () => {
-      toggleContainerColors()
     })
   }
 
@@ -76,12 +80,10 @@ class DevTools extends PureComponent {
     const { isHorizontalGridVisible, isVerticalGridVisible } = this.state
     return (
       <div className="DevTools">
-        {renderGrid(isHorizontalGridVisible, 'DT-horizontal-grid')}
-        {renderGrid(isVerticalGridVisible, 'DT-vertical-grid')}
+        { isHorizontalGridVisible && <div className={`${gridStyle} ${horizontalGridStyle}`} /> }
+        { isVerticalGridVisible && <div className={`${gridStyle} ${verticalGridStyle}`} /> }
       </div>
     )
   }
 }
-
-export default DevTools
 
