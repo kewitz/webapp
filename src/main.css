@@ -46,8 +46,6 @@
 @import "components/heros/HeroParts.css";
 @import "components/heros/HeroRenderables.css";
 
-@import "components/hints/Hint.css";
-
 @import "components/modals/Modal.css";
 
 @import "components/navbar/NavbarParts.css";
