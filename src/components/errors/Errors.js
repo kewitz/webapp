@@ -1,12 +1,23 @@
 import React, { PropTypes } from 'react'
+import { css, media } from '../../styles/jss'
+import { block, fontSize14, minBreak2, px0, px10 } from '../../styles/jso'
 
 const spinGif = '/static/images/support/ello-spin.gif'
 
+const imageStyle = css(block, { margin: '0 auto 75px' })
+const errorStyle = css(
+  { maxWidth: 780 },
+  px10,
+  { marginBottom: 30 },
+  fontSize14,
+  media(minBreak2, px0),
+)
+
 export const ErrorStateImage = () =>
-  <img className="ErrorStateImage" src={spinGif} alt="Ello" width="130" height="130" />
+  <img className={imageStyle} src={spinGif} alt="Ello" width="130" height="130" />
 
 export const ErrorState = ({ children = 'Something went wrong.' }) =>
-  <div className="ErrorState">
+  <div className={errorStyle}>
     {children}
   </div>
 
