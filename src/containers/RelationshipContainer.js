@@ -8,6 +8,7 @@ import { selectIsLoggedIn } from '../selectors/authentication'
 import { selectDeviceSize } from '../selectors/gui'
 import { selectPathname, selectPreviousPath } from '../selectors/routing'
 import { selectUserId, selectUserRelationshipPriority, selectUserUsername } from '../selectors/user'
+import { trackEvent } from '../actions/analytics'
 import { openModal, closeModal } from '../actions/modals'
 import { updateRelationship } from '../actions/relationships'
 import { flagUser } from '../actions/user'
@@ -158,12 +159,31 @@ class RelationshipContainer extends PureComponent {
   onRelationshipUpdate = ({ userId, priority, existing }) => {
     const { dispatch, pathname } = this.props
     const isInternal = !!(pathname && (/^\/onboarding/).test(pathname))
+    this.trackRelationshipUpdate(priority)
     dispatch(updateRelationship(userId, priority, existing, isInternal))
   }
 
   onUserWasFlagged = ({ flag }) => {
     const { dispatch, username } = this.props
     dispatch(flagUser(username, flag))
+  }
+
+  trackRelationshipUpdate = (priority) => {
+    const { dispatch } = this.props
+    switch (priority) {
+      case RELATIONSHIP_PRIORITY.FRIEND:
+      case RELATIONSHIP_PRIORITY.NOISE:
+        return dispatch(trackEvent('followed_user'))
+      case RELATIONSHIP_PRIORITY.INACTIVE:
+      case RELATIONSHIP_PRIORITY.NONE:
+        return dispatch(trackEvent('unfollowed_user'))
+      case RELATIONSHIP_PRIORITY.BLOCK:
+        return dispatch(trackEvent('blocked_user'))
+      case RELATIONSHIP_PRIORITY.MUTE:
+        return dispatch(trackEvent('muted_user'))
+      default:
+        return null
+    }
   }
 
   render() {

@@ -253,6 +253,7 @@ class PostContainer extends Component {
       set(action, 'meta.successAction', replace(previousPath || '/'))
     }
     dispatch(action)
+    dispatch(trackEvent('deleted_post'))
   }
 
   onClickEditPost = () => {

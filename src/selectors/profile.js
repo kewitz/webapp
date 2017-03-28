@@ -30,6 +30,7 @@ export const selectShortBio = state => state.profile.get('shortBio', '')
 export const selectUsername = state => state.profile.get('username')
 export const selectViewsAdultContent = state => state.profile.get('viewsAdultContent')
 export const selectWebOnboardingVersion = state => state.profile.get('webOnboardingVersion')
+export const selectProfileLinksCategories = state => state.profile.getIn(['links', 'categories'], Immutable.List())
 
 // Memoized selectors
 export const selectIsAvatarBlank = createSelector(
@@ -72,5 +73,9 @@ export const selectIsOwnPage = createSelector(
     const re = new RegExp(`/${username}$`)
     return re.test(pathname)
   },
+)
+
+export const selectProfileIsFeatured = createSelector(
+  [selectProfileLinksCategories], categories => !categories.isEmpty(),
 )
 

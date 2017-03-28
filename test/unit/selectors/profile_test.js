@@ -29,6 +29,7 @@ import {
   selectShortBio,
   selectUsername,
   selectWebOnboardingVersion,
+  selectProfileIsFeatured,
 } from '../../../src/selectors/profile'
 
 describe('profile selectors', () => {
@@ -235,6 +236,19 @@ describe('profile selectors', () => {
       state.change = 1
       expect(selectLinksAsText(state)).to.deep.equal('google.com')
       expect(selectLinksAsText.recomputations()).to.equal(1)
+    })
+  })
+
+  context('#selectProfileIsFeatured', () => {
+    it('returns whether the profile isFeatured (false)', () => {
+      const result = selectProfileIsFeatured(state)
+      expect(result).to.equal(false)
+    })
+
+    it('returns whether the profile isFeatured (true)', () => {
+      state.profile = state.profile.setIn(['links', 'categories'], Immutable.List('1'))
+      const result = selectProfileIsFeatured(state)
+      expect(result).to.equal(true)
     })
   })
 })
