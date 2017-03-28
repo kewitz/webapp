@@ -234,6 +234,7 @@ export const color9 = { color: '#999' }
 export const bgcTransparent = { backgroundColor: 'transparent' }
 export const bgcBlack = { backgroundColor: '#000' }
 export const bgcWhite = { backgroundColor: '#fff' }
+export const bgc6 = { backgroundColor: '#666' }
 export const bgc4 = { backgroundColor: '#4d4d4d' }
 
 export const opacity0 = { opacity: 0 }
@@ -243,6 +244,8 @@ export const opacity1 = { opacity: 1 }
 // Borders & strokes
 export const borderTop = { borderTop: '1px solid' }
 export const borderBottom = { borderBottom: '1px solid' }
+export const borderBlack = { border: '1px solid #000' }
+export const borderWhite = { border: '1px solid #fff' }
 
 // -------------------------------------
 // Transforms

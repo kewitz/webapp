@@ -13,8 +13,6 @@
 
 @import "components/comments/Comment.css";
 
-@import "components/dialogs/AdultPostsDialog.css";
-@import "components/dialogs/BlockMuteDialog.css";
 @import "components/dialogs/BuyLinkDialog.css";
 @import "components/dialogs/ConfirmDialog.css";
 @import "components/dialogs/DeleteAccountDialog.css";

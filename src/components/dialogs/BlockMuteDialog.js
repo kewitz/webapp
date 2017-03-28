@@ -1,5 +1,49 @@
 import React, { PropTypes } from 'react'
 import classNames from 'classnames'
+import { css, hover, media, modifier } from '../../styles/jss'
+import {
+  alignTop,
+  bgcWhite,
+  bgcBlack,
+  borderWhite,
+  colorBlack,
+  colorWhite,
+  center,
+  fontSize14,
+  fontSize18,
+  fontSize24,
+  inlineBlock,
+  mb20,
+  mb40,
+  minBreak2,
+  mt0,
+  mt40,
+  nowrap,
+  w100,
+} from '../../styles/jso'
+
+const dialogStyle = css({ maxWidth: 400 }, media(minBreak2, { maxWidth: 800 }))
+const columnStyle = media(minBreak2, inlineBlock, alignTop, { maxWidth: 'calc(33.33333% - 30px)' })
+const siblingColumnStyle = css(mt40, media(minBreak2, mt0, { marginLeft: 30 }))
+const headingStyle = css(mb40, fontSize18, { height: 30, lineHeight: '30px' }, media(minBreak2, fontSize24))
+const buttonHighlightStyle = css(colorWhite, bgcBlack, { borderColor: '#000' })
+const buttonStyle = css(
+  w100,
+  { height: 40, lineHeight: '40px' },
+  mb20,
+  fontSize14,
+  colorBlack,
+  center,
+  nowrap,
+  bgcWhite,
+  borderWhite,
+  {
+    borderRadius: 20,
+    transition: 'background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease',
+  },
+  hover(buttonHighlightStyle),
+  modifier('.isActive', buttonHighlightStyle, hover(colorBlack, bgcWhite, { borderColor: '#fff' })),
+)
 
 const BlockMuteDialog = ({
   isBlockActive = false,
@@ -9,20 +53,17 @@ const BlockMuteDialog = ({
   onMute,
   username,
   }) => {
-  const blockButtonClasses = classNames({ isActive: isBlockActive }, 'BlockMuteDialogButton')
-  const muteButtonClasses = classNames({ isActive: isMuteActive }, 'BlockMuteDialogButton')
+  const blockButtonClasses = classNames({ isActive: isBlockActive }, `${buttonStyle}`)
+  const muteButtonClasses = classNames({ isActive: isMuteActive }, `${buttonStyle}`)
   const blockButtonText = isBlockActive ? 'Unblock' : 'Block'
   const muteButtonText = isMuteActive ? 'Unmute' : 'Mute'
 
   return (
-    <div className="Dialog BlockMuteDialog">
-      <h2>{`Would you like to mute, block or flag @${username}?`}</h2>
-      <div className="BlockMuteDialogBody">
-        <div className="BlockMuteDialogColumn">
-          <button
-            className={muteButtonClasses}
-            onClick={onMute}
-          >
+    <div className={`Dialog ${dialogStyle}`}>
+      <h2 className={headingStyle}>{`Would you like to mute, block or flag @${username}?`}</h2>
+      <div>
+        <div className={columnStyle}>
+          <button className={muteButtonClasses} onClick={onMute}>
             {muteButtonText}
           </button>
           <p>
@@ -32,11 +73,8 @@ const BlockMuteDialog = ({
             receive any notifications.
           </p>
         </div>
-        <div className="BlockMuteDialogColumn">
-          <button
-            className={blockButtonClasses}
-            onClick={onBlock}
-          >
+        <div className={`${columnStyle} ${siblingColumnStyle}`}>
+          <button className={blockButtonClasses} onClick={onBlock}>
             {blockButtonText}
           </button>
           <p>
@@ -46,11 +84,8 @@ const BlockMuteDialog = ({
             outside of the Ello network.
           </p>
         </div>
-        <div className="BlockMuteDialogColumn">
-          <button
-            className="BlockMuteDialogButton"
-            onClick={onFlag}
-          >
+        <div className={`${columnStyle} ${siblingColumnStyle}`}>
+          <button className={buttonStyle} onClick={onFlag}>
             Flag User
           </button>
           <p>
