@@ -2,10 +2,12 @@
 import { actionChannel, fork, select, take } from 'redux-saga/effects'
 import { LOCATION_CHANGE } from 'react-router-redux'
 import get from 'lodash/get'
+import { isElloAndroid } from '../lib/jello'
 import * as ACTION_TYPES from '../constants/action_types'
 import { selectActiveNotificationsType } from '../selectors/gui'
 
 let shouldCallInitialTrackPage = false
+const agent = isElloAndroid() ? 'android' : 'webapp'
 
 const pageTrackTypes = [
   ACTION_TYPES.GUI.NOTIFICATIONS_TAB,
@@ -20,7 +22,7 @@ function* trackEvent() {
     const action = yield take(ACTION_TYPES.TRACK.EVENT)
     const { label, options } = action.payload
     if (window.analytics) {
-      window.analytics.track(label, options)
+      window.analytics.track(label, { agent, ...options })
     }
   }
 }
@@ -28,7 +30,7 @@ function* trackEvent() {
 function* trackPage(pageTrackChannel) {
   while (true) {
     const action = yield take(pageTrackChannel)
-    const pageProps = {}
+    const pageProps = { agent }
     if ((action.type === ACTION_TYPES.LOCATION_CHANGE ||
       action.type === ACTION_TYPES.TRACK.INITIAL_PAGE) && window.analytics) {
       shouldCallInitialTrackPage = true

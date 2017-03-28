@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import Mousetrap from 'mousetrap'
 import { SHORTCUT_KEYS } from '../constants/application_types'
 import { selectAvatar } from '../selectors/profile'
+import { trackEvent } from '../actions/analytics'
 import { closeOmnibar } from '../actions/omnibar'
 import { Omnibar } from '../components/omnibar/Omnibar'
 
@@ -36,6 +37,12 @@ class OmnibarContainer extends Component {
 
   componentDidMount() {
     Mousetrap.bind(SHORTCUT_KEYS.FULLSCREEN, () => { this.onToggleFullScreen() })
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (!this.props.isActive && nextProps.isActive) {
+      this.props.dispatch(trackEvent('opened_omnibar'))
+    }
   }
 
   shouldComponentUpdate(nextProps, nextState) {
