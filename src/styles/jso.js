@@ -229,6 +229,7 @@ export const ellipsis = { textOverflow: 'ellipsis' }
 export const colorBlack = { color: '#000' }
 export const colorWhite = { color: '#fff' }
 export const colorA = { color: '#aaa' }
+export const color9 = { color: '#999' }
 
 export const bgcTransparent = { backgroundColor: 'transparent' }
 export const bgcBlack = { backgroundColor: '#000' }

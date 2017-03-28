@@ -59,7 +59,6 @@
 @import "components/onboarding/Onboarding.css";
 @import "components/onboarding/OnboardingNavbar.css";
 
-@import "components/posts/ContentWarningButton.css";
 @import "components/posts/Post.css";
 @import "components/posts/PostBody.css";
 @import "components/posts/PostHeader.css";

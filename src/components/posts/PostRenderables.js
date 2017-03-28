@@ -173,6 +173,7 @@ export class PostBody extends PureComponent {
     detailPath: PropTypes.string.isRequired,
     innerHeight: PropTypes.number.isRequired,
     isGridMode: PropTypes.bool.isRequired,
+    isPostDetail: PropTypes.bool.isRequired,
     isRepost: PropTypes.bool.isRequired,
     postId: PropTypes.string.isRequired,
     repostContent: PropTypes.object,
@@ -193,6 +194,7 @@ export class PostBody extends PureComponent {
       detailPath,
       innerHeight,
       isGridMode,
+      isPostDetail,
       isRepost,
       postId,
       repostContent,
@@ -200,7 +202,7 @@ export class PostBody extends PureComponent {
     } = this.props
     const cells = []
 
-    if (contentWarning) {
+    if (contentWarning && !isPostDetail) {
       cells.push(<ContentWarningButton contentWarning={contentWarning} key={`contentWarning_${postId}`} />)
     }
 

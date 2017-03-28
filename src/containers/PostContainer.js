@@ -463,6 +463,7 @@ class PostContainer extends Component {
             detailPath={detailPath}
             innerHeight={innerHeight}
             isGridMode={isGridMode}
+            isPostDetail={isPostDetail}
             isRepost={isRepost}
             postId={postId}
             repostContent={repostContent}
