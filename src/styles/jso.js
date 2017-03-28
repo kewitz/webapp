@@ -227,15 +227,18 @@ export const ellipsis = { textOverflow: 'ellipsis' }
 // -------------------------------------
 // Colors, backgrounds, opacity & fills
 export const colorBlack = { color: '#000' }
-export const colorWhite = { color: '#fff' }
-export const colorA = { color: '#aaa' }
+export const color6 = { color: '#666' }
 export const color9 = { color: '#999' }
+export const colorA = { color: '#aaa' }
+export const colorWhite = { color: '#fff' }
 
 export const bgcTransparent = { backgroundColor: 'transparent' }
 export const bgcBlack = { backgroundColor: '#000' }
-export const bgcWhite = { backgroundColor: '#fff' }
-export const bgc6 = { backgroundColor: '#666' }
 export const bgc4 = { backgroundColor: '#4d4d4d' }
+export const bgc6 = { backgroundColor: '#666' }
+export const bgcA = { backgroundColor: '#aaa' }
+export const bgcWhite = { backgroundColor: '#fff' }
+export const bgcGreen = { backgroundColor: '#00d100' }
 
 export const opacity0 = { opacity: 0 }
 export const opacity1 = { opacity: 1 }

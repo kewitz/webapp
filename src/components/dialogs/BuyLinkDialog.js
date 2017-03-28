@@ -2,8 +2,63 @@ import React, { PropTypes, PureComponent } from 'react'
 import { FORM_CONTROL_STATUS as STATUS } from '../../constants/status_types'
 import TextControl from '../forms/TextControl'
 import { isValidURL } from '../forms/Validators'
+import { css, disabled, focus, hover, select } from '../../styles/jss'
+import {
+  bgc6,
+  bgcA,
+  bgcGreen,
+  center,
+  color6,
+  colorA,
+  colorWhite,
+  ease,
+  fontSize14,
+  fontSize24,
+  mr10,
+  pointerNone,
+  w100,
+} from '../../styles/jso'
 
-class BuyLinkDialog extends PureComponent {
+const dialogStyle = css(w100, { maxWidth: 440 })
+const headingStyle = css({ marginBottom: 30 }, fontSize24)
+const buttonHighlightStyle = css(colorWhite, bgc6, { borderColor: '#666' })
+const buttonStyle = css(
+  {
+    width: 100,
+    height: 50,
+    lineHeight: '50px',
+    padding: '0 20px',
+    borderRadius: 5,
+  },
+  fontSize14,
+  colorA,
+  center,
+  { transition: `background-color 0.2s ${ease}, border-color 0.2s ${ease}, color 0.2s ${ease}, width 0.2s ${ease}` },
+  disabled(pointerNone, color6, bgcA),
+  focus(buttonHighlightStyle),
+  hover(buttonHighlightStyle),
+)
+const submitButtonStyle = css(mr10, colorWhite, bgcGreen)
+const removeButtonStyle = css(mr10, colorWhite, bgcA)
+
+
+// TODO: Move this out to FormControls
+const controlStyle = css(
+  select('& .FormControlInput.isBoxControl', { height: 50, padding: '0 35px 0 10px' }),
+  select('& .FormControlStatus.isBoxControl', { top: 11 }),
+)
+
+export default class BuyLinkDialog extends PureComponent {
+
+  static propTypes = {
+    onConfirm: PropTypes.func.isRequired,
+    onDismiss: PropTypes.func.isRequired,
+    text: PropTypes.string,
+  }
+
+  static defaultProps = {
+    text: null,
+  }
 
   componentWillMount() {
     this.value = this.props.text
@@ -41,11 +96,11 @@ class BuyLinkDialog extends PureComponent {
     const { onDismiss, text } = this.props
     const { urlStatus } = this.state
     return (
-      <div className="Dialog BuyLinkDialog">
-        <h2 className="BuyLinkDialogTitle">Sell your work</h2>
+      <div className={`Dialog ${dialogStyle}`}>
+        <h2 className={headingStyle}>Sell your work</h2>
         <TextControl
           autoFocus
-          classList="isBoxControl BuyLinkDialogControl"
+          classList={`isBoxControl ${controlStyle}`}
           id="buyLink"
           name="buy[productDetail]"
           onChange={this.onChangeControl}
@@ -55,7 +110,7 @@ class BuyLinkDialog extends PureComponent {
           text={text}
         />
         <button
-          className="BuyLinkDialogButton isSubmit"
+          className={`${buttonStyle} ${submitButtonStyle}`}
           onClick={this.onClickSubmit}
           disabled={!(urlStatus === STATUS.SUCCESS)}
         >
@@ -64,27 +119,16 @@ class BuyLinkDialog extends PureComponent {
         </button>
         {text && text.length ?
           <button
-            className="BuyLinkDialogButton isRemove"
+            className={`${buttonStyle} ${removeButtonStyle}`}
             onClick={this.onClickReset}
           >
             Remove
           </button> :
           null
         }
-        <button className="BuyLinkDialogButton" onClick={onDismiss}>Cancel</button>
+        <button className={buttonStyle} onClick={onDismiss}>Cancel</button>
       </div>
     )
   }
 }
-
-BuyLinkDialog.propTypes = {
-  onConfirm: PropTypes.func.isRequired,
-  onDismiss: PropTypes.func.isRequired,
-  text: PropTypes.string,
-}
-BuyLinkDialog.defaultProps = {
-  text: null,
-}
-
-export default BuyLinkDialog
 
