@@ -1,6 +1,7 @@
 language: node_js
 services:
   - redis-server
+cache: yarn
 before_install:
 - cp .env.example .env
 script:
