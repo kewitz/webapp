@@ -184,9 +184,31 @@ describe('isomorphically rendering on the server', () => {
         prerender(renderOpts).then((result) => {
           expect(result.type).to.equal('render')
           expect(result.postIds).to.eql([
-            '184393',
+            '184395',
+            '184396',
+            '184397',
+            '184398',
+            '184399',
+            '184400',
+            '184401',
+            '184402',
+            '184403',
+            '184404',
+            '184405',
+            '184406',
+            '184407',
+            '184408',
+            '184409',
+            '184410',
+            '184411',
+            '184414',
+            '184415',
             '184416',
+            '184417',
+            '184418',
             '184419',
+            '184420',
+            '184421',
           ])
           expect(result.postTokens).to.eql([])
           expect(result.streamKind).to.equal('trending')
