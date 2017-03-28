@@ -79,8 +79,6 @@
 @import "components/users/UserParts.css";
 @import "components/users/UserRenderables.css";
 
-@import "components/viewport/Viewport.css";
-
 @import "components/views/MainView.css";
 @import "components/views/Authentication.css";
 @import "components/views/Invitations.css";
