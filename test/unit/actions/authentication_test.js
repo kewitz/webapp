@@ -2,8 +2,16 @@ import { isFSA, isFSAName } from '../../support/test_helpers'
 import * as subject from '../../../src/actions/authentication'
 
 describe('authentication actions', () => {
+  let action = null
+
+  beforeEach(() => {
+    global.ENV.AUTH_CLIENT_ID = 'abc123'
+  })
+
   context('#signIn', () => {
-    const action = subject.signIn('vader@ello.co', '12345666')
+    beforeEach(() => {
+      action = subject.signIn('vader@ello.co', '12345666')
+    })
 
     it('is an FSA compliant action', () => {
       expect(isFSA(action)).to.be.true
@@ -23,7 +31,9 @@ describe('authentication actions', () => {
   })
 
   context('#getUserCredentials', () => {
-    const action = subject.getUserCredentials('vader@ello.co', '12345666')
+    beforeEach(() => {
+      action = subject.getUserCredentials('vader@ello.co', '12345666')
+    })
 
     it('is an FSA compliant action', () => {
       expect(isFSA(action)).to.be.true
@@ -44,7 +54,7 @@ describe('authentication actions', () => {
 
     it('has the correct body in the action', () => {
       expect(action.payload.body).to.deep.equal({
-        client_id: undefined,
+        client_id: 'abc123',
         email: 'vader@ello.co',
         password: '12345666',
         grant_type: 'password',
@@ -53,7 +63,9 @@ describe('authentication actions', () => {
   })
 
   context('#logout', () => {
-    const action = subject.logout()
+    beforeEach(() => {
+      action = subject.logout()
+    })
 
     it('is an FSA compliant action', () => {
       expect(isFSA(action)).to.be.true
@@ -73,7 +85,9 @@ describe('authentication actions', () => {
   })
 
   context('#refreshAuthenticationToken', () => {
-    const action = subject.refreshAuthenticationToken('22:22')
+    beforeEach(() => {
+      action = subject.refreshAuthenticationToken('22:22')
+    })
 
     it('is an FSA compliant action', () => {
       expect(isFSA(action)).to.be.true
@@ -98,7 +112,9 @@ describe('authentication actions', () => {
   })
 
   context('#sendForgotPasswordRequest', () => {
-    const action = subject.sendForgotPasswordRequest('eddie@ello.co')
+    beforeEach(() => {
+      action = subject.sendForgotPasswordRequest('eddie@ello.co')
+    })
 
     it('is an FSA compliant action', () => {
       expect(isFSA(action)).to.be.true

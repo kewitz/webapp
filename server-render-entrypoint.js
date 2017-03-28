@@ -5,16 +5,12 @@ import prerender from './src/prerender'
 
 
 function startRender(context) {
-  prerender(context, (error, result) =>  {
-    // error indicates an abnormal result
-    if (error) {
-      process.exit(1)
-    // anything else, we send, wait for the send to finish, and exit
-    } else {
-      process.send(result, null, {}, () => {
-        process.exit(0)
-      })
-    }
+  prerender(context).then((result) => {
+    process.send(result, null, {}, () => {
+      process.exit(0)
+    })
+  }).catch(() => {
+    process.exit(1)
   })
 }
 

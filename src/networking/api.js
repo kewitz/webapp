@@ -252,6 +252,12 @@ export function postPreviews() {
     path: getAPIPath('post_previews'),
   }
 }
+
+export function trackPostViews(postIds, postTokens, streamKind, streamId) {
+  return {
+    path: getAPIPath('post_views', { post_tokens: postTokens, post_ids: postIds, kind: streamKind, id: streamId }),
+  }
+}
 export function userAutocompleter(word) {
   return {
     path: getAPIPath('users/autocomplete', { terms: word.replace(/@|:/ig, ''), per_page: 10 }),

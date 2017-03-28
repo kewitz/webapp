@@ -6,10 +6,6 @@ import {
   refreshAuthToken,
 } from '../networking/api'
 
-const clientCredentials = {
-  id: ENV.AUTH_CLIENT_ID,
-}
-
 export function clearAuthToken() {
   return {
     type: AUTHENTICATION.CLEAR_AUTH_TOKEN,
@@ -26,7 +22,7 @@ export function getUserCredentials(email, password, meta) {
         email,
         password,
         grant_type: 'password',
-        client_id: clientCredentials.id,
+        client_id: ENV.AUTH_CLIENT_ID,
       },
     },
     meta,
@@ -52,7 +48,7 @@ export function refreshAuthenticationToken(refreshToken) {
       body: {
         refresh_token: refreshToken,
         grant_type: 'refresh_token',
-        client_id: clientCredentials.id,
+        client_id: ENV.AUTH_CLIENT_ID,
       },
     },
   }

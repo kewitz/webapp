@@ -16,6 +16,7 @@ import kue from 'kue'
 import crypto from 'crypto'
 import { updateStrings as updateTimeAgoStrings } from './lib/time_ago_in_words'
 import { addOauthRoute, currentToken } from '../oauth'
+import { trackPostViews as trackPostViewsPath } from './networking/api'
 
 function handleZlibError(error) {
   if (error.code === 'Z_BUF_ERROR') {
@@ -77,8 +78,9 @@ addOauthRoute(app)
 app.use(express.static('public', { index: false, redirect: false }))
 app.use('/static', express.static('public/static', { maxAge: '1y', index: false, redirect: false, fallthrough: false }))
 
-function saveResponseToCache(cacheKey, body) {
-  memcacheClient.set(cacheKey, body, (err) => {
+function saveResponseToCache(cacheKey, body, postIds, postTokens, streamKind, streamId) {
+  const cacheBody = JSON.stringify({ body, postIds, postTokens, streamKind, streamId })
+  memcacheClient.set(cacheKey, cacheBody, (err) => {
     if (err) {
       console.log('[memcache] ERROR', err)
     } else {
@@ -113,7 +115,7 @@ function renderFromServer(req, res, cacheKey, timingHeader) {
       let renderTimeout
       const jobCompleteCallback = (result) => {
         libratoDone()
-        const { type, location, body } = (result || {})
+        const { type, location, body, postIds, postTokens, streamKind, streamId } = (result || {})
         switch (type) {
           case 'redirect':
             console.log(`[${requestId}][render] Redirecting to ${location} (took ${new Date() - startTime}ms)`)
@@ -124,7 +126,7 @@ function renderFromServer(req, res, cacheKey, timingHeader) {
             console.log(`[${requestId}][render] Rendering ISO response (took ${new Date() - startTime}ms)`)
             librato.measure('webapp.server.render.success', 1)
             res.send(body)
-            saveResponseToCache(cacheKey, body)
+            saveResponseToCache(cacheKey, body, postIds, postTokens, streamKind, streamId)
             break
           case 'error':
             console.log(`[${requestId}][render] Rendering error response (took ${new Date() - startTime}ms)`)
@@ -197,6 +199,18 @@ function cacheKeyForRequest(req, salt = '') {
   return crypto.createHash('sha256').update(salt + req.url).digest('hex')
 }
 
+function trackPostViews(requestId, postIds, postTokens, streamKind, streamId) {
+  fetch(trackPostViewsPath(postIds, postTokens, streamKind, streamId).path).then((response) => {
+    if (response.status === 204) {
+      console.log(`[${requestId}][tracking] Recorded post views`, postIds, postTokens, streamKind, streamId)
+    } else {
+      console.log(`[${requestId}][tracking] Failed to record post views, received ${response.status}`, postIds, postTokens, streamKind, streamId)
+    }
+  }).catch((error) => {
+    console.log(`[${requestId}][tracking] Failed to record post views: ${error.message}`, postIds, postTokens, streamKind, streamId)
+  })
+}
+
 app.use((req, res) => {
   res.setHeader('Cache-Control', 'public, max-age=60');
   res.setHeader('Expires', new Date(Date.now() + (1000 * 60)).toUTCString());
@@ -207,12 +221,15 @@ app.use((req, res) => {
   const timingHeader = newrelic.getBrowserTimingHeader()
 
   if (canPrerenderRequest(req)) {
-    const cacheKey = cacheKeyForRequest(req)
-    console.log(`[${requestId}][handler] Serving pre-rendered markup for path`, req.url, cacheKey)
+    const cacheGeneration = '1'
+    const cacheKey = cacheKeyForRequest(req, cacheGeneration)
+    console.log(`[${requestId}][handler] Attempting to serve pre-rendered markup for path`, req.url, cacheKey)
     memcacheClient.get(cacheKey, (err, value) => {
       if (value) {
         console.log(`[${requestId}][memcache] Cache hit!`, req.url)
-        res.send(value.toString())
+        const { body, postIds, postTokens, streamKind, streamId } = JSON.parse(value)
+        trackPostViews(requestId, postIds, postTokens, streamKind, streamId)
+        res.send(body)
       } else {
         renderFromServer(req, res, cacheKey, timingHeader)
       }

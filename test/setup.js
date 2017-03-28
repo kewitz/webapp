@@ -4,19 +4,17 @@ import path from 'path'
 import jsdom from 'jsdom'
 import dotenv from 'dotenv'
 import chai, { expect } from 'chai'
-import chaiHttp from 'chai-http'
 import chaiImmutable from 'chai-immutable'
 import sinon from 'sinon'
 import sinonChai from 'sinon-chai'
 import chaiSaga from './support/saga_helpers'
 
-chai.use(chaiHttp)
 chai.use(chaiSaga)
 chai.use(chaiImmutable)
 chai.use(sinonChai)
 
 dotenv.load()
-global.ENV = JSON.stringify(require('../env'))
+global.ENV = require('../env')
 
 global.chai = chai
 global.expect = expect
