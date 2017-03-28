@@ -155,13 +155,39 @@ describe('isomorphically rendering on the server', () => {
         const renderOpts = {
           accessToken: token.token.access_token,
           expiresAt: token.token.expires_at,
-          originalUrl: '/search',
-          url: '/search',
+          originalUrl: '/search?terms=%23productupdate',
+          url: '/search?terms=%23productupdate',
           timingHeader: '',
           requestId: '1' }
         prerender(renderOpts).then((result) => {
           expect(result.type).to.equal('render')
-          expect(result.postIds).to.eql([])
+          expect(result.postIds).to.eql([
+            '184461',
+            '9955',
+            '8089',
+            '9271',
+            '8141',
+            '7679',
+            '184105',
+            '9919',
+            '183971',
+            '7903',
+            '184192',
+            '8107',
+            '9411',
+            '184363',
+            '18024',
+            '183827',
+            '8005',
+            '183967',
+            '7841',
+            '9228',
+            '7799',
+            '9944',
+            '184227',
+            '9070',
+            '184312',
+          ])
           expect(result.postTokens).to.eql([])
           expect(result.streamKind).to.equal('search')
           expect(result.streamId).to.equal(null)
