@@ -3,20 +3,27 @@ import React, { PropTypes, PureComponent } from 'react'
 import { Link } from 'react-router'
 import classNames from 'classnames'
 import Avatar from '../assets/Avatar'
-import { ArrowIcon, RepostIcon } from '../assets/Icons'
+import { ArrowIcon, RepostIcon, EyeIcon } from '../assets/Icons'
 import ContentWarningButton from '../posts/ContentWarningButton'
 import RelationshipContainer from '../../containers/RelationshipContainer'
 import { RegionItems } from '../regions/RegionRenderables'
 import { css, hover, select } from '../../styles/jss'
-import { absolute, colorA, colorBlack, fontSize18, transitionColor } from '../../styles/jso'
-import { PostToolsSpike } from './PostParts'
+import { absolute, colorA, colorBlack, fontSize18, transitionColor, inlineBlock } from '../../styles/jso'
+import { PostToolsSpike, PostStatsSpike } from './PostParts'
 
-const PostHeaderTimeAgoLink = ({ to, createdAt }) =>
-  <Link className="PostHeaderTimeAgoLink" to={to}>
-    <span>{new Date(createdAt).timeAgoInWords()}</span>
+const blahStyle = css(
+  select('& > svg', { marginTop: -2 }),
+  select('& > svg g + circle', { fill: '#aaa' }),
+)
+const halbStyle = css(inlineBlock, { marginLeft: 5 })
+
+const PostHeaderTimeAgoLink = ({ to, postViewsCountRounded }) =>
+  <Link className={`PostHeaderTimeAgoLink ${blahStyle}`} to={to}>
+    <EyeIcon />
+    <span className={halbStyle}>{postViewsCountRounded}</span>
   </Link>
 PostHeaderTimeAgoLink.propTypes = {
-  createdAt: PropTypes.string.isRequired,
+  postViewsCountRounded: PropTypes.string.isRequired,
   to: PropTypes.string.isRequired,
 }
 
@@ -25,11 +32,11 @@ export class PostHeader extends PureComponent {
     author: PropTypes.object.isRequired,
     detailPath: PropTypes.string.isRequired,
     isPostDetail: PropTypes.bool.isRequired,
-    postCreatedAt: PropTypes.string.isRequired,
     postId: PropTypes.string.isRequired,
+    postViewsCountRounded: PropTypes.string.isRequired,
   }
   render() {
-    const { author, detailPath, isPostDetail, postCreatedAt, postId } = this.props
+    const { author, detailPath, isPostDetail, postId, postViewsCountRounded } = this.props
     return (
       <header className="PostHeader" key={`PostHeader_${postId}`}>
         <div className="PostHeaderAuthor">
@@ -59,7 +66,7 @@ export class PostHeader extends PureComponent {
           </Link>
         </div>
         <RelationshipContainer className="isInHeader" user={author} />
-        <PostHeaderTimeAgoLink to={detailPath} createdAt={postCreatedAt} />
+        <PostHeaderTimeAgoLink to={detailPath} postViewsCountRounded={postViewsCountRounded} />
       </header>
     )
   }
@@ -71,11 +78,13 @@ export class CategoryHeader extends PureComponent {
     categoryName: PropTypes.string.isRequired,
     categoryPath: PropTypes.string.isRequired,
     detailPath: PropTypes.string.isRequired,
-    postCreatedAt: PropTypes.string.isRequired,
     postId: PropTypes.string.isRequired,
+    postViewsCountRounded: PropTypes.string.isRequired,
   }
   render() {
-    const { author, categoryName, categoryPath, detailPath, postCreatedAt, postId } = this.props
+    const {
+      author, categoryName, categoryPath, detailPath, postViewsCountRounded, postId,
+    } = this.props
     return (
       <header className="CategoryHeader" key={`CategoryHeader_${postId}`}>
         <div className="CategoryHeaderAuthor">
@@ -104,7 +113,7 @@ export class CategoryHeader extends PureComponent {
             <span className="CategoryHeaderCategoryName">{categoryName}</span>
           </Link>
         </div>
-        <PostHeaderTimeAgoLink to={detailPath} createdAt={postCreatedAt} />
+        <PostHeaderTimeAgoLink to={detailPath} postViewsCountRounded={postViewsCountRounded} />
       </header>
     )
   }
@@ -114,13 +123,15 @@ export class RepostHeader extends PureComponent {
   static propTypes = {
     detailPath: PropTypes.string.isRequired,
     inUserDetail: PropTypes.bool.isRequired,
-    postCreatedAt: PropTypes.string.isRequired,
+    postViewsCountRounded: PropTypes.string.isRequired,
     postId: PropTypes.string.isRequired,
     repostAuthor: PropTypes.object.isRequired,
     repostedBy: PropTypes.object.isRequired,
   }
   render() {
-    const { detailPath, inUserDetail, postCreatedAt, postId, repostAuthor, repostedBy } = this.props
+    const {
+      detailPath, inUserDetail, postViewsCountRounded, postId, repostAuthor, repostedBy,
+    } = this.props
     return (
       <header className={classNames('RepostHeader', { inUserDetail })} key={`RepostHeader_${postId}`}>
         <div className="RepostHeaderAuthor">
@@ -157,7 +168,7 @@ export class RepostHeader extends PureComponent {
             </span>
           </Link>
         </div>
-        <PostHeaderTimeAgoLink to={detailPath} createdAt={postCreatedAt} />
+        <PostHeaderTimeAgoLink to={detailPath} postViewsCountRounded={postViewsCountRounded} />
       </header>
     )
   }
@@ -179,7 +190,7 @@ export class PostBody extends PureComponent {
     postCommentsCount: PropTypes.number.isRequired,
     postLovesCount: PropTypes.number.isRequired,
     postRepostsCount: PropTypes.number.isRequired,
-    postViewsCountRounded: PropTypes.string.isRequired,
+    // postViewsCountRounded: PropTypes.string.isRequired,
     repostContent: PropTypes.object,
     summary: PropTypes.object.isRequired,
   }
@@ -203,23 +214,14 @@ export class PostBody extends PureComponent {
       postCommentsCount,
       postLovesCount,
       postRepostsCount,
-      postViewsCountRounded,
+      // postViewsCountRounded,
       repostContent,
       summary,
     } = this.props
     const cells = []
 
     if (isGridMode) {
-      cells.push(
-        <PostToolsSpike
-          detailPath={detailPath}
-          postCommentsCount={postCommentsCount}
-          postLovesCount={postLovesCount}
-          postRepostsCount={postRepostsCount}
-          postViewsCountRounded={postViewsCountRounded}
-          key={`PostToolsSpike_${postId}`}
-        />,
-      )
+      cells.push(<PostToolsSpike key={`PostToolsSpike_${postId}`} />)
     }
 
     if (contentWarning) {
@@ -263,6 +265,17 @@ export class PostBody extends PureComponent {
       regionProps.content = isGridMode ? summary : content
       cells.push(<RegionItems {...regionProps} key={`RegionItems_${postId}`} />)
     }
+    if (isGridMode) {
+      cells.push(
+        <PostStatsSpike
+          postCommentsCount={postCommentsCount}
+          postLovesCount={postLovesCount}
+          postRepostsCount={postRepostsCount}
+          key={`PostStatsSpike_${postId}`}
+        />,
+      )
+    }
+
     return (
       <div className="PostBody" key={`PostBody_${postId}`}>
         {cells}

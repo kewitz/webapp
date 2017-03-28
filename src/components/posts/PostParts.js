@@ -1,15 +1,16 @@
+/* eslint-disable react/no-multi-comp */
 // @flow
 import React, { PropTypes, PureComponent } from 'react'
-import { Link } from 'react-router'
-import { $, compose, hover } from 'glamor'
+// import { Link } from 'react-router'
 import {
   BubbleIcon,
-  EyeIcon,
+  // EyeIcon,
   HeartIcon,
   RepostIcon,
   ShareIcon,
 } from '../assets/Icons'
 import Hint from '../hints/Hint'
+import { css, hover, parent, select } from '../../styles/jss'
 import {
   absolute,
   colorA,
@@ -17,12 +18,12 @@ import {
   flex,
   flood,
   fontSize12,
-  fontSize14,
+  // fontSize14,
   justifyCenter,
   justifySpaceAround,
   inlineBlock,
   itemsCenter,
-  ml10,
+  // ml10,
   mr10,
   opacity0,
   opacity1,
@@ -33,7 +34,7 @@ import {
   zIndex2,
 } from '../../styles/jso'
 
-const postToolsSpikeStyle = compose(
+const postToolsSpikeStyle = css(
   absolute,
   flood,
   flex,
@@ -46,60 +47,41 @@ const postToolsSpikeStyle = compose(
   hover(opacity1),
 )
 
-const toolsStyle = compose(
+const toolsStyle = css(
   relative,
   bgcWhite,
   px10,
   {
-    width: 'calc(100% - 90px)',
-    height: 90,
-    borderRadius: 10,
+    width: 230,
+    height: 60,
+    borderRadius: 30,
   },
 )
 
-const iconsStyle = compose(
+const iconsStyle = css(
   flex,
   justifySpaceAround,
   itemsCenter,
   { height: 60 },
 )
 
-const buttonStyle = compose(
+const buttonStyle = css(
   colorA,
   { margin: 'auto' },
-  $(' > svg', { transform: 'scale(1.4)' }),
+  select('& > svg', { transform: 'scale(1.4)' }),
 )
 
-const linkStyle = compose(
-  inlineBlock,
-  colorA,
-  { marginLeft: 40 },
-  $(' > svg', { transform: 'scale(1.4)' }),
-  $(' > svg g + circle', { fill: '#aaa' }),
-)
+// const linkStyle = css(
+//   inlineBlock,
+//   colorA,
+//   { marginLeft: 40 },
+//   select('& > svg', { transform: 'scale(1.4)' }),
+//   select('& > svg g + circle', { fill: '#aaa' }),
+// )
 
-const linkTextStyle = compose(ml10, fontSize14)
-
-const textBoxStyle = compose(
-  absolute,
-  fontSize12,
-  { bottom: 10, left: 20 },
-)
-
-const countWrapperStyle = compose(mr10, colorA)
-const countStyle = compose({ color: '#7c7c7c' })
-
-type Props = {
-  detailPath: string,
-  postViewsCountRounded: string,
-  postCommentsCount: number,
-  postLovesCount: number,
-  postRepostsCount: number,
-}
+// const linkTextStyle = css(ml10, fontSize14)
 
 export class PostToolsSpike extends PureComponent {
-  props: Props
-
   static contextTypes = {
     onClickToggleComments: PropTypes.func.isRequired,
     onClickLovePost: PropTypes.func.isRequired,
@@ -108,15 +90,8 @@ export class PostToolsSpike extends PureComponent {
   }
 
   render() {
-    const {
-      detailPath,
-      postCommentsCount,
-      postLovesCount,
-      postRepostsCount,
-      postViewsCountRounded,
-    } = this.props
     return (
-      <div className={postToolsSpikeStyle}>
+      <div className={`PostToolsSpike ${postToolsSpikeStyle}`}>
         <div className={toolsStyle}>
           <div className={iconsStyle}>
             <button className={buttonStyle} onClick={this.context.onClickToggleComments} >
@@ -135,22 +110,6 @@ export class PostToolsSpike extends PureComponent {
               <ShareIcon />
               <Hint>Share</Hint>
             </button>
-            <Link className={linkStyle} to={detailPath}>
-              <EyeIcon />
-              <span className={linkTextStyle}>{postViewsCountRounded}</span>
-              <Hint>Views</Hint>
-            </Link>
-          </div>
-          <div className={textBoxStyle}>
-            <span className={countWrapperStyle}>
-              <span className={countStyle}>{postCommentsCount}</span><span> Comments</span>
-            </span>
-            <span className={countWrapperStyle}>
-              <span className={countStyle}>{postLovesCount}</span><span> Loves</span>
-            </span>
-            <span className={countWrapperStyle}>
-              <span className={countStyle}>{postRepostsCount}</span><span> Reposts</span>
-            </span>
           </div>
         </div>
       </div>
@@ -158,5 +117,48 @@ export class PostToolsSpike extends PureComponent {
   }
 }
 
-export default PostToolsSpike
+const textBoxStyle = css(
+  fontSize12,
+  { marginTop: 30 },
+  opacity0,
+  transitionOpacity,
+  parent('.Post:hover', opacity1),
+)
+const countWrapperStyle = css(inlineBlock, mr10, colorA)
+const countStyle = css({ color: '#7c7c7c' })
 
+type Props = {
+  postCommentsCount: number,
+  postLovesCount: number,
+  postRepostsCount: number,
+}
+
+export class PostStatsSpike extends PureComponent {
+  props: Props
+
+  render() {
+    const {
+      postCommentsCount,
+      postLovesCount,
+      postRepostsCount,
+    } = this.props
+    return (
+      <div className={textBoxStyle}>
+        <span className={countWrapperStyle}>
+          <span className={countStyle}>{postCommentsCount}</span><span> Comments</span>
+        </span>
+        <span className={countWrapperStyle}>
+          <span className={countStyle}>{postLovesCount}</span><span> Loves</span>
+        </span>
+        <span className={countWrapperStyle}>
+          <span className={countStyle}>{postRepostsCount}</span><span> Reposts</span>
+        </span>
+      </div>
+    )
+  }
+}
+        // <Link className={linkStyle} to={detailPath}>
+        //   <EyeIcon />
+        //   <span className={linkTextStyle}>{postViewsCountRounded}</span>
+        //   <Hint>Views</Hint>
+        // </Link>
