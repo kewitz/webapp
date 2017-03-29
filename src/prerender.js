@@ -49,7 +49,7 @@ function getPostTrackingMetadata(url, state, renderProps) {
   let streamKind = null
   let streamId = null
 
-  const result = state.json.getIn(['pages', url], Immutable.Map())
+  let result = state.json.getIn(['pages', url], Immutable.Map())
   if (result.get('type') === POSTS) {
     postIds = result.get('ids').toArray()
   } else if (renderProps.params.token) {
@@ -59,6 +59,10 @@ function getPostTrackingMetadata(url, state, renderProps) {
   switch (selectViewNameFromRoute(state, renderProps)) {
     case 'search':
       streamKind = 'search'
+      result = state.json.getIn(['pages', '/search/posts'], Immutable.Map())
+      if (result) {
+        postIds = result.get('ids').toArray()
+      }
       break
     case 'discover':
       if (['trending', 'recent'].includes(renderProps.params.type)) {
