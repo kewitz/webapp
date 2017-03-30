@@ -1,4 +1,10 @@
 import React, { PropTypes, PureComponent } from 'react'
+import { buttonStyle, headingStyle } from './ConfirmDialog'
+import { css, media } from '../../styles/jss'
+import { absolute, center, leftAlign, minBreak2, mt40, relative } from '../../styles/jso'
+
+const dialogStyle = css(relative, center, { maxWidth: 480 }, media(minBreak2, leftAlign))
+const footnoteStyle = css(absolute, mt40, leftAlign)
 
 class DeleteAccountDialog extends PureComponent {
 
@@ -43,21 +49,21 @@ class DeleteAccountDialog extends PureComponent {
 
   renderConfirm() {
     return (
-      <div className="Dialog DeleteAccountDialog">
-        <h2>Delete account?</h2>
-        <button className="ConfirmDialogButton" onClick={this.onClickConfirm}>Yes</button>
-        <button className="ConfirmDialogButton" onClick={this.onClickJustKidding}>No</button>
+      <div className={`Dialog ${dialogStyle}`}>
+        <h2 className={headingStyle}>Delete account?</h2>
+        <button className={buttonStyle} onClick={this.onClickConfirm}>Yes</button>
+        <button className={buttonStyle} onClick={this.onClickJustKidding}>No</button>
       </div>
     )
   }
 
   renderConfirmReally() {
     return (
-      <div className="Dialog DeleteAccountDialog">
-        <h2>Are you sure?</h2>
-        <button className="ConfirmDialogButton" onClick={this.onClickConfirmReally}>Yes</button>
-        <button className="ConfirmDialogButton" onClick={this.onClickJustKidding}>No</button>
-        <p>
+      <div className={`Dialog ${dialogStyle}`}>
+        <h2 className={headingStyle}>Are you sure?</h2>
+        <button className={buttonStyle} onClick={this.onClickConfirmReally}>Yes</button>
+        <button className={buttonStyle} onClick={this.onClickJustKidding}>No</button>
+        <p className={footnoteStyle}>
           * By deleting your account you remove your personal information from
           Ello. Your account cannot be restored.
         </p>
@@ -67,14 +73,14 @@ class DeleteAccountDialog extends PureComponent {
 
   renderCountdown() {
     return (
-      <div className="Dialog DeleteAccountDialog">
-        <h2>
+      <div className={`Dialog ${dialogStyle}`}>
+        <h2 className={headingStyle}>
           <span>You will be redirected in </span>
           <span ref={(comp) => { this.counterEl = comp }}>{this.counter}</span>
           <span> ...</span>
         </h2>
         <button
-          className="ConfirmDialogButton"
+          className={buttonStyle}
           onClick={this.onClickJustKidding}
           style={{
             display: 'block',

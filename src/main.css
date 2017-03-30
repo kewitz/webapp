@@ -13,7 +13,6 @@
 
 @import "components/comments/Comment.css";
 
-@import "components/dialogs/DeleteAccountDialog.css";
 @import "components/dialogs/Dialog.css";
 @import "components/dialogs/FlagDialog.css";
 @import "components/dialogs/HelpDialog.css";
