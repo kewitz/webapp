@@ -26,7 +26,7 @@ export function* logoutSaga() {
   ]
   while (true) {
     yield take(actionTypes)
-    document.cookie = 'ello_skip_prerender=false'
+    document.cookie = 'ello_skip_prerender=false; path=/; expires=Fri, 31 Dec 9999 23:59:59 GMT'
     yield put(push('/enter'))
   }
 }
@@ -39,7 +39,7 @@ function* userSuccessSaga() {
   ]
   while (true) {
     yield take(actionTypes)
-    document.cookie = 'ello_skip_prerender=true; expires=Fri, 31 Dec 9999 23:59:59 GMT'
+    document.cookie = 'ello_skip_prerender=true; path=/; expires=Fri, 31 Dec 9999 23:59:59 GMT'
   }
 }
 
