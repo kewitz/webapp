@@ -48,7 +48,7 @@ export const PostDetail = (
             />
           }
           <StreamContainer
-            action={loadRelatedPosts(post.get('id'), columnCount)}
+            action={loadRelatedPosts(`~${post.get('token')}`, columnCount)}
             className="RelatedPostsStreamContainer"
             shouldInfiniteScroll={false}
           />

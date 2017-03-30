@@ -200,6 +200,7 @@ class PostContainer extends Component {
     onClickSharePost: PropTypes.func.isRequired,
     onClickToggleComments: PropTypes.func.isRequired,
     onClickWatchPost: PropTypes.func.isRequired,
+    onTrackRelatedPostClick: PropTypes.func.isRequired,
   }
 
   static contextTypes = {
@@ -218,6 +219,7 @@ class PostContainer extends Component {
       onClickSharePost: this.onClickSharePost,
       onClickToggleComments: this.onClickToggleComments,
       onClickWatchPost: isLoggedIn ? this.onClickWatchPost : this.onOpenSignupModal,
+      onTrackRelatedPostClick: this.onTrackRelatedPostClick,
     }
   }
 
@@ -294,6 +296,7 @@ class PostContainer extends Component {
       dispatch(loadEditablePost(post.get('id')))
     } else {
       dispatch(push(detailPath))
+      this.onTrackRelatedPostClick()
     }
   }
 
@@ -312,6 +315,7 @@ class PostContainer extends Component {
       dispatch(toggleComments(post, nextShowComments))
     } else {
       dispatch(push(detailPath))
+      this.onTrackRelatedPostClick()
     }
   }
 
@@ -358,6 +362,7 @@ class PostContainer extends Component {
       }
       // ..otherwise just push it through..
       dispatch(push(detailPath))
+      this.onTrackRelatedPostClick()
     }
     // The alternative is it's either in list and we ignore it or it's an
     // absolute link and we allow it's default behavior.
@@ -366,6 +371,11 @@ class PostContainer extends Component {
   onCloseModal = () => {
     const { dispatch } = this.props
     dispatch(closeModal())
+  }
+
+  onTrackRelatedPostClick = () => {
+    const { dispatch, isRelatedPost } = this.props
+    if (isRelatedPost) { dispatch(trackEvent('related_post_clicked')) }
   }
 
   onOpenSignupModal = () => {

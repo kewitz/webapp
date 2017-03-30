@@ -74,7 +74,7 @@ class PostDetailContainer extends Component {
     const token = `~${params.token}`
     return Promise.all([
       store.dispatch(loadPostDetail(token, `~${params.username}`)),
-      store.dispatch(loadRelatedPosts(token, 2)),
+      store.dispatch(loadRelatedPosts(token, 3)),
     ])
   }
 

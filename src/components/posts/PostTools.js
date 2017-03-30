@@ -22,11 +22,14 @@ class ViewsTool extends PureComponent {
     isLoggedIn: PropTypes.bool.isRequired,
     postViewsCountRounded: PropTypes.string.isRequired,
   }
+  static contextTypes = {
+    onTrackRelatedPostClick: PropTypes.func.isRequired,
+  }
   render() {
     const { detailPath, isLoggedIn, postViewsCountRounded } = this.props
     return (
       <span className={classNames('PostTool', 'ViewsTool', { isPill: isLoggedIn })}>
-        <Link to={detailPath}>
+        <Link to={detailPath} onClick={this.context.onTrackRelatedPostClick}>
           <EyeIcon />
           <span className="PostToolValue">{postViewsCountRounded}</span>
           <Hint>Views</Hint>
@@ -41,11 +44,14 @@ class TimeAgoTool extends PureComponent {
     detailPath: PropTypes.string.isRequired,
     postCreatedAt: PropTypes.string.isRequired,
   }
+  static contextTypes = {
+    onTrackRelatedPostClick: PropTypes.func.isRequired,
+  }
   render() {
     const { detailPath, postCreatedAt } = this.props
     return (
       <span className="PostTool TimeAgoTool">
-        <Link to={detailPath}>
+        <Link to={detailPath} onClick={this.context.onTrackRelatedPostClick}>
           <span className="PostToolValue">{new Date(postCreatedAt).timeAgoInWords()}</span>
           <Hint>Visit</Hint>
         </Link>
@@ -62,6 +68,7 @@ class CommentTool extends PureComponent {
   }
   static contextTypes = {
     onClickToggleComments: PropTypes.func.isRequired,
+    onTrackRelatedPostClick: PropTypes.func.isRequired,
   }
   render() {
     const { detailPath, isLoggedIn, postCommentsCount } = this.props
@@ -75,7 +82,7 @@ class CommentTool extends PureComponent {
             </span>
             <Hint>Comment</Hint>
           </button> :
-          <Link to={detailPath}>
+          <Link to={detailPath} onClick={this.context.onTrackRelatedPostClick}>
             <BubbleIcon />
             <span className="PostToolValue" >
               {numberToHuman(postCommentsCount, false)}
