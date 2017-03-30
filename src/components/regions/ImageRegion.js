@@ -41,6 +41,10 @@ class ImageRegion extends Component {
     isNotification: false,
   }
 
+  static contextTypes = {
+    onTrackRelatedPostClick: PropTypes.func.isRequired,
+  }
+
   componentWillMount() {
     const { asset, innerHeight } = this.props
     let scale = null
@@ -283,7 +287,7 @@ class ImageRegion extends Component {
     const { buyLinkURL, detailPath } = this.props
     return (
       <div className="RegionContent">
-        <Link to={detailPath}>
+        <Link to={detailPath} onClick={this.context.onTrackRelatedPostClick}>
           {this.renderAttachment()}
         </Link>
         {

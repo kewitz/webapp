@@ -335,18 +335,15 @@ class PostContainer extends Component {
     const { classList, dataset } = e.target
     // Get the raw value instead of the property value which is always absolute
     const href = e.target.getAttribute('href')
-
     // Relative links get sent to push (usernames, raw links, hashtags)
     if (href && href[0] === '/') {
       e.preventDefault()
       dispatch(push(href))
-
     // TODO: We have a special `span` based fake link at the moment we have to test
     // for. Once we change this back to an `<a> element we can rip this out.
     } else if (classList.contains('hashtag-link')) {
       e.preventDefault()
       dispatch(push(dataset.href))
-
     // Treat non links within grid layouts as a push to it's detail path
     } else if (isGridMode && detailPath && !isLink(e.target)) {
       e.preventDefault()
@@ -358,6 +355,7 @@ class PostContainer extends Component {
         a.href = detailPath
         a.target = '_blank'
         a.click()
+        this.onTrackRelatedPostClick()
         return
       }
       // ..otherwise just push it through..
