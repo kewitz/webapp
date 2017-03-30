@@ -1,6 +1,7 @@
 /* eslint-disable react/no-multi-comp */
 import React, { PropTypes, PureComponent } from 'react'
 import classNames from 'classnames'
+import { Link } from 'react-router'
 import { numberToHuman } from '../../lib/number_to_human'
 import Hint from '../hints/Hint'
 import {
@@ -17,21 +18,22 @@ import {
 
 class ViewsTool extends PureComponent {
   static propTypes = {
+    detailPath: PropTypes.string.isRequired,
     isLoggedIn: PropTypes.bool.isRequired,
     postViewsCountRounded: PropTypes.string.isRequired,
   }
   static contextTypes = {
-    onGoToDetail: PropTypes.func.isRequired,
+    onTrackRelatedPostClick: PropTypes.func.isRequired,
   }
   render() {
-    const { isLoggedIn, postViewsCountRounded } = this.props
+    const { detailPath, isLoggedIn, postViewsCountRounded } = this.props
     return (
       <span className={classNames('PostTool', 'ViewsTool', { isPill: isLoggedIn })}>
-        <button onClick={this.context.onGoToDetail}>
+        <Link to={detailPath} onClick={this.context.onTrackRelatedPostClick}>
           <EyeIcon />
           <span className="PostToolValue">{postViewsCountRounded}</span>
           <Hint>Views</Hint>
-        </button>
+        </Link>
       </span>
     )
   }
@@ -39,19 +41,20 @@ class ViewsTool extends PureComponent {
 
 class TimeAgoTool extends PureComponent {
   static propTypes = {
+    detailPath: PropTypes.string.isRequired,
     postCreatedAt: PropTypes.string.isRequired,
   }
   static contextTypes = {
-    onGoToDetail: PropTypes.func.isRequired,
+    onTrackRelatedPostClick: PropTypes.func.isRequired,
   }
   render() {
-    const { postCreatedAt } = this.props
+    const { detailPath, postCreatedAt } = this.props
     return (
       <span className="PostTool TimeAgoTool">
-        <button onClick={this.context.onGoToDetail}>
+        <Link to={detailPath} onClick={this.context.onTrackRelatedPostClick}>
           <span className="PostToolValue">{new Date(postCreatedAt).timeAgoInWords()}</span>
           <Hint>Visit</Hint>
-        </button>
+        </Link>
       </span>
     )
   }
@@ -59,33 +62,33 @@ class TimeAgoTool extends PureComponent {
 
 class CommentTool extends PureComponent {
   static propTypes = {
+    detailPath: PropTypes.string.isRequired,
     isLoggedIn: PropTypes.bool.isRequired,
     postCommentsCount: PropTypes.number.isRequired,
   }
   static contextTypes = {
     onClickToggleComments: PropTypes.func.isRequired,
-    onGoToDetail: PropTypes.func.isRequired,
+    onTrackRelatedPostClick: PropTypes.func.isRequired,
   }
   render() {
-    const { isLoggedIn, postCommentsCount } = this.props
-    const { onClickToggleComments, onGoToDetail } = this.context
+    const { detailPath, isLoggedIn, postCommentsCount } = this.props
     return (
       <span className="PostTool CommentTool" data-count={postCommentsCount} >
         {isLoggedIn ?
-          <button onClick={onClickToggleComments} >
+          <button onClick={this.context.onClickToggleComments} >
             <BubbleIcon />
             <span className="PostToolValue" >
               {numberToHuman(postCommentsCount, false)}
             </span>
             <Hint>Comment</Hint>
           </button> :
-          <button onClick={onGoToDetail}>
+          <Link to={detailPath} onClick={this.context.onTrackRelatedPostClick}>
             <BubbleIcon />
             <span className="PostToolValue" >
               {numberToHuman(postCommentsCount, false)}
             </span>
             <Hint>Comment</Hint>
-          </button>
+          </Link>
         }
       </span>
     )

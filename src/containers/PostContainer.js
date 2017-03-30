@@ -200,7 +200,7 @@ class PostContainer extends Component {
     onClickSharePost: PropTypes.func.isRequired,
     onClickToggleComments: PropTypes.func.isRequired,
     onClickWatchPost: PropTypes.func.isRequired,
-    onGoToDetail: PropTypes.func.isRequired,
+    onTrackRelatedPostClick: PropTypes.func.isRequired,
   }
 
   static contextTypes = {
@@ -219,7 +219,7 @@ class PostContainer extends Component {
       onClickSharePost: this.onClickSharePost,
       onClickToggleComments: this.onClickToggleComments,
       onClickWatchPost: isLoggedIn ? this.onClickWatchPost : this.onOpenSignupModal,
-      onGoToDetail: this.onGoToDetail,
+      onTrackRelatedPostClick: this.onTrackRelatedPostClick,
     }
   }
 
@@ -290,12 +290,13 @@ class PostContainer extends Component {
   }
 
   onClickRepostPost = () => {
-    const { dispatch, isRelatedPost, post, postReposted } = this.props
+    const { detailPath, dispatch, isRelatedPost, post, postReposted } = this.props
     if (!postReposted && !isRelatedPost) {
       dispatch(toggleReposting(post, true))
       dispatch(loadEditablePost(post.get('id')))
     } else {
-      this.onGoToDetail()
+      dispatch(push(detailPath))
+      this.onTrackRelatedPostClick()
     }
   }
 
@@ -307,13 +308,14 @@ class PostContainer extends Component {
   }
 
   onClickToggleComments = () => {
-    const { dispatch, isLoggedIn, isRelatedPost, post, showCommentEditor } = this.props
+    const { detailPath, dispatch, isLoggedIn, isRelatedPost, post, showCommentEditor } = this.props
     if (isLoggedIn && !isRelatedPost) {
       const nextShowComments = !showCommentEditor
       this.setState({ isCommentsActive: nextShowComments })
       dispatch(toggleComments(post, nextShowComments))
     } else {
-      this.onGoToDetail()
+      dispatch(push(detailPath))
+      this.onTrackRelatedPostClick()
     }
   }
 
@@ -359,7 +361,8 @@ class PostContainer extends Component {
         return
       }
       // ..otherwise just push it through..
-      this.onGoToDetail()
+      dispatch(push(detailPath))
+      this.onTrackRelatedPostClick()
     }
     // The alternative is it's either in list and we ignore it or it's an
     // absolute link and we allow it's default behavior.
@@ -370,9 +373,8 @@ class PostContainer extends Component {
     dispatch(closeModal())
   }
 
-  onGoToDetail = () => {
-    const { detailPath, dispatch, isRelatedPost } = this.props
-    dispatch(push(detailPath))
+  onTrackRelatedPostClick = () => {
+    const { dispatch, isRelatedPost } = this.props
     if (isRelatedPost) { dispatch(trackEvent('related_post_clicked')) }
   }
 
