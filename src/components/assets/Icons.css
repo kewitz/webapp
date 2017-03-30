@@ -485,10 +485,6 @@
 
 /* ??
 ------------------------------------- */
-.MessageDialog .CheckIconLG .SVGIcon > g {
-  stroke: #00d100;
-}
-
 .HeroScrollToContentButton .ChevronCircleIcon {
   margin-top: -2px;
   transition: transform var(--speed) var(--ease);
