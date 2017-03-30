@@ -31,6 +31,8 @@ export const selectUsername = state => state.profile.get('username')
 export const selectViewsAdultContent = state => state.profile.get('viewsAdultContent')
 export const selectWebOnboardingVersion = state => state.profile.get('webOnboardingVersion')
 export const selectProfileLinksCategories = state => state.profile.getIn(['links', 'categories'], Immutable.List())
+export const selectUuid = state => state.profile.get('uuid')
+export const selectSplit = (state, props) => state.profile.getIn(['splits', props.splitName])
 
 // Memoized selectors
 export const selectIsAvatarBlank = createSelector(

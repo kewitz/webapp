@@ -5,14 +5,16 @@ import OnboardingCategories from '../components/onboarding/OnboardingCategories'
 import { ONBOARDING_VERSION } from '../constants/application_types'
 import { trackEvent } from '../actions/analytics'
 import { getCategories } from '../actions/discover'
-import { followCategories, saveProfile } from '../actions/profile'
+import { followCategories, saveProfile, splitFinish } from '../actions/profile'
 import { selectOnboardingCategoriesFiltered } from '../selectors/categories'
+import { selectUuid } from '../selectors/profile'
 
 const CATEGORIES_NEEDED = 1
 
 function mapStateToProps(state) {
   return {
     categories: selectOnboardingCategoriesFiltered(state),
+    uuid: selectUuid(state),
   }
 }
 
@@ -25,6 +27,7 @@ class OnboardingCategoriesContainer extends PureComponent {
   static propTypes = {
     categories: PropTypes.array.isRequired,
     dispatch: PropTypes.func.isRequired,
+    uuid: PropTypes.string.isRequired,
   }
 
   static childContextTypes = {
@@ -47,9 +50,11 @@ class OnboardingCategoriesContainer extends PureComponent {
   }
 
   componentWillMount() {
-    const { dispatch } = this.props
+    const { dispatch, uuid } = this.props
     dispatch(getCategories())
     this.state = { categoryIds: [] }
+    // Finish the signup page split
+    dispatch(splitFinish(uuid, 'signup_page_redesign'))
   }
 
   onCategoryClick = (id) => {

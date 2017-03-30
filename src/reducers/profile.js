@@ -5,6 +5,7 @@ import jwtDecode from 'jwt-decode'
 import get from 'lodash/get'
 import { REHYDRATE } from 'redux-persist/constants'
 import { AUTHENTICATION, INVITATIONS, PROFILE } from '../constants/action_types'
+import { imageGuid } from '../helpers/file_helper'
 
 function parseJWT(token) {
   const decoded = jwtDecode(token)
@@ -14,7 +15,10 @@ function parseJWT(token) {
   return {}
 }
 
-const initialState = Immutable.Map()
+const initialState = Immutable.Map({
+  splits: Immutable.Map(),
+  uuid: imageGuid(),
+})
 
 export default (state = initialState, action) => {
   switch (action.type) {
@@ -110,6 +114,8 @@ export default (state = initialState, action) => {
     case AUTHENTICATION.REFRESH_SUCCESS:
     case PROFILE.SIGNUP_SUCCESS:
       return state.merge(parseJWT(action.payload.response.accessToken))
+    case PROFILE.SPLIT_SUCCESS:
+      return state.setIn(['splits', get(action, 'payload.name')], get(action, 'payload.response.alternative'))
     case INVITATIONS.GET_EMAIL_SUCCESS:
       return state.set('email', get(action, 'payload.response.invitations.email'))
     default:

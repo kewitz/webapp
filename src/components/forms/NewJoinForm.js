@@ -6,7 +6,7 @@ import { isAndroid } from '../../lib/jello'
 import { FORM_CONTROL_STATUS as STATUS } from '../../constants/status_types'
 import { trackEvent } from '../../actions/analytics'
 import { getInviteEmail } from '../../actions/invitations'
-import { checkAvailability, resetAvailability, signUpUser } from '../../actions/profile'
+import { checkAvailability, signUpUser } from '../../actions/profile'
 import EmailControl from './EmailControl'
 import FormButton from './FormButton'
 import PasswordControl from './PasswordControl'
@@ -51,13 +51,11 @@ class NewJoinForm extends Component {
     availability: PropTypes.object,
     dispatch: PropTypes.func.isRequired,
     email: PropTypes.string,
-    inModal: PropTypes.bool,
   }
 
   static defaultProps = {
     availability: null,
     email: null,
-    inModal: false,
   }
 
   componentWillMount() {
@@ -66,6 +64,7 @@ class NewJoinForm extends Component {
       formStatus: STATUS.INDETERMINATE,
       invitationCodeState: { status: STATUS.INDETERMINATE, message: '' },
       passwordState: { status: STATUS.INDETERMINATE, message: '' },
+      showEmailError: false,
       showPasswordError: false,
       showUsernameError: false,
       usernameState: { status: STATUS.INDETERMINATE, suggestions: null, message: '' },
@@ -76,6 +75,7 @@ class NewJoinForm extends Component {
     this.passwordValue = ''
 
     this.checkServerForAvailability = debounce(this.checkServerForAvailability, 666)
+    this.delayedShowEmailError = debounce(this.delayedShowEmailError, 1000)
     this.delayedShowUsernameError = debounce(this.delayedShowUsernameError, 1000)
     this.delayedShowPasswordError = debounce(this.delayedShowPasswordError, 1000)
   }
@@ -115,6 +115,8 @@ class NewJoinForm extends Component {
   }
 
   onChangeEmailControl = ({ email }) => {
+    this.setState({ showEmailError: false })
+    this.delayedShowEmailError()
     this.emailValue = email
     const { emailState } = this.state
     const currentStatus = emailState.status
@@ -168,11 +170,6 @@ class NewJoinForm extends Component {
 
   onSubmit = (e) => {
     e.preventDefault()
-    // const { emailState } = this.state
-    // if (emailState.status === STATUS.SUCCESS) {
-    //   this.setState({ emailState: { status: STATUS.REQUEST, message: 'checking...' } })
-    //   this.checkServerForAvailability({ email: this.emailValue, is_signup: true })
-    // }
     const { dispatch } = this.props
     dispatch(
       signUpUser(this.emailValue, this.usernameValue, this.passwordValue, this.invitationCodeValue),
@@ -200,17 +197,16 @@ class NewJoinForm extends Component {
   }
 
   validateEmailResponse(availability) {
-    const { dispatch, inModal } = this.props
+    if (!this.emailValue.length) {
+      this.setState({
+        emailState: { message: '', status: STATUS.INDETERMINATE, suggestions: null },
+      })
+      return
+    }
     const { emailState } = this.state
     const currentStatus = emailState.status
     const newState = getEmailStateFromServer({ availability, currentStatus })
-    if (newState.status === STATUS.SUCCESS && availability.getIn(['original', 'is_signup'])) {
-      dispatch(resetAvailability())
-      if (inModal) {
-        dispatch(trackEvent('modal-registration-request-form-completion'))
-      }
-      this.setState({ formStatus: STATUS.SUBMITTED })
-    } else {
+    if (newState.status !== currentStatus) {
       this.setState({ emailState: newState })
     }
   }
@@ -239,6 +235,12 @@ class NewJoinForm extends Component {
     }
   }
 
+  delayedShowEmailError = () => {
+    if (this.passwordValue.length) {
+      this.setState({ showEmailError: true })
+    }
+  }
+
   delayedShowPasswordError = () => {
     if (this.passwordValue.length) {
       this.setState({ showPasswordError: true })
@@ -251,18 +253,16 @@ class NewJoinForm extends Component {
     }
   }
 
-  renderEmailForm() {
+  render() {
     const {
       emailState,
       passwordState,
+      showEmailError,
       showPasswordError,
       showUsernameError,
       usernameState,
     } = this.state
-    const { message, status } = emailState
     const isValid = isFormValid([emailState, usernameState, passwordState])
-    const showMessage = (message && message.length) &&
-      (status === STATUS.FAILURE || status === STATUS.SUCCESS)
     const domain = ENV.AUTH_DOMAIN
     return (
       <div className="NewJoinForm RegistrationRequestForm JoinForm">
@@ -288,6 +288,9 @@ class NewJoinForm extends Component {
             onChange={this.onChangeEmailControl}
             onBlur={isAndroid() ? () => document.body.classList.remove('isCreditsHidden') : null}
             onFocus={isAndroid() ? () => document.body.classList.add('isCreditsHidden') : null}
+            placeholder="Email"
+            renderStatus={showEmailError ? renderStatus(emailState) : null}
+            status={emailState.status}
             tabIndex="1"
           />
           <UsernameControl
@@ -310,9 +313,6 @@ class NewJoinForm extends Component {
             renderStatus={showPasswordError ? renderStatus(passwordState) : null}
             tabIndex="3"
           />
-          {showMessage &&
-            <p className="HoppyStatusMessage hasContent">{message}</p>
-          }
           <FormButton className="FormButton isRounded isGreen" disabled={!isValid} tabIndex="2">
             Sign up
           </FormButton>
@@ -323,11 +323,6 @@ class NewJoinForm extends Component {
         <Link className="HaveAccountLink" to="/enter">Already have an account?</Link>
       </div>
     )
-  }
-
-  render() {
-    const { formStatus } = this.state
-    return formStatus === STATUS.SUBMITTED ? this.renderSignupForm() : this.renderEmailForm()
   }
 }
 
