@@ -5,6 +5,10 @@ import config from './webpack.dev.config'
 import { addOauthRoute, fetchOauthToken } from './oauth'
 import { updateStrings as updateTimeAgoStrings } from './src/lib/time_ago_in_words'
 
+// load env vars first
+require('dotenv').load({ silent: process.env.NODE_ENV === 'production' })
+global.ENV = require('./env')
+
 const app = express()
 const compiler = webpack(config)
 
