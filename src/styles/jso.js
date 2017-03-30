@@ -209,6 +209,7 @@ export const sansBoldCSS = css(sansBold)
 export const sansBoldItalicCSS = css(sansBoldItalic)
 export const monoRegularCSS = css(monoRegular)
 
+export const fontSize12 = { fontSize: 12 }
 export const fontSize14 = { fontSize: 14 }
 export const fontSize16 = { fontSize: 16 }
 export const fontSize18 = { fontSize: 18 }
