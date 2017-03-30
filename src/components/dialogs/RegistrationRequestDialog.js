@@ -1,8 +1,11 @@
 import React, { PropTypes } from 'react'
+import NewJoinForm from '../../components/forms/NewJoinForm'
 import RegistrationRequestForm from '../../components/forms/RegistrationRequestForm'
 import { HeroPromotionCredits } from '../../components/heros/HeroParts'
 import BackgroundImage from '../../components/assets/BackgroundImage'
 import { XIcon } from '../../components/assets/Icons'
+
+const useNewForm = true
 
 const RegistrationRequestDialog = ({ promotional }) =>
   <div className="AuthenticationFormDialog inModal">
@@ -12,7 +15,7 @@ const RegistrationRequestDialog = ({ promotional }) =>
       isBackground
       sources={promotional.get('coverImage')}
     />
-    <RegistrationRequestForm inModal />
+    {useNewForm ? <NewJoinForm inModal /> : <RegistrationRequestForm inModal />}
     <HeroPromotionCredits sources={promotional.get('avatar')} label="Posted by" username={promotional.get('username')} />
     <button className="CloseModal XClose"><XIcon /></button>
   </div>
