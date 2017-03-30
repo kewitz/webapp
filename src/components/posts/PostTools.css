@@ -68,7 +68,7 @@
   line-height: 22px;
 }
 
-.ViewsTool.isPill > a {
+.ViewsTool.isPill > button {
   padding-right: 11px;
   padding-left: 11px;
   color: #535353;
@@ -77,13 +77,13 @@
   transition: color var(--speed) ease, background-color var(--speed) ease;
 }
 
-.ViewsTool.isPill > a .SVGIcon,
-.ViewsTool.isPill > a .PostToolValue {
+.ViewsTool.isPill > button .SVGIcon,
+.ViewsTool.isPill > button .PostToolValue {
   position: relative;
   top: 1px;
 }
 
-.no-touch .ViewsTool.isPill a:hover {
+.no-touch .ViewsTool.isPill button:hover {
   background-color: #ccc;
 }
 

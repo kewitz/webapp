@@ -200,6 +200,7 @@ class PostContainer extends Component {
     onClickSharePost: PropTypes.func.isRequired,
     onClickToggleComments: PropTypes.func.isRequired,
     onClickWatchPost: PropTypes.func.isRequired,
+    onGoToDetail: PropTypes.func.isRequired,
   }
 
   static contextTypes = {
@@ -218,6 +219,7 @@ class PostContainer extends Component {
       onClickSharePost: this.onClickSharePost,
       onClickToggleComments: this.onClickToggleComments,
       onClickWatchPost: isLoggedIn ? this.onClickWatchPost : this.onOpenSignupModal,
+      onGoToDetail: this.onGoToDetail,
     }
   }
 
@@ -288,12 +290,12 @@ class PostContainer extends Component {
   }
 
   onClickRepostPost = () => {
-    const { detailPath, dispatch, isRelatedPost, post, postReposted } = this.props
+    const { dispatch, isRelatedPost, post, postReposted } = this.props
     if (!postReposted && !isRelatedPost) {
       dispatch(toggleReposting(post, true))
       dispatch(loadEditablePost(post.get('id')))
     } else {
-      dispatch(push(detailPath))
+      this.onGoToDetail()
     }
   }
 
@@ -305,13 +307,13 @@ class PostContainer extends Component {
   }
 
   onClickToggleComments = () => {
-    const { detailPath, dispatch, isLoggedIn, isRelatedPost, post, showCommentEditor } = this.props
+    const { dispatch, isLoggedIn, isRelatedPost, post, showCommentEditor } = this.props
     if (isLoggedIn && !isRelatedPost) {
       const nextShowComments = !showCommentEditor
       this.setState({ isCommentsActive: nextShowComments })
       dispatch(toggleComments(post, nextShowComments))
     } else {
-      dispatch(push(detailPath))
+      this.onGoToDetail()
     }
   }
 
@@ -357,7 +359,7 @@ class PostContainer extends Component {
         return
       }
       // ..otherwise just push it through..
-      dispatch(push(detailPath))
+      this.onGoToDetail()
     }
     // The alternative is it's either in list and we ignore it or it's an
     // absolute link and we allow it's default behavior.
@@ -366,6 +368,12 @@ class PostContainer extends Component {
   onCloseModal = () => {
     const { dispatch } = this.props
     dispatch(closeModal())
+  }
+
+  onGoToDetail = () => {
+    const { detailPath, dispatch, isRelatedPost } = this.props
+    dispatch(push(detailPath))
+    if (isRelatedPost) { dispatch(trackEvent('related_post_clicked')) }
   }
 
   onOpenSignupModal = () => {
