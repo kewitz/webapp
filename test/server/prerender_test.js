@@ -88,6 +88,44 @@ describe('isomorphically rendering on the server', () => {
           requestId: '1' }
         prerender(renderOpts).then((result) => {
           expect(result.type).to.equal('render')
+          expect(result.postIds).to.eql([
+            '184511',
+            '184510',
+            '184509',
+            '184508',
+            '184507',
+            '184506',
+            '184505',
+            '184503',
+            '184501',
+            '184499',
+            '184497',
+            '184496',
+            '184487',
+            '184477',
+            '184468',
+            '184461',
+            '184445',
+            '184416',
+            '184405',
+            '184394',
+            '184368',
+            '184367',
+            '184366',
+            '184363',
+            '184361',
+            '184356',
+            '184355',
+            '184354',
+            '184353',
+            '184352',
+            '184351',
+            '184350',
+            '184349',
+          ])
+          expect(result.postTokens).to.eql([])
+          expect(result.streamKind).to.equal('featured')
+          expect(result.streamId).to.equal(null)
           const document = jsdom.jsdom(result.body)
           expect(document.querySelectorAll('main.Discover')).to.have.lengthOf(1)
           done()
@@ -311,7 +349,7 @@ describe('isomorphically rendering on the server', () => {
           expect(result.postIds).to.eql(['9552'])
           expect(result.postTokens).to.eql([])
           expect(result.streamKind).to.equal('category')
-          expect(result.streamId).to.equal('textile-art')
+          expect(result.streamId).to.equal('5')
           const document = jsdom.jsdom(result.body)
           expect(document.querySelectorAll('main.Discover')).to.have.lengthOf(1)
           done()

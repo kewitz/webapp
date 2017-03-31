@@ -65,11 +65,14 @@ function getPostTrackingMetadata(url, state, renderProps) {
       }
       break
     case 'discover':
-      if (['trending', 'recent'].includes(renderProps.params.type)) {
-        streamKind = renderProps.params.type
+      if (['trending', 'recent', 'featured', 'recommended', 'all', undefined].includes(renderProps.params.type)) {
+        streamKind = renderProps.params.type || 'featured'
       } else {
         streamKind = 'category'
-        streamId = renderProps.params.type
+        const category = state.json.get('categories').find(cat => cat.get('slug') === renderProps.params.type)
+        if (category) {
+          streamId = category.get('id')
+        }
       }
       break
     case 'postDetail':
