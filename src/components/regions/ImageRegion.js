@@ -3,7 +3,6 @@ import Immutable from 'immutable'
 import React, { Component, PropTypes } from 'react'
 import { Link } from 'react-router'
 import classNames from 'classnames'
-import { isIOS } from '../../lib/jello'
 import ImageAsset from '../assets/ImageAsset'
 import { ElloBuyButton } from '../editor/ElloBuyButton'
 
@@ -28,6 +27,7 @@ class ImageRegion extends Component {
     isComment: PropTypes.bool,
     isGridMode: PropTypes.bool.isRequired,
     isNotification: PropTypes.bool,
+    shouldUseVideo: PropTypes.bool.isRequired,
   }
 
   static defaultProps = {
@@ -46,17 +46,16 @@ class ImageRegion extends Component {
   }
 
   componentWillMount() {
-    const { asset, innerHeight } = this.props
+    const { asset, innerHeight, shouldUseVideo } = this.props
     let scale = null
     if (asset) {
       const imageHeight = Number(asset.getIn(['attachment', 'original', 'metadata', 'height']))
       scale = innerHeight / imageHeight
     }
-    const isVideo = !!(asset && asset.getIn(['attachment', 'video'], Immutable.Map()).size) && !isIOS()
     this.state = {
       marginBottom: null,
       scale: isNaN(scale) ? null : scale,
-      status: isVideo ? STATUS.SUCCESS : STATUS.REQUEST,
+      status: shouldUseVideo ? STATUS.SUCCESS : STATUS.REQUEST,
     }
   }
 
@@ -192,10 +191,6 @@ class ImageRegion extends Component {
     return this.attachment.getIn(['optimized', 'metadata', 'type']) === 'image/gif'
   }
 
-  isVideo() {
-    return this.attachment.getIn(['video']) && !isIOS()
-  }
-
   renderGifAttachment() {
     const { content, isNotification } = this.props
     const dimensions = this.getImageDimensions()
@@ -270,10 +265,10 @@ class ImageRegion extends Component {
   }
 
   renderAttachment() {
-    const { asset } = this.props
+    const { asset, shouldUseVideo } = this.props
     if (!this.isBasicAttachment()) {
       this.attachment = asset.get('attachment')
-      if (this.isVideo()) {
+      if (shouldUseVideo) {
         return this.renderVideoAttachment()
       } else if (this.isGif()) {
         return this.renderGifAttachment()

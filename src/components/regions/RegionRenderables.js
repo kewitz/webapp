@@ -1,11 +1,13 @@
+import Immutable from 'immutable'
 import React, { PropTypes } from 'react'
 import EmbedRegion from '../regions/EmbedRegion'
 import ImageRegion from '../regions/ImageRegion'
 import TextRegion from '../regions/TextRegion'
+import { isIOS } from '../../lib/jello'
 
 export function RegionItems(props) {
   const { columnWidth, commentOffset, content, contentWidth,
-    detailPath, innerHeight, isComment, isGridMode } = props
+    detailPath, innerHeight, isComment, isGridMode, isPostDetail } = props
   // sometimes the content is null/undefined for some reason
   if (!content) { return null }
   const cells = []
@@ -22,10 +24,11 @@ export function RegionItems(props) {
           />,
         )
         break
-      case 'image':
+      case 'image': {
+        const asset = region.get('asset')
         cells.push(
           <ImageRegion
-            asset={region.get('asset')}
+            asset={asset}
             buyLinkURL={region.get('linkUrl')}
             columnWidth={columnWidth}
             commentOffset={commentOffset}
@@ -36,9 +39,11 @@ export function RegionItems(props) {
             isComment={isComment}
             isGridMode={isGridMode}
             key={`ImageRegion_${JSON.stringify(region.get('data'))}`}
+            shouldUseVideo={!!(asset && asset.getIn(['attachment', 'video'], Immutable.Map()).size) && !isIOS() && !isPostDetail}
           />,
         )
         break
+      }
       case 'embed':
         cells.push(
           <EmbedRegion
@@ -65,6 +70,7 @@ RegionItems.propTypes = {
   innerHeight: PropTypes.number.isRequired,
   isComment: PropTypes.bool,
   isGridMode: PropTypes.bool.isRequired,
+  isPostDetail: PropTypes.bool.isRequired,
 }
 RegionItems.defaultProps = {
   isComment: false,
