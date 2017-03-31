@@ -27,6 +27,13 @@ import {
   addPageVisibilityObserver,
   removePageVisibilityObserver,
 } from '../viewport/PageVisibilityComponent'
+import { css } from '../../styles/jss'
+import { relative, zIndex1 } from '../../styles/jso'
+
+const formStyle = css(
+  relative,
+  zIndex1,
+)
 
 function renderStatus(state) {
   return () => {
@@ -265,7 +272,7 @@ class NewJoinForm extends Component {
     const isValid = isFormValid([emailState, usernameState, passwordState])
     const domain = ENV.AUTH_DOMAIN
     return (
-      <div className="NewJoinForm RegistrationRequestForm JoinForm">
+      <div className={formStyle}>
         <h1>
           Join The Creators Network.
         </h1>
