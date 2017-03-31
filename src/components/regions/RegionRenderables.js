@@ -91,10 +91,11 @@ export function regionItemsForNotifications(content, detailPath) {
           />,
         )
         break
-      case 'image':
+      case 'image': {
+        const asset = region.get('asset')
         imageAssets.push(
           <ImageRegion
-            asset={region.get('asset')}
+            asset={asset}
             buyLinkURL={region.get('linkUrl')}
             content={region.get('data')}
             detailPath={detailPath}
@@ -102,9 +103,11 @@ export function regionItemsForNotifications(content, detailPath) {
             isNotification
             key={`ImageRegion_${JSON.stringify(region.get('data'))}`}
             links={region.get('links')}
+            shouldUseVideo={!!(asset && asset.getIn(['attachment', 'video'], Immutable.Map()).size) && !isIOS()}
           />,
         )
         break
+      }
       case 'embed':
         imageAssets.push(
           <EmbedRegion
