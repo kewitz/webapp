@@ -67,6 +67,7 @@ export const flood = { top: 0, right: 0, bottom: 0, left: 0 }
 
 export const zIndex1 = { zIndex: 1 }
 export const zIndex2 = { zIndex: 2 }
+export const zTools = { zIndex: 1070 }
 export const zGrid = { zIndex: 3000 }
 
 // -------------------------------------
