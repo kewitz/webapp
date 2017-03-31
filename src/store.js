@@ -1,5 +1,5 @@
 /* eslint-disable no-underscore-dangle */
-import createLogger from 'redux-logger'
+import { createLogger } from 'redux-logger'
 import Immutable from 'immutable'
 import { browserHistory } from 'react-router'
 import { routerMiddleware } from 'react-router-redux'
