@@ -25,6 +25,7 @@ import {
   zIndex1,
   zIndex2,
 } from '../../styles/jso'
+import { dialogStyle as baseDialogStyle } from './Dialog'
 
 const flags = {
   spam: 'Spam',
@@ -146,7 +147,7 @@ export default class FlagDialog extends Component {
     const index = Object.keys(flags).indexOf(activeChoice)
     const top = index < 0 ? null : (70 * index) + OFFSETS[this.props.deviceSize]
     return (
-      <div className={`Dialog ${dialogStyle}`}>
+      <div className={`${baseDialogStyle} ${dialogStyle}`}>
         <h2 className={headingStyle}>Would you like to flag this content as:</h2>
         <div>
           {this.renderFlagChoices()}
@@ -172,7 +173,7 @@ export default class FlagDialog extends Component {
   renderConfirmationScreen() {
     const { onConfirm } = this.props
     return (
-      <div className={`Dialog ${dialogStyle}`}>
+      <div className={`${baseDialogStyle} ${dialogStyle}`}>
         <h2 className={headingStyle}>Thank you.</h2>
         <p>
           You may temporarily still see this content. You may want to block or

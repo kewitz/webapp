@@ -15,6 +15,7 @@ import {
   mb0,
   monoRegularCSS,
 } from '../../styles/jso'
+import { dialogStyle as baseDialogStyle } from './Dialog'
 
 const dialogStyle = css({ maxWidth: 440 }, colorBlack, bgcWhite, media(minBreak2, { minWidth: 440 }))
 const headingStyle = css(
@@ -40,7 +41,7 @@ const textStyle = css(
 )
 
 const HelpDialog = () =>
-  <div className={`Dialog ${dialogStyle}`}>
+  <div className={`${baseDialogStyle} ${dialogStyle}`}>
     <h2 className={headingStyle}>Key Commands</h2>
     <p className={textWrapperStyle}><span className={`${textStyle} ${monoRegularCSS}`}>{SHORTCUT_KEYS.DISCOVER}</span> Navigate to discover</p>
     <p className={textWrapperStyle}><span className={`${textStyle} ${monoRegularCSS}`}>{SHORTCUT_KEYS.SEARCH}</span> Navigate to search</p>

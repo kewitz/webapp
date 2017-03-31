@@ -19,6 +19,7 @@ import {
   relative,
   w100,
 } from '../../styles/jso'
+import { dialogStyle as baseDialogStyle } from './Dialog'
 
 const dialogStyle = css(
   w100,
@@ -78,7 +79,7 @@ export default class MessageDialog extends PureComponent {
     const { name, onDismiss, titlePrefix } = this.props
     const { isValid } = this.state
     return (
-      <div className={`Dialog MessageDialog ${dialogStyle}`}>
+      <div className={`${baseDialogStyle} ${dialogStyle}`}>
         <h2 className={headingStyle}>{`${titlePrefix} ${name}`}</h2>
         <form
           action={hireUser(null).path}
@@ -120,7 +121,7 @@ export default class MessageDialog extends PureComponent {
   renderSent() {
     const { name, onDismiss } = this.props
     return (
-      <div className={`Dialog MessageDialog ${dialogStyle}`}>
+      <div className={`${baseDialogStyle} ${dialogStyle}`}>
         <h2 className={headingStyle}>
           <CheckIconLG />
           <span>{`Email sent to ${name}`}</span>

@@ -2,6 +2,7 @@ import React, { PropTypes, PureComponent } from 'react'
 import { buttonStyle, headingStyle } from './ConfirmDialog'
 import { css, media } from '../../styles/jss'
 import { absolute, center, leftAlign, minBreak2, mt40, relative } from '../../styles/jso'
+import { dialogStyle as baseDialogStyle } from './Dialog'
 
 const dialogStyle = css(relative, center, { maxWidth: 480 }, media(minBreak2, leftAlign))
 const footnoteStyle = css(absolute, mt40, leftAlign)
@@ -49,7 +50,7 @@ class DeleteAccountDialog extends PureComponent {
 
   renderConfirm() {
     return (
-      <div className={`Dialog ${dialogStyle}`}>
+      <div className={`${baseDialogStyle} ${dialogStyle}`}>
         <h2 className={headingStyle}>Delete account?</h2>
         <button className={buttonStyle} onClick={this.onClickConfirm}>Yes</button>
         <button className={buttonStyle} onClick={this.onClickJustKidding}>No</button>
@@ -59,7 +60,7 @@ class DeleteAccountDialog extends PureComponent {
 
   renderConfirmReally() {
     return (
-      <div className={`Dialog ${dialogStyle}`}>
+      <div className={`${baseDialogStyle} ${dialogStyle}`}>
         <h2 className={headingStyle}>Are you sure?</h2>
         <button className={buttonStyle} onClick={this.onClickConfirmReally}>Yes</button>
         <button className={buttonStyle} onClick={this.onClickJustKidding}>No</button>
@@ -73,7 +74,7 @@ class DeleteAccountDialog extends PureComponent {
 
   renderCountdown() {
     return (
-      <div className={`Dialog ${dialogStyle}`}>
+      <div className={`${baseDialogStyle} ${dialogStyle}`}>
         <h2 className={headingStyle}>
           <span>You will be redirected in </span>
           <span ref={(comp) => { this.counterEl = comp }}>{this.counter}</span>

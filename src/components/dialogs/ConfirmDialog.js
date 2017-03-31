@@ -19,9 +19,10 @@ import {
   mr20,
   nowrap,
 } from '../../styles/jso'
+import { dialogStyle as baseDialogStyle } from './Dialog'
 
 const dialogStyle = css(center)
-// TODO: exports used by DeleteAccountDialog, move to Dialog
+// TODO: exports used by DeleteAccountDialog, move to Dialog?
 export const headingStyle = css(
   { height: 30, lineHeight: '30px' }, mb10, fontSize18, nowrap,
   media(minBreak2, inlineBlock, mr20, mb0, fontSize24, alignMiddle),
@@ -44,7 +45,7 @@ export const buttonStyle = css(
 )
 
 const ConfirmDialog = ({ title, onConfirm, onDismiss }) =>
-  <div className={`Dialog ${dialogStyle}`}>
+  <div className={`${baseDialogStyle} ${dialogStyle}`}>
     {title ? <h2 className={headingStyle}>{title}</h2> : null}
     <button className={buttonStyle} onClick={onConfirm}>Yes</button>
     <button className={buttonStyle} onClick={onDismiss}>No</button>

@@ -21,6 +21,7 @@ import {
   nowrap,
   w100,
 } from '../../styles/jso'
+import { dialogStyle as baseDialogStyle } from './Dialog'
 
 const dialogStyle = css({ maxWidth: 400 }, media(minBreak2, { maxWidth: 800 }))
 const columnStyle = media(minBreak2, inlineBlock, alignTop, { maxWidth: 'calc(33.33333% - 30px)' })
@@ -59,7 +60,7 @@ const BlockMuteDialog = ({
   const muteButtonText = isMuteActive ? 'Unmute' : 'Mute'
 
   return (
-    <div className={`Dialog ${dialogStyle}`}>
+    <div className={`${baseDialogStyle} ${dialogStyle}`}>
       <h2 className={headingStyle}>{`Would you like to mute, block or flag @${username}?`}</h2>
       <div>
         <div className={columnStyle}>

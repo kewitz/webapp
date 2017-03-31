@@ -18,6 +18,7 @@ import {
   pointerNone,
   w100,
 } from '../../styles/jso'
+import { dialogStyle as baseDialogStyle } from './Dialog'
 
 const dialogStyle = css(w100, { maxWidth: 440 })
 const headingStyle = css({ marginBottom: 30 }, fontSize24)
@@ -96,7 +97,7 @@ export default class BuyLinkDialog extends PureComponent {
     const { onDismiss, text } = this.props
     const { urlStatus } = this.state
     return (
-      <div className={`Dialog ${dialogStyle}`}>
+      <div className={`${baseDialogStyle} ${dialogStyle}`}>
         <h2 className={headingStyle}>Sell your work</h2>
         <TextControl
           autoFocus

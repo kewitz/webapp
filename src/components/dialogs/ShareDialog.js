@@ -31,6 +31,7 @@ import {
   relative,
   w100,
 } from '../../styles/jso'
+import { dialogStyle as baseDialogStyle } from './Dialog'
 
 const SHARE_TYPES = {
   EMAIL: 'email',
@@ -180,7 +181,7 @@ class ShareDialog extends PureComponent {
 
   render() {
     return (
-      <div className={`Dialog ${dialogStyle}`}>
+      <div className={`${baseDialogStyle} ${dialogStyle}`}>
         <input
           className={controlStyle}
           type="url"

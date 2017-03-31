@@ -14,6 +14,7 @@ import {
   mt0,
   w100,
 } from '../../styles/jso'
+import { dialogStyle as baseDialogStyle } from './Dialog'
 
 const dialogStyle = css(
   { maxWidth: 480 },
@@ -36,7 +37,7 @@ const buttonStyle = css(
 )
 
 const AdultPostsDialog = ({ onConfirm }) =>
-  <div className={`Dialog ${dialogStyle}`}>
+  <div className={`${baseDialogStyle} ${dialogStyle}`}>
     <p style={mt0}>
       If you post adult content, you must mark your account Not Safe for Work (NSFW).
     </p>
