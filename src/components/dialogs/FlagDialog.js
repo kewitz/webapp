@@ -1,5 +1,30 @@
 import React, { Component, PropTypes } from 'react'
 import classNames from 'classnames'
+import { before, css, hover, media, modifier, select } from '../../styles/jss'
+import {
+  absolute,
+  alignLeft,
+  bgc6,
+  bgcBlack,
+  bgcWhite,
+  block,
+  borderBlack,
+  center,
+  colorBlack,
+  colorWhite,
+  fontSize14,
+  fontSize18,
+  fontSize24,
+  leftAlign,
+  mb20,
+  minBreak2,
+  minBreak4,
+  mt10,
+  relative,
+  w100,
+  zIndex1,
+  zIndex2,
+} from '../../styles/jso'
 
 const flags = {
   spam: 'Spam',
@@ -13,7 +38,61 @@ const flags = {
 
 const OFFSETS = { mobile: 70, tablet: 80, desktop: 100 }
 
-class FlagDialog extends Component {
+const dialogStyle = css(
+  { maxWidth: 480 },
+  colorBlack,
+  bgcWhite,
+  media(minBreak2, { minWidth: 480, maxWidth: 580 }),
+)
+
+const headingStyle = css(
+  { height: 40, lineHeight: '40px' },
+  mb20,
+  fontSize18,
+  media(minBreak2, fontSize24),
+)
+
+const footnoteStyle = css(
+  { margin: '20px 0 0' },
+  before({ marginLeft: -10, content: '"* "' }),
+)
+
+const buttonStyle = css(
+  { height: 60, lineHeight: '60px' },
+  fontSize14,
+  colorWhite,
+  bgcBlack,
+  borderBlack,
+  { transition: 'background-color 0.2s ease, border-color 0.2s ease, width 0.2s ease' },
+  hover(bgc6, { borderColor: '#666' }),
+)
+
+const okayAndChoiceButtons = css(
+  relative,
+  zIndex2,
+  block,
+  w100,
+  { padding: '0 20px' },
+  alignLeft,
+)
+
+const okayButtonStyle = css(buttonStyle, okayAndChoiceButtons, center)
+const choiceButtonStyle = css(
+  buttonStyle,
+  okayAndChoiceButtons,
+  leftAlign,
+  modifier('.isActive', { width: 'calc(100% - 140px)', borderColor: '#666' }, bgc6),
+  select('& + &', mt10),
+)
+const flagButtonStyle = css(
+  buttonStyle,
+  absolute,
+  { top: 0, right: 20, minWidth: 120 },
+  zIndex1,
+  media(minBreak4, { right: 40 }),
+)
+
+export default class FlagDialog extends Component {
 
   static propTypes = {
     deviceSize: PropTypes.string.isRequired,
@@ -50,7 +129,7 @@ class FlagDialog extends Component {
     Object.keys(flags).forEach((choice) => {
       buttons.push(
         <button
-          className={classNames({ isActive: activeChoice === choice }, 'FlagDialogChoice')}
+          className={classNames({ isActive: activeChoice === choice }, `${choiceButtonStyle}`)}
           data-flag={choice}
           key={choice}
           onClick={this.onClickChoice}
@@ -67,13 +146,13 @@ class FlagDialog extends Component {
     const index = Object.keys(flags).indexOf(activeChoice)
     const top = index < 0 ? null : (70 * index) + OFFSETS[this.props.deviceSize]
     return (
-      <div className="Dialog FlagDialog">
-        <h2>Would you like to flag this content as:</h2>
-        <div className="FlagDialogBody">
+      <div className={`Dialog ${dialogStyle}`}>
+        <h2 className={headingStyle}>Would you like to flag this content as:</h2>
+        <div>
           {this.renderFlagChoices()}
 
           <button
-            className="FlagDialogButton"
+            className={flagButtonStyle}
             onClick={this.onClickChoiceWasMade}
             style={top ? { top, display: 'inline-block' } : { display: 'none' }}
           >
@@ -81,7 +160,7 @@ class FlagDialog extends Component {
           </button>
 
         </div>
-        <p className="FlagDialogFootnote">
+        <p className={footnoteStyle}>
           Ello allows adult content as long as it complies with our rules and is
           marked NSFW. You may temporarily still see this content. You may want
           to block or mute this user as well.
@@ -93,14 +172,14 @@ class FlagDialog extends Component {
   renderConfirmationScreen() {
     const { onConfirm } = this.props
     return (
-      <div className="Dialog FlagDialog">
-        <h2>Thank you.</h2>
+      <div className={`Dialog ${dialogStyle}`}>
+        <h2 className={headingStyle}>Thank you.</h2>
         <p>
           You may temporarily still see this content. You may want to block or
           mute this user as well.
         </p>
-        <div className="FlagDialogBody">
-          <button className="FlagDialogOkayButton" onClick={onConfirm}>Okay</button>
+        <div>
+          <button className={okayButtonStyle} onClick={onConfirm}>Okay</button>
         </div>
       </div>
     )
@@ -111,6 +190,4 @@ class FlagDialog extends Component {
     return this[scene]()
   }
 }
-
-export default FlagDialog
 
