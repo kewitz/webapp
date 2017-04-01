@@ -1,22 +1,58 @@
 import React, { PropTypes } from 'react'
-import classNames from 'classnames'
+import { Link } from 'react-router'
+import { css, hover } from '../../styles/jss'
+import {
+  alignTop,
+  bgcBlack,
+  bgcGreen,
+  borderBlack,
+  colorWhite,
+  fontSize12,
+  inlineBlock,
+  px0,
+  px10,
+  py0,
+} from '../../styles/jso'
 
-export const MiniPillButton = ({ children, className, onClick }) =>
-  <button
-    className={classNames('MiniPillButton', className)}
-    onClick={onClick}
-  >
-    {children}
-  </button>
+const miniPillStyle = css(
+  { height: 30, lineHeight: '30px', borderRadius: 15 },
+  py0,
+  px10,
+  fontSize12,
+  colorWhite,
+  bgcBlack,
+  borderBlack,
+  { transition: 'background-color 0.2s, border-color 0.2s, color 0.2s' },
+  hover(colorWhite, bgcGreen, { borderColor: '#00d101' }),
+)
 
+// -------------------------------------
+
+const miniPillButtonStyle = css(miniPillStyle)
+export const MiniPillButton = ({ children, onClick }) =>
+  <button className={miniPillButtonStyle} onClick={onClick}>{children}</button>
 MiniPillButton.propTypes = {
-  className: PropTypes.string,
   children: PropTypes.node.isRequired,
   onClick: PropTypes.func.isRequired,
 }
-MiniPillButton.defaultProps = {
-  className: null,
+
+// -------------------------------------
+
+const miniPillButtonProfileStyle = css(miniPillStyle, { width: 58, marginRight: 5 }, px0)
+export const MiniPillButtonProfile = ({ children, onClick }) =>
+  <button className={miniPillButtonProfileStyle} onClick={onClick}>{children}</button>
+MiniPillButtonProfile.propTypes = {
+  children: PropTypes.node.isRequired,
+  onClick: PropTypes.func.isRequired,
 }
 
-export default MiniPillButton
+// -------------------------------------
+
+const miniPillLinkStyle = css(miniPillStyle, inlineBlock, alignTop)
+export const MiniPillLink = ({ children, to }) =>
+  <Link className={miniPillLinkStyle} to={to}>{children}</Link>
+MiniPillLink.propTypes = {
+  children: PropTypes.node.isRequired,
+  to: PropTypes.string.isRequired,
+}
 

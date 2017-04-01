@@ -53,10 +53,6 @@ User Buttons */
   z-index: 2;
 }
 
-.UserProfileButtons > .MiniPillButton {
-  margin-right: 5px;
-}
-
 .UserProfileButtons.inUserProfile {
   position: absolute;
   top: 10px;

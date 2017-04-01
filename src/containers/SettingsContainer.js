@@ -2,7 +2,6 @@ import Immutable from 'immutable'
 import React, { PropTypes, PureComponent } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { Link } from 'react-router'
 import classNames from 'classnames'
 import debounce from 'lodash/debounce'
 import { PREFERENCES, SETTINGS } from '../constants/locales/en'
@@ -25,6 +24,7 @@ import {
   saveProfile,
 } from '../actions/profile'
 import Emoji from '../components/assets/Emoji'
+import { MiniPillLink } from '../components/buttons/Buttons'
 import AdultPostsDialog from '../components/dialogs/AdultPostsDialog'
 import DeleteAccountDialog from '../components/dialogs/DeleteAccountDialog'
 import EmailControl from '../components/forms/EmailControl'
@@ -434,8 +434,8 @@ class SettingsContainer extends PureComponent {
           />
 
           <p className="SettingsLinks">
-            <Link className="MiniPillButton isLink" to={`/${profile.get('username')}`}>View profile</Link>
-            <Link className="MiniPillButton isLink" to="/invitations">Invite people</Link>
+            <MiniPillLink to={`/${profile.get('username')}`}>View profile</MiniPillLink>
+            <MiniPillLink to="/invitations">Invite people</MiniPillLink>
           </p>
 
           <div className="SettingsPreferences">

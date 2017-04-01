@@ -5,7 +5,7 @@ import { Link } from 'react-router'
 import classNames from 'classnames'
 import { numberToHuman } from '../../lib/number_to_human'
 import { BadgeCheckIcon, MarkerIcon, ShareIcon } from '../assets/Icons'
-import { MiniPillButton } from '../buttons/Buttons'
+import { MiniPillButtonProfile } from '../buttons/Buttons'
 import Hint from '../hints/Hint'
 
 // -------------------------------------
@@ -259,10 +259,10 @@ UserLinksCell.defaultProps = {
 export const UserProfileButtons = ({ children, className, onClickCollab, onClickHireMe }) =>
   <div className={classNames('UserProfileButtons', className)}>
     {onClickCollab ?
-      <MiniPillButton className="size58" onClick={onClickCollab} >Collab</MiniPillButton> : null
+      <MiniPillButtonProfile onClick={onClickCollab} >Collab</MiniPillButtonProfile> : null
     }
     {onClickHireMe ?
-      <MiniPillButton className="size58" onClick={onClickHireMe} >Hire</MiniPillButton> : null
+      <MiniPillButtonProfile onClick={onClickHireMe} >Hire</MiniPillButtonProfile> : null
     }
     {children}
   </div>
