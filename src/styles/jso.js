@@ -240,6 +240,7 @@ export const bgc4 = { backgroundColor: '#4d4d4d' }
 export const bgc6 = { backgroundColor: '#666' }
 export const bgc9 = { backgroundColor: '#999' }
 export const bgcA = { backgroundColor: '#aaa' }
+export const bgcE = { backgroundColor: '#eaeaea' }
 export const bgcWhite = { backgroundColor: '#fff' }
 export const bgcGreen = { backgroundColor: '#00d100' }
 
@@ -270,4 +271,11 @@ export const transitionTransform = { transition: `transform 0.2s ${ease}` }
 export const pointerNone = { pointerEvents: 'none' }
 export const pointerAuto = { pointerEvents: 'auto' }
 export const invisible = { ...absolute, ...hidden, ...opacity0 }
+export const hitarea = {
+  ...absolute,
+  ...flood,
+  ...zIndex2,
+  content: '""',
+  backgroundColor: 'rgba(0, 0, 0, 0)',
+}
 
