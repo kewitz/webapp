@@ -34,6 +34,9 @@ export const before = (...styles:Array<JSO>) =>
 export const after = (...styles:Array<JSO>) =>
   select('::after', ...styles)
 
+export const placeholder = (...styles:Array<JSO>) =>
+  select('::placeholder', ...styles)
+
 export const disabled = (...styles:Array<JSO>) =>
   modifier('[disabled]', ...styles)
 
