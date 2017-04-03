@@ -405,10 +405,6 @@
 
 /* Editor Icons
 ------------------------------------- */
-.no-touch .RegionTools button:hover .SVGIcon > g {
-  stroke: #000;
-}
-
 .BrowseIcon > g {
   fill: #fff;
 }

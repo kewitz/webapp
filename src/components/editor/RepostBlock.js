@@ -3,6 +3,8 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { LockIcon, RepostIcon } from '../assets/Icons'
+import { css } from '../../styles/jss'
+import { absolute, colorA, zIndex2 } from '../../styles/jso'
 
 function mapStateToProps({ profile: currentUser }) {
   return { currentUser }
@@ -28,6 +30,8 @@ function getBlockElement(block, uid) {
   }
 }
 
+const toolsStyle = css(absolute, { top: 5, right: 5 }, zIndex2, colorA)
+
 class RepostBlock extends Component {
 
   static propTypes = {
@@ -48,7 +52,7 @@ class RepostBlock extends Component {
           {` by @${currentUser.get('username')}`}
         </div>
         {data.map((block, i) => getBlockElement(block, i))}
-        <div className="RegionTools">
+        <div className={toolsStyle}>
           <LockIcon />
         </div>
       </div>

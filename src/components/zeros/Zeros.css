@@ -125,10 +125,6 @@
   background-color: #e5e5e5;
 }
 
-.ZeroState .RegionTools {
-  display: none;
-}
-
 .ZeroState .PostActionButton {
   color: #aaa;
   border: 1px solid currentColor;
