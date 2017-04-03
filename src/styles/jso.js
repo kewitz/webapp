@@ -229,6 +229,7 @@ export const ellipsis = { textOverflow: 'ellipsis' }
 // -------------------------------------
 // Colors, backgrounds, opacity & fills
 export const colorBlack = { color: '#000' }
+export const color5 = { color: '#535353' }
 export const color6 = { color: '#666' }
 export const color9 = { color: '#999' }
 export const colorA = { color: '#aaa' }
@@ -262,8 +263,9 @@ export const rotate90 = { transform: 'rotate(90deg)' }
 // -------------------------------------
 // Transitions & animations
 
-export const transitionColor = { transition: 'color 0.2s ease' }
 export const transitionBgColor = { transition: 'background-color 0.2s ease' }
+export const transitionColor = { transition: 'color 0.2s ease' }
+export const transitionOpacity = { transition: 'opacity 0.2s ease' }
 export const transitionTransform = { transition: `transform 0.2s ${ease}` }
 
 // -------------------------------------
