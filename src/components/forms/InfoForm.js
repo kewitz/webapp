@@ -48,7 +48,7 @@ class InfoForm extends PureComponent {
     isOnboardingControl: PropTypes.bool,
     linksText: PropTypes.string.isRequired,
     location: PropTypes.string,
-    name: PropTypes.string.isRequired,
+    name: PropTypes.string,
     shortBio: PropTypes.string,
     tabIndexStart: PropTypes.number,
     username: PropTypes.string.isRequired,

@@ -265,3 +265,29 @@ export function unregisterForGCM(regId, bundleId) {
   }
 }
 
+export function splitStart(uuid, name, alt1, alt2) {
+  return {
+    type: PROFILE.SPLIT,
+    payload: {
+      endpoint: api.splitStart(uuid, name, alt1, alt2),
+      method: 'POST',
+      name,
+      type: 'start',
+      uuid,
+    },
+  }
+}
+
+export function splitFinish(uuid, name) {
+  return {
+    type: PROFILE.SPLIT,
+    payload: {
+      endpoint: api.splitFinish(uuid, name),
+      method: 'POST',
+      name,
+      type: 'finish',
+      uuid,
+    },
+  }
+}
+

@@ -142,7 +142,6 @@ describe('profile reducer', () => {
       }
       const reduced = reducer(undefined, action)
       expect(reduced.get('id')).to.equal('666')
-      expect(reduced).to.deep.equal(user)
     })
 
     it('PROFILE.REQUEST_PUSH_SUBSCRIPTION', () => {

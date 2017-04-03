@@ -6,7 +6,7 @@ class BioControl extends PureComponent {
   static propTypes = {
     id: PropTypes.string.isRequired,
     onChange: PropTypes.func.isRequired,
-    text: PropTypes.string.isRequired,
+    text: PropTypes.string,
   }
 
   static defaultProps = {
@@ -15,6 +15,7 @@ class BioControl extends PureComponent {
     label: 'Bio',
     name: 'user[unsanitized_short_bio]',
     placeholder: 'Bio',
+    text: null,
   }
 
   componentWillMount() {

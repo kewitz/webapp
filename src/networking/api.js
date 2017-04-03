@@ -383,14 +383,12 @@ export function newNotifications() {
     path: getAPIPath('notifications'),
   }
 }
-
 // AVAILABILITY
 export function availability() {
   return {
     path: getAPIPath('availability'),
   }
 }
-
 // INVITE
 export function invite() {
   return {
@@ -402,18 +400,27 @@ export function getInviteEmail(code) {
     path: getAPIPath(`invitations/${code}`),
   }
 }
-
 // RELATIONSHIPS
 export function relationshipAdd(userId, priority) {
   return {
     path: getAPIPath(`users/${userId}/add/${priority}`),
   }
 }
-
 // Android Push Subscriptions
 export function registerForGCM(regId) {
   return {
     path: getAPIPath(`profile/push_subscriptions/gcm/${regId}`),
+  }
+}
+// Split a/b testing
+export function splitStart(uuid, name, alternative1, alternative2) {
+  return {
+    path: getAPIPath(`split/${name}/start`, { alternative1, alternative2, uuid }),
+  }
+}
+export function splitFinish(uuid, name) {
+  return {
+    path: getAPIPath(`split/${name}/finish`, { uuid }),
   }
 }
 
