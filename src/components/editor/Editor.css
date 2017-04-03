@@ -41,10 +41,6 @@
   background-color: #fff;
 }
 
-.editor-actions .PostActionButton + .PostActionButton {
-  margin-left: 5px;
-}
-
 .editor.isComment {
   margin-top: 10px;
 }
@@ -151,13 +147,6 @@
   margin-bottom: 10px;
 }
 
-/* 375 / 16 = 23.4375em */
-@media (min-width: 23.4375em) {
-  .editor-actions .PostActionButton + .PostActionButton {
-    margin-left: 10px;
-  }
-}
-
 @media (--break-2) {
   .editor.isComment {
     max-width: 640px;
@@ -188,10 +177,6 @@
 
   .editor.isComment .DragBlock {
     left: 80px;
-  }
-
-  .editor-actions .PostActionButton + .PostActionButton {
-    margin-left: 20px;
   }
 }
 

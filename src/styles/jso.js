@@ -65,6 +65,7 @@ export const relative = { position: 'relative' }
 export const fixed = { position: 'fixed' }
 export const flood = { top: 0, right: 0, bottom: 0, left: 0 }
 
+export const zIndex0 = { zIndex: 0 }
 export const zIndex1 = { zIndex: 1 }
 export const zIndex2 = { zIndex: 2 }
 export const zTools = { zIndex: 1070 }
@@ -272,6 +273,7 @@ export const transitionTransform = { transition: `transform 0.2s ${ease}` }
 // Utility
 export const pointerNone = { pointerEvents: 'none' }
 export const pointerAuto = { pointerEvents: 'auto' }
+export const hide = { ...displayNone, ...hidden }
 export const invisible = { ...absolute, ...hidden, ...opacity0 }
 export const hitarea = {
   ...absolute,
