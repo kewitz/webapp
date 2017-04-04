@@ -3,7 +3,7 @@ import { css, select } from '../../styles/jss'
 import * as s from '../../styles/jso'
 
 const baseStyle = css(
-  s.h40,
+  s.hv40,
   {
     width: 135,
     background: 'transparent url("/static/images/support/app-store-sprite.png") no-repeat 0 0',

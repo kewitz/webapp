@@ -89,19 +89,19 @@ export const overflowScrollWebY = { WebkitOverflowScrolling: 'touch', overflowX:
 export const fit = { maxWidth: '100%' }
 export const fullWidth = { width: '100%' }
 
-export const w30 = { width: 30 }
-export const w40 = { width: 40 }
-export const w60 = { width: 60 }
+export const wv30 = { width: 30 }
+export const wv40 = { width: 40 }
+export const wv60 = { width: 60 }
 
-export const h30 = { height: 30 }
-export const h40 = { height: 40 }
-export const h60 = { height: 60 }
+export const hv30 = { height: 30 }
+export const hv40 = { height: 40 }
+export const hv60 = { height: 60 }
 
 export const lh30 = { lineHeight: 30 }
 export const lh40 = { lineHeight: 40 }
 export const lh60 = { lineHeight: 60 }
 
-// TODO: Candidates for immutable jso?
+// TODO: Candidates for jso?
 // maxWidth: 480(4), 440(2)
 // minWidth: 480(2), 440
 // borderRadius 20(3)

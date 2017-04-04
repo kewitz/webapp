@@ -6,14 +6,14 @@ import { dialogStyle as baseDialogStyle } from './Dialog'
 const dialogStyle = css(s.center)
 // TODO: exports used by DeleteAccountDialog, move to Dialog?
 export const headingStyle = css(
-  s.h30, s.lh30, s.mb10, s.fontSize18, s.nowrap,
+  s.hv30, s.lh30, s.mb10, s.fontSize18, s.nowrap,
   media(s.minBreak2, s.inlineBlock, s.mr20, s.mb0, s.fontSize24, s.alignMiddle),
 )
 const buttonHighlightStyle = css(s.colorWhite, s.bgcBlack, { borderColor: '#000' })
 export const buttonStyle = css(
   s.inlineBlock,
-  s.w60,
-  s.h40,
+  s.wv60,
+  s.hv40,
   s.lh40,
   { borderRadius: 20 },
   s.fontSize14,

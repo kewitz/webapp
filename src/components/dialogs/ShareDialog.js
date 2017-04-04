@@ -48,7 +48,7 @@ const controlStyle = css(
   focus(s.bgc6, { borderColor: '#666', outline: 0 }),
 )
 const linksStyle = css(s.flex, s.flexWrap, { marginLeft: -10 })
-const linkStyle = css(s.relative, s.w60, s.h60, s.mt10, s.ml10, s.bgcBlack, hover(s.color6))
+const linkStyle = css(s.relative, s.wv60, s.hv60, s.mt10, s.ml10, s.bgcBlack, hover(s.color6))
 
 function onClickReadOnlyInput(e) {
   e.target.select()

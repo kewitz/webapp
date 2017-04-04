@@ -6,7 +6,7 @@ import * as s from '../../styles/jso'
 
 const buttonStyle = css(
   s.relative,
-  s.h40,
+  s.hv40,
   s.pl30,
   s.fontSize18,
   s.colorBlack,

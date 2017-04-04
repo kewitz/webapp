@@ -4,7 +4,7 @@ import { css, hover } from '../../styles/jss'
 import * as s from '../../styles/jso'
 
 const miniPillStyle = css(
-  s.h30,
+  s.hv30,
   s.lh30,
   { borderRadius: 15 },
   s.py0,

@@ -26,8 +26,8 @@ const toolsStyle = css(
 const buttonStyle = css(
   s.relative,
   s.zIndex1,
-  s.w30,
-  s.h30,
+  s.wv30,
+  s.hv30,
   s.lh30,
   { marginLeft: '1px', borderRadius: '50%' },
   s.fontSize14,
@@ -47,7 +47,7 @@ const buttonStyle = css(
 const formStyle = css(
   s.zIndex0,
   s.inlineBlock,
-  s.h30,
+  s.hv30,
   s.alignMiddle,
   s.transitionTransform,
   parent('.TextTools.asShowLinkForm', { transform: 'translateX(-30px)' }),
@@ -55,7 +55,7 @@ const formStyle = css(
 
 const inputStyle = css(
   s.inlineBlock,
-  s.h30,
+  s.hv30,
   { width: 210, padding: '0 10px 0 35px', borderRadius: 15 },
   s.fontSize14,
   s.colorBlack,

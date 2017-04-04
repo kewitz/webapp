@@ -13,7 +13,7 @@ const dialogStyle = css(
 const buttonStyle = css(
   s.block,
   s.fullWidth,
-  s.h60,
+  s.hv60,
   s.lh60,
   s.fontSize14,
   s.colorWhite,
