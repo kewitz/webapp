@@ -19,7 +19,9 @@ import { css, disabled, hover, media, modifier, select } from '../../styles/jss'
 import * as s from '../../styles/jso'
 
 const buttonStyle = css(
-  { width: 40, height: 40, lineHeight: '40px', borderRadius: 20 },
+  s.w40,
+  s.h40,
+  { lineHeight: '40px', borderRadius: 20 },
   s.pr10,
   s.pl15,
   s.overflowHidden,
@@ -37,7 +39,7 @@ const buttonStyle = css(
   modifier('.forComment', hover({ width: 125 })),
   modifier('.forReplyAll', hover({ width: 115 })),
   select('.PostGrid &', { marginRight: -10 }),
-  select('.no-touch .PostGrid &', hover({ width: 40 }, s.bgcTransparent)),
+  select('.no-touch .PostGrid &', hover(s.w40, s.bgcTransparent)),
   select('& + &', { marginLeft: 5 }),
   media('(min-width: 23.4375em)', select('& + &', s.ml10)), // (375 / 16 = 23.4375em)
   media(s.minBreak2, select('& + &', s.ml20)),

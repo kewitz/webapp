@@ -1,23 +1,11 @@
 import React, { PropTypes } from 'react'
 import classNames from 'classnames'
 import { css, parent } from '../../styles/jss'
-import {
-  absolute,
-  bgcBlack,
-  colorWhite,
-  displayNone,
-  hidden,
-  inlineBlock,
-  nowrap,
-  opacity0,
-  opacity1,
-  pointerNone,
-  visible,
-} from '../../styles/jso'
+import * as s from '../../styles/jso'
 
 const showHintStyle = css(
-  visible,
-  opacity1,
+  s.visible,
+  s.opacity1,
   {
     transitionDelay: '0.5s, 0s',
     transitionDuration: '0.4s, 0s',
@@ -25,9 +13,9 @@ const showHintStyle = css(
 )
 
 const hintStyle = css(
-  displayNone,
-  hidden,
-  absolute,
+  s.displayNone,
+  s.hidden,
+  s.absolute,
   {
     top: -25,
     left: 0,
@@ -36,16 +24,16 @@ const hintStyle = css(
     lineHeight: '22px',
     borderRadius: 11,
   },
-  colorWhite,
-  nowrap,
-  pointerNone,
-  bgcBlack,
-  opacity0,
+  s.colorWhite,
+  s.nowrap,
+  s.pointerNone,
+  s.bgcBlack,
+  s.opacity0,
+  s.borderBlack,
   {
-    border: '1px solid #000',
     transition: 'opacity 0.2s ease, visibility 0s ease 0.2s, color 0.2s ease',
   },
-  parent('.no-touch', inlineBlock),
+  parent('.no-touch', s.inlineBlock),
   parent('.no-touch a:hover >', showHintStyle),
   parent('.no-touch button:hover >', showHintStyle),
 )

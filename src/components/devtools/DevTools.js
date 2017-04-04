@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react'
 import Mousetrap from 'mousetrap'
 import { SHORTCUT_KEYS } from '../../constants/application_types'
 import { css } from '../../styles/jss'
-import { fixed, flood, zGrid, pointerNone } from '../../styles/jso'
+import * as s from '../../styles/jso'
 
 export const whatUpdated = (thisProps, nextProps) =>
   Object.keys(nextProps).filter(prop => nextProps[prop] !== thisProps[prop])
@@ -14,12 +14,12 @@ const svgUrlString = gridLines => `data:image/svg+xml;charset=utf8,<svg xmlns='h
 /* eslint-enable quotes */
 
 const gridStyle = css(
-  fixed,
-  flood,
-  zGrid,
-  pointerNone,
-  { background: 'transparent 0 0 repeat' },
+  s.fixed,
+  s.flood,
+  s.zGrid,
+  s.pointerNone,
   { opacity: 0.15 },
+  { background: 'transparent 0 0 repeat' },
 )
 
 const horizontalGridStyle = css({ backgroundImage: `url("${svgUrlString(svgHorizontalLines)}")` })

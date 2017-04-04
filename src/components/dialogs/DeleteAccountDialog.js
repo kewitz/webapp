@@ -1,11 +1,11 @@
 import React, { PropTypes, PureComponent } from 'react'
 import { buttonStyle, headingStyle } from './ConfirmDialog'
 import { css, media } from '../../styles/jss'
-import { absolute, center, leftAlign, minBreak2, mt40, relative } from '../../styles/jso'
+import * as s from '../../styles/jso'
 import { dialogStyle as baseDialogStyle } from './Dialog'
 
-const dialogStyle = css(relative, center, { maxWidth: 480 }, media(minBreak2, leftAlign))
-const footnoteStyle = css(absolute, mt40, leftAlign)
+const dialogStyle = css(s.relative, s.center, { maxWidth: 480 }, media(s.minBreak2, s.leftAlign))
+const footnoteStyle = css(s.absolute, s.mt40, s.leftAlign)
 
 class DeleteAccountDialog extends PureComponent {
 

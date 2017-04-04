@@ -79,19 +79,29 @@ export const inline = { display: 'inline' }
 export const displayNone = { display: 'none' }
 export const visible = { visibility: 'visible' }
 export const hidden = { visibility: 'hidden' }
-export const fit = { maxWidth: '100%' }
-export const w100 = { width: '100%' }
 export const overflowVisible = { overflow: 'visible' }
 export const overflowHidden = { overflow: 'hidden' }
 export const overflowScroll = { overflow: 'scroll' }
 export const overflowScrollWebY = { WebkitOverflowScrolling: 'touch', overflowX: 'hidden', overflowY: 'auto' }
 
 // -------------------------------------
-// Alignment
-export const alignBaseline = { verticalAlign: 'baseline' }
-export const alignTop = { verticalAlign: 'top' }
-export const alignMiddle = { verticalAlign: 'middle' }
-export const alignBottom = { verticalAlign: 'bottom' }
+// Widths
+export const fit = { maxWidth: '100%' }
+export const fullWidth = { width: '100%' }
+
+export const w30 = { width: 30 }
+export const w40 = { width: 40 }
+export const w60 = { width: 60 }
+
+export const h30 = { height: 30 }
+export const h40 = { height: 40 }
+export const h60 = { height: 60 }
+
+// TODO: Candidates for immutable jso?
+// maxWidth: 480(4), 440(2)
+// minWidth: 480(2), 440
+// borderRadius 20(3)
+// top/left/right/bottom 0, 5, 10, 20, 40?
 
 // -------------------------------------
 // Paddings
@@ -119,6 +129,14 @@ export const pl20 = { paddingLeft: 20 }
 export const px20 = { ...pr20, ...pl20 }
 export const py20 = { ...pt20, ...pb20 }
 
+export const p30 = { padding: 30 }
+export const pt30 = { paddingTop: 30 }
+export const pr30 = { paddingRight: 30 }
+export const pb30 = { paddingBottom: 30 }
+export const pl30 = { paddingLeft: 30 }
+export const px30 = { ...pr30, ...pl30 }
+export const py30 = { ...pt30, ...pb30 }
+
 export const p40 = { padding: 40 }
 export const pt40 = { paddingTop: 40 }
 export const pr40 = { paddingRight: 40 }
@@ -144,6 +162,14 @@ export const ml0 = { marginLeft: 0 }
 export const mx0 = { ...mr0, ...ml0 }
 export const my0 = { ...mt0, ...mb0 }
 
+export const m5 = { margin: 5 }
+export const mt5 = { marginTop: 5 }
+export const mr5 = { marginRight: 5 }
+export const mb5 = { marginBottom: 5 }
+export const ml5 = { marginLeft: 5 }
+export const mx5 = { ...mr5, ...ml5 }
+export const my5 = { ...mt5, ...mb5 }
+
 export const m10 = { margin: 10 }
 export const mt10 = { marginTop: 10 }
 export const mr10 = { marginRight: 10 }
@@ -160,6 +186,14 @@ export const ml20 = { marginLeft: 20 }
 export const mx20 = { ...mr20, ...ml20 }
 export const my20 = { ...mt20, ...mb20 }
 
+export const m30 = { margin: 30 }
+export const mt30 = { marginTop: 30 }
+export const mr30 = { marginRight: 30 }
+export const mb30 = { marginBottom: 30 }
+export const ml30 = { marginLeft: 30 }
+export const mx30 = { ...mr30, ...ml30 }
+export const my30 = { ...mt30, ...mb30 }
+
 export const m40 = { margin: 40 }
 export const mt40 = { marginTop: 40 }
 export const mr40 = { marginRight: 40 }
@@ -172,6 +206,13 @@ export const mAuto = { margin: 'auto' }
 export const mrAuto = { marginRight: 'auto' }
 export const mlAuto = { marginLeft: 'auto' }
 export const mxAuto = { ...mrAuto, ...mlAuto }
+
+// -------------------------------------
+// Alignment
+export const alignBaseline = { verticalAlign: 'baseline' }
+export const alignTop = { verticalAlign: 'top' }
+export const alignMiddle = { verticalAlign: 'middle' }
+export const alignBottom = { verticalAlign: 'bottom' }
 
 // -------------------------------------
 // Typography

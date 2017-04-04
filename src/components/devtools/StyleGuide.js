@@ -3,16 +3,12 @@ import React from 'react'
 import { MainView } from '../views/MainView'
 // import StyleGuideIcons from './StyleGuideIcons'
 import { css, media } from '../../styles/jss'
-import { flex, fontSize18, fontSize24, minBreak2, mr10, pt20, pt40, py20, wrapperPaddingX } from '../../styles/jso'
+import * as s from '../../styles/jso'
 
-const headerStyle = css(
-  wrapperPaddingX,
-  pt20,
-  media(minBreak2, pt40),
-)
-const h1Style = css(fontSize24)
-const navStyle = css(flex, py20)
-const buttonStyle = css(fontSize18, mr10)
+const headerStyle = css(s.wrapperPaddingX, s.pt20, media(s.minBreak2, s.pt40))
+const h1Style = css(s.fontSize24)
+const navStyle = css(s.flex, s.py20)
+const buttonStyle = css(s.fontSize18, s.mr10)
 
 export default() =>
   <MainView className="StyleGuide">

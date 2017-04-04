@@ -1,30 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import classNames from 'classnames'
 import { before, css, hover, media, modifier, select } from '../../styles/jss'
-import {
-  absolute,
-  alignLeft,
-  bgc6,
-  bgcBlack,
-  bgcWhite,
-  block,
-  borderBlack,
-  center,
-  colorBlack,
-  colorWhite,
-  fontSize14,
-  fontSize18,
-  fontSize24,
-  leftAlign,
-  mb20,
-  minBreak2,
-  minBreak4,
-  mt10,
-  relative,
-  w100,
-  zIndex1,
-  zIndex2,
-} from '../../styles/jso'
+import * as s from '../../styles/jso'
 import { dialogStyle as baseDialogStyle } from './Dialog'
 
 const flags = {
@@ -41,16 +18,17 @@ const OFFSETS = { mobile: 70, tablet: 80, desktop: 100 }
 
 const dialogStyle = css(
   { maxWidth: 480 },
-  colorBlack,
-  bgcWhite,
-  media(minBreak2, { minWidth: 480, maxWidth: 580 }),
+  s.colorBlack,
+  s.bgcWhite,
+  media(s.minBreak2, { minWidth: 480, maxWidth: 580 }),
 )
 
 const headingStyle = css(
-  { height: 40, lineHeight: '40px' },
-  mb20,
-  fontSize18,
-  media(minBreak2, fontSize24),
+  s.h40,
+  { lineHeight: '40px' },
+  s.mb20,
+  s.fontSize18,
+  media(s.minBreak2, s.fontSize24),
 )
 
 const footnoteStyle = css(
@@ -59,38 +37,40 @@ const footnoteStyle = css(
 )
 
 const buttonStyle = css(
-  { height: 60, lineHeight: '60px' },
-  fontSize14,
-  colorWhite,
-  bgcBlack,
-  borderBlack,
+  s.h60,
+  { lineHeight: '60px' },
+  s.fontSize14,
+  s.colorWhite,
+  s.bgcBlack,
+  s.borderBlack,
   { transition: 'background-color 0.2s ease, border-color 0.2s ease, width 0.2s ease' },
-  hover(bgc6, { borderColor: '#666' }),
+  hover(s.bgc6, { borderColor: '#666' }),
 )
 
 const okayAndChoiceButtons = css(
-  relative,
-  zIndex2,
-  block,
-  w100,
-  { padding: '0 20px' },
-  alignLeft,
+  s.relative,
+  s.zIndex2,
+  s.block,
+  s.fullWidth,
+  s.py0,
+  s.px20,
+  s.alignLeft,
 )
 
-const okayButtonStyle = css(buttonStyle, okayAndChoiceButtons, center)
+const okayButtonStyle = css(buttonStyle, okayAndChoiceButtons, s.center)
 const choiceButtonStyle = css(
   buttonStyle,
   okayAndChoiceButtons,
-  leftAlign,
-  modifier('.isActive', { width: 'calc(100% - 140px)', borderColor: '#666' }, bgc6),
-  select('& + &', mt10),
+  s.leftAlign,
+  modifier('.isActive', { width: 'calc(100% - 140px)', borderColor: '#666' }, s.bgc6),
+  select('& + &', s.mt10),
 )
 const flagButtonStyle = css(
   buttonStyle,
-  absolute,
+  s.absolute,
   { top: 0, right: 20, minWidth: 120 },
-  zIndex1,
-  media(minBreak4, { right: 40 }),
+  s.zIndex1,
+  media(s.minBreak4, { right: 40 }),
 )
 
 export default class FlagDialog extends Component {

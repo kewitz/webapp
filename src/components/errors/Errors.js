@@ -1,16 +1,16 @@
 import React, { PropTypes } from 'react'
 import { css, media } from '../../styles/jss'
-import { block, fontSize14, minBreak2, px0, px10 } from '../../styles/jso'
+import * as s from '../../styles/jso'
 
 const spinGif = '/static/images/support/ello-spin.gif'
 
-const imageStyle = css(block, { margin: '0 auto 75px' })
+const imageStyle = css(s.block, { margin: '0 auto 75px' })
 const errorStyle = css(
   { maxWidth: 780 },
-  px10,
-  { marginBottom: 30 },
-  fontSize14,
-  media(minBreak2, px0),
+  s.px10,
+  s.mb30,
+  s.fontSize14,
+  media(s.minBreak2, s.px0),
 )
 
 export const ErrorStateImage = () =>

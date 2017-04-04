@@ -3,21 +3,7 @@ import sampleSize from 'lodash/sampleSize'
 import Emoji from '../assets/Emoji'
 import { ElloQuickEmoji } from '../assets/Icons'
 import { css, hover, media, parent, select } from '../../styles/jss'
-import {
-  absolute,
-  bgcE,
-  color5,
-  color9,
-  minBreak2,
-  ml20,
-  nowrap,
-  opacity0,
-  opacity1,
-  pl10,
-  transitionColor,
-  transitionOpacity,
-  zIndex2,
-} from '../../styles/jso'
+import * as s from '../../styles/jso'
 
 const options = [
   '+1', 'sparkles', 'metal', 'ok_hand', 'v', 'snowman', 'heart', 'panda_face',
@@ -27,9 +13,9 @@ const options = [
 
 const choiceButtonStyle = css(
   { marginTop: -5 },
-  transitionOpacity,
+  s.transitionOpacity,
   hover({ opacity: 0.5 }),
-  select('& + &', ml20),
+  select('& + &', s.ml20),
 )
 
 const QuickEmojiChoiceButton = ({ name, onClick }) =>
@@ -43,19 +29,26 @@ QuickEmojiChoiceButton.propTypes = {
 }
 
 const wrapperStyle = css(
-  absolute,
-  zIndex2,
-  color9,
-  nowrap,
+  s.absolute,
+  s.zIndex2,
+  s.color9,
+  s.nowrap,
   // TODO: Set this from a prop
-  parent('.editor.isComment', { top: 92, right: 30 }, media(minBreak2, { top: 52 })),
+  parent('.editor.isComment', { top: 92, right: 30 }, media(s.minBreak2, { top: 52 })),
 )
-const wrapperActiveStyle = css(wrapperStyle, color5)
+const wrapperActiveStyle = css(s.wrapperStyle, s.color5)
 
-const listStyle = (absolute, { top: 0, left: -150 }, pl10, bgcE, opacity0, transitionOpacity)
-const listActiveStyle = css(listStyle, opacity1)
+const listStyle = css(
+  s.absolute,
+  { top: 0, left: -150 },
+  s.pl10,
+  s.bgcE,
+  s.opacity0,
+  s.transitionOpacity,
+)
+const listActiveStyle = css(listStyle, s.opacity1)
 
-const toggleButtonStyle = css(transitionColor, hover(color5))
+const toggleButtonStyle = css(s.transitionColor, hover(s.color5))
 
 export default class QuickEmoji extends PureComponent {
 

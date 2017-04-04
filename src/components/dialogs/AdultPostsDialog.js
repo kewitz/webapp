@@ -1,44 +1,32 @@
 import React, { PropTypes } from 'react'
 import { css, hover, media } from '../../styles/jss'
-import {
-  bgc6,
-  bgcBlack,
-  bgcWhite,
-  block,
-  borderBlack,
-  center,
-  colorBlack,
-  colorWhite,
-  fontSize14,
-  minBreak2,
-  mt0,
-  w100,
-} from '../../styles/jso'
+import * as s from '../../styles/jso'
 import { dialogStyle as baseDialogStyle } from './Dialog'
 
 const dialogStyle = css(
   { maxWidth: 480 },
-  colorBlack,
-  bgcWhite,
-  media(minBreak2, { minWidth: 480 }),
+  s.colorBlack,
+  s.bgcWhite,
+  media(s.minBreak2, { minWidth: 480 }),
 )
 
 const buttonStyle = css(
-  block,
-  w100,
-  { height: 60, lineHeight: '60px' },
-  fontSize14,
-  colorWhite,
-  center,
-  bgcBlack,
-  borderBlack,
+  s.block,
+  s.fullWidth,
+  s.h60,
+  { lineHeight: '60px' },
+  s.fontSize14,
+  s.colorWhite,
+  s.center,
+  s.bgcBlack,
+  s.borderBlack,
   { transition: 'background-color 0.2s ease, border-color 0.2s ease' },
-  hover(bgc6, { borderColor: '#666' }),
+  hover(s.bgc6, { borderColor: '#666' }),
 )
 
 const AdultPostsDialog = ({ onConfirm }) =>
   <div className={`${baseDialogStyle} ${dialogStyle}`}>
-    <p style={mt0}>
+    <p style={s.mt0}>
       If you post adult content, you must mark your account Not Safe for Work (NSFW).
     </p>
     <p>

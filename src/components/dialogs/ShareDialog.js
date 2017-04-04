@@ -11,26 +11,7 @@ import {
   TwitterIcon,
 } from '../assets/Icons'
 import { css, focus, hover, media } from '../../styles/jss'
-import {
-  alignBaseline,
-  bgc6,
-  bgcBlack,
-  bgcWhite,
-  borderBlack,
-  color6,
-  colorBlack,
-  colorWhite,
-  flex,
-  flexWrap,
-  fontSize14,
-  inlineBlock,
-  minBreak2,
-  ml10,
-  mt10,
-  p20,
-  relative,
-  w100,
-} from '../../styles/jso'
+import * as s from '../../styles/jso'
 import { dialogStyle as baseDialogStyle } from './Dialog'
 
 const SHARE_TYPES = {
@@ -53,21 +34,21 @@ SHARE_DIMENSIONS[SHARE_TYPES.REDDIT] = { width: 540, height: 420 }
 SHARE_DIMENSIONS[SHARE_TYPES.TUMBLR] = { width: 450, height: 430 }
 SHARE_DIMENSIONS[SHARE_TYPES.TWITTER] = { width: 520, height: 250 }
 
-const dialogStyle = css({ maxWidth: 290 }, colorBlack, bgcWhite, media(minBreak2, { maxWidth: 630 }))
+const dialogStyle = css({ maxWidth: 290 }, s.colorBlack, s.bgcWhite, media(s.minBreak2, { maxWidth: 630 }))
 const controlStyle = css(
-  inlineBlock,
-  w100,
-  p20,
-  fontSize14,
-  colorWhite,
-  alignBaseline,
-  bgcBlack,
-  borderBlack,
+  s.inlineBlock,
+  s.fullWidth,
+  s.p20,
+  s.fontSize14,
+  s.colorWhite,
+  s.alignBaseline,
+  s.bgcBlack,
+  s.borderBlack,
   { transition: 'background-color 0.2s ease, border-color 0.2s ease' },
-  focus(bgc6, { borderColor: '#666', outline: 0 }),
+  focus(s.bgc6, { borderColor: '#666', outline: 0 }),
 )
-const linksStyle = css(flex, flexWrap, { marginLeft: -10 })
-const linkStyle = css(relative, { width: 60, height: 60 }, mt10, ml10, bgcBlack, hover(color6))
+const linksStyle = css(s.flex, s.flexWrap, { marginLeft: -10 })
+const linkStyle = css(s.relative, s.w60, s.h60, s.mt10, s.ml10, s.bgcBlack, hover(s.color6))
 
 function onClickReadOnlyInput(e) {
   e.target.select()

@@ -1,47 +1,31 @@
 import React, { PropTypes } from 'react'
 import { css, hover, media, modifier, select } from '../../styles/jss'
-import {
-  alignMiddle,
-  bgcBlack,
-  bgcWhite,
-  borderWhite,
-  center,
-  colorBlack,
-  colorWhite,
-  ease,
-  fontSize14,
-  fontSize18,
-  fontSize24,
-  inlineBlock,
-  mb0,
-  mb10,
-  minBreak2,
-  mr20,
-  nowrap,
-} from '../../styles/jso'
+import * as s from '../../styles/jso'
 import { dialogStyle as baseDialogStyle } from './Dialog'
 
-const dialogStyle = css(center)
+const dialogStyle = css(s.center)
 // TODO: exports used by DeleteAccountDialog, move to Dialog?
 export const headingStyle = css(
-  { height: 30, lineHeight: '30px' }, mb10, fontSize18, nowrap,
-  media(minBreak2, inlineBlock, mr20, mb0, fontSize24, alignMiddle),
+  s.h30, { lineHeight: '30px' }, s.mb10, s.fontSize18, s.nowrap,
+  media(s.minBreak2, s.inlineBlock, s.mr20, s.mb0, s.fontSize24, s.alignMiddle),
 )
-const buttonHighlightStyle = css(colorWhite, bgcBlack, { borderColor: '#000' })
+const buttonHighlightStyle = css(s.colorWhite, s.bgcBlack, { borderColor: '#000' })
 export const buttonStyle = css(
-  inlineBlock,
-  { width: 60, height: 40, lineHeight: '40px', borderRadius: 20 },
-  fontSize14,
-  colorBlack,
-  center,
-  nowrap,
-  alignMiddle,
-  bgcWhite,
-  borderWhite,
-  { transition: `background-color 0.2s ${ease}, border-color 0.2s ${ease}, color 0.2s ${ease}, opacity 0.2s ${ease}` },
+  s.inlineBlock,
+  s.w60,
+  s.h40,
+  { lineHeight: '40px', borderRadius: 20 },
+  s.fontSize14,
+  s.colorBlack,
+  s.center,
+  s.nowrap,
+  s.alignMiddle,
+  s.bgcWhite,
+  s.borderWhite,
+  { transition: `background-color 0.2s ${s.ease}, border-color 0.2s ${s.ease}, color 0.2s ${s.ease}, opacity 0.2s ${s.ease}` },
   modifier('.isActive', buttonHighlightStyle),
   hover(buttonHighlightStyle),
-  select('& + &', { marginLeft: 5 }),
+  select('& + &', s.ml5),
 )
 
 const ConfirmDialog = ({ title, onConfirm, onDismiss }) =>

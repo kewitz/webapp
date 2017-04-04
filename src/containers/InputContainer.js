@@ -25,9 +25,9 @@ import TextTools from '../components/editor/TextTools'
 import { addInputObject, removeInputObject } from '../components/editor/InputComponent'
 import { replaceWordFromSelection } from '../components/editor/SelectionUtil'
 import { css } from '../styles/jss'
-import { fixed, zTools } from '../styles/jso'
+import * as s from '../styles/jso'
 
-const containerStyle = css(fixed, { top: 0, left: 0 }, zTools)
+const containerStyle = css(s.fixed, { top: 0, left: 0 }, s.zTools)
 
 function mapStateToProps(state) {
   return {

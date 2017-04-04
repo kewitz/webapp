@@ -1,15 +1,15 @@
 import React, { PropTypes } from 'react'
 import { css, select } from '../../styles/jss'
-import { ml10 } from '../../styles/jso'
+import * as s from '../../styles/jso'
 
 const baseStyle = css(
+  s.h40,
   {
     width: 135,
-    height: 40,
     background: 'transparent url("/static/images/support/app-store-sprite.png") no-repeat 0 0',
     backgroundSize: 'cover',
   },
-  select('& + &', ml10),
+  select('& + &', s.ml10),
 )
 
 export const AppleStore = ({ to }) =>

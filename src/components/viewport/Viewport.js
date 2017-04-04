@@ -2,9 +2,9 @@
 import React from 'react'
 import classNames from 'classnames'
 import { css } from '../../styles/jss'
-import { displayNone, hidden } from '../../styles/jso'
+import * as s from '../../styles/jso'
 
-const baseStyle = css(displayNone, hidden)
+const baseStyle = css(s.displayNone, s.hidden)
 
 type Props = {
   isAuthenticationView: boolean,

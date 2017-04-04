@@ -3,14 +3,7 @@ import React from 'react'
 import classNames from 'classnames'
 import { SVGBox, SVGIcon } from './SVGComponents'
 import { css, media, parent } from '../../styles/jss'
-import {
-  absolute,
-  easeInOutCubic,
-  minBreak3,
-  rotate90,
-  transformNone,
-  transitionTransform,
-} from '../../styles/jso'
+import * as s from '../../styles/jso'
 
 // -------------------------------------
 // Shapes for building icons
@@ -120,7 +113,7 @@ type ArrowProps = {
 
 const arrowStrokeAnimationStyle = css(
   { fill: '#fff' },
-  { animation: `animateUploaderMover 0.666s infinite ${easeInOutCubic}` },
+  { animation: `animateUploaderMover 0.666s infinite ${s.easeInOutCubic}` },
 )
 
 export const ArrowIcon = (props: ArrowProps) =>
@@ -204,9 +197,9 @@ export const CheckIconSM = () =>
   </SVGIcon>
 
 const chevronCircleStyle = css(
-  parent('.TreeButton', absolute, { top: 10, left: 0 }, rotate90, transitionTransform),
-  parent('.TreeButton.isCollapsed', transformNone),
-  media(minBreak3, parent('.TreeButton', { left: -30 })),
+  parent('.TreeButton', s.absolute, { top: 10, left: 0 }, s.rotate90, s.transitionTransform),
+  parent('.TreeButton.isCollapsed', s.transformNone),
+  media(s.minBreak3, parent('.TreeButton', { left: -30 })),
 )
 export const ChevronCircleIcon = () =>
   <SVGIcon className={`ChevronCircleIcon ${chevronCircleStyle}`}>

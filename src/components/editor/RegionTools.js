@@ -4,37 +4,29 @@ import { openModal, closeModal } from '../../actions/modals'
 import { DragIcon, XIcon } from '../assets/Icons'
 import ConfirmDialog from '../dialogs/ConfirmDialog'
 import { css, hover, parent } from '../../styles/jss'
-import {
-  absolute,
-  colorA,
-  colorBlack,
-  displayNone,
-  inlineBlock,
-  rotate90,
-  zIndex2,
-} from '../../styles/jso'
+import * as s from '../../styles/jso'
 
 const toolsStyle = css(
-  absolute,
+  s.absolute,
   { top: 5, right: 5 },
-  zIndex2,
-  colorA,
-  parent('.BlockPlaceholder >', displayNone),
-  parent('.ZeroState', displayNone),
+  s.zIndex2,
+  s.colorA,
+  parent('.BlockPlaceholder >', s.displayNone),
+  parent('.ZeroState', s.displayNone),
 )
 
 const dragButtonStyle = css(
-  displayNone,
-  rotate90,
+  s.displayNone,
+  s.rotate90,
   { cursor: 'move' },
-  hover(colorBlack),
-  parent('.no-touch', inlineBlock),
-  parent('.editor-region[data-num-blocks="1"]', displayNone),
+  hover(s.colorBlack),
+  parent('.no-touch', s.inlineBlock),
+  parent('.editor-region[data-num-blocks="1"]', s.displayNone),
 )
 
 const removeButtonStyle = css(
-  hover(colorBlack),
-  parent('.editor:not(.hasContent)', displayNone),
+  hover(s.colorBlack),
+  parent('.editor:not(.hasContent)', s.displayNone),
 )
 
 class RegionTools extends PureComponent {

@@ -3,43 +3,35 @@ import FormControl from '../forms/FormControl'
 import { CheckIconLG } from '../assets/Icons'
 import { hireUser } from '../../networking/api'
 import { css, disabled, focus, hover, media, select } from '../../styles/jss'
-import {
-  absolute,
-  bgc9,
-  bgcA,
-  bgcGreen,
-  center,
-  colorA,
-  colorWhite,
-  fontSize14,
-  fontSize18,
-  fontSize24,
-  minBreak2,
-  mr10,
-  relative,
-  w100,
-} from '../../styles/jso'
+import * as s from '../../styles/jso'
 import { dialogStyle as baseDialogStyle } from './Dialog'
 
 const dialogStyle = css(
-  w100,
+  s.fullWidth,
   { maxWidth: 440 },
-  select('& .CheckIconLG', absolute, { top: 7, left: -40, transform: 'scale(0.6)' }),
+  select('& .CheckIconLG', s.absolute, { top: 7, left: -40, transform: 'scale(0.6)' }),
   select('& .CheckIconLG > g', { stroke: '#00d100' }),
 )
-const headingStyle = css(relative, { marginBottom: 30 }, fontSize18, media(minBreak2, fontSize24))
+const headingStyle = css(s.relative, s.mb30, s.fontSize18, media(s.minBreak2, s.fontSize24))
 const buttonStyle = css(
   { height: 50, lineHeight: '50px', padding: '0 20px', borderRadius: 5 },
-  fontSize14,
-  colorA,
-  center,
+  s.fontSize14,
+  s.colorA,
+  s.center,
   { transition: 'background-color 0.2s ease, color 0.2s ease' },
-  focus(colorWhite),
-  hover(colorWhite),
-  disabled(colorWhite, bgcA),
+  focus(s.colorWhite),
+  hover(s.colorWhite),
+  disabled(s.colorWhite, s.bgcA),
 )
-const confirmButtonStyle = css(buttonStyle, mr10, colorWhite, bgcGreen)
-const okayButtonStyle = css(buttonStyle, w100, colorWhite, bgcA, focus(bgc9), hover(bgc9))
+const confirmButtonStyle = css(buttonStyle, s.mr10, s.colorWhite, s.bgcGreen)
+const okayButtonStyle = css(
+  buttonStyle,
+  s.fullWidth,
+  s.colorWhite,
+  s.bgcA,
+  focus(s.bgc9),
+  hover(s.bgc9),
+)
 
 export default class MessageDialog extends PureComponent {
   static propTypes = {

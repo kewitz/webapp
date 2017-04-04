@@ -3,26 +3,12 @@ import { FORM_CONTROL_STATUS as STATUS } from '../../constants/status_types'
 import TextControl from '../forms/TextControl'
 import { isValidURL } from '../forms/Validators'
 import { css, disabled, focus, hover, select } from '../../styles/jss'
-import {
-  bgc6,
-  bgcA,
-  bgcGreen,
-  center,
-  color6,
-  colorA,
-  colorWhite,
-  ease,
-  fontSize14,
-  fontSize24,
-  mr10,
-  pointerNone,
-  w100,
-} from '../../styles/jso'
+import * as s from '../../styles/jso'
 import { dialogStyle as baseDialogStyle } from './Dialog'
 
-const dialogStyle = css(w100, { maxWidth: 440 })
-const headingStyle = css({ marginBottom: 30 }, fontSize24)
-const buttonHighlightStyle = css(colorWhite, bgc6, { borderColor: '#666' })
+const dialogStyle = css(s.fullWidth, { maxWidth: 440 })
+const headingStyle = css(s.mb30, s.fontSize24)
+const buttonHighlightStyle = css(s.colorWhite, s.bgc6, { borderColor: '#666' })
 const buttonStyle = css(
   {
     width: 100,
@@ -31,16 +17,16 @@ const buttonStyle = css(
     padding: '0 20px',
     borderRadius: 5,
   },
-  fontSize14,
-  colorA,
-  center,
-  { transition: `background-color 0.2s ${ease}, border-color 0.2s ${ease}, color 0.2s ${ease}, width 0.2s ${ease}` },
-  disabled(pointerNone, color6, bgcA),
+  s.fontSize14,
+  s.colorA,
+  s.center,
+  { transition: `background-color 0.2s ${s.ease}, border-color 0.2s ${s.ease}, color 0.2s ${s.ease}, width 0.2s ${s.ease}` },
+  disabled(s.pointerNone, s.color6, s.bgcA),
   focus(buttonHighlightStyle),
   hover(buttonHighlightStyle),
 )
-const submitButtonStyle = css(mr10, colorWhite, bgcGreen)
-const removeButtonStyle = css(mr10, colorWhite, bgcA)
+const submitButtonStyle = css(s.mr10, s.colorWhite, s.bgcGreen)
+const removeButtonStyle = css(s.mr10, s.colorWhite, s.bgcA)
 
 
 // TODO: Move this out to FormControls

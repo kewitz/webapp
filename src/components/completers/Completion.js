@@ -2,38 +2,25 @@ import React, { PropTypes, PureComponent } from 'react'
 import classNames from 'classnames'
 import { getSelectionContainerElement } from '../editor/SelectionUtil'
 import { css, hover, modifier, select } from '../../styles/jss'
-import {
-  bgc4,
-  block,
-  borderTop,
-  colorWhite,
-  ellipsis,
-  leftAlign,
-  ml10,
-  nowrap,
-  overflowHidden,
-  p10,
-  transitionBgColor,
-  w100,
-} from '../../styles/jso'
+import * as s from '../../styles/jso'
 
 const buttonStyle = css(
-  block,
-  w100,
-  p10,
-  overflowHidden,
-  colorWhite,
-  leftAlign,
-  ellipsis,
-  nowrap,
+  s.block,
+  s.fullWidth,
+  s.p10,
+  s.overflowHidden,
+  s.colorWhite,
+  s.leftAlign,
+  s.ellipsis,
+  s.nowrap,
   { backgroundColor: 'rgba(0, 0, 0, 0.95)' },
-  transitionBgColor,
-  select('& + &', borderTop),
-  hover(bgc4),
-  modifier('.isActive', bgc4),
+  s.transitionBgColor,
+  select('& + &', s.borderTop),
+  hover(s.bgc4),
+  modifier('.isActive', s.bgc4),
 )
 
-const labelStyle = css(ml10)
+const labelStyle = css(s.ml10)
 
 export default class Completion extends PureComponent {
 

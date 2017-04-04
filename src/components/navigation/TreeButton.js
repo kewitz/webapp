@@ -2,32 +2,20 @@ import React, { PropTypes, PureComponent } from 'react'
 import classNames from 'classnames'
 import { ChevronCircleIcon } from '../assets/Icons'
 import { css, hover, media } from '../../styles/jss'
-import {
-  alignTop,
-  colorA,
-  colorBlack,
-  fontSize18,
-  fontSize24,
-  minBreak2,
-  minBreak3,
-  nowrap,
-  pl0,
-  relative,
-  transitionColor,
-} from '../../styles/jso'
+import * as s from '../../styles/jso'
 
 const buttonStyle = css(
-  relative,
-  { height: 40 },
-  { paddingLeft: 30 },
-  fontSize18,
-  colorBlack,
-  nowrap,
-  alignTop,
-  transitionColor,
-  hover(colorA),
-  media(minBreak2, fontSize24),
-  media(minBreak3, pl0),
+  s.relative,
+  s.h40,
+  s.pl30,
+  s.fontSize18,
+  s.colorBlack,
+  s.nowrap,
+  s.alignTop,
+  s.transitionColor,
+  hover(s.colorA),
+  media(s.minBreak2, s.fontSize24),
+  media(s.minBreak3, s.pl0),
 )
 
 export default class TreeButton extends PureComponent {

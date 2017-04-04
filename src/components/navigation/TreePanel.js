@@ -1,13 +1,13 @@
 import React, { PropTypes } from 'react'
 import { css, media, select } from '../../styles/jss'
-import { minBreak3, mt0, overflowHidden, pl0 } from '../../styles/jso'
+import * as s from '../../styles/jso'
 
 const panelStyle = css(
-  { paddingLeft: 30 },
-  overflowHidden,
-  select('& > p:first-child', mt0),
+  s.p30,
+  s.overflowHidden,
+  select('& > p:first-child', s.mt0),
   select('.TreeButton.isCollapsed + &', { height: 0 }),
-  media(minBreak3, pl0),
+  media(s.minBreak3, s.pl0),
 )
 
 const TreePanel = ({ children }) =>

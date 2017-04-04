@@ -9,16 +9,16 @@ import { getPositionFromSelection } from '../editor/SelectionUtil'
 import { addKeyObject, removeKeyObject } from '../viewport/KeyComponent'
 import { addScrollObject, removeScrollObject } from '../viewport/ScrollComponent'
 import { css, media } from '../../styles/jss'
-import { fixed, fontSize14, minBreak2, overflowScrollWebY, w100, zIndex2 } from '../../styles/jso'
+import * as s from '../../styles/jso'
 
 const baseStyle = css(
-  fixed,
-  zIndex2,
-  w100,
+  s.fixed,
+  s.zIndex2,
+  s.fullWidth,
   { height: 235 },
-  overflowScrollWebY,
-  fontSize14,
-  media(minBreak2, { maxWidth: 240, height: 320 }),
+  s.overflowScrollWebY,
+  s.fontSize14,
+  media(s.minBreak2, { maxWidth: 240, height: 320 }),
 )
 
 export const emojiRegex = /\s?:{1}(\w+|\+|-):{0}$/
