@@ -14,7 +14,6 @@ const pxRegExp = /"[^"]+"|'[^']+'|url\([^)]+\)|(\d*\.?\d+)px/ig
 const blacklist = [
   'zIndex',
   'opacity',
-  'lineHeight',
   'fontWeight',
   'flex',
   'flexGrow',

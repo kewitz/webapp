@@ -3,7 +3,7 @@ import { css, media, select } from '../../styles/jss'
 import * as s from '../../styles/jso'
 
 const panelStyle = css(
-  s.p30,
+  s.pl30,
   s.overflowHidden,
   select('& > p:first-child', s.mt0),
   select('.TreeButton.isCollapsed + &', { height: 0 }),

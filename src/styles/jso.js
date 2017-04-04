@@ -97,6 +97,10 @@ export const h30 = { height: 30 }
 export const h40 = { height: 40 }
 export const h60 = { height: 60 }
 
+export const lh30 = { lineHeight: 30 }
+export const lh40 = { lineHeight: 40 }
+export const lh60 = { lineHeight: 60 }
+
 // TODO: Candidates for immutable jso?
 // maxWidth: 480(4), 440(2)
 // minWidth: 480(2), 440

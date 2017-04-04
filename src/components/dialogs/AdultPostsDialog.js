@@ -14,7 +14,7 @@ const buttonStyle = css(
   s.block,
   s.fullWidth,
   s.h60,
-  { lineHeight: '60px' },
+  s.lh60,
   s.fontSize14,
   s.colorWhite,
   s.center,

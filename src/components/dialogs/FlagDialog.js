@@ -23,13 +23,7 @@ const dialogStyle = css(
   media(s.minBreak2, { minWidth: 480, maxWidth: 580 }),
 )
 
-const headingStyle = css(
-  s.h40,
-  { lineHeight: '40px' },
-  s.mb20,
-  s.fontSize18,
-  media(s.minBreak2, s.fontSize24),
-)
+const headingStyle = css(s.h40, s.lh40, s.mb20, s.fontSize18, media(s.minBreak2, s.fontSize24))
 
 const footnoteStyle = css(
   { margin: '20px 0 0' },
@@ -38,7 +32,7 @@ const footnoteStyle = css(
 
 const buttonStyle = css(
   s.h60,
-  { lineHeight: '60px' },
+  s.lh60,
   s.fontSize14,
   s.colorWhite,
   s.bgcBlack,

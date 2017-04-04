@@ -7,12 +7,12 @@ import { dialogStyle as baseDialogStyle } from './Dialog'
 const dialogStyle = css({ maxWidth: 400 }, media(s.minBreak2, { maxWidth: 800 }))
 const columnStyle = media(s.minBreak2, s.inlineBlock, s.alignTop, { maxWidth: 'calc(33.33333% - 30px)' })
 const siblingColumnStyle = css(s.mt40, media(s.minBreak2, s.mt0, s.ml30))
-const headingStyle = css(s.mb40, s.fontSize18, s.h30, { lineHeight: '30px' }, media(s.minBreak2, s.fontSize24))
+const headingStyle = css(s.mb40, s.fontSize18, s.h30, s.lh30, media(s.minBreak2, s.fontSize24))
 const buttonHighlightStyle = css(s.colorWhite, s.bgcBlack, { borderColor: '#000' })
 const buttonStyle = css(
   s.fullWidth,
   s.h40,
-  { lineHeight: '40px' },
+  s.lh40,
   s.mb20,
   s.fontSize14,
   s.colorBlack,

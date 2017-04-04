@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react'
 import { css } from '../../styles/jss'
 import * as s from '../../styles/jso'
 
-const styles = css(s.inlineBlock)
+const baseStyle = css(s.inlineBlock)
 
 const Emoji = (props) => {
   const { alt, name, size, src, title, width, height } = props
@@ -11,7 +11,7 @@ const Emoji = (props) => {
     <img
       {...props}
       alt={alt || tip}
-      className={styles}
+      className={baseStyle}
       src={src || `${ENV.AUTH_DOMAIN}/images/emoji/${name}.png`}
       title={title || tip}
       width={width || size}

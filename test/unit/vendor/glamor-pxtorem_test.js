@@ -18,7 +18,8 @@ const fullInput = {
   padding: '0 10px 1em',
   margin: '0 10px 20px 5px',
   fontSize: 24,
-  lineHeight: 10.2,
+  lineHeight: 10,
+  lineHeight2: 1.2,
   counterIncrement: 99,
   counterReset: 0,
   opacity: 0.5,
@@ -47,7 +48,8 @@ const fullOutput = {
   padding: '0 0.625rem 1em',
   margin: '0 0.625rem 1.25rem 0.3125rem',
   fontSize: '1.5rem',
-  lineHeight: 10.2,
+  lineHeight: '0.625rem',
+  lineHeight2: 1.2,
   counterIncrement: 99,
   counterReset: 0,
   opacity: 0.5,
@@ -108,7 +110,7 @@ describe('pxtorem', () => {
   })
 
   it('should ignore properties in the blacklist', () => {
-    const style = { lineHeight: 40, opacity: 0.5, zIndex: 666, flexGrow: 6, order: 10 }
+    const style = { opacity: 0.5, zIndex: 666, flexGrow: 6, order: 10 }
     const converted = pxtorem({ style }).style
     expect(converted).to.deep.equal(style)
   })

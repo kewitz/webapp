@@ -27,7 +27,7 @@ const buttonStyle = css(
   parent('.Notification .RegionContent', { top: 5, right: 5 }),
   select('.Notification & svg', { transform: 'scale(0.7)', transformOrigin: '2px 2px' }),
   // TODO: This is weird, has nothing to do with Embed button but came from CSS file...
-  select('.EmbedRegion .embetter a', { lineHeight: '40px' }),
+  select('.EmbedRegion .embetter a', s.lh40),
 )
 
 function onElloBuyButtonClick(e) {

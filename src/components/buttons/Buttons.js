@@ -5,7 +5,8 @@ import * as s from '../../styles/jso'
 
 const miniPillStyle = css(
   s.h30,
-  { lineHeight: '30px', borderRadius: 15 },
+  s.lh30,
+  { borderRadius: 15 },
   s.py0,
   s.px10,
   s.fontSize12,

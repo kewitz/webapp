@@ -21,7 +21,8 @@ import * as s from '../../styles/jso'
 const buttonStyle = css(
   s.w40,
   s.h40,
-  { lineHeight: '40px', borderRadius: 20 },
+  s.lh40,
+  { borderRadius: 20 },
   s.pr10,
   s.pl15,
   s.overflowHidden,
