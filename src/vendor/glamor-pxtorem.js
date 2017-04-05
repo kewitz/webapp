@@ -20,6 +20,7 @@ const blacklist = [
   'flexShrink',
   'flexOrder',
   'order',
+  'columnCount',
   'strokeMiterlimit',
   'strokeWidth',
   'counterIncrement',
