@@ -432,7 +432,7 @@ describe('post selectors', () => {
     it('returns the post canonical url', () => {
       const props = { post: Immutable.Map({ id: '1' }), params: { token: 'token' } }
       expect(selector.selectPostMetaCanonicalUrl(state, props)).to.deep.equal(null)
-      state.json = state.json.setIn(['posts', '1', 'metaAttributes', 'canonicalUrl'], 'meta-canonicalUrl')
+      state = { json: state.json.setIn(['posts', '1', 'metaAttributes', 'canonicalUrl'], 'meta-canonicalUrl') }
       expect(selector.selectPostMetaCanonicalUrl(state, props)).to.deep.equal('meta-canonicalUrl')
     })
   })
