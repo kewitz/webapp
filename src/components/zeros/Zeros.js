@@ -1,14 +1,28 @@
 import React, { PropTypes } from 'react'
 import RelationshipContainer from '../../containers/RelationshipContainer'
 import Editor from '../editor/Editor'
+import { css, hover, media, parent, select } from '../../styles/jss'
+import * as s from '../../styles/jso'
+
+const zeroStreamStyle = css(
+  s.relative,
+  s.my0,
+  s.mxAuto,
+  { maxWidth: 540, padding: '53px 10px' },
+  s.bgcWhite,
+  select('.Following.MainView & + .StreamContainer > &', s.displayNone),
+)
+
+const headingStyle = css(s.fontSize18, media(s.minBreak2, s.fontSize24))
+const buttonStyle = css(s.mt20, s.fontSize14, s.colorA, s.transitionColor, hover(s.colorBlack))
 
 export const ZeroStream = ({ children, onDismiss }) =>
-  <div className="ZeroStream">
-    <h2 className="ZeroStreamHeading">
+  <div className={zeroStreamStyle}>
+    <h2 className={headingStyle}>
       {children}
     </h2>
     {onDismiss ?
-      <button className="ZeroStreamButton" onClick={onDismiss}>
+      <button className={buttonStyle} onClick={onDismiss}>
         <span>Close</span>
       </button> :
       null
@@ -33,8 +47,21 @@ export const ZeroFollowingStream = () =>
 
 // -------------------------------------
 
+const zeroStateStyle = css(
+  s.fontSize14,
+  s.colorA,
+  parent('.ZeroStates >', { marginTop: 60 }),
+  media(s.minBreak2, parent('.UserDetails', s.relative, { paddingLeft: 240 })),
+  media(s.minBreak2, parent('.UserDetails .StreamContainer', s.relative, { marginLeft: -20 })),
+  media(s.minBreak4, parent('.UserDetails', s.relative, { paddingLeft: 260 })),
+  media(s.minBreak4, parent('.UserDetails .StreamContainer', s.relative, { marginLeft: -40 })),
+)
+
+const titleStyle = css(s.mb20, s.fontSize18, s.colorA, media(s.minBreak2, s.fontSize24))
+const usernameStyle = css(s.decorationNone)
+
 export const ZeroState = ({ children = 'Sorry, no results found.' }) =>
-  <div className="ZeroState">
+  <div className={`ZeroState ${zeroStateStyle}`}>
     {children}
   </div>
 
@@ -45,8 +72,8 @@ ZeroState.propTypes = {
 
 export const ZeroStateCreateRelationship = ({ userId, username }) =>
   <ZeroState>
-    <h2 className="ZeroStateTitle">
-      <span className="ZeroStateUsername">{`@${username}`}</span>
+    <h2 className={titleStyle}>
+      <span className={usernameStyle}>{`@${username}`}</span>
       <span>{' doesn\'t have any followers yet, why don\'t you be their first?'}</span>
     </h2>
     <RelationshipContainer
@@ -62,9 +89,9 @@ ZeroStateCreateRelationship.propTypes = {
 
 export const ZeroStateSayHello = ({ hasPosted = false, onSubmit, username }) =>
   <ZeroState>
-    <h2 className="ZeroStateTitle">
+    <h2 className={titleStyle}>
       <span>{'It doesn\'t look like '}</span>
-      <span className="ZeroStateUsername">{`@${username}`}</span>
+      <span className={usernameStyle}>{`@${username}`}</span>
       <span>{' has posted yet, why don\'t you say hi?'}</span>
     </h2>
     {hasPosted ?
@@ -82,7 +109,7 @@ ZeroStateSayHello.propTypes = {
 
 export const ZeroStateFirstPost = () =>
   <ZeroState>
-    <h2 className="ZeroStateTitle">
+    <h2 className={titleStyle}>
       It doesn’t look like you’ve posted yet, why don’t you give it a shot.
     </h2>
     <Editor autoPopulate="Ello World! My first post on :ello:!" />

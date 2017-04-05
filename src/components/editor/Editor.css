@@ -180,3 +180,42 @@
   }
 }
 
+/* // ------------------------------------- */
+/* // This should become a `ZeroStateEditor` at some point, */
+/* // but waiting for the editor API to settle a little more */
+
+.ZeroState .editor {
+  color: #666;
+}
+
+.ZeroState .editor::before {
+  display: none;
+}
+
+.ZeroState .editor-region {
+  min-height: 60px;
+}
+
+.ZeroState .editable {
+  min-height: 0;
+  padding: 0;
+  border: 0;
+}
+
+.ZeroState .editor.hasMention .editor-region {
+  background-color: #e5e5e5;
+}
+
+.ZeroState .PostActionButton {
+  color: #aaa;
+  border: 1px solid currentColor;
+}
+
+.ZeroState .PostActionButton:not(.forPost) {
+  display: none;
+}
+
+.ZeroState .PostActionButton.forPost {
+  width: 85px;
+}
+
