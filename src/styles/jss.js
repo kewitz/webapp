@@ -25,9 +25,18 @@ export const select = (selector: string, ...styles:Array<JSO>) =>
 export const hover = (...styles:Array<JSO>) =>
   select('.no-touch &:hover', ...styles)
 
+export const focus = (...styles:Array<JSO>) =>
+  select(':focus', ...styles)
+
 export const before = (...styles:Array<JSO>) =>
   select('::before', ...styles)
 
 export const after = (...styles:Array<JSO>) =>
   select('::after', ...styles)
+
+export const placeholder = (...styles:Array<JSO>) =>
+  select('::placeholder', ...styles)
+
+export const disabled = (...styles:Array<JSO>) =>
+  modifier('[disabled]', ...styles)
 

@@ -24,6 +24,10 @@ import Completer from '../components/completers/Completer'
 import TextTools from '../components/editor/TextTools'
 import { addInputObject, removeInputObject } from '../components/editor/InputComponent'
 import { replaceWordFromSelection } from '../components/editor/SelectionUtil'
+import { css } from '../styles/jss'
+import * as s from '../styles/jso'
+
+const containerStyle = css(s.fixed, { top: 0, left: 0 }, s.zTools)
 
 function mapStateToProps(state) {
   return {
@@ -167,7 +171,7 @@ class InputContainer extends PureComponent {
     const onCompletion = completions && completions.get('type') === 'location' ?
       this.onLocationCompletion : this.onCompletion
     return (
-      <div className="InputContainer">
+      <div className={`Popovers ${containerStyle}`}>
         {isCompleterActive && completions ?
           <Completer
             completions={completions}

@@ -5,30 +5,21 @@ import Block from './Block'
 import ImageAsset from '../assets/ImageAsset'
 import { ArrowIcon } from '../assets/Icons'
 import { css } from '../../styles/jss'
-import {
-  absolute,
-  bgcWhite,
-  colorA,
-  flex,
-  flood,
-  itemsCenter,
-  justifyCenter,
-  relative,
-} from '../../styles/jso'
+import * as s from '../../styles/jso'
 
 const busyWrapperStyle = css(
-  absolute,
-  flood,
-  flex,
-  itemsCenter,
-  justifyCenter,
+  s.absolute,
+  s.flood,
+  s.flex,
+  s.itemsCenter,
+  s.justifyCenter,
   { backgroundColor: 'rgba(0, 0, 0, 0.5)' },
 )
 
 const arrowStyle = css(
-  relative,
-  colorA,
-  bgcWhite,
+  s.relative,
+  s.colorA,
+  s.bgcWhite,
   {
     padding: 4,
     borderRadius: '50%',

@@ -1,12 +1,35 @@
-import React, { Component, PropTypes } from 'react'
+import React, { PropTypes, PureComponent } from 'react'
 import { connect } from 'react-redux'
 import { openModal, closeModal } from '../../actions/modals'
 import { DragIcon, XIcon } from '../assets/Icons'
 import ConfirmDialog from '../dialogs/ConfirmDialog'
+import { css, hover, parent } from '../../styles/jss'
+import * as s from '../../styles/jso'
 
-/* eslint-disable react/prefer-stateless-function */
-class RegionTools extends Component {
+const toolsStyle = css(
+  s.absolute,
+  { top: 5, right: 5 },
+  s.zIndex2,
+  s.colorA,
+  parent('.BlockPlaceholder >', s.displayNone),
+  parent('.ZeroState', s.displayNone),
+)
 
+const dragButtonStyle = css(
+  s.displayNone,
+  s.rotate90,
+  { cursor: 'move' },
+  hover(s.colorBlack),
+  parent('.no-touch', s.inlineBlock),
+  parent('.editor-region[data-num-blocks="1"]', s.displayNone),
+)
+
+const removeButtonStyle = css(
+  hover(s.colorBlack),
+  parent('.editor:not(.hasContent)', s.displayNone),
+)
+
+class RegionTools extends PureComponent {
   static propTypes = {
     dispatch: PropTypes.func.isRequired,
     editorId: PropTypes.string.isRequired,
@@ -37,17 +60,11 @@ class RegionTools extends Component {
   render() {
     const { editorId } = this.props
     return (
-      <div className="RegionTools">
-        <button
-          className="BlockRemove"
-          onClick={this.handleDeleteBlock}
-        >
+      <div className={`RegionTools ${toolsStyle}`}>
+        <button className={`BlockRemove ${removeButtonStyle}`} onClick={this.handleDeleteBlock}>
           <XIcon />
         </button>
-        <button
-          className="DragHandler"
-          data-drag-id={editorId}
-        >
+        <button className={`DragHandler ${dragButtonStyle}`} data-drag-id={editorId}>
           <DragIcon />
         </button>
       </div>

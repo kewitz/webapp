@@ -8,7 +8,7 @@ import ContentWarningButton from '../posts/ContentWarningButton'
 import RelationshipContainer from '../../containers/RelationshipContainer'
 import { RegionItems } from '../regions/RegionRenderables'
 import { css, hover, select } from '../../styles/jss'
-import { absolute, colorA, colorBlack, fontSize18, transitionColor } from '../../styles/jso'
+import * as s from '../../styles/jso'
 
 const PostHeaderTimeAgoLink = ({ to, createdAt }) =>
   <Link className="PostHeaderTimeAgoLink" to={to}>
@@ -202,7 +202,7 @@ export class PostBody extends PureComponent {
     } = this.props
     const cells = []
 
-    if (contentWarning) {
+    if (contentWarning && !isPostDetail) {
       cells.push(<ContentWarningButton contentWarning={contentWarning} key={`contentWarning_${postId}`} />)
     }
 
@@ -253,13 +253,13 @@ export class PostBody extends PureComponent {
 }
 
 const relatedPostButtonStyle = css(
-  absolute,
+  s.absolute,
   { top: 0, right: 0 },
-  fontSize18,
-  colorA,
-  transitionColor,
-  hover(colorBlack),
-  select('& > .ArrowIcon', { transform: 'rotate(90deg)', marginLeft: 15 }),
+  s.fontSize18,
+  s.colorA,
+  s.transitionColor,
+  hover(s.colorBlack),
+  select('& > .ArrowIcon', s.rotate90, { marginLeft: 15 }),
 )
 
 export const RelatedPostsButton = (props, { onClickScrollToRelatedPosts }) =>

@@ -210,6 +210,10 @@ textarea.FormControlInput.isOnboardingControl {
   margin-bottom: 0;
 }
 
+textarea.FormControlInput.MessageMessageControl {
+  height: 180px;
+}
+
 @media (--break-3) {
   .hasValue > textarea.FormControlInput:not(.isBoxControl),
   .hasFocus > textarea.FormControlInput:not(.isBoxControl) {

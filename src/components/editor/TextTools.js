@@ -2,12 +2,70 @@ import React, { PropTypes, PureComponent } from 'react'
 import classNames from 'classnames'
 import { LinkIcon } from '../assets/Icons'
 import { textToolsPath } from '../../networking/api'
+import { css, focus, hover, media, modifier, parent, placeholder, select } from '../../styles/jss'
+import * as s from '../../styles/jso'
 
 function prefixLink(text) {
   const linkPrefix = /((ftp|http|https):\/\/.)|mailto(?=:[-.\w]+@)/
   if (!linkPrefix.test(text)) return `http://${text}`
   return text
 }
+
+const toolsStyle = css(
+  s.fixed,
+  s.zIndex2,
+  { width: 93, marginLeft: '-1px' },
+  s.overflowHidden,
+  s.nowrap,
+  { transition: `width 0.2s ${s.ease}, opacity 0.2s ${s.ease}` },
+  modifier('.asShowLinkForm', { width: 215 }),
+  modifier('.isHidden', s.pointerEvents, s.opacity0),
+  media(s.maxBreak2, s.displayNone), // TODO: We should really disable the tools
+)
+
+const buttonStyle = css(
+  s.relative,
+  s.zIndex1,
+  s.wv30,
+  s.hv30,
+  s.lh30,
+  { marginLeft: '1px', borderRadius: '50%' },
+  s.fontSize14,
+  s.colorA,
+  s.center,
+  s.alignMiddle,
+  s.bgcWhite,
+  { transition: `border-radius 0.2s ${s.ease}, color 0.2s, width 0.2s ${s.ease}` },
+  hover(s.colorBlack),
+  modifier('.isActive', s.colorBlack),
+  select('&.forItalic > em', s.monoRegular, s.italic, { marginLeft: '-2px' }),
+  select('.TextTools.asShowLinkForm &.forBold', { width: 0 }),
+  select('.TextTools.asShowLinkForm &.forItalic', { width: 0 }),
+  select('.TextTools.asShowLinkForm &.forLink', { borderRadius: '50% 0 0 50%' }),
+)
+
+const formStyle = css(
+  s.zIndex0,
+  s.inlineBlock,
+  s.hv30,
+  s.alignMiddle,
+  s.transitionTransform,
+  parent('.TextTools.asShowLinkForm', { transform: 'translateX(-30px)' }),
+)
+
+const inputStyle = css(
+  s.inlineBlock,
+  s.hv30,
+  { width: 210, padding: '0 10px 0 35px', borderRadius: 15 },
+  s.fontSize14,
+  s.colorBlack,
+  s.alignBaseline,
+  s.bgcWhite,
+  { border: 0, outline: 0 },
+  { transition: `background-color 0.2s ${s.ease}, color 0.2s ${s.ease}, width 0.2s ${s.ease}, height 0.2s ${s.ease}` },
+  focus({ outline: 0 }),
+  placeholder(s.colorA),
+)
 
 export default class TextTools extends PureComponent {
 
@@ -131,35 +189,35 @@ export default class TextTools extends PureComponent {
     return (
       <div
         style={style}
-        className={classNames('TextTools', { asShowLinkForm, isHidden })}
+        className={classNames(`TextTools ${toolsStyle}`, { asShowLinkForm, isHidden })}
       >
         <button
-          className={classNames('TextToolButton forBold', { isActive: isBoldActive })}
+          className={classNames(`TextToolButton forBold ${buttonStyle}`, { isActive: isBoldActive })}
           onClick={this.handleBoldToggle}
         >
           <strong>B</strong>
         </button>
         <button
-          className={classNames('TextToolButton forItalic', { isActive: isItalicActive })}
+          className={classNames(`TextToolButton forItalic ${buttonStyle}`, { isActive: isItalicActive })}
           onClick={this.handleItalicToggle}
         >
           <em>I</em>
         </button>
         <button
-          className={classNames('TextToolButton forLink', { isActive: isLinkActive })}
+          className={classNames(`TextToolButton forLink ${buttonStyle}`, { isActive: isLinkActive })}
           onClick={this.handleLinkToggle}
         >
           <LinkIcon />
         </button>
         <form
           action={textToolsPath().path}
-          className="TextToolForm"
+          className={`TextToolForm ${formStyle}`}
           method="POST"
           noValidate="novalidate"
           onSubmit={this.handleSubmit}
         >
           <input
-            className="TextToolLinkInput"
+            className={`TextToolLinkInput ${inputStyle}`}
             onFocus={this.handleFocus}
             onBlur={this.handleBlur}
             onChange={this.handleChange}

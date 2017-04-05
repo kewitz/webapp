@@ -2,6 +2,36 @@ import React, { PropTypes, PureComponent } from 'react'
 import FormControl from '../forms/FormControl'
 import { CheckIconLG } from '../assets/Icons'
 import { hireUser } from '../../networking/api'
+import { css, disabled, focus, hover, media, select } from '../../styles/jss'
+import * as s from '../../styles/jso'
+import { dialogStyle as baseDialogStyle } from './Dialog'
+
+const dialogStyle = css(
+  s.fullWidth,
+  { maxWidth: 440 },
+  select('& .CheckIconLG', s.absolute, { top: 7, left: -40, transform: 'scale(0.6)' }),
+  select('& .CheckIconLG > g', { stroke: '#00d100' }),
+)
+const headingStyle = css(s.relative, s.mb30, s.fontSize18, media(s.minBreak2, s.fontSize24))
+const buttonStyle = css(
+  { height: 50, lineHeight: '50px', padding: '0 20px', borderRadius: 5 },
+  s.fontSize14,
+  s.colorA,
+  s.center,
+  { transition: 'background-color 0.2s ease, color 0.2s ease' },
+  focus(s.colorWhite),
+  hover(s.colorWhite),
+  disabled(s.colorWhite, s.bgcA),
+)
+const confirmButtonStyle = css(buttonStyle, s.mr10, s.colorWhite, s.bgcGreen)
+const okayButtonStyle = css(
+  buttonStyle,
+  s.fullWidth,
+  s.colorWhite,
+  s.bgcA,
+  focus(s.bgc9),
+  hover(s.bgc9),
+)
 
 export default class MessageDialog extends PureComponent {
   static propTypes = {
@@ -41,8 +71,8 @@ export default class MessageDialog extends PureComponent {
     const { name, onDismiss, titlePrefix } = this.props
     const { isValid } = this.state
     return (
-      <div className="Dialog MessageDialog">
-        <h2 className="MessageDialogTitle">{`${titlePrefix} ${name}`}</h2>
+      <div className={`${baseDialogStyle} ${dialogStyle}`}>
+        <h2 className={headingStyle}>{`${titlePrefix} ${name}`}</h2>
         <form
           action={hireUser(null).path}
           className="MessageForm"
@@ -64,14 +94,14 @@ export default class MessageDialog extends PureComponent {
           />
         </form>
         <button
-          className="MessageDialogButton isConfirmButton"
+          className={confirmButtonStyle}
           disabled={!isValid}
           onClick={this.onConfirm}
         >
           Submit
         </button>
         <button
-          className="MessageDialogButton isDismissButton"
+          className={buttonStyle}
           onClick={onDismiss}
         >
           Cancel
@@ -83,13 +113,13 @@ export default class MessageDialog extends PureComponent {
   renderSent() {
     const { name, onDismiss } = this.props
     return (
-      <div className="Dialog MessageDialog">
-        <h2 className="MessageDialogTitle">
+      <div className={`${baseDialogStyle} ${dialogStyle}`}>
+        <h2 className={headingStyle}>
           <CheckIconLG />
           <span>{`Email sent to ${name}`}</span>
         </h2>
         <button
-          className="MessageDialogButton isOkayButton"
+          className={okayButtonStyle}
           onClick={onDismiss}
         >
           Okay

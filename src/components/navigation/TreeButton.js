@@ -1,9 +1,24 @@
 import React, { PropTypes, PureComponent } from 'react'
 import classNames from 'classnames'
 import { ChevronCircleIcon } from '../assets/Icons'
+import { css, hover, media } from '../../styles/jss'
+import * as s from '../../styles/jso'
 
+const buttonStyle = css(
+  s.relative,
+  s.hv40,
+  s.pl30,
+  s.fontSize18,
+  s.colorBlack,
+  s.nowrap,
+  s.alignTop,
+  s.transitionColor,
+  hover(s.colorA),
+  media(s.minBreak2, s.fontSize24),
+  media(s.minBreak3, s.pl0),
+)
 
-class TreeButton extends PureComponent {
+export default class TreeButton extends PureComponent {
 
   static propTypes = {
     children: PropTypes.string.isRequired,
@@ -40,7 +55,7 @@ class TreeButton extends PureComponent {
     const { collapsed } = this.state
     return (
       <button
-        className={classNames(className, 'TreeButton', { isCollapsed: collapsed })}
+        className={classNames('TreeButton', className, `${buttonStyle}`, { isCollapsed: collapsed })}
         onClick={this.onClickTreeButton}
       >
         <ChevronCircleIcon />
@@ -49,6 +64,4 @@ class TreeButton extends PureComponent {
     )
   }
 }
-
-export default TreeButton
 

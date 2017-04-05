@@ -1,14 +1,17 @@
 import React, { PropTypes } from 'react'
-import classNames from 'classnames'
+import { css } from '../../styles/jss'
+import * as s from '../../styles/jso'
+
+const baseStyle = css(s.inlineBlock)
 
 const Emoji = (props) => {
-  const { alt, className, name, size, src, title, width, height } = props
+  const { alt, name, size, src, title, width, height } = props
   const tip = name.replace(/_|-/, ' ')
   return (
     <img
       {...props}
       alt={alt || tip}
-      className={classNames(className, 'Emoji')}
+      className={baseStyle}
       src={src || `${ENV.AUTH_DOMAIN}/images/emoji/${name}.png`}
       title={title || tip}
       width={width || size}
@@ -21,7 +24,6 @@ const Emoji = (props) => {
 
 Emoji.propTypes = {
   alt: PropTypes.string,
-  className: PropTypes.string,
   name: PropTypes.string,
   size: PropTypes.number,
   src: PropTypes.string,
@@ -31,7 +33,6 @@ Emoji.propTypes = {
 }
 Emoji.defaultProps = {
   alt: 'ello',
-  className: null,
   name: 'ello',
   size: 20,
   src: null,

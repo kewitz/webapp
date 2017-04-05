@@ -10,6 +10,9 @@ import {
   TumblrIcon,
   TwitterIcon,
 } from '../assets/Icons'
+import { css, focus, hover, media } from '../../styles/jss'
+import * as s from '../../styles/jso'
+import { dialogStyle as baseDialogStyle } from './Dialog'
 
 const SHARE_TYPES = {
   EMAIL: 'email',
@@ -30,6 +33,22 @@ SHARE_DIMENSIONS[SHARE_TYPES.PINTEREST] = { width: 750, height: 320 }
 SHARE_DIMENSIONS[SHARE_TYPES.REDDIT] = { width: 540, height: 420 }
 SHARE_DIMENSIONS[SHARE_TYPES.TUMBLR] = { width: 450, height: 430 }
 SHARE_DIMENSIONS[SHARE_TYPES.TWITTER] = { width: 520, height: 250 }
+
+const dialogStyle = css({ maxWidth: 290 }, s.colorBlack, s.bgcWhite, media(s.minBreak2, { maxWidth: 630 }))
+const controlStyle = css(
+  s.inlineBlock,
+  s.fullWidth,
+  s.p20,
+  s.fontSize14,
+  s.colorWhite,
+  s.alignBaseline,
+  s.bgcBlack,
+  s.borderBlack,
+  { transition: 'background-color 0.2s ease, border-color 0.2s ease' },
+  focus(s.bgc6, { borderColor: '#666', outline: 0 }),
+)
+const linksStyle = css(s.flex, s.flexWrap, { marginLeft: -10 })
+const linkStyle = css(s.relative, s.wv60, s.hv60, s.mt10, s.ml10, s.bgcBlack, hover(s.color6))
 
 function onClickReadOnlyInput(e) {
   e.target.select()
@@ -143,23 +162,23 @@ class ShareDialog extends PureComponent {
 
   render() {
     return (
-      <div className="Dialog ShareDialog">
+      <div className={`${baseDialogStyle} ${dialogStyle}`}>
         <input
-          className="ShareControl"
+          className={controlStyle}
           type="url"
           readOnly
           onClick={onClickReadOnlyInput}
           value={this.shareLink}
         />
-        <div className="ShareLinks">
-          <button className="ShareLink" data-type={SHARE_TYPES.EMAIL} onClick={this.onClickOpenShareWindow}><MailIcon /></button>
-          <button className="ShareLink" data-type={SHARE_TYPES.FACEBOOK} onClick={this.onClickOpenShareWindow}><FacebookIcon /></button>
-          <button className="ShareLink" data-type={SHARE_TYPES.TWITTER} onClick={this.onClickOpenShareWindow}><TwitterIcon /></button>
-          <button className="ShareLink" data-type={SHARE_TYPES.PINTEREST} onClick={this.onClickOpenShareWindow}><PinterestIcon /></button>
-          <button className="ShareLink" data-type={SHARE_TYPES.GOOGLE_PLUS} onClick={this.onClickOpenShareWindow}><GooglePlusIcon /></button>
-          <button className="ShareLink" data-type={SHARE_TYPES.TUMBLR} onClick={this.onClickOpenShareWindow}><TumblrIcon /></button>
-          <button className="ShareLink" data-type={SHARE_TYPES.REDDIT} onClick={this.onClickOpenShareWindow}><RedditIcon /></button>
-          <button className="ShareLink" data-type={SHARE_TYPES.LINKEDIN} onClick={this.onClickOpenShareWindow}><LinkedInIcon /></button>
+        <div className={linksStyle}>
+          <button className={linkStyle} data-type={SHARE_TYPES.EMAIL} onClick={this.onClickOpenShareWindow}><MailIcon /></button>
+          <button className={linkStyle} data-type={SHARE_TYPES.FACEBOOK} onClick={this.onClickOpenShareWindow}><FacebookIcon /></button>
+          <button className={linkStyle} data-type={SHARE_TYPES.TWITTER} onClick={this.onClickOpenShareWindow}><TwitterIcon /></button>
+          <button className={linkStyle} data-type={SHARE_TYPES.PINTEREST} onClick={this.onClickOpenShareWindow}><PinterestIcon /></button>
+          <button className={linkStyle} data-type={SHARE_TYPES.GOOGLE_PLUS} onClick={this.onClickOpenShareWindow}><GooglePlusIcon /></button>
+          <button className={linkStyle} data-type={SHARE_TYPES.TUMBLR} onClick={this.onClickOpenShareWindow}><TumblrIcon /></button>
+          <button className={linkStyle} data-type={SHARE_TYPES.REDDIT} onClick={this.onClickOpenShareWindow}><RedditIcon /></button>
+          <button className={linkStyle} data-type={SHARE_TYPES.LINKEDIN} onClick={this.onClickOpenShareWindow}><LinkedInIcon /></button>
         </div>
       </div>
     )

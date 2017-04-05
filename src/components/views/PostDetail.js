@@ -7,10 +7,10 @@ import { loadRelatedPosts } from '../../actions/posts'
 import { RelatedPostsButton } from '../posts/PostRenderables'
 import { TabListButtons } from '../tabs/TabList'
 import { css } from '../../styles/jss'
-import { relative } from '../../styles/jso'
+import * as s from '../../styles/jso'
 
 const navStyle = css(
-  relative,
+  s.relative,
   { marginBottom: -10 },
 )
 

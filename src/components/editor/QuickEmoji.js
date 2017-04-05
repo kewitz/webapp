@@ -2,6 +2,8 @@ import React, { PropTypes, PureComponent } from 'react'
 import sampleSize from 'lodash/sampleSize'
 import Emoji from '../assets/Emoji'
 import { ElloQuickEmoji } from '../assets/Icons'
+import { css, hover, media, parent, select } from '../../styles/jss'
+import * as s from '../../styles/jso'
 
 const options = [
   '+1', 'sparkles', 'metal', 'ok_hand', 'v', 'snowman', 'heart', 'panda_face',
@@ -9,8 +11,15 @@ const options = [
   'muscle', 'fire', 'fist', 'ello', 'bread',
 ]
 
+const choiceButtonStyle = css(
+  { marginTop: -5 },
+  s.transitionOpacity,
+  hover({ opacity: 0.5 }),
+  select('& + &', s.ml20),
+)
+
 const QuickEmojiChoiceButton = ({ name, onClick }) =>
-  <button className="QuickEmojiChoiceButton" name={name} onClick={onClick}>
+  <button className={choiceButtonStyle} name={name} onClick={onClick}>
     <Emoji name={name} />
   </button>
 
@@ -19,7 +28,29 @@ QuickEmojiChoiceButton.propTypes = {
   onClick: PropTypes.func.isRequired,
 }
 
-class QuickEmoji extends PureComponent {
+const wrapperStyle = css(
+  s.absolute,
+  s.zIndex2,
+  s.color9,
+  s.nowrap,
+  // TODO: Set this from a prop
+  parent('.editor.isComment', { top: 92, right: 30 }, media(s.minBreak2, { top: 52 })),
+)
+const wrapperActiveStyle = css(s.wrapperStyle, s.color5)
+
+const listStyle = css(
+  s.absolute,
+  { top: 0, left: -150 },
+  s.pl10,
+  s.bgcE,
+  s.opacity0,
+  s.transitionOpacity,
+)
+const listActiveStyle = css(listStyle, s.opacity1)
+
+const toggleButtonStyle = css(s.transitionColor, hover(s.color5))
+
+export default class QuickEmoji extends PureComponent {
 
   static propTypes = {
     onAddEmoji: PropTypes.func.isRequired,
@@ -67,23 +98,21 @@ class QuickEmoji extends PureComponent {
     const { isActive } = this.state
     if (isActive) {
       return (
-        <div className="QuickEmoji isActive">
-          <div className="QuickEmojiList">
+        <div className={wrapperActiveStyle}>
+          <div className={listActiveStyle}>
             {this.renderEmojis()}
           </div>
         </div>
       )
     }
     return (
-      <div className="QuickEmoji">
-        <button className="QuickEmojiButton" onClick={this.show}>
+      <div className={wrapperStyle}>
+        <button className={toggleButtonStyle} onClick={this.show}>
           <ElloQuickEmoji />
         </button>
-        <div className="QuickEmojiList" />
+        <div className={listStyle} />
       </div>
     )
   }
 }
-
-export default QuickEmoji
 

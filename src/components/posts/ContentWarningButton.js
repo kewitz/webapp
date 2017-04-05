@@ -1,5 +1,10 @@
 import React, { PropTypes, PureComponent } from 'react'
 import classNames from 'classnames'
+import { css, hover } from '../../styles/jss'
+import * as s from '../../styles/jso'
+
+const buttonStyle = css(s.py10, s.fontSize14, s.color9, s.transitionColor, hover(s.colorBlack))
+const labelStyle = css(s.ml5, s.borderBottom)
 
 export default class ContentWarningButton extends PureComponent {
 
@@ -22,13 +27,13 @@ export default class ContentWarningButton extends PureComponent {
   render() {
     const { contentWarning } = this.props
     const { isOpen } = this.state
-    const classes = classNames('ContentWarningButton', { isOpen })
+    const classes = classNames('ContentWarningButton', { isOpen }, `${buttonStyle}`)
     return (
       <button className={classes} onClick={this.onClickToggle}>
-        <span className="ContentWarningButtonMessage">
+        <span>
           {contentWarning}
         </span>
-        <span className="ContentWarningButtonStateLabel">
+        <span className={labelStyle}>
           {isOpen ? 'Hide' : 'View'}
         </span>
       </button>

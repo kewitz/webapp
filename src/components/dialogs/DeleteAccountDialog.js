@@ -1,4 +1,11 @@
 import React, { PropTypes, PureComponent } from 'react'
+import { buttonStyle, headingStyle } from './ConfirmDialog'
+import { css, media } from '../../styles/jss'
+import * as s from '../../styles/jso'
+import { dialogStyle as baseDialogStyle } from './Dialog'
+
+const dialogStyle = css(s.relative, s.center, { maxWidth: 480 }, media(s.minBreak2, s.leftAlign))
+const footnoteStyle = css(s.absolute, s.mt40, s.leftAlign)
 
 class DeleteAccountDialog extends PureComponent {
 
@@ -43,21 +50,21 @@ class DeleteAccountDialog extends PureComponent {
 
   renderConfirm() {
     return (
-      <div className="Dialog DeleteAccountDialog">
-        <h2>Delete account?</h2>
-        <button className="ConfirmDialogButton" onClick={this.onClickConfirm}>Yes</button>
-        <button className="ConfirmDialogButton" onClick={this.onClickJustKidding}>No</button>
+      <div className={`${baseDialogStyle} ${dialogStyle}`}>
+        <h2 className={headingStyle}>Delete account?</h2>
+        <button className={buttonStyle} onClick={this.onClickConfirm}>Yes</button>
+        <button className={buttonStyle} onClick={this.onClickJustKidding}>No</button>
       </div>
     )
   }
 
   renderConfirmReally() {
     return (
-      <div className="Dialog DeleteAccountDialog">
-        <h2>Are you sure?</h2>
-        <button className="ConfirmDialogButton" onClick={this.onClickConfirmReally}>Yes</button>
-        <button className="ConfirmDialogButton" onClick={this.onClickJustKidding}>No</button>
-        <p>
+      <div className={`${baseDialogStyle} ${dialogStyle}`}>
+        <h2 className={headingStyle}>Are you sure?</h2>
+        <button className={buttonStyle} onClick={this.onClickConfirmReally}>Yes</button>
+        <button className={buttonStyle} onClick={this.onClickJustKidding}>No</button>
+        <p className={footnoteStyle}>
           * By deleting your account you remove your personal information from
           Ello. Your account cannot be restored.
         </p>
@@ -67,14 +74,14 @@ class DeleteAccountDialog extends PureComponent {
 
   renderCountdown() {
     return (
-      <div className="Dialog DeleteAccountDialog">
-        <h2>
+      <div className={`${baseDialogStyle} ${dialogStyle}`}>
+        <h2 className={headingStyle}>
           <span>You will be redirected in </span>
           <span ref={(comp) => { this.counterEl = comp }}>{this.counter}</span>
           <span> ...</span>
         </h2>
         <button
-          className="ConfirmDialogButton"
+          className={buttonStyle}
           onClick={this.onClickJustKidding}
           style={{
             display: 'block',

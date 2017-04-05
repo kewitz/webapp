@@ -1,6 +1,10 @@
 // @flow
 import React from 'react'
 import classNames from 'classnames'
+import { css } from '../../styles/jss'
+import * as s from '../../styles/jso'
+
+const baseStyle = css(s.displayNone, s.hidden)
 
 type Props = {
   isAuthenticationView: boolean,
@@ -9,7 +13,7 @@ type Props = {
   isNotificationsActive: boolean,
   isOnboardingView: boolean,
   isProfileMenuActive: boolean,
-  userDetailPathClassName: string|null,
+  userDetailPathClassName: string | null,
 }
 
 export const Viewport = (props: Props) =>
@@ -23,6 +27,7 @@ export const Viewport = (props: Props) =>
       { isOnboardingView: props.isOnboardingView },
       { isProfileMenuActive: props.isProfileMenuActive },
       props.userDetailPathClassName,
+      `${baseStyle}`,
     )}
     role="presentation"
   />

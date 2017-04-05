@@ -65,8 +65,11 @@ export const relative = { position: 'relative' }
 export const fixed = { position: 'fixed' }
 export const flood = { top: 0, right: 0, bottom: 0, left: 0 }
 
+export const zIndex0 = { zIndex: 0 }
 export const zIndex1 = { zIndex: 1 }
 export const zIndex2 = { zIndex: 2 }
+export const zTools = { zIndex: 1070 }
+export const zGrid = { zIndex: 3000 }
 
 // -------------------------------------
 // Layout
@@ -76,18 +79,34 @@ export const inline = { display: 'inline' }
 export const displayNone = { display: 'none' }
 export const visible = { visibility: 'visible' }
 export const hidden = { visibility: 'hidden' }
-export const fit = { maxWidth: '100%' }
 export const overflowVisible = { overflow: 'visible' }
 export const overflowHidden = { overflow: 'hidden' }
 export const overflowScroll = { overflow: 'scroll' }
-export const overflowScrollWeb = { WebkitOverflowScrolling: 'touch', overflowY: 'auto' }
+export const overflowScrollWebY = { WebkitOverflowScrolling: 'touch', overflowX: 'hidden', overflowY: 'auto' }
 
 // -------------------------------------
-// Alignment
-export const alignBaseline = { verticalAlign: 'baseline' }
-export const alignTop = { verticalAlign: 'top' }
-export const alignMiddle = { verticalAlign: 'middle' }
-export const alignBottom = { verticalAlign: 'bottom' }
+// Widths
+export const fit = { maxWidth: '100%' }
+export const fullWidth = { width: '100%' }
+export const fullHeight = { height: '100%' }
+
+export const wv30 = { width: 30 }
+export const wv40 = { width: 40 }
+export const wv60 = { width: 60 }
+
+export const hv30 = { height: 30 }
+export const hv40 = { height: 40 }
+export const hv60 = { height: 60 }
+
+export const lh30 = { lineHeight: 30 }
+export const lh40 = { lineHeight: 40 }
+export const lh60 = { lineHeight: 60 }
+
+// TODO: Candidates for jso?
+// maxWidth: 480(4), 440(2)
+// minWidth: 480(2), 440
+// borderRadius 20(3)
+// top/left/right/bottom 0, 5, 10, 20, 40?
 
 // -------------------------------------
 // Paddings
@@ -115,6 +134,14 @@ export const pl20 = { paddingLeft: 20 }
 export const px20 = { ...pr20, ...pl20 }
 export const py20 = { ...pt20, ...pb20 }
 
+export const p30 = { padding: 30 }
+export const pt30 = { paddingTop: 30 }
+export const pr30 = { paddingRight: 30 }
+export const pb30 = { paddingBottom: 30 }
+export const pl30 = { paddingLeft: 30 }
+export const px30 = { ...pr30, ...pl30 }
+export const py30 = { ...pt30, ...pb30 }
+
 export const p40 = { padding: 40 }
 export const pt40 = { paddingTop: 40 }
 export const pr40 = { paddingRight: 40 }
@@ -140,6 +167,14 @@ export const ml0 = { marginLeft: 0 }
 export const mx0 = { ...mr0, ...ml0 }
 export const my0 = { ...mt0, ...mb0 }
 
+export const m5 = { margin: 5 }
+export const mt5 = { marginTop: 5 }
+export const mr5 = { marginRight: 5 }
+export const mb5 = { marginBottom: 5 }
+export const ml5 = { marginLeft: 5 }
+export const mx5 = { ...mr5, ...ml5 }
+export const my5 = { ...mt5, ...mb5 }
+
 export const m10 = { margin: 10 }
 export const mt10 = { marginTop: 10 }
 export const mr10 = { marginRight: 10 }
@@ -156,6 +191,14 @@ export const ml20 = { marginLeft: 20 }
 export const mx20 = { ...mr20, ...ml20 }
 export const my20 = { ...mt20, ...mb20 }
 
+export const m30 = { margin: 30 }
+export const mt30 = { marginTop: 30 }
+export const mr30 = { marginRight: 30 }
+export const mb30 = { marginBottom: 30 }
+export const ml30 = { marginLeft: 30 }
+export const mx30 = { ...mr30, ...ml30 }
+export const my30 = { ...mt30, ...mb30 }
+
 export const m40 = { margin: 40 }
 export const mt40 = { marginTop: 40 }
 export const mr40 = { marginRight: 40 }
@@ -168,6 +211,13 @@ export const mAuto = { margin: 'auto' }
 export const mrAuto = { marginRight: 'auto' }
 export const mlAuto = { marginLeft: 'auto' }
 export const mxAuto = { ...mrAuto, ...mlAuto }
+
+// -------------------------------------
+// Alignment
+export const alignBaseline = { verticalAlign: 'baseline' }
+export const alignTop = { verticalAlign: 'top' }
+export const alignMiddle = { verticalAlign: 'middle' }
+export const alignBottom = { verticalAlign: 'bottom' }
 
 // -------------------------------------
 // Typography
@@ -207,7 +257,9 @@ export const sansBoldCSS = css(sansBold)
 export const sansBoldItalicCSS = css(sansBoldItalic)
 export const monoRegularCSS = css(monoRegular)
 
-export const fontSize16 = { fontSize16: 16 }
+export const fontSize12 = { fontSize: 12 }
+export const fontSize14 = { fontSize: 14 }
+export const fontSize16 = { fontSize: 16 }
 export const fontSize18 = { fontSize: 18 }
 export const fontSize24 = { fontSize: 24 }
 
@@ -219,32 +271,61 @@ export const uppercase = { textTransform: 'uppercase' }
 export const lowercase = { textTransform: 'lowercase' }
 export const nowrap = { whiteSpace: 'nowrap' }
 export const breakWord = { wordWrap: 'break-word' }
+export const ellipsis = { textOverflow: 'ellipsis' }
 
 // -------------------------------------
 // Colors, backgrounds, opacity & fills
 export const colorBlack = { color: '#000' }
-export const colorWhite = { color: '#fff' }
+export const color5 = { color: '#535353' }
+export const color6 = { color: '#666' }
+export const color9 = { color: '#999' }
 export const colorA = { color: '#aaa' }
+export const colorWhite = { color: '#fff' }
 
 export const bgcTransparent = { backgroundColor: 'transparent' }
 export const bgcBlack = { backgroundColor: '#000' }
+export const bgc4 = { backgroundColor: '#4d4d4d' }
+export const bgc6 = { backgroundColor: '#666' }
+export const bgc9 = { backgroundColor: '#999' }
+export const bgcA = { backgroundColor: '#aaa' }
+export const bgcE = { backgroundColor: '#eaeaea' }
 export const bgcWhite = { backgroundColor: '#fff' }
+export const bgcGreen = { backgroundColor: '#00d100' }
 
 export const opacity0 = { opacity: 0 }
 export const opacity1 = { opacity: 1 }
 
 // -------------------------------------
 // Borders & strokes
+export const borderTop = { borderTop: '1px solid' }
 export const borderBottom = { borderBottom: '1px solid' }
+export const borderBlack = { border: '1px solid #000' }
+export const borderWhite = { border: '1px solid #fff' }
+
+// -------------------------------------
+// Transforms
+export const transformNone = { transform: 'none' }
+export const rotate90 = { transform: 'rotate(90deg)' }
 
 // -------------------------------------
 // Transitions & animations
 
+export const transitionBgColor = { transition: 'background-color 0.2s ease' }
 export const transitionColor = { transition: 'color 0.2s ease' }
+export const transitionOpacity = { transition: 'opacity 0.2s ease' }
+export const transitionTransform = { transition: `transform 0.2s ${ease}` }
 
 // -------------------------------------
 // Utility
 export const pointerNone = { pointerEvents: 'none' }
 export const pointerAuto = { pointerEvents: 'auto' }
+export const hide = { ...displayNone, ...hidden }
 export const invisible = { ...absolute, ...hidden, ...opacity0 }
+export const hitarea = {
+  ...absolute,
+  ...flood,
+  ...zIndex2,
+  content: '""',
+  backgroundColor: 'rgba(0, 0, 0, 0)',
+}
 

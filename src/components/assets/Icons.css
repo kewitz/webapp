@@ -405,10 +405,6 @@
 
 /* Editor Icons
 ------------------------------------- */
-.no-touch .RegionTools button:hover .SVGIcon > g {
-  stroke: #000;
-}
-
 .BrowseIcon > g {
   fill: #fff;
 }
@@ -435,6 +431,23 @@
 
 .PostActionButton > .SVGIcon > g {
   stroke: #aaa;
+}
+
+.PostActionButton .CheckMark {
+  position: absolute;
+  top: 7px;
+  right: 0;
+  display: none;
+  transform: scale(0.6);
+}
+
+.PostActionButton .CheckMark g {
+  stroke: #00d100;
+  stroke-width: 2;
+}
+
+.PostActionButton.isBuyLinked .CheckMark {
+  display: block;
 }
 
 .TextToolButton.forLink > .SVGIcon {
@@ -485,10 +498,6 @@
 
 /* ??
 ------------------------------------- */
-.MessageDialog .CheckIconLG .SVGIcon > g {
-  stroke: #00d100;
-}
-
 .HeroScrollToContentButton .ChevronCircleIcon {
   margin-top: -2px;
   transition: transform var(--speed) var(--ease);
