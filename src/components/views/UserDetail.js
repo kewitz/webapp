@@ -2,6 +2,16 @@ import React, { PropTypes } from 'react'
 import StreamContainer from '../../containers/StreamContainer'
 import { MainView } from '../views/MainView'
 import { ZeroStateCreateRelationship, ZeroStateFirstPost, ZeroStateSayHello } from '../zeros/Zeros'
+import { css, media, parent } from '../../styles/jss'
+import * as s from '../../styles/jso'
+
+// TODO: Seems like we move this up to Zeros.js?
+const zeroStatesStyle = css(
+  { maxWidth: 560 },
+  s.p10,
+  media(s.minBreak2, s.p0, parent('.UserDetails', { maxWidth: 800 })),
+  media(s.minBreak4, parent('.UserDetails', { maxWidth: 820 })),
+)
 
 const ZeroStates = ({
   isLoggedIn,
@@ -13,7 +23,7 @@ const ZeroStates = ({
   userId,
   username,
   }) =>
-    <div className="ZeroStates">
+    <div className={`ZeroStates ${zeroStatesStyle}`}>
       {isSelf && hasZeroPosts && <ZeroStateFirstPost />}
       {!isSelf && hasZeroFollowers &&
         <ZeroStateCreateRelationship {...{ userId, username }} />
