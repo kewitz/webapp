@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react'
 import classNames from 'classnames'
+import { DismissButton } from '../../components/buttons/Buttons'
 import { css, hover, media, modifier } from '../../styles/jss'
 import * as s from '../../styles/jso'
 import { dialogStyle as baseDialogStyle } from './Dialog'
@@ -76,6 +77,7 @@ const BlockMuteDialog = ({
           </p>
         </div>
       </div>
+      <DismissButton />
     </div>
   )
 }

@@ -1,7 +1,7 @@
 /* eslint-disable react/no-danger */
 import React, { PropTypes } from 'react'
-import { XIcon } from '../assets/Icons'
-import { css, hover, media, select } from '../../styles/jss'
+import { DismissButton } from '../../components/buttons/Buttons'
+import { css, select } from '../../styles/jss'
 import * as s from '../../styles/jso'
 import { dialogStyle as baseDialogStyle } from './Dialog'
 
@@ -12,17 +12,10 @@ const textDialogStyle = css(
   select('& a', s.fontSize18),
 )
 
-const dismissStyle = css(
-  s.fixed,
-  { top: 5, right: 5 },
-  hover(s.colorA),
-  media(s.minBreak2, { top: 10, right: 10 }),
-)
-
 export const TextMarkupDialog = ({ html }) =>
   <div className={`${baseDialogStyle} ${textDialogStyle}`}>
     <div dangerouslySetInnerHTML={{ __html: html }} />
-    <button className={`CloseModal ${dismissStyle}`}><XIcon /></button>
+    <DismissButton />
   </div>
 
 TextMarkupDialog.propTypes = {
@@ -35,6 +28,7 @@ const featuredDialogStyle = css(s.fontSize18, select('& a', s.borderBottom, { li
 export const FeaturedInDialog = ({ children }) =>
   <div className={`${baseDialogStyle} ${featuredDialogStyle}`}>
     {children}
+    <DismissButton />
   </div>
 FeaturedInDialog.propTypes = {
   children: PropTypes.node.isRequired,

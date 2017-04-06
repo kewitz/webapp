@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react'
+import { DismissButton } from '../../components/buttons/Buttons'
 import { css, hover, media } from '../../styles/jss'
 import * as s from '../../styles/jso'
 import { dialogStyle as baseDialogStyle } from './Dialog'
@@ -34,6 +35,7 @@ const AdultPostsDialog = ({ onConfirm }) =>
       adult content will not see your posts.
     </p>
     <button className={buttonStyle} onClick={onConfirm}>Okay</button>
+    <DismissButton />
   </div>
 
 AdultPostsDialog.propTypes = {

@@ -1,6 +1,7 @@
 import React, { PropTypes, PureComponent } from 'react'
 import FormControl from '../forms/FormControl'
 import { CheckIconLG } from '../assets/Icons'
+import { DismissButton } from '../../components/buttons/Buttons'
 import { hireUser } from '../../networking/api'
 import { css, disabled, focus, hover, media, select } from '../../styles/jss'
 import * as s from '../../styles/jso'
@@ -106,6 +107,7 @@ export default class MessageDialog extends PureComponent {
         >
           Cancel
         </button>
+        <DismissButton />
       </div>
     )
   }
@@ -124,6 +126,7 @@ export default class MessageDialog extends PureComponent {
         >
           Okay
         </button>
+        <DismissButton />
       </div>
     )
   }
