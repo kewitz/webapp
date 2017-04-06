@@ -1,7 +1,10 @@
 import { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
+import { isElloAndroid } from '../lib/jello'
 import { selectIsLoggedIn } from '../selectors/authentication'
 import { selectAllowsAnalytics, selectAnalyticsId, selectCreatedAt } from '../selectors/profile'
+
+const agent = isElloAndroid() ? 'android' : 'webapp'
 
 export function addSegment(uid, createdAt) {
   if (typeof window !== 'undefined') {
@@ -11,7 +14,7 @@ export function addSegment(uid, createdAt) {
       analytics.SNIPPET_VERSION = '3.1.0'
       analytics.load(ENV.SEGMENT_WRITE_KEY)
       if (uid) {
-        analytics.identify(uid, { createdAt })
+        analytics.identify(uid, { createdAt, agent })
       }
     }
     }();
