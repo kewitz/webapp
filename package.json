@@ -20,7 +20,8 @@
     "pretest": "yarn run lint",
     "test": "yarn run test:all",
     "test:all": "NODE_ENV=test mocha test/unit test/server --recursive",
-    "test:watch": "NODE_ENV=test mocha test/unit test/server --recursive --watch"
+    "test:all:watch": "NODE_ENV=test mocha test/unit test/server --recursive --watch",
+    "test:watch": "NODE_ENV=test mocha test/unit --recursive --watch"
   },
   "engines": {
     "node": "7.5.0",

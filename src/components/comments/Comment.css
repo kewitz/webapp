@@ -87,6 +87,11 @@
 
 /* // MAX WIDTH! */
 @media (--break-2-max) {
+  /* WTF CSS? */
+  .CommentBody .ImageAttachment {
+    height: auto;
+  }
+
   .CommentTools.PostTools.isMoreToolActive {
     transform: translate3d(-60px, 0, 0);
   }

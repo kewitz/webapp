@@ -130,6 +130,7 @@ class LoveTool extends PureComponent {
 
 class RepostTool extends PureComponent {
   static propTypes = {
+    isOwnOriginalPost: PropTypes.bool.isRequired,
     isOwnPost: PropTypes.bool.isRequired,
     isRepostAnimating: PropTypes.bool.isRequired,
     postReposted: PropTypes.bool.isRequired,
@@ -139,14 +140,16 @@ class RepostTool extends PureComponent {
     onClickRepostPost: PropTypes.func.isRequired,
   }
   render() {
-    const { isOwnPost, isRepostAnimating, postReposted, postRepostsCount } = this.props
+    const {
+      isOwnOriginalPost, isOwnPost, isRepostAnimating, postReposted, postRepostsCount,
+    } = this.props
     const { onClickRepostPost } = this.context
     return (
       <span className="PostTool RepostTool" data-count={postRepostsCount}>
         <button
           className={classNames({ hasPostToolDrawer: postRepostsCount > 0 })}
-          onClick={!isOwnPost ? onClickRepostPost : null}
-          style={{ pointerEvents: isOwnPost || postReposted ? 'none' : null }}
+          onClick={!isOwnPost || !isOwnOriginalPost ? onClickRepostPost : null}
+          style={{ pointerEvents: isOwnPost || isOwnOriginalPost || postReposted ? 'none' : null }}
         >
           <RepostIcon className={classNames({ isRepostAnimating })} />
           <Hint>Repost</Hint>
@@ -341,6 +344,7 @@ export class PostTools extends PureComponent {
     if (author.get('hasRepostingEnabled') && !(isOwnPost && Number(postRepostsCount) === 0)) {
       cells.push(
         <RepostTool
+          isOwnOriginalPost={isOwnOriginalPost}
           isOwnPost={isOwnPost}
           isRepostAnimating={isRepostAnimating}
           key={`RepostTool_${postId}`}
