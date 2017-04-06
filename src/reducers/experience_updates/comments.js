@@ -25,6 +25,7 @@ methods.addOrUpdateComment = (state, action) => {
   let index = null
   switch (action.type) {
     case ACTION_TYPES.COMMENT.CREATE_REQUEST:
+      if (!hasAutoWatchEnabled) { return state }
       return postMethods.updatePostWatch(state, {
         payload: { method: 'POST', model: post, hasAutoWatchEnabled },
       })
@@ -36,7 +37,9 @@ methods.addOrUpdateComment = (state, action) => {
       )
       if (action.type === ACTION_TYPES.COMMENT.UPDATE_SUCCESS) { return state }
       // update post watching prop
-      state = postMethods.updatePostWatch(state, { payload: { method: 'POST', model: post }, type: ACTION_TYPES.POST.WATCH_SUCCESS })
+      if (hasAutoWatchEnabled) {
+        state = postMethods.updatePostWatch(state, { payload: { method: 'POST', model: post }, type: ACTION_TYPES.POST.WATCH_SUCCESS })
+      }
       // add the comment to the linked array
       if (!post.getIn(['links', 'comments'], Immutable.List()).isEmpty()) {
         state = state.setIn(
