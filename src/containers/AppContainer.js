@@ -39,6 +39,7 @@ function mapStateToProps(state) {
     isCategoryPromotion: selectIsCategoryPromotion(state),
     isLoggedIn: selectIsLoggedIn(state),
     isPagePromotion: selectIsPagePromotion(state),
+    reduxState: state,
   }
 }
 
@@ -54,6 +55,7 @@ class AppContainer extends Component {
     isLoggedIn: PropTypes.bool.isRequired,
     isPagePromotion: PropTypes.bool.isRequired,
     params: PropTypes.object.isRequired,
+    reduxState: PropTypes.object.isRequired,
   }
 
   static defaultProps = {
@@ -80,6 +82,7 @@ class AppContainer extends Component {
     onClickScrollToContent: PropTypes.func,
     onClickTrackCredits: PropTypes.func,
     onClickTrackCTA: PropTypes.func,
+    onLaunchNativeEditor: PropTypes.func,
   }
 
   getChildContext() {
@@ -88,6 +91,7 @@ class AppContainer extends Component {
       onClickScrollToContent: this.onClickScrollToContent,
       onClickTrackCredits: this.onClickTrackCredits,
       onClickTrackCTA: this.onClickTrackCTA,
+      onLaunchNativeEditor: this.onLaunchNativeEditor,
     }
   }
 
@@ -162,6 +166,18 @@ class AppContainer extends Component {
   onClickTrackCTA = () => {
     const { dispatch, categoryData } = this.props
     dispatch(trackEvent('promoCTA_clicked', { name: categoryData.category.get('slug', 'general') }))
+  }
+
+  onLaunchNativeEditor = (post = null, isComment = false, comment = null) => {
+    const { reduxState } = this.props
+    const jsState = {}
+    Object.keys(reduxState).forEach(key => (jsState[key] = reduxState[key].toJS()))
+    AndroidInterface.launchEditor(
+      JSON.stringify(jsState),
+      post ? JSON.stringify(post.toJS()) : null,
+      isComment,
+      comment ? JSON.stringify(comment.toJS()) : null,
+    )
   }
 
   render() {

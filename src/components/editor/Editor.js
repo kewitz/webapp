@@ -51,12 +51,12 @@ function mapStateToProps(state, props) {
   return {
     allowsAutoWatch: selectHasAutoWatchEnabled(state),
     isLoggedIn: selectIsLoggedIn(state),
+    isOwnPage: selectIsOwnPage(state),
+    isOwnPost: selectPostIsOwn(state, props),
     isPostEditing: selectPostIsEditing(state, props),
     isPostEmpty: selectPostIsEmpty(state, props),
     isPostReposting: selectPostIsReposting(state, props),
     post: selectPost(state, props),
-    isOwnPage: selectIsOwnPage(state),
-    isOwnPost: selectPostIsOwn(state, props),
   }
 }
 
@@ -76,7 +76,6 @@ class Editor extends Component {
     isPostReposting: PropTypes.bool.isRequired,
     onSubmit: PropTypes.func,
     post: PropTypes.object,
-    shouldLoadFromState: PropTypes.bool,
     shouldPersist: PropTypes.bool,
   }
 
@@ -90,7 +89,6 @@ class Editor extends Component {
     isOwnPost: false,
     onSubmit: null,
     post: null,
-    shouldLoadFromState: false,
     shouldPersist: false,
   }
 
@@ -205,7 +203,6 @@ class Editor extends Component {
       isPostEmpty,
       isPostReposting,
       post,
-      shouldLoadFromState,
       shouldPersist,
     } = this.props
     if (!isLoggedIn) { return null }
@@ -254,8 +251,6 @@ class Editor extends Component {
         key={key}
         post={post}
         repostContent={repostContent}
-        shouldLoadFromState={shouldLoadFromState}
-        shouldPersist={shouldPersist}
         submitAction={this.submit}
         submitText={submitText}
       />

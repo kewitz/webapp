@@ -73,7 +73,7 @@ import {
   RepostHeader,
 } from '../components/posts/PostRenderables'
 import { PostTools, WatchTool } from '../components/posts/PostTools'
-import { isLink } from '../lib/jello'
+import { isElloAndroid, isLink } from '../lib/jello'
 
 export function makeMapStateToProps() {
   return (state, props) =>
@@ -204,7 +204,8 @@ class PostContainer extends Component {
   }
 
   static contextTypes = {
-    onClickOpenRegistrationRequestDialog: PropTypes.func,
+    onClickOpenRegistrationRequestDialog: PropTypes.func.isRequired,
+    onLaunchNativeEditor: PropTypes.func.isRequired,
   }
 
   getChildContext() {
@@ -376,6 +377,10 @@ class PostContainer extends Component {
     onClickOpenRegistrationRequestDialog('post-tools')
   }
 
+  onLaunchCommentEditor = () => {
+    this.context.onLaunchNativeEditor(this.props.post, true, null)
+  }
+
   render() {
     const {
       author,
@@ -452,10 +457,17 @@ class PostContainer extends Component {
     }
 
     const isRepostAnimating = isReposting && !postBody
+    if (isElloAndroid()) {
+      if (showEditor) {
+        this.context.onLaunchNativeEditor(post, false, null)
+      } else if (showCommentEditor) {
+        this.context.onLaunchNativeEditor(post, true, null)
+      }
+    }
     return (
       <div className={classNames('Post', { isPostHeaderHidden: isPostHeaderHidden && !isRepost })}>
         {postHeader}
-        {showEditor ?
+        {showEditor && !isElloAndroid() ?
           <Editor post={post} /> :
           <PostBody
             author={author}
@@ -503,7 +515,10 @@ class PostContainer extends Component {
             onClickWatchPost={this.onClickWatchPost}
           />
         }
-        {showCommentEditor && <Editor post={post} isComment />}
+        {showCommentEditor && isElloAndroid() &&
+          <button onClick={this.onLaunchCommentEditor}>Add comment</button>
+        }
+        {showCommentEditor && !isElloAndroid() && <Editor post={post} isComment />}
         {showCommentEditor &&
           <StreamContainer
             action={loadComments(postId)}

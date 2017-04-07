@@ -26,7 +26,6 @@ import { updateRelationship } from '../actions/relationships'
 import { loadFollowing } from '../actions/stream'
 import { NavbarLoggedIn, NavbarLoggedOut } from '../components/navbar/NavbarRenderables'
 import { getDiscoverAction } from '../containers/DiscoverContainer'
-import store from '../store'
 
 function mapStateToProps(state, props) {
   const homeStream = selectHomeStream(state)
@@ -91,7 +90,8 @@ class NavbarContainer extends PureComponent {
   }
 
   static contextTypes = {
-    onClickScrollToContent: PropTypes.func,
+    onClickScrollToContent: PropTypes.func.isRequired,
+    onLaunchNativeEditor: PropTypes.func.isRequired,
   }
 
   componentWillMount() {
@@ -154,10 +154,8 @@ class NavbarContainer extends PureComponent {
 
   onClickOmniButton = () => {
     const { dispatch } = this.props
-
     if (isElloAndroid()) {
-      const authState = JSON.stringify(store.getState().authentication.toJS())
-      AndroidInterface.launchEditor(authState)
+      this.context.onLaunchNativeEditor(null, false, null)
     } else {
       dispatch(openOmnibar())
       scrollToPosition(0, 0)

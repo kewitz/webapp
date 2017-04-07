@@ -8,6 +8,7 @@ import { RelatedPostsButton } from '../posts/PostRenderables'
 import { TabListButtons } from '../tabs/TabList'
 import { css } from '../../styles/jss'
 import * as s from '../../styles/jso'
+import { isElloAndroid } from '../../lib/jello'
 
 const navStyle = css(
   s.relative,
@@ -16,7 +17,7 @@ const navStyle = css(
 
 export const PostDetail = (
   { activeType, columnCount, hasEditor, hasRelatedPostsButton, post, streamAction, tabs },
-  { onClickDetailTab }) =>
+  { onClickDetailTab, onLaunchNativeEditor }) =>
     <MainView className="PostDetail">
       <div className="PostDetails Posts asList">
         <article className="PostList" id={`Post_${post.get('id')}`}>
@@ -35,8 +36,11 @@ export const PostDetail = (
                 {hasRelatedPostsButton && <RelatedPostsButton />}
               </div>
             }
-            {hasEditor && activeType === 'comments' && <Editor post={post} isComment />}
+            {hasEditor && activeType === 'comments' && !isElloAndroid() && <Editor post={post} isComment />}
           </div>
+          {isElloAndroid() &&
+            <button onClick={() => onLaunchNativeEditor(post, true, null)}>Add comment</button>
+          }
           {streamAction && tabs && tabs.length > 0 &&
             <StreamContainer
               action={streamAction}
@@ -69,6 +73,7 @@ PostDetail.defaultProps = {
 }
 PostDetail.contextTypes = {
   onClickDetailTab: PropTypes.func.isRequired,
+  onLaunchNativeEditor: PropTypes.func.isRequired,
 }
 
 export const PostDetailError = ({ children }) =>
