@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react'
 import { Link } from 'react-router'
-import { css, hover } from '../../styles/jss'
+import { XIcon } from '../assets/Icons'
+import { css, hover, media } from '../../styles/jss'
 import * as s from '../../styles/jso'
 
 const miniPillStyle = css(
@@ -46,4 +47,18 @@ MiniPillLink.propTypes = {
   children: PropTypes.node.isRequired,
   to: PropTypes.string.isRequired,
 }
+
+// -------------------------------------
+
+const dismissButtonStyle = css(
+  s.absolute,
+  { top: 5, right: 5 },
+  s.zIndex2,
+  s.transitionColor,
+  hover(s.colorA),
+  media(s.minBreak2, { top: 10, right: 10 }),
+)
+
+export const DismissButton = (...elementProps) =>
+  <button className={`CloseModal ${dismissButtonStyle}`} {...elementProps}><XIcon /></button>
 

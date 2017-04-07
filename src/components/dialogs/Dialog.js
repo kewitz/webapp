@@ -8,6 +8,8 @@ export const dialogStyle = css(
   select('.Modal > &', s.p10, s.my0, s.mxAuto, media(s.minBreak2, s.p20), media(s.minBreak4, s.p40)),
 )
 
+// TODO: This shows up in an alert which is sort of werid so we hardcode this
+// button instead of using the dismiss
 const dismissStyle = css(s.absolute, { top: -10, right: -10 }, s.colorWhite, hover(s.colorA))
 
 const Dialog = ({ body, title, onClick }) =>

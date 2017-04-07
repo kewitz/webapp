@@ -1,6 +1,7 @@
 /* eslint-disable max-len */
 import React from 'react'
 import { SHORTCUT_KEYS } from '../../constants/application_types'
+import { DismissButton } from '../../components/buttons/Buttons'
 import { css, media } from '../../styles/jss'
 import * as s from '../../styles/jso'
 import { dialogStyle as baseDialogStyle } from './Dialog'
@@ -43,6 +44,7 @@ const HelpDialog = () =>
     <p className={textWrapperStyle}><span className={`${textStyle} ${s.monoRegularCSS}`}>{SHORTCUT_KEYS.DT_GRID_TOGGLE}</span> Toggle layout grid</p>
     <p className={textWrapperStyle}><span className={`${textStyle} ${s.monoRegularCSS}`}>{SHORTCUT_KEYS.DT_GRID_CYCLE}</span> Toggle between horizontal and vertical grid</p>
     <p className={textWrapperStyle}><span className={`${textStyle} ${s.monoRegularCSS}`}>{SHORTCUT_KEYS.HELP}</span> Show this help modal</p>
+    <DismissButton />
   </div>
 
 export default HelpDialog

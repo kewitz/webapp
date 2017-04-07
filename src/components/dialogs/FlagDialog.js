@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import classNames from 'classnames'
+import { DismissButton } from '../../components/buttons/Buttons'
 import { before, css, hover, media, modifier, select } from '../../styles/jss'
 import * as s from '../../styles/jso'
 import { dialogStyle as baseDialogStyle } from './Dialog'
@@ -140,6 +141,7 @@ export default class FlagDialog extends Component {
           marked NSFW. You may temporarily still see this content. You may want
           to block or mute this user as well.
         </p>
+        <DismissButton />
       </div>
     )
   }
@@ -156,6 +158,7 @@ export default class FlagDialog extends Component {
         <div>
           <button className={okayButtonStyle} onClick={onConfirm}>Okay</button>
         </div>
+        <DismissButton />
       </div>
     )
   }

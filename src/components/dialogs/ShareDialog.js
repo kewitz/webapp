@@ -10,6 +10,7 @@ import {
   TumblrIcon,
   TwitterIcon,
 } from '../assets/Icons'
+import { DismissButton } from '../../components/buttons/Buttons'
 import { css, focus, hover, media } from '../../styles/jss'
 import * as s from '../../styles/jso'
 import { dialogStyle as baseDialogStyle } from './Dialog'
@@ -180,6 +181,7 @@ class ShareDialog extends PureComponent {
           <button className={linkStyle} data-type={SHARE_TYPES.REDDIT} onClick={this.onClickOpenShareWindow}><RedditIcon /></button>
           <button className={linkStyle} data-type={SHARE_TYPES.LINKEDIN} onClick={this.onClickOpenShareWindow}><LinkedInIcon /></button>
         </div>
+        <DismissButton />
       </div>
     )
   }
