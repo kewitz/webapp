@@ -242,7 +242,7 @@
     @apply --hide-tool;
   }
 
-  .no-touch .Posts.asList .PostTools:hover .ShyTool {
+  .no-touch .Posts.asList .PostTools:not(.CommentTools):hover .ShyTool {
     @apply --show-tool;
   }
 

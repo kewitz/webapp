@@ -108,6 +108,10 @@
   .CommentTools:not(.isMoreToolActive) > .ShyTool {
     display: none;
   }
+
+  .Posts.asGrid .CommentTools .MoreTool {
+    display: none;
+  }
 }
 
 /* // MIN WIDTH! */
@@ -136,8 +140,40 @@
   }
 
   /* stylelint-disable selector-max-specificity, selector-max-compound-selectors */
-  .no-touch .TabListStreamContainer .Comment:hover .ShyTool,
-  .no-touch .CommentTools:hover .ShyTool {
+  .ShyTools {
+    position: relative;
+    display: flex;
+    transition: margin-left var(--speed) var(--ease), transform var(--speed) var(--ease);
+  }
+
+  .ShyTools::before {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: -20px;
+    width: 30px;
+    content: "";
+  }
+
+  .no-touch .CommentTools.PostTools .ShyTools:hover {
+    margin-left: 60px;
+    transform: translate3d(-60px, 0, 0);
+  }
+
+  .no-touch .CommentTools.PostTools .ShyTools:hover::before {
+    width: 90px;
+  }
+
+  .no-touch .CommentTools.PostTools.isShyToolSolo .ShyTools:hover {
+    margin-left: 30px;
+    transform: translate3d(-30px, 0, 0);
+  }
+
+  .no-touch .CommentTools.PostTools.isShyToolSolo .ShyTools:hover::before {
+    width: 60px;
+  }
+
+  .no-touch .CommentTools.PostTools .ShyTools:hover .ShyTool {
     pointer-events: auto;
     opacity: 1;
   }
