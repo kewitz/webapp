@@ -377,10 +377,6 @@ class PostContainer extends Component {
     onClickOpenRegistrationRequestDialog('post-tools')
   }
 
-  onLaunchCommentEditor = () => {
-    this.context.onLaunchNativeEditor(this.props.post, true, null)
-  }
-
   render() {
     const {
       author,
@@ -423,6 +419,7 @@ class PostContainer extends Component {
       showEditor,
       summary,
     } = this.props
+    const { onLaunchNativeEditor } = this.context
     if (isPostEmpty || !author || !author.get('id')) { return null }
     let postHeader
     const headerProps = { detailPath, postCreatedAt, postId }
@@ -459,9 +456,7 @@ class PostContainer extends Component {
     const isRepostAnimating = isReposting && !postBody
     if (isElloAndroid()) {
       if (showEditor) {
-        this.context.onLaunchNativeEditor(post, false, null)
-      } else if (showCommentEditor) {
-        this.context.onLaunchNativeEditor(post, true, null)
+        onLaunchNativeEditor(post, false, null)
       }
     }
     return (
@@ -516,7 +511,7 @@ class PostContainer extends Component {
           />
         }
         {showCommentEditor && isElloAndroid() &&
-          <button onClick={this.onLaunchCommentEditor}>Add comment</button>
+          <button onClick={() => onLaunchNativeEditor(post, true, null)}>Add comment</button>
         }
         {showCommentEditor && !isElloAndroid() && <Editor post={post} isComment />}
         {showCommentEditor &&

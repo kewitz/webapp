@@ -175,7 +175,7 @@ class AppContainer extends Component {
     AndroidInterface.launchEditor(
       JSON.stringify(jsState),
       post ? JSON.stringify(post.toJS()) : null,
-      isComment,
+      `${isComment}`,
       comment ? JSON.stringify(comment.toJS()) : null,
     )
   }
