@@ -1,10 +1,11 @@
-import React, { Component, PropTypes } from 'react'
+// @flow
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { createSelector } from 'reselect'
-import Helmet from 'react-helmet'
 import { META } from '../constants/locales/en'
 import { selectDiscoverMetaData } from '../selectors/categories'
 import { selectPagination } from '../selectors/pagination'
+import { selectPathname, selectQueryTerms, selectViewNameFromRoute } from '../selectors/routing'
 import {
   selectPostMetaCanonicalUrl,
   selectPostMetaDescription,
@@ -14,18 +15,13 @@ import {
   selectPostMetaTitle,
   selectPostMetaUrl,
 } from '../selectors/post'
-import { selectPathname, selectQueryTerms, selectViewNameFromRoute } from '../selectors/routing'
 import {
   selectUserMetaDescription,
   selectUserMetaImage,
   selectUserMetaRobots,
   selectUserMetaTitle,
 } from '../selectors/user'
-
-const selectMetaPageType = createSelector(
-  [selectViewNameFromRoute], viewName =>
-    (viewName === 'postDetail' || viewName === 'userDetail' ? `${viewName}Tags` : 'defaultTags'),
-)
+import { DefaultTags, PostDetailTags } from '../components/head/TagRenderables'
 
 const selectDefaultMetaRobots = createSelector(
   [selectViewNameFromRoute, selectQueryTerms], (viewName, terms) => {
@@ -38,209 +34,148 @@ const selectDefaultMetaRobots = createSelector(
 
 function mapStateToProps(state, props) {
   const pagination = selectPagination(state, props)
-  const discoverMetaData = selectDiscoverMetaData(state, props)
-  return {
-    defaultMetaRobots: selectDefaultMetaRobots(state, props),
-    discoverMetaDataDescription: discoverMetaData.description,
-    discoverMetaDataImage: discoverMetaData.image,
-    discoverMetaDataTitle: discoverMetaData.title,
-    metaPageType: selectMetaPageType(state, props),
+  const pathname = selectPathname(state)
+  const viewName = selectViewNameFromRoute(state, props)
+
+  if (viewName === 'postDetail') {
+    const images = selectPostMetaImages(state, props)
+    const hasImages = images.schemaImages && images.schemaImages.length
+    return {
+      canonicalUrl: selectPostMetaCanonicalUrl(state, props),
+      card: hasImages ? 'summary_large_image' : 'summary',
+      description: selectPostMetaDescription(state, props),
+      embeds: selectPostMetaEmbeds(state, props),
+      images,
+      pathname,
+      robots: selectPostMetaRobots(state, props),
+      title: selectPostMetaTitle(state, props),
+      url: selectPostMetaUrl(state, props),
+      viewName,
+    }
+  }
+
+  const baseTags = {
+    description: META.DESCRIPTION,
+    image: META.IMAGE,
     nextPage: pagination ? pagination.get('next') : null,
-    pathname: selectPathname(state),
-    postMetaCanonicalUrl: selectPostMetaCanonicalUrl(state, props),
-    postMetaDescription: selectPostMetaDescription(state, props),
-    postMetaEmbeds: selectPostMetaEmbeds(state, props),
-    postMetaImages: selectPostMetaImages(state, props),
-    postMetaRobots: selectPostMetaRobots(state, props),
-    postMetaTitle: selectPostMetaTitle(state, props),
-    postMetaUrl: selectPostMetaUrl(state, props),
-    userMetaDescription: selectUserMetaDescription(state, props),
-    userMetaImage: selectUserMetaImage(state, props),
-    userMetaRobots: selectUserMetaRobots(state, props),
-    userMetaTitle: selectUserMetaTitle(state, props),
-    viewName: selectViewNameFromRoute(state),
+    pathname,
+    robots: selectDefaultMetaRobots(state, props),
+    title: META.TITLE,
+    // $FlowFixMe
+    url: `${ENV.AUTH_DOMAIN}${pathname}`,
+    viewName,
+  }
+
+  switch (viewName) {
+    case 'userDetail':
+      return {
+        ...baseTags,
+        description: selectUserMetaDescription(state, props),
+        image: selectUserMetaImage(state, props),
+        robots: selectUserMetaRobots(state, props),
+        title: selectUserMetaTitle(state, props),
+      }
+    case 'discover': {
+      const discoverMetaData = selectDiscoverMetaData(state, props)
+      return {
+        ...baseTags,
+        description: discoverMetaData.description,
+        image: discoverMetaData.image,
+        title: discoverMetaData.title,
+      }
+    }
+    case 'search':
+      return {
+        ...baseTags,
+        description: META.SEARCH_PAGE_DESCRIPTION,
+        title: META.SEARCH_TITLE,
+      }
+    case 'authentication': {
+      switch (pathname) {
+        case '/enter':
+          return {
+            ...baseTags,
+            description: META.ENTER_PAGE_DESCRIPTION,
+            title: META.ENTER_TITLE,
+          }
+        case '/forgot-password':
+          return {
+            ...baseTags,
+            description: META.FORGOT_PAGE_DESCRIPTION,
+            title: META.FORGOT_TITLE,
+          }
+        case '/join':
+        case '/signup':
+          return {
+            ...baseTags,
+            description: META.SIGNUP_PAGE_DESCRIPTION,
+            title: META.SIGNUP_TITLE,
+          }
+        default: return baseTags
+      }
+    }
+    default: return baseTags
   }
 }
 
+type MetaProps = {
+  canonicalUrl?: string | null,
+  card: string,
+  description: string,
+  embeds: Object,
+  image: string,
+  images: Object,
+  nextPage?: string | null,
+  pathname: string,
+  robots?: string | null,
+  title: string,
+  url: string,
+  viewName: string,
+}
+
 class MetaContainer extends Component {
-  static propTypes = {
-    defaultMetaRobots: PropTypes.string,
-    discoverMetaDataDescription: PropTypes.string.isRequired,
-    discoverMetaDataImage: PropTypes.string.isRequired,
-    discoverMetaDataTitle: PropTypes.string.isRequired,
-    metaPageType: PropTypes.string.isRequired,
-    nextPage: PropTypes.string,
-    pathname: PropTypes.string.isRequired,
-    postMetaCanonicalUrl: PropTypes.string,
-    postMetaDescription: PropTypes.string,
-    postMetaEmbeds: PropTypes.object,
-    postMetaImages: PropTypes.object,
-    postMetaRobots: PropTypes.string,
-    postMetaTitle: PropTypes.string,
-    postMetaUrl: PropTypes.string,
-    userMetaDescription: PropTypes.string,
-    userMetaImage: PropTypes.string,
-    userMetaRobots: PropTypes.string,
-    userMetaTitle: PropTypes.string,
-    viewName: PropTypes.string.isRequired,
-  }
+  props: MetaProps
 
   static defaultProps = {
-    defaultMetaRobots: null,
+    canonicalUrl: null,
     nextPage: null,
-    postMetaCanonicalUrl: null,
-    postMetaDescription: null,
-    postMetaEmbeds: null,
-    postMetaImages: null,
-    postMetaRobots: null,
-    postMetaTitle: null,
-    postMetaUrl: null,
-    userMetaDescription: null,
-    userMetaImage: null,
-    userMetaRobots: null,
-    userMetaTitle: null,
+    robots: null,
   }
 
   shouldComponentUpdate(nextProps) {
-    return ['pathname', 'nextPage', 'metaPageType'].some(prop =>
+    return ['pathname', 'nextPage', 'title', 'robots'].some(prop =>
       nextProps[prop] !== this.props[prop],
     )
   }
 
-  getDefaultTags({
-    description = META.DESCRIPTION,
-    image = META.IMAGE,
-    title = META.TITLE,
-    robots = null,
-  } = {}) {
-    const { nextPage, pathname } = this.props
-    const url = `${ENV.AUTH_DOMAIN}${pathname}`
-    const meta = [
-      { name: 'apple-itunes-app', content: 'app-id=953614327', 'app-argument': pathname },
-      { name: 'name', itemprop: 'name', content: title },
-      { name: 'url', itemprop: 'url', content: url },
-      { name: 'description', itemprop: 'description', content: description },
-      { name: 'image', itemprop: 'image', content: image },
-      { property: 'og:url', content: url },
-      { property: 'og:title', content: title },
-      { property: 'og:description', content: description },
-      { property: 'og:image', content: image },
-      { name: 'twitter:card', content: 'summary_large_image' },
-    ]
-    if (robots) {
-      meta.push({ name: 'robots', content: robots })
-    }
-    const link = [
-      nextPage ? { href: `${pathname}?${nextPage.split('?')[1]}`, rel: 'next' } : {},
-    ]
-    return { title, meta, link }
-  }
-
-  getUserDetailTags() {
-    const { userMetaDescription, userMetaImage, userMetaRobots, userMetaTitle } = this.props
-    const defaultTags = this.getDefaultTags({
-      description: userMetaDescription,
-      image: userMetaImage,
-      title: userMetaTitle,
-    })
-    const meta = [
-      ...defaultTags.meta,
-      { name: 'robots', content: userMetaRobots },
-    ]
-    const link = defaultTags.link
-    return { title: userMetaTitle, meta, link }
-  }
-
-  getPostDetailTags() {
-    const { pathname, postMetaCanonicalUrl, postMetaUrl } = this.props
+  render() {
     const {
-      postMetaTitle,
-      postMetaDescription,
-      postMetaEmbeds,
-      postMetaImages,
-      postMetaRobots,
-    } = this.props
-    const title = postMetaTitle
-    const description = postMetaDescription
-    const url = postMetaUrl
-    const hasImages = postMetaImages.schemaImages && postMetaImages.schemaImages.length
-    const twitterCard = hasImages ? 'summary_large_image' : 'summary'
-    const meta = [
-      { name: 'apple-itunes-app', content: 'app-id=953614327', 'app-argument': pathname },
-      { name: 'name', itemprop: 'name', content: title },
-      { name: 'url', itemprop: 'url', content: url },
-      { name: 'description', itemprop: 'description', content: description },
-      ...postMetaImages.schemaImages,
-      { property: 'og:type', content: 'article' },
-      { property: 'og:url', content: url },
-      { property: 'og:title', content: title },
-      { property: 'og:description', content: description },
-      ...postMetaImages.openGraphImages,
-      ...postMetaEmbeds.openGraphEmbeds,
-      { name: 'twitter:card', content: twitterCard },
-      { name: 'robots', content: postMetaRobots },
-    ]
-    const link = postMetaCanonicalUrl ? [{ href: postMetaCanonicalUrl, rel: 'canonical' }] : []
-    return { title: postMetaTitle, meta, link }
-  }
-
-  getTags() {
-    const {
-      defaultMetaRobots,
-      discoverMetaDataDescription,
-      discoverMetaDataImage,
-      discoverMetaDataTitle,
-      metaPageType,
+      canonicalUrl,
+      card,
+      description,
+      embeds,
+      image,
+      images,
+      nextPage,
       pathname,
-      postMetaTitle,
-      userMetaTitle,
+      robots,
+      title,
+      url,
       viewName,
     } = this.props
-    if (metaPageType === 'postDetailTags' && postMetaTitle) {
-      return this.getPostDetailTags()
-    } else if (metaPageType === 'userDetailTags' && userMetaTitle) {
-      return this.getUserDetailTags()
-    } else if (viewName === 'discover') {
-      return this.getDefaultTags({
-        description: discoverMetaDataDescription,
-        image: discoverMetaDataImage,
-        title: discoverMetaDataTitle,
-      })
-    } else if (viewName === 'search') {
-      return this.getDefaultTags({
-        description: META.SEARCH_PAGE_DESCRIPTION,
-        image: discoverMetaDataImage,
-        title: META.SEARCH_TITLE,
-        robots: defaultMetaRobots,
-      })
-    } else if (viewName === 'authentication') {
-      switch (pathname) {
-        case '/enter':
-          return this.getDefaultTags({
-            description: META.ENTER_PAGE_DESCRIPTION,
-            title: META.ENTER_TITLE,
-          })
-        case '/forgot-password':
-          return this.getDefaultTags({
-            description: META.FORGOT_PAGE_DESCRIPTION,
-            title: META.FORGOT_TITLE,
-          })
-        case '/join':
-        case '/signup':
-          return this.getDefaultTags({
-            description: META.SIGNUP_PAGE_DESCRIPTION,
-            title: META.SIGNUP_TITLE,
-          })
-        default:
-          return this.getDefaultTags()
-      }
-    }
-    return this.getDefaultTags()
-  }
 
-  render() {
-    const tags = this.getTags()
-    return <Helmet title={tags.title} meta={tags.meta} link={tags.link} />
+    if (viewName === 'postDetail') {
+      return (
+        <PostDetailTags
+          {...{ canonicalUrl, card, description, embeds, images, pathname, robots, title, url }}
+        />
+      )
+    }
+    return (
+      <DefaultTags
+        {...{ description, image, nextPage, pathname, robots, title, url }}
+      />
+    )
   }
 }
 
