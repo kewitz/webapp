@@ -25,10 +25,13 @@ TextMarkupDialog.propTypes = {
 // -------------------------------------
 
 const featuredDialogStyle = css(s.fontSize18, select('& a', s.borderBottom, { lineHeight: 1 }))
+const nestedDismissStyle = css(s.absolute, { top: -15, right: -15 })
 export const FeaturedInDialog = ({ children }) =>
   <div className={`${baseDialogStyle} ${featuredDialogStyle}`}>
     {children}
-    <DismissButton />
+    <div className={nestedDismissStyle}>
+      <DismissButton />
+    </div>
   </div>
 FeaturedInDialog.propTypes = {
   children: PropTypes.node.isRequired,
