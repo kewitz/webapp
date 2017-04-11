@@ -92,6 +92,10 @@ class CommentContainer extends Component {
     commentBody: null,
   }
 
+  static contextTypes = {
+    onLaunchNativeEditor: PropTypes.func.isRequired,
+  }
+
   static childContextTypes = {
     onClickDeleteComment: PropTypes.func.isRequired,
     onClickEditComment: PropTypes.func.isRequired,
