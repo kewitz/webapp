@@ -288,7 +288,8 @@ export const bgc4 = { backgroundColor: '#4d4d4d' }
 export const bgc6 = { backgroundColor: '#666' }
 export const bgc9 = { backgroundColor: '#999' }
 export const bgcA = { backgroundColor: '#aaa' }
-export const bgcE = { backgroundColor: '#eaeaea' }
+export const bgcEA = { backgroundColor: '#eaeaea' }
+export const bgcE5 = { backgroundColor: '#e5e5e5' }
 export const bgcWhite = { backgroundColor: '#fff' }
 export const bgcGreen = { backgroundColor: '#00d100' }
 

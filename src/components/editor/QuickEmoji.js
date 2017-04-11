@@ -42,7 +42,7 @@ const listStyle = css(
   s.absolute,
   { top: 0, left: -150 },
   s.pl10,
-  s.bgcE,
+  s.bgcE5,
   s.opacity0,
   s.transitionOpacity,
 )
