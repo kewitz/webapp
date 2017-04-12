@@ -14,7 +14,7 @@ export function addSegment(uid, createdAt) {
       analytics.SNIPPET_VERSION = '3.1.0'
       analytics.load(ENV.SEGMENT_WRITE_KEY)
       if (uid) {
-        analytics.identify(uid, { createdAt, agent })
+        analytics.identify(uid, { agent, createdAt })
       }
     }
     }();
@@ -76,7 +76,7 @@ class AnalyticsContainer extends Component {
     if (this.hasLoadedTracking) {
       // identify the user if they didn't previously have an id to identify with
       if (!this.props.analyticsId && analyticsId) {
-        window.analytics.identify(analyticsId, { createdAt })
+        window.analytics.identify(analyticsId, { agent, createdAt })
       }
     } else if (this.props.analyticsId && analyticsId && allowsAnalytics) {
       this.hasLoadedTracking = true

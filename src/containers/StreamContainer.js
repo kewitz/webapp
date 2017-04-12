@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import debounce from 'lodash/debounce'
 import get from 'lodash/get'
 import classNames from 'classnames'
-import { runningFetches } from '../sagas/requester'
+import { runningFetches, runningServerFetches } from '../sagas/requester'
 import * as ACTION_TYPES from '../constants/action_types'
 import { setNotificationScrollY } from '../actions/gui'
 import { selectIsLoggedIn } from '../selectors/authentication'
@@ -89,11 +89,17 @@ class StreamContainer extends Component {
 
   componentWillMount() {
     const { action, dispatch, omnibar } = this.props
+    this.state = { action, renderType: ACTION_TYPES.LOAD_STREAM_REQUEST }
     if (typeof window !== 'undefined' && action) {
-      dispatch(action)
+      const path = get(action, 'payload.endpoint.path')
+      if (!runningServerFetches[path]) {
+        dispatch(action)
+      } else {
+        delete runningServerFetches[path]
+        this.state.renderType = ACTION_TYPES.LOAD_STREAM_SUCCESS
+      }
     }
 
-    this.state = { action, renderType: ACTION_TYPES.LOAD_STREAM_REQUEST }
     this.wasOmnibarActive = omnibar.isActive
     this.setScroll = debounce(this.setScroll, 333)
   }

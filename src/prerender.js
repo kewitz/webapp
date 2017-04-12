@@ -17,6 +17,7 @@ import { createServerStore } from './store'
 import { selectViewNameFromRoute } from './selectors/routing'
 import createRoutes from './routes'
 import { serverRoot } from './sagas'
+import { runningServerFetches } from './sagas/requester'
 
 const indexStr = fs.readFileSync(path.join(__dirname, '../public/index.html'), 'utf-8')
 
@@ -162,11 +163,12 @@ function prerender(context) {
           })
           const initialStateTag = `<script id="initial-state">window.__INITIAL_STATE__ = ${JSON.stringify(state)}</script>`
           const initialGlamTag = `<script id="glam-state">window.__GLAM__ = ${JSON.stringify(ids)}</script>`
+          const initialIsoFetchesTag = `<script id="running-server-fetches">window.__ISO_FETCHES__ = ${JSON.stringify(runningServerFetches)}</script>`
           // Add helmet's stuff after the last statically rendered meta tag
           const html = indexStr.replace(
             'rel="copyright">',
             `rel="copyright">${head.title.toString()} ${head.meta.toString()} ${head.link.toString()} ${timingHeader} <style>${css}</style>`,
-          ).replace('<div id="root"></div>', `<div id="root">${componentHTML}</div>${initialStateTag} ${initialGlamTag}`)
+          ).replace('<div id="root"></div>', `<div id="root">${componentHTML}</div>${initialStateTag} ${initialGlamTag} ${initialIsoFetchesTag}`)
           console.log(`[${requestId}][prerender] Rendering 200 (total ${new Date() - startTime}ms)`)
           resolve({ type: 'render', body: html, postIds, postTokens, streamKind, streamId })
         }
