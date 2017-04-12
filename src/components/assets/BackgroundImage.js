@@ -3,6 +3,8 @@ import classNames from 'classnames'
 import { Link } from 'react-router'
 import ImageAsset from '../assets/ImageAsset'
 import { isGif } from '../../helpers/file_helper'
+import { before, css, media, modifier, select } from '../../styles/jss'
+import * as s from '../../styles/jso'
 
 const STATUS = {
   PENDING: 'isPending',
@@ -22,6 +24,30 @@ export function getSource(props) {
   }
   return sources.getIn([dpi, 'url'], null)
 }
+
+const baseStyle = css(
+  s.absolute,
+  s.flood,
+  s.zIndex0,
+  s.overflowHidden,
+  {
+    background: 'rgba(0, 0, 0, 0.2) no-repeat 50% 50%',
+    backgroundSize: 'cover',
+    transition: 'background-color 0.2s ease, opacity 0.4s ease',
+  },
+  modifier('.isRequesting', { animation: 'animateLavaLamp 3s infinite linear' }),
+  modifier('.isFailing', s.bgcRed),
+  modifier('.inOnboarding', { height: 220 }),
+  modifier('.inSettings', { height: 220 }),
+  modifier('.inUserProfileCard', { height: 260 }),
+  before(s.absolute, s.flood, s.zIndex1, s.bgcTransparent, s.transitionBgColor, { content: '""' }),
+  modifier('.hasOverlay3', before({ backgroundColor: 'rgba(0, 0, 0, 0.3)' })),
+  modifier('.hasOverlay4', before({ backgroundColor: 'rgba(0, 0, 0, 0.4)' })),
+  modifier('.hasOverlay6', before({ backgroundColor: 'rgba(0, 0, 0, 0.6)' })),
+  select('.no-touch &.isLink:hover::before', { backgroundColor: 'rgba(0, 0, 0, 0.4)' }),
+  media(s.maxBreak2, modifier('.inHeroProfile', { height: 220 })),
+  media(s.minBreak2, modifier('.inUserProfileCard:not(.isMiniProfileCard)', { minHeight: 540 })),
+)
 
 export default class BackgroundImage extends PureComponent {
   static propTypes = {
@@ -61,9 +87,8 @@ export default class BackgroundImage extends PureComponent {
   render() {
     const { className, to } = this.props
     const { status } = this.state
-    const classList = classNames('BackgroundImage', status, className)
+    const classList = classNames(`BackgroundImage ${baseStyle}`, status, className)
     const imageAssetProps = {
-      className: 'BackgroundImageAsset',
       isBackgroundImage: true,
       onLoadFailure: this.onLoadFailure,
       onLoadSuccess: this.onLoadSuccess,

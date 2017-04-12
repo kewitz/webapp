@@ -292,6 +292,7 @@ export const bgcEA = { backgroundColor: '#eaeaea' }
 export const bgcE5 = { backgroundColor: '#e5e5e5' }
 export const bgcWhite = { backgroundColor: '#fff' }
 export const bgcGreen = { backgroundColor: '#00d100' }
+export const bgcRed = { backgroundColor: '#f00' }
 
 export const opacity0 = { opacity: 0 }
 export const opacity1 = { opacity: 1 }

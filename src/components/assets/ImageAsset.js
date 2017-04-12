@@ -1,4 +1,17 @@
 import React, { PropTypes, PureComponent } from 'react'
+import { css, parent } from '../../styles/jss'
+import * as s from '../../styles/jso'
+
+const backgroundStyle = css(
+  s.absolute,
+  s.flood,
+  {
+    background: 'transparent no-repeat 50% 50%',
+    backgroundSize: 'cover',
+    transition: 'opacity 0.4s ease',
+  },
+  parent('isRequesting >', s.opacity0),
+)
 
 export default class ImageAsset extends PureComponent {
 
@@ -74,7 +87,7 @@ export default class ImageAsset extends PureComponent {
       delete elementProps.src
       delete elementProps.isBackgroundImage
       return (
-        <figure {...elementProps} style={style} />
+        <figure {...elementProps} className={backgroundStyle} style={style} />
       )
     }
     return (
