@@ -34,35 +34,27 @@ function* trackEvents() {
     const method = get(action, 'payload.method')
     switch (action.type) {
       case ACTION_TYPES.COMMENT.CREATE_REQUEST:
-        put(trackEventAction('published_comment'))
-        break
+        return yield put(trackEventAction('published_comment'))
       case ACTION_TYPES.COMMENT.DELETE_REQUEST:
-        put(trackEventAction('deleted_comment'))
-        break
+        return yield put(trackEventAction('deleted_comment'))
       case ACTION_TYPES.POST.DELETE_REQUEST:
-        put(trackEventAction('deleted_post'))
-        break
+        return yield put(trackEventAction('deleted_post'))
       case ACTION_TYPES.POST.LOVE_REQUEST:
         if (method === 'POST') {
-          put(trackEventAction('web_production.post_actions_love'))
+          return yield put(trackEventAction('web_production.post_actions_love'))
         }
         break
       case ACTION_TYPES.POST.WATCH_REQUEST:
         if (method === 'DELETE') {
-          put(trackEventAction('unwatched-post'))
-          break
+          return yield put(trackEventAction('unwatched-post'))
         }
-        put(trackEventAction('watched-post'))
-        break
+        return yield put(trackEventAction('watched-post'))
       case ACTION_TYPES.POST.UPDATE_REQUEST:
-        put(trackEventAction('edited_post'))
-        break
+        return yield put(trackEventAction('edited_post'))
       case ACTION_TYPES.PROFILE.DELETE_REQUEST:
-        put(trackEventAction('user-deleted-account'))
-        break
+        return yield put(trackEventAction('user-deleted-account'))
       case ACTION_TYPES.PROFILE.SIGNUP_SUCCESS:
-        put(trackEventAction('join-successful'))
-        break
+        return yield put(trackEventAction('join-successful'))
       default:
         break
     }
