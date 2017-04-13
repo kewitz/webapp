@@ -113,20 +113,10 @@
   padding-left: 40px;
 }
 
-.RepostedBody > .Avatar {
-  position: absolute;
-  top: 40px;
-  left: 0;
-}
-
 @media (--break-2) {
   .RepostedBody {
     min-height: 40px;
     padding-left: 60px;
-  }
-
-  .RepostedBody > .Avatar {
-    top: 30px;
   }
 }
 

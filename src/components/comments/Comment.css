@@ -22,12 +22,6 @@
   background-color: #fff;
 }
 
-.CommentHeader .Avatar {
-  position: absolute;
-  top: 3px;
-  left: 0;
-}
-
 .CommentHeaderAuthor {
   position: relative;
   display: inline-block;

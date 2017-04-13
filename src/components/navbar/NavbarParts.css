@@ -325,10 +325,6 @@
   }
   /* stylelint-enable selector-max-compound-selectors */
 
-  .isProfileMenuActive ~ .NavbarProfile > .Avatar {
-    pointer-events: none;
-  }
-
   .NavbarProfileLinks {
     top: -10px;
     left: -10px;

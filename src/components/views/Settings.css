@@ -36,14 +36,6 @@
   position: relative;
 }
 
-.SettingsAvatarPicker .Avatar {
-  position: absolute;
-  top: 0;
-  right: 0;
-  left: 0;
-  z-index: 1;
-}
-
 .SettingsAvatarPicker > .Uploader {
   padding-top: 20px;
   padding-left: 140px;

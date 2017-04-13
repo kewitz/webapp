@@ -71,14 +71,6 @@
   text-decoration: underline;
 }
 
-.PostHeader .Avatar,
-.CategoryHeader .Avatar,
-.RepostHeader .Avatar {
-  position: absolute;
-  top: 15px;
-  left: 0;
-}
-
 .PostHeaderAuthorName {
   display: inline-block;
   margin-right: 15px;
@@ -122,10 +114,6 @@
   line-height: 60px;
 }
 
-.RepostHeader.inUserDetail .Avatar {
-  left: 25px;
-}
-
 /* MIN WIDTH!!! */
 @media (--break-2) {
   .PostHeader,
@@ -150,12 +138,6 @@
     margin-top: -20px;
     margin-left: 60px;
     line-height: 20px;
-  }
-
-  .PostHeader .Avatar,
-  .CategoryHeader .Avatar,
-  .RepostHeader .Avatar {
-    top: 20px;
   }
 
   .PostHeaderTimeAgoLink {
