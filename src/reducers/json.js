@@ -381,13 +381,15 @@ export default function json(state = initialState, action = { type: '' }) {
     case ACTION_TYPES.RELATIONSHIPS.UPDATE_SUCCESS:
       return relationshipMethods.updateRelationship(state, action)
     case REHYDRATE: {
+      // if we start with an initial state we are iso
+      // rendering and we should keep it to display the page
+      if (typeof window !== 'undefined' && window.__INITIAL_STATE__) {
+        return state
+      }
       // only keep the items that have been deleted
       // so we can still filter them out if needed
       let keepers = initialState
       if (action.payload.json) {
-        if (typeof window !== 'undefined' && window.__INITIAL_STATE__) {
-          return action.payload.json
-        }
         action.payload.json.keySeq().forEach((collection) => {
           if (/deleted_/.test(collection)) {
             keepers = keepers.set(collection, action.payload.json.get(collection))
