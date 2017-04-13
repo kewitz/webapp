@@ -255,7 +255,6 @@ class PostContainer extends Component {
       set(action, 'meta.successAction', replace(previousPath || '/'))
     }
     dispatch(action)
-    dispatch(trackEvent('deleted_post'))
   }
 
   onClickEditPost = () => {
@@ -285,7 +284,6 @@ class PostContainer extends Component {
       dispatch(unlovePost(post))
     } else {
       dispatch(lovePost(post))
-      dispatch(trackEvent('web_production.post_actions_love'))
     }
   }
 
@@ -323,10 +321,8 @@ class PostContainer extends Component {
     const { dispatch, post, isWatchingPost } = this.props
     if (isWatchingPost) {
       dispatch(unwatchPost(post))
-      dispatch(trackEvent('unwatched-post'))
     } else {
       dispatch(watchPost(post))
-      dispatch(trackEvent('watched-post'))
     }
   }
 

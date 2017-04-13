@@ -1,9 +1,10 @@
 /* eslint-disable no-constant-condition */
-import { actionChannel, fork, select, take } from 'redux-saga/effects'
+import { actionChannel, fork, put, select, take } from 'redux-saga/effects'
 import { LOCATION_CHANGE } from 'react-router-redux'
 import get from 'lodash/get'
 import { isElloAndroid } from '../lib/jello'
 import * as ACTION_TYPES from '../constants/action_types'
+import { trackEvent as trackEventAction } from '../actions/analytics'
 import { selectActiveNotificationsType } from '../selectors/gui'
 
 let shouldCallInitialTrackPage = false
@@ -23,6 +24,47 @@ function* trackEvent() {
     const { label, options } = action.payload
     if (window.analytics) {
       window.analytics.track(label, { agent, ...options })
+    }
+  }
+}
+
+function* trackEvents() {
+  while (true) {
+    const action = yield take('*')
+    const method = get(action, 'payload.method')
+    switch (action.type) {
+      case ACTION_TYPES.COMMENT.CREATE_REQUEST:
+        put(trackEventAction('published_comment'))
+        break
+      case ACTION_TYPES.COMMENT.DELETE_REQUEST:
+        put(trackEventAction('deleted_comment'))
+        break
+      case ACTION_TYPES.POST.DELETE_REQUEST:
+        put(trackEventAction('deleted_post'))
+        break
+      case ACTION_TYPES.POST.LOVE_REQUEST:
+        if (method === 'POST') {
+          put(trackEventAction('web_production.post_actions_love'))
+        }
+        break
+      case ACTION_TYPES.POST.WATCH_REQUEST:
+        if (method === 'DELETE') {
+          put(trackEventAction('unwatched-post'))
+          break
+        }
+        put(trackEventAction('watched-post'))
+        break
+      case ACTION_TYPES.POST.UPDATE_REQUEST:
+        put(trackEventAction('edited_post'))
+        break
+      case ACTION_TYPES.PROFILE.DELETE_REQUEST:
+        put(trackEventAction('user-deleted-account'))
+        break
+      case ACTION_TYPES.PROFILE.SIGNUP_SUCCESS:
+        put(trackEventAction('join-successful'))
+        break
+      default:
+        break
     }
   }
 }
@@ -51,6 +93,7 @@ export default function* analytics() {
   const pageTrackChannel = yield actionChannel(pageTrackTypes)
   yield [
     fork(trackEvent),
+    fork(trackEvents),
     fork(trackPage, pageTrackChannel),
   ]
 }

@@ -134,7 +134,6 @@ class Editor extends Component {
         dispatch(updateComment(comment, data, this.getEditorIdentifier()))
       } else {
         dispatch(createComment(allowsAutoWatch, data, this.getEditorIdentifier(), post.get('id')))
-        dispatch(trackEvent('published_comment'))
       }
     } else if (isPostEmpty) {
       dispatch(closeOmnibar())
@@ -143,7 +142,6 @@ class Editor extends Component {
     } else if (post.get('isEditing')) {
       dispatch(toggleEditing(post, false))
       dispatch(updatePost(post, data, this.getEditorIdentifier()))
-      dispatch(trackEvent('edited_post'))
     } else if (post.get('isReposting')) {
       dispatch(toggleReposting(post, false))
       const repostId = post.get('repostId') || post.get('id')
