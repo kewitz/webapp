@@ -77,7 +77,7 @@ const runningFetchesBlacklist = [
 
 let unauthorizedActionQueue = []
 const runningFetches = {}
-const runningServerFetches = typeof window !== 'undefined' ? window.__ISO_FETCHES__ : {}
+const runningServerFetches = typeof window !== 'undefined' ? window.__ISO_FETCHES__ || {} : {}
 
 function updateRunningFetches(serverResponse) {
   if (!serverResponse) { return }
