@@ -132,7 +132,7 @@ class AppContainer extends Component {
 
   onClickOpenRegistrationRequestDialog = (trackPostfix = 'modal') => {
     const { authPromo, dispatch, isAuthenticationView } = this.props
-    if (isAuthenticationView) { return }
+    if (isAuthenticationView || !authPromo) { return }
     dispatch(openModal(
       <RegistrationRequestDialog promotional={authPromo} />,
       'asDecapitated',
