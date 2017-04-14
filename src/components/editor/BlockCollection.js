@@ -14,7 +14,6 @@ import QuickEmoji from './QuickEmoji'
 import RepostBlock from './RepostBlock'
 import TextBlock from './TextBlock'
 import PostActionBar from './PostActionBar'
-import { trackEvent } from '../../actions/analytics'
 import {
   addBlock,
   addDragBlock,
@@ -363,12 +362,8 @@ class BlockCollection extends PureComponent {
   }
 
   submit = () => {
-    const { buyLink, dispatch, submitAction } = this.props
-    const data = this.serialize()
-    if (buyLink && buyLink.length) {
-      dispatch(trackEvent('added_buy_button'))
-    }
-    submitAction(data)
+    const { submitAction } = this.props
+    submitAction(this.serialize())
   }
 
   serialize() {

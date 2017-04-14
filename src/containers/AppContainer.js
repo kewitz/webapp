@@ -137,8 +137,8 @@ class AppContainer extends Component {
       <RegistrationRequestDialog promotional={authPromo} />,
       'asDecapitated',
       'RegistrationRequestDialog',
+      `open-registration-request-${trackPostfix}`,
     ))
-    dispatch(trackEvent(`open-registration-request-${trackPostfix}`))
     dispatch(setSignupModalLaunched())
   }
 

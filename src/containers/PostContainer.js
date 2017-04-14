@@ -301,8 +301,7 @@ class PostContainer extends Component {
   onClickSharePost = () => {
     const { author, dispatch, post } = this.props
     const action = bindActionCreators(trackEvent, dispatch)
-    dispatch(openModal(<ShareDialog author={author} post={post} trackEvent={action} />))
-    dispatch(trackEvent('open-share-dialog'))
+    dispatch(openModal(<ShareDialog author={author} post={post} trackEvent={action} />, '', null, 'open-share-dialog'))
   }
 
   onClickToggleComments = () => {

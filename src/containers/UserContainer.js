@@ -46,7 +46,6 @@ import { closeModal, openModal } from '../actions/modals'
 import { trackEvent } from '../actions/analytics'
 import { inviteUsers } from '../actions/invitations'
 import { collabWithUser, hireUser } from '../actions/user'
-import { getElloPlatform } from '../lib/jello'
 
 export function makeMapStateToProps() {
   return (state, props) => {
@@ -201,8 +200,7 @@ class UserContainer extends Component {
   onClickShareProfile = () => {
     const { dispatch, username } = this.props
     const action = bindActionCreators(trackEvent, dispatch)
-    dispatch(openModal(<ShareDialog username={username} trackEvent={action} />))
-    dispatch(trackEvent('open-share-dialog-profile'))
+    dispatch(openModal(<ShareDialog username={username} trackEvent={action} />, '', null, 'open-share-dialog-profile'))
   }
 
   onClickOpenFeaturedModal = () => {
@@ -232,14 +230,15 @@ class UserContainer extends Component {
         onDismiss={this.onDismissModal}
         titlePrefix="Collaborate with"
       />,
+      '',
+      null,
+      'open-collab-dialog-profile',
     ))
-    dispatch(trackEvent('open-collab-dialog-profile', { platform: getElloPlatform() }))
   }
 
   onConfirmCollab = ({ message }) => {
     const { dispatch, id } = this.props
     dispatch(collabWithUser(id, message))
-    dispatch(trackEvent('send-collab-dialog-profile', { platform: getElloPlatform() }))
   }
 
   onOpenHireMeModal = () => {
@@ -251,14 +250,15 @@ class UserContainer extends Component {
         onDismiss={this.onDismissModal}
         titlePrefix="Hire"
       />,
+      '',
+      null,
+      'open-hire-dialog-profile',
     ))
-    dispatch(trackEvent('open-hire-dialog-profile', { platform: getElloPlatform() }))
   }
 
   onConfirmHireMe = ({ message }) => {
     const { dispatch, id } = this.props
     dispatch(hireUser(id, message))
-    dispatch(trackEvent('send-hire-dialog-profile', { platform: getElloPlatform() }))
   }
 
   onDismissModal = () => {

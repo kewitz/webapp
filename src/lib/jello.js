@@ -67,10 +67,6 @@ export function isIE11() {
   return memoizedIsIE11
 }
 
-export function getElloPlatform() {
-  return isElloAndroid() ? 'ello-android-app' : 'ello-webapp'
-}
-
 // -------------------------------------
 
 export function addFeatureDetection() {
