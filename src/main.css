@@ -11,9 +11,6 @@
 
 @import "components/editor/Editor.css";
 
-@import "components/footer/FooterParts.css";
-@import "components/footer/FooterRenderables.css";
-
 @import "components/forms/FormButton.css";
 @import "components/forms/FormControl.css";
 @import "components/forms/FormDialog.css";
