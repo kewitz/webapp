@@ -15,7 +15,7 @@ import { openModal, closeModal } from '../../actions/modals'
 import { updateBuyLink } from '../../actions/editor'
 import BuyLinkDialog from '../dialogs/BuyLinkDialog'
 
-import { css, disabled, hover, media, modifier, select } from '../../styles/jss'
+import { css, disabled, hover, media, modifier, parent, select } from '../../styles/jss'
 import * as s from '../../styles/jso'
 
 const buttonStyle = css(
@@ -40,12 +40,12 @@ const buttonStyle = css(
   modifier('.forComment', hover({ width: 125 })),
   modifier('.forReplyAll', hover({ width: 115 })),
   select('.PostGrid &', { marginRight: -10 }),
-  select('.no-touch .PostGrid &', hover(s.wv40, s.bgcTransparent)),
+  select('.no-touch .PostGrid &:hover', s.wv40),
   select('& + &', { marginLeft: 5 }),
   media('(min-width: 23.4375em)', select('& + &', s.ml10)), // (375 / 16 = 23.4375em)
   media(s.minBreak2, select('& + &', s.ml20)),
 )
-const labelStyle = css(s.absolute, { left: 20 })
+const labelStyle = css(s.absolute, { left: 20 }, parent('.PostGrid', s.opacity0))
 const hide = css(s.hide)
 
 function mapStateToProps(state) {
