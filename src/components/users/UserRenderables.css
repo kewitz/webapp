@@ -75,11 +75,6 @@ User Invitee  */
   font-size: 14px;
 }
 
-/* // WTF? */
-.UserInviteeHeader .Avatar {
-  margin-top: -1px;
-}
-
 .UserInviteeHeader {
   display: inline-block;
   width: calc(100% - 120px);

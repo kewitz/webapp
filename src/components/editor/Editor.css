@@ -49,10 +49,6 @@
   display: none;
 }
 
-.editor.isComment .Avatar {
-  margin-bottom: 10px;
-}
-
 .PostDetail .editor.isComment {
   margin-top: 43px;
 }
@@ -157,13 +153,6 @@
     top: 10px;
     left: 40px;
     display: block;
-  }
-
-  .editor.isComment .Avatar {
-    position: absolute;
-    top: 0;
-    left: 0;
-    margin-bottom: 0;
   }
 
   .editor.hasContent::after {

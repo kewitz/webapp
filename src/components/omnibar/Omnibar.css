@@ -13,12 +13,6 @@
   display: block;
 }
 
-.Omnibar > .Avatar {
-  position: absolute;
-  top: 10px;
-  left: 10px;
-}
-
 .Omnibar > .editor {
   padding: 20px 10px;
 }
@@ -79,11 +73,6 @@ body.isOmnibarActive .Navbar {
     padding-top: 0;
   }
 
-  .Omnibar > .Avatar {
-    top: 20px;
-    left: 20px;
-  }
-
   .Omnibar > .editor {
     padding-right: 20px;
     padding-left: 20px;
@@ -113,6 +102,12 @@ body.isOmnibarActive .Navbar {
 
   body.isOmnibarActive .Omnibar.isFullScreen > .editor .editor-region {
     min-height: calc(100vh - 100px);
+  }
+}
+
+@media (--break-4) {
+  .Omnibar > .editor {
+    margin-left: 80px;
   }
 }
 

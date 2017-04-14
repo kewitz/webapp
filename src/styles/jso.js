@@ -68,6 +68,7 @@ export const flood = { top: 0, right: 0, bottom: 0, left: 0 }
 export const zIndex0 = { zIndex: 0 }
 export const zIndex1 = { zIndex: 1 }
 export const zIndex2 = { zIndex: 2 }
+export const zIndex3 = { zIndex: 3 }
 export const zTools = { zIndex: 1070 }
 export const zGrid = { zIndex: 3000 }
 
@@ -275,6 +276,7 @@ export const ellipsis = { textOverflow: 'ellipsis' }
 
 // -------------------------------------
 // Colors, backgrounds, opacity & fills
+export const colorTransparent = { color: 'transparent' }
 export const colorBlack = { color: '#000' }
 export const color5 = { color: '#535353' }
 export const color6 = { color: '#666' }
@@ -292,6 +294,7 @@ export const bgcEA = { backgroundColor: '#eaeaea' }
 export const bgcE5 = { backgroundColor: '#e5e5e5' }
 export const bgcWhite = { backgroundColor: '#fff' }
 export const bgcGreen = { backgroundColor: '#00d100' }
+export const bgcRed = { backgroundColor: '#f00' }
 
 export const opacity0 = { opacity: 0 }
 export const opacity1 = { opacity: 1 }

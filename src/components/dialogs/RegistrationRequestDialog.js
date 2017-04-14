@@ -15,7 +15,7 @@ class RegistrationRequestDialog extends PureComponent {
     return (
       <div className="AuthenticationFormDialog inModal">
         <BackgroundImage
-          className="RegistrationRequestBackground hasOverlay6"
+          className="hasOverlay6"
           dpi={'xhdpi'}
           isBackground
           sources={promotional.get('coverImage')}
