@@ -176,9 +176,9 @@ class StreamContainer extends Component {
   }
 
   onScrollBottom() {
-    if (!this.props.shouldInfiniteScroll) { return }
+    const { hasLaunchedSignupModal, isLoggedIn, result, shouldInfiniteScroll } = this.props
+    if (!shouldInfiniteScroll || !result.get('ids').size) { return }
     this.onLoadNextPage()
-    const { hasLaunchedSignupModal, isLoggedIn } = this.props
     if (!isLoggedIn && !hasLaunchedSignupModal) {
       const { onClickOpenRegistrationRequestDialog } = this.context
       onClickOpenRegistrationRequestDialog('scroll')
