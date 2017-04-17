@@ -63,6 +63,7 @@ export const selectUserTotalViewsCount = createSelector([selectUser], (user) => 
 })
 export const selectUserUsername = createSelector([selectUser], user => user.get('username'))
 export const selectUserViewsAdultContent = createSelector([selectUser], user => user.get('viewsAdultContent'))
+export const selectIsSystemUser = createSelector([selectUserUsername], username => ['ello', 'elloblog'].some(un => un === username))
 
 // Nested properties on the post reducer
 export const selectUserMetaDescription = createSelector(
