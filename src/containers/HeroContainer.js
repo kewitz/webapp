@@ -190,8 +190,7 @@ class HeroContainer extends Component {
   onClickShareProfile = () => {
     const { dispatch, username } = this.props
     const action = bindActionCreators(trackEvent, dispatch)
-    dispatch(openModal(<ShareDialog username={username} trackEvent={action} />))
-    dispatch(trackEvent('open-share-dialog-profile'))
+    dispatch(openModal(<ShareDialog username={username} trackEvent={action} />, '', null, 'open-share-dialog-profile'))
   }
 
   onDismissBroadcast = () => {

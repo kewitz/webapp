@@ -2,11 +2,7 @@ import Immutable from 'immutable'
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { selectIsLoggedIn } from '../../selectors/authentication'
-import {
-  selectHasAutoWatchEnabled,
-  selectIsOwnPage,
-  selectProfileIsFeatured,
-} from '../../selectors/profile'
+import { selectHasAutoWatchEnabled, selectIsOwnPage } from '../../selectors/profile'
 import {
   selectPost,
   selectPostIsEditing,
@@ -14,7 +10,6 @@ import {
   selectPostIsOwn,
   selectPostIsReposting,
 } from '../../selectors/post'
-import { trackEvent } from '../../actions/analytics'
 import { openModal, closeModal } from '../../actions/modals'
 import {
   createComment,
@@ -56,7 +51,6 @@ function mapStateToProps(state, props) {
   return {
     allowsAutoWatch: selectHasAutoWatchEnabled(state),
     isLoggedIn: selectIsLoggedIn(state),
-    isFeatured: selectProfileIsFeatured(state),
     isPostEditing: selectPostIsEditing(state, props),
     isPostEmpty: selectPostIsEmpty(state, props),
     isPostReposting: selectPostIsReposting(state, props),
@@ -74,7 +68,6 @@ class Editor extends Component {
     comment: PropTypes.object,
     dispatch: PropTypes.func.isRequired,
     isComment: PropTypes.bool,
-    isFeatured: PropTypes.bool,
     isLoggedIn: PropTypes.bool,
     isOwnPage: PropTypes.bool,
     isOwnPost: PropTypes.bool,
@@ -92,7 +85,6 @@ class Editor extends Component {
     autoPopulate: null,
     comment: null,
     isComment: false,
-    isFeatured: false,
     isLoggedIn: false,
     isOwnPage: false,
     isOwnPost: false,
@@ -122,7 +114,6 @@ class Editor extends Component {
       comment,
       dispatch,
       isComment,
-      isFeatured,
       isOwnPage,
       isPostEmpty,
       onSubmit,
@@ -134,16 +125,13 @@ class Editor extends Component {
         dispatch(updateComment(comment, data, this.getEditorIdentifier()))
       } else {
         dispatch(createComment(allowsAutoWatch, data, this.getEditorIdentifier(), post.get('id')))
-        dispatch(trackEvent('published_comment'))
       }
     } else if (isPostEmpty) {
       dispatch(closeOmnibar())
       dispatch(createPost(data, this.getEditorIdentifier()))
-      dispatch(trackEvent('published_post', { isFeatured }))
     } else if (post.get('isEditing')) {
       dispatch(toggleEditing(post, false))
       dispatch(updatePost(post, data, this.getEditorIdentifier()))
-      dispatch(trackEvent('edited_post'))
     } else if (post.get('isReposting')) {
       dispatch(toggleReposting(post, false))
       const repostId = post.get('repostId') || post.get('id')
@@ -151,7 +139,6 @@ class Editor extends Component {
       dispatch(createPost(data, this.getEditorIdentifier(),
         repostId, repostedFromId),
       )
-      dispatch(trackEvent('published_repost', { isFeatured }))
     }
     if (onSubmit) { onSubmit() }
     // if on own page scroll down to top of post content

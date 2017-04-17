@@ -3,7 +3,6 @@ import { connect } from 'react-redux'
 import { push } from 'react-router-redux'
 import OnboardingCategories from '../components/onboarding/OnboardingCategories'
 import { ONBOARDING_VERSION } from '../constants/application_types'
-import { trackEvent } from '../actions/analytics'
 import { getCategories } from '../actions/discover'
 import { followCategories, saveProfile, splitFinish } from '../actions/profile'
 import { selectOnboardingCategoriesFiltered } from '../selectors/categories'
@@ -72,8 +71,6 @@ class OnboardingCategoriesContainer extends PureComponent {
     const { dispatch } = this.props
     const categoryIds = this.state.categoryIds
     dispatch(saveProfile({ web_onboarding_version: ONBOARDING_VERSION }))
-    dispatch(trackEvent('Onboarding.Settings.Categories.Completed',
-                        { categories: categoryIds.length }))
     dispatch(followCategories(categoryIds))
     dispatch(push('/onboarding/settings'))
   }

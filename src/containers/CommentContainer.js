@@ -2,7 +2,6 @@ import Immutable from 'immutable'
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { EDITOR } from '../constants/action_types'
-import { trackEvent } from '../actions/analytics'
 import { deleteComment, flagComment, loadEditableComment, toggleEditing } from '../actions/comments'
 import { openModal, closeModal } from '../actions/modals'
 import { selectIsLoggedIn } from '../selectors/authentication'
@@ -138,7 +137,6 @@ class CommentContainer extends Component {
     const { comment, dispatch } = this.props
     this.onCloseModal()
     dispatch(deleteComment(comment))
-    dispatch(trackEvent('deleted_comment'))
   }
 
   onClickEditComment = () => {
