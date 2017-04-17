@@ -6,8 +6,12 @@ import { FORM_CONTROL_STATUS as STATUS } from '../../constants/status_types'
 import { ArrowIcon } from '../assets/Icons'
 import EmailControl from '../forms/EmailControl'
 import FormButton from '../forms/FormButton'
+import { css, hover, media, modifier, select } from '../../styles/jss'
+import * as s from '../../styles/jso'
 
 // -----------------
+
+const formStyle = css(s.flex, s.itemsCenter, s.leftAlign)
 
 type FormPropTypes = {
   formActionPath: string,
@@ -45,7 +49,7 @@ export class FooterForm extends PureComponent {
     return (
       <form
         action={formActionPath}
-        className={classNames('FooterForm', this.getStatusAsClassName())}
+        className={classNames(`${formStyle}`, this.getStatusAsClassName())}
         method="POST"
         noValidate="novalidate"
         onSubmit={onSubmit}
@@ -76,35 +80,61 @@ export class FooterForm extends PureComponent {
 
 // -----------------
 
+const linkStyle = css(
+  s.inlineBlock,
+  s.fontSize14,
+  s.alignMiddle,
+  { borderBottom: 0 },
+  hover(s.colorBlack),
+)
+
+const linkTextStyle = css(
+  s.inlineBlock,
+  s.overflowHidden,
+  s.nowrap,
+  s.alignMiddle,
+  { marginRight: 15 },
+  { transition: `width 0.2s ${s.ease}` },
+  media(s.minBreak2, s.mr20),
+)
+
 type LinkPropTypes = {
-  className?: string,
   href: string,
   label: string,
 }
 
 export class FooterLink extends PureComponent {
   props: LinkPropTypes
-
-  static defaultProps = {
-    className: '',
-  }
-
   render() {
-    const { className, href, label } = this.props
+    const { href, label } = this.props
     return (
-      <a
-        className={classNames(className, 'FooterLink')}
-        href={href}
-        rel="noopener noreferrer"
-        target="_blank"
-      >
-        <span>{label}</span>
+      <a className={linkStyle} href={href} rel="noopener noreferrer" target="_blank">
+        <span className={linkTextStyle}>{label}</span>
       </a>
     )
   }
 }
 
 // -----------------
+
+const toolStyle = css(
+  s.fontSize12,
+  s.leftAlign,
+  hover(s.colorBlack),
+  modifier('.LayoutTool', { marginRight: -8, marginLeft: 5 }),
+)
+
+const toolTextStyle = css(
+  s.inlineBlock,
+  { width: 0 },
+  s.ml5,
+  s.overflowHidden,
+  s.nowrap,
+  s.alignMiddle,
+  { transition: `width 0.2s ${s.ease}, color 0.2s` },
+  select('.no-touch .FooterTool.TopTool:hover > &', s.wv30),
+  select('.no-touch .FooterTool.LayoutTool:hover > &', { width: 66 }),
+)
 
 type ToolPropTypes = {
   className?: string,
@@ -127,9 +157,9 @@ export class FooterTool extends Component {
   render() {
     const { className, icon, label, onClick } = this.props
     return (
-      <button className={classNames(className, 'FooterTool')} onClick={onClick} >
+      <button className={classNames(className, `FooterTool ${toolStyle}`)} onClick={onClick} >
         {icon}
-        <span>{label}</span>
+        <span className={toolTextStyle}>{label}</span>
       </button>
     )
   }

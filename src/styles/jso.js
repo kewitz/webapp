@@ -69,6 +69,7 @@ export const zIndex0 = { zIndex: 0 }
 export const zIndex1 = { zIndex: 1 }
 export const zIndex2 = { zIndex: 2 }
 export const zIndex3 = { zIndex: 3 }
+export const zFooter = { zIndex: 1030 }
 export const zTools = { zIndex: 1070 }
 export const zGrid = { zIndex: 3000 }
 

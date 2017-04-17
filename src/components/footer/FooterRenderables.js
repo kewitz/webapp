@@ -3,6 +3,59 @@ import React, { PropTypes } from 'react'
 import classNames from 'classnames'
 import { ChevronIcon, ListIcon, GridIcon } from '../assets/Icons'
 import { FooterForm, FooterLink, FooterTool } from '../footer/FooterParts'
+import { before, css, media, modifier, parent, select } from '../../styles/jss'
+import * as s from '../../styles/jso'
+
+const baseStyle = css(
+  s.fixed,
+  { right: 0, bottom: 0, left: 0 },
+  s.zFooter,
+  s.flex,
+  s.justifySpaceBetween,
+  s.px10,
+  { lineHeight: 54 },
+  s.colorA,
+  s.bgcE5,
+  { transition: 'transform 150ms ease' },
+  modifier('isPaginatoring', { transform: 'translate3d(0, 100%, 0) !important' }),
+  select('.isNavbarHidden ~ &', { transform: 'translate3d(0, 100%, 0)' }),
+  select('.no-touch .isNavbarHidden ~ &:hover', { transform: 'none' }),
+  select('.isAuthenticationView ~ &', s.displayNone),
+  select('.isOnboardingView ~ &', s.displayNone),
+  media('(max-width: 23.375em)', s.hv40, s.lh40), // 374 and below
+  media(s.maxBreak2, parent('.isEditorFocused', s.displayNone)),
+  media(
+    s.minBreak2,
+    s.px20,
+    select(
+      '.no-touch .isNavbarHidden ~ &::before',
+      s.absolute,
+      { top: -15, right: 0, left: 0, height: 15, content: '""', backgroundColor: 'rgba(0, 0, 0, 0)' },
+    ),
+  ),
+  media(s.minBreak4, s.px40),
+)
+
+const linksStyle = css(
+  s.relative,
+  s.nowrap,
+  { flex: 1 },
+  { WebkitOverflowScrolling: 'touch', overflowX: 'auto', overflowY: 'hidden' },
+)
+
+const toolsStyle = css(
+  s.relative,
+  s.flex,
+  s.justifySpaceBetween,
+  s.rightAlign,
+  before(
+    s.absolute,
+    s.zIndex2,
+    { top: 0, bottom: 0, left: -20, width: 20, content: '""' },
+    { background: 'linear-gradient(to right, rgba(229, 229, 229, 0) 0%, rgba(229, 229, 229, 1) 90%)' },
+  ),
+  media(s.minBreak4, before(s.displayNone)),
+)
 
 type LinkType = {
   label: string,
@@ -43,20 +96,19 @@ export const Footer = ({
   onClickToggleLayoutMode,
 }: FooterContextTypes) =>
   <footer
-    className={classNames('Footer', { isPaginatoring })}
+    className={classNames(`Footer ${baseStyle}`, { isPaginatoring })}
     role="contentinfo"
   >
-    <div className="FooterLinks">
+    <div className={linksStyle}>
       { links.map(link =>
         <FooterLink
-          className="asLabel"
           href={link.to}
           label={link.label}
           key={`FooterLink_${link.label}`}
         />,
       )}
     </div>
-    <div className="FooterTools">
+    <div className={`FooterTools ${toolsStyle}`}>
       { !isLoggedIn &&
         <FooterForm
           {...{
