@@ -455,7 +455,8 @@ class PostContainer extends Component {
     }
 
     const isRepostAnimating = isReposting && !postBody
-    if (ElloAndroidInterface.supportsNativeEditor()) {
+    const supportNativeEditor = ElloAndroidInterface.supportsNativeEditor()
+    if (supportNativeEditor) {
       if (showEditor) {
         onLaunchNativeEditor(post, false, null)
       }
@@ -463,7 +464,7 @@ class PostContainer extends Component {
     return (
       <div className={classNames('Post', { isPostHeaderHidden: isPostHeaderHidden && !isRepost })}>
         {postHeader}
-        {showEditor && !ElloAndroidInterface.supportsNativeEditor() ?
+        {showEditor && !supportNativeEditor ?
           <Editor post={post} /> :
           <PostBody
             author={author}
@@ -511,10 +512,10 @@ class PostContainer extends Component {
             onClickWatchPost={this.onClickWatchPost}
           />
         }
-        {showCommentEditor && ElloAndroidInterface.supportsNativeEditor() &&
+        {showCommentEditor && supportNativeEditor &&
           <button onClick={() => onLaunchNativeEditor(post, true, null)}>Add comment</button>
         }
-        {showCommentEditor && !ElloAndroidInterface.supportsNativeEditor() && <Editor post={post} isComment />}
+        {showCommentEditor && !supportNativeEditor && <Editor post={post} isComment />}
         {showCommentEditor &&
           <StreamContainer
             action={loadComments(postId)}

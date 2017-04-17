@@ -30,7 +30,7 @@ import {
   selectRandomAuthPromotion,
 } from '../selectors/promotions'
 import { selectIsAuthenticationView } from '../selectors/routing'
-import { isElloAndroid, scrollToPosition } from '../lib/jello'
+import { scrollToPosition } from '../lib/jello'
 import * as ElloAndroidInterface from '../lib/android_interface'
 
 function mapStateToProps(state) {
@@ -177,7 +177,7 @@ class AppContainer extends Component {
     const { reduxState } = this.props
     const jsState = {}
     Object.keys(reduxState).forEach(key => (jsState[key] = reduxState[key].toJS()))
-    AndroidInterface.launchEditor(
+    ElloAndroidInterface.launchEditor(
       JSON.stringify(jsState),
       post ? JSON.stringify(post.toJS()) : null,
       `${isComment}`,
