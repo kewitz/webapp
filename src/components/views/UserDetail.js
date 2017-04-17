@@ -60,6 +60,7 @@ export const UserDetail = (props) => {
     isLoggedIn,
     isPostHeaderHidden,
     isSelf,
+    isSystemUser,
     onSubmitHello,
     streamAction,
     userId,
@@ -81,7 +82,7 @@ export const UserDetail = (props) => {
   return (
     <MainView className="UserDetail">
       <div className="UserDetails">
-        {(hasZeroPosts || hasZeroFollowers) && <ZeroStates {...zeroProps} />}
+        {!isSystemUser && (hasZeroPosts || hasZeroFollowers) && <ZeroStates {...zeroProps} />}
         {streamAction && <StreamContainer {...streamProps} />}
       </div>
     </MainView>
@@ -94,6 +95,7 @@ UserDetail.propTypes = {
   isLoggedIn: PropTypes.bool.isRequired,
   isPostHeaderHidden: PropTypes.bool.isRequired,
   isSelf: PropTypes.bool.isRequired,
+  isSystemUser: PropTypes.bool.isRequired,
   onSubmitHello: PropTypes.func,
   streamAction: PropTypes.object.isRequired,
   userId: PropTypes.string.isRequired,
