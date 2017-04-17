@@ -27,6 +27,7 @@ describe('user selectors', () => {
     stub('user', {
       id: '668',
       totalViewsCount: 100000,
+      username: 'ello',
     })
     userManny = stub('user', { id: '100', username: 'manny' })
     stub('user', { id: '4', relationshipPriority: 'self' })
@@ -351,6 +352,20 @@ describe('user selectors', () => {
     it('returns the user.viewsAdultContent property', () => {
       const props = { userId: '666' }
       const result = selector.selectUserViewsAdultContent(state, props)
+      expect(result).to.equal(true)
+    })
+  })
+
+  context('#selectIsSystemUser', () => {
+    it('returns false if not ello or elloblog', () => {
+      const props = { userId: '666' }
+      const result = selector.selectIsSystemUser(state, props)
+      expect(result).to.equal(false)
+    })
+
+    it('returns true if ello or elloblog', () => {
+      const props = { userId: '668' }
+      const result = selector.selectIsSystemUser(state, props)
       expect(result).to.equal(true)
     })
   })

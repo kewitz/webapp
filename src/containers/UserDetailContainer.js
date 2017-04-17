@@ -13,6 +13,7 @@ import {
   selectUserIsEmpty,
   selectUserIsSelf,
   selectUserPostsCount,
+  selectIsSystemUser,
 } from '../selectors/user'
 import { sayHello } from '../actions/zeros'
 import {
@@ -55,7 +56,7 @@ function mapStateToProps(state, props) {
     isLoggedIn: selectIsLoggedIn(state),
     isPostHeaderHidden: type !== 'loves',
     isSelf,
-    isSystemUser: ['ello', 'elloblog'].some(un => un === username),
+    isSystemUser: selectIsSystemUser(state, props),
     isUserEmpty,
     streamAction: selectUserDetailStreamAction(state, props),
     streamType: selectStreamType(state),
