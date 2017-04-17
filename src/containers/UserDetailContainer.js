@@ -13,6 +13,7 @@ import {
   selectUserIsEmpty,
   selectUserIsSelf,
   selectUserPostsCount,
+  selectIsSystemUser,
 } from '../selectors/user'
 import { sayHello } from '../actions/zeros'
 import {
@@ -55,6 +56,7 @@ function mapStateToProps(state, props) {
     isLoggedIn: selectIsLoggedIn(state),
     isPostHeaderHidden: type !== 'loves',
     isSelf,
+    isSystemUser: selectIsSystemUser(state, props),
     isUserEmpty,
     streamAction: selectUserDetailStreamAction(state, props),
     streamType: selectStreamType(state),
@@ -73,6 +75,7 @@ class UserDetailContainer extends Component {
     isLoggedIn: PropTypes.bool.isRequired,
     isPostHeaderHidden: PropTypes.bool.isRequired,
     isSelf: PropTypes.bool.isRequired,
+    isSystemUser: PropTypes.bool.isRequired,
     isUserEmpty: PropTypes.bool.isRequired,
     streamAction: PropTypes.object.isRequired,
     streamType: PropTypes.string, // eslint-disable-line
@@ -145,6 +148,7 @@ class UserDetailContainer extends Component {
       isLoggedIn,
       isPostHeaderHidden,
       isSelf,
+      isSystemUser,
       isUserEmpty,
       streamAction,
       username,
@@ -172,6 +176,7 @@ class UserDetailContainer extends Component {
       isLoggedIn,
       isPostHeaderHidden,
       isSelf,
+      isSystemUser,
       onSubmitHello: shouldBindHello ? bindActionCreators(sayHello, dispatch) : null,
       streamAction,
       userId: id,
