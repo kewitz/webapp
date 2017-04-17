@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import classNames from 'classnames'
 import { selectIsLoggedIn } from '../selectors/authentication'
+import { selectIsStaff } from '../selectors/profile'
 import { trackEvent, trackInitialPage } from '../actions/analytics'
 import { getCategories, getPagePromotionals } from '../actions/discover'
 import { setSignupModalLaunched } from '../actions/gui'
@@ -29,7 +30,8 @@ import {
   selectRandomAuthPromotion,
 } from '../selectors/promotions'
 import { selectIsAuthenticationView } from '../selectors/routing'
-import { scrollToPosition } from '../lib/jello'
+import { isElloAndroid, scrollToPosition } from '../lib/jello'
+import * as ElloAndroidInterface from '../lib/android_interface'
 
 function mapStateToProps(state) {
   return {
@@ -39,6 +41,7 @@ function mapStateToProps(state) {
     isCategoryPromotion: selectIsCategoryPromotion(state),
     isLoggedIn: selectIsLoggedIn(state),
     isPagePromotion: selectIsPagePromotion(state),
+    isStaff: selectIsStaff(state),
     reduxState: state,
   }
 }
@@ -54,6 +57,7 @@ class AppContainer extends Component {
     isCategoryPromotion: PropTypes.bool.isRequired,
     isLoggedIn: PropTypes.bool.isRequired,
     isPagePromotion: PropTypes.bool.isRequired,
+    isStaff: PropTypes.bool.isRequired,
     params: PropTypes.object.isRequired,
     reduxState: PropTypes.object.isRequired,
   }
@@ -97,7 +101,7 @@ class AppContainer extends Component {
 
   componentDidMount() {
     addGlobalDrag()
-    const { dispatch, isLoggedIn } = this.props
+    const { dispatch, isLoggedIn, isStaff } = this.props
     dispatch(trackInitialPage())
     if (isLoggedIn) {
       dispatch(loadProfile())
@@ -108,6 +112,7 @@ class AppContainer extends Component {
     }
     dispatch(getCategories())
     dispatch(getPagePromotionals())
+    ElloAndroidInterface.setIsStaff(isStaff)
   }
 
   componentWillReceiveProps(nextProps) {

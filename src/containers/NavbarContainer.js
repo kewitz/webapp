@@ -1,6 +1,7 @@
 import React, { PropTypes, PureComponent } from 'react'
 import { connect } from 'react-redux'
-import { isElloAndroid, scrollToPosition } from '../lib/jello'
+import { scrollToPosition } from '../lib/jello'
+import * as ElloAndroidInterface from '../lib/android_interface'
 import { ADD_NEW_IDS_TO_RESULT, SET_LAYOUT_MODE } from '../constants/action_types'
 import { selectIsLoggedIn } from '../selectors/authentication'
 import { selectCategoryTabs } from '../selectors/categories'
@@ -154,7 +155,7 @@ class NavbarContainer extends PureComponent {
 
   onClickOmniButton = () => {
     const { dispatch } = this.props
-    if (isElloAndroid()) {
+    if (ElloAndroidInterface.supportsNativeEditor()) {
       this.context.onLaunchNativeEditor(null, false, null)
     } else {
       dispatch(openOmnibar())

@@ -73,7 +73,8 @@ import {
   RepostHeader,
 } from '../components/posts/PostRenderables'
 import { PostTools, WatchTool } from '../components/posts/PostTools'
-import { isElloAndroid, isLink } from '../lib/jello'
+import { isLink } from '../lib/jello'
+import * as ElloAndroidInterface from '../lib/android_interface'
 
 export function makeMapStateToProps() {
   return (state, props) =>
@@ -454,7 +455,7 @@ class PostContainer extends Component {
     }
 
     const isRepostAnimating = isReposting && !postBody
-    if (isElloAndroid()) {
+    if (ElloAndroidInterface.supportsNativeEditor()) {
       if (showEditor) {
         onLaunchNativeEditor(post, false, null)
       }
@@ -462,7 +463,7 @@ class PostContainer extends Component {
     return (
       <div className={classNames('Post', { isPostHeaderHidden: isPostHeaderHidden && !isRepost })}>
         {postHeader}
-        {showEditor && !isElloAndroid() ?
+        {showEditor && !ElloAndroidInterface.supportsNativeEditor() ?
           <Editor post={post} /> :
           <PostBody
             author={author}
@@ -510,10 +511,10 @@ class PostContainer extends Component {
             onClickWatchPost={this.onClickWatchPost}
           />
         }
-        {showCommentEditor && isElloAndroid() &&
+        {showCommentEditor && ElloAndroidInterface.supportsNativeEditor() &&
           <button onClick={() => onLaunchNativeEditor(post, true, null)}>Add comment</button>
         }
-        {showCommentEditor && !isElloAndroid() && <Editor post={post} isComment />}
+        {showCommentEditor && !ElloAndroidInterface.supportsNativeEditor() && <Editor post={post} isComment />}
         {showCommentEditor &&
           <StreamContainer
             action={loadComments(postId)}

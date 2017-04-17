@@ -8,7 +8,7 @@ import { RelatedPostsButton } from '../posts/PostRenderables'
 import { TabListButtons } from '../tabs/TabList'
 import { css } from '../../styles/jss'
 import * as s from '../../styles/jso'
-import { isElloAndroid } from '../../lib/jello'
+import * as ElloAndroidInterface from '../../lib/android_interface'
 
 const navStyle = css(
   s.relative,
@@ -36,9 +36,9 @@ export const PostDetail = (
                 {hasRelatedPostsButton && <RelatedPostsButton />}
               </div>
             }
-            {hasEditor && activeType === 'comments' && !isElloAndroid() && <Editor post={post} isComment />}
+            {hasEditor && activeType === 'comments' && !ElloAndroidInterface.supportsNativeEditor() && <Editor post={post} isComment />}
           </div>
-          {isElloAndroid() &&
+          {ElloAndroidInterface.supportsNativeEditor() &&
             <button onClick={() => onLaunchNativeEditor(post, true, null)}>Add comment</button>
           }
           {streamAction && tabs && tabs.length > 0 &&

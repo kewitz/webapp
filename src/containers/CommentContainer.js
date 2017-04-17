@@ -33,7 +33,8 @@ import { CommentBody, CommentHeader } from '../components/comments/CommentRender
 import CommentTools from '../components/comments/CommentTools'
 import ConfirmDialog from '../components/dialogs/ConfirmDialog'
 import FlagDialog from '../components/dialogs/FlagDialog'
-import { isElloAndroid, scrollToLastTextBlock } from '../lib/jello'
+import { scrollToLastTextBlock } from '../lib/jello'
+import * as ElloAndroidInterface from '../lib/android_interface'
 
 export function makeMapStateToProps() {
   return (state, props) => {
@@ -206,7 +207,7 @@ class CommentContainer extends Component {
       isOwnComment,
     } = this.props
     if (!comment || !comment.get('id') || !author || !author.get('id')) { return null }
-    if (isEditing && commentBody && isElloAndroid()) {
+    if (isEditing && commentBody && ElloAndroidInterface.supportsNativeEditor()) {
       this.context.onLaunchNativeEditor(null, true, comment)
     }
     return (
@@ -215,7 +216,7 @@ class CommentContainer extends Component {
           <CommentHeader author={author} commentId={commentId} /> :
           null
         }
-        {isEditing && commentBody && !isElloAndroid() ?
+        {isEditing && commentBody && !ElloAndroidInterface.supportsNativeEditor() ?
           <Editor isComment comment={comment} /> :
           <CommentBody
             columnWidth={columnWidth}
