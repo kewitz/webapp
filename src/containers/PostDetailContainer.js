@@ -13,6 +13,7 @@ import {
   selectPostIsEmpty,
   selectPropsLocationStateFrom,
 } from '../selectors/post'
+import { selectAvatar } from '../selectors/profile'
 import { selectPropsLocationKey } from '../selectors/routing'
 import { selectStreamType } from '../selectors/stream'
 import { loadComments, loadPostDetail, loadRelatedPosts } from '../actions/posts'
@@ -25,6 +26,7 @@ import { loadUserDrawer } from '../actions/user'
 function mapStateToProps(state, props) {
   return {
     author: selectPostAuthor(state, props),
+    avatar: selectAvatar(state),
     columnCount: selectColumnCount(state, props),
     hasRelatedPostsButton: selectPostHasRelatedButton(state, props),
     innerHeight: selectInnerHeight(state, props),
@@ -43,6 +45,7 @@ class PostDetailContainer extends Component {
 
   static propTypes = {
     author: PropTypes.object,
+    avatar: PropTypes.object,
     columnCount: PropTypes.number.isRequired,
     dispatch: PropTypes.func.isRequired,
     hasRelatedPostsButton: PropTypes.bool.isRequired,
@@ -59,6 +62,7 @@ class PostDetailContainer extends Component {
 
   static defaultProps = {
     author: null,
+    avatar: null,
     locationStateFrom: null,
     post: null,
     streamType: null,
@@ -166,6 +170,7 @@ class PostDetailContainer extends Component {
   render() {
     const {
       author,
+      avatar,
       columnCount,
       hasRelatedPostsButton,
       isPostEmpty,
@@ -194,6 +199,7 @@ class PostDetailContainer extends Component {
     const props = {
       activeType,
       author,
+      avatar,
       columnCount,
       hasEditor: author && author.get('hasCommentingEnabled') && !(post.get('isReposting') || post.get('isEditing')),
       hasRelatedPostsButton,

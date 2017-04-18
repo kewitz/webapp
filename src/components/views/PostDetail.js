@@ -4,7 +4,7 @@ import PostContainer from '../../containers/PostContainer'
 import StreamContainer from '../../containers/StreamContainer'
 import { MainView } from '../views/MainView'
 import { loadRelatedPosts } from '../../actions/posts'
-import { RelatedPostsButton } from '../posts/PostRenderables'
+import { LaunchCommentEditorButton, RelatedPostsButton } from '../posts/PostRenderables'
 import { TabListButtons } from '../tabs/TabList'
 import { css } from '../../styles/jss'
 import * as s from '../../styles/jso'
@@ -16,8 +16,8 @@ const navStyle = css(
 )
 
 export const PostDetail = (
-  { activeType, columnCount, hasEditor, hasRelatedPostsButton, post, streamAction, tabs },
-  { onClickDetailTab, onLaunchNativeEditor }) =>
+  { activeType, avatar, columnCount, hasEditor, hasRelatedPostsButton, post, streamAction, tabs },
+  { onClickDetailTab }) =>
     <MainView className="PostDetail">
       <div className="PostDetails Posts asList">
         <article className="PostList" id={`Post_${post.get('id')}`}>
@@ -37,10 +37,10 @@ export const PostDetail = (
               </div>
             }
             {hasEditor && activeType === 'comments' && !ElloAndroidInterface.supportsNativeEditor() && <Editor post={post} isComment />}
+            {ElloAndroidInterface.supportsNativeEditor() &&
+              <LaunchCommentEditorButton avatar={avatar} post={post} />
+            }
           </div>
-          {ElloAndroidInterface.supportsNativeEditor() &&
-            <button onClick={() => onLaunchNativeEditor(post, true, null)}>Add comment</button>
-          }
           {streamAction && tabs && tabs.length > 0 &&
             <StreamContainer
               action={streamAction}
@@ -61,6 +61,7 @@ export const PostDetail = (
     </MainView>
 PostDetail.propTypes = {
   activeType: PropTypes.string.isRequired,
+  avatar: PropTypes.object,
   columnCount: PropTypes.number.isRequired,
   hasEditor: PropTypes.bool.isRequired,
   hasRelatedPostsButton: PropTypes.bool.isRequired,
@@ -69,6 +70,7 @@ PostDetail.propTypes = {
   tabs: PropTypes.array.isRequired,
 }
 PostDetail.defaultProps = {
+  avatar: null,
   streamAction: null,
 }
 PostDetail.contextTypes = {

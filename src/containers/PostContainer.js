@@ -45,6 +45,7 @@ import {
   selectPostViewsCountRounded,
   selectPropsPostId,
 } from '../selectors/post'
+import { selectAvatar } from '../selectors/profile'
 import { selectIsDiscoverRoot, selectIsPostDetail, selectPathname, selectPreviousPath } from '../selectors/routing'
 import { trackEvent } from '../actions/analytics'
 import { openModal, closeModal } from '../actions/modals'
@@ -68,6 +69,7 @@ import ShareDialog from '../components/dialogs/ShareDialog'
 import Editor from '../components/editor/Editor'
 import {
   CategoryHeader,
+  LaunchCommentEditorButton,
   PostBody,
   PostHeader,
   RepostHeader,
@@ -79,6 +81,7 @@ import * as ElloAndroidInterface from '../lib/android_interface'
 export function makeMapStateToProps() {
   return (state, props) =>
     ({
+      avatar: selectAvatar(state),
       author: selectPostAuthor(state, props),
       categoryName: selectPostCategoryName(state, props),
       categoryPath: selectPostCategorySlug(state, props),
@@ -126,6 +129,7 @@ class PostContainer extends Component {
 
   static propTypes = {
     author: PropTypes.object.isRequired,
+    avatar: PropTypes.object,
     categoryName: PropTypes.string,
     categoryPath: PropTypes.string,
     columnWidth: PropTypes.number.isRequired,
@@ -171,6 +175,7 @@ class PostContainer extends Component {
   }
 
   static defaultProps = {
+    avatar: null,
     categoryName: null,
     categoryPath: null,
     content: null,
@@ -381,6 +386,7 @@ class PostContainer extends Component {
   render() {
     const {
       author,
+      avatar,
       categoryName,
       categoryPath,
       columnWidth,
@@ -455,8 +461,8 @@ class PostContainer extends Component {
     }
 
     const isRepostAnimating = isReposting && !postBody
-    const supportNativeEditor = ElloAndroidInterface.supportsNativeEditor()
-    if (supportNativeEditor) {
+    const supportsNativeEditor = ElloAndroidInterface.supportsNativeEditor()
+    if (supportsNativeEditor) {
       if (showEditor) {
         onLaunchNativeEditor(post, false, null)
       }
@@ -464,7 +470,7 @@ class PostContainer extends Component {
     return (
       <div className={classNames('Post', { isPostHeaderHidden: isPostHeaderHidden && !isRepost })}>
         {postHeader}
-        {showEditor && !supportNativeEditor ?
+        {showEditor && !supportsNativeEditor ?
           <Editor post={post} /> :
           <PostBody
             author={author}
@@ -512,10 +518,10 @@ class PostContainer extends Component {
             onClickWatchPost={this.onClickWatchPost}
           />
         }
-        {showCommentEditor && supportNativeEditor &&
-          <button onClick={() => onLaunchNativeEditor(post, true, null)}>Add comment</button>
+        {showCommentEditor && supportsNativeEditor &&
+          <LaunchCommentEditorButton avatar={avatar} post={post} />
         }
-        {showCommentEditor && !supportNativeEditor && <Editor post={post} isComment />}
+        {showCommentEditor && !supportsNativeEditor && <Editor post={post} isComment />}
         {showCommentEditor &&
           <StreamContainer
             action={loadComments(postId)}
