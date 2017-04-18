@@ -176,7 +176,13 @@ class AppContainer extends Component {
   onLaunchNativeEditor = (post = null, isComment = false, comment = null) => {
     const { reduxState } = this.props
     const jsState = {}
-    Object.keys(reduxState).forEach(key => (jsState[key] = reduxState[key].toJS()))
+    Object.keys(reduxState).forEach((key) => {
+      // whitelist the parts of state we care about here since
+      // sending the whole thing can result in memory issues
+      if (['authentication', 'editor', 'profile'].some(wlKey => key === wlKey)) {
+        jsState[key] = reduxState[key].toJS()
+      }
+    })
     ElloAndroidInterface.launchEditor(
       JSON.stringify(jsState),
       post ? JSON.stringify(post.toJS()) : null,
