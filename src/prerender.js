@@ -61,9 +61,7 @@ function getPostTrackingMetadata(url, state, renderProps) {
     case 'search':
       streamKind = 'search'
       result = state.json.getIn(['pages', '/search/posts'], Immutable.Map())
-      if (result) {
-        postIds = result.get('ids').toArray()
-      }
+      postIds = result.get('ids', Immutable.List()).toArray()
       break
     case 'discover':
       if (['trending', 'recent', 'featured', 'recommended', 'all', undefined].includes(renderProps.params.type)) {
@@ -80,14 +78,19 @@ function getPostTrackingMetadata(url, state, renderProps) {
       streamKind = 'post'
       streamId = state.json.get('posts').find(post => post.get('token') === renderProps.params.token).get('id')
       break
-    case 'userDetail':
+    case 'userDetail': {
       if (renderProps.params.type === 'loves') {
         streamKind = 'love'
       } else {
         streamKind = 'user'
       }
-      streamId = state.json.get('users').find(user => user.get('username') === renderProps.params.username).get('id')
+      const userForDetail = state.json.get('users', Immutable.List())
+        .find(user => user.get('username') === renderProps.params.username)
+      if (userForDetail) {
+        streamId = userForDetail.get('id')
+      }
       break
+    }
     // no default
   }
 
