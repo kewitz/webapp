@@ -73,6 +73,18 @@ describe('announcement selectors', () => {
     })
   })
 
+  context('#selectAnnouncementIsStaffPreview', () => {
+    it('returns if the announcement is staff preview (false)', () => {
+      const result = selector.selectAnnouncementIsStaffPreview(state)
+      expect(result).to.equal(false)
+    })
+
+    it('returns if the announcement is staff preview (true)', () => {
+      state.json = state.json.setIn(['announcements', '8', 'isStaffPreview'], true)
+      expect(selector.selectAnnouncementIsStaffPreview(state)).to.equal(true)
+    })
+  })
+
   context('#selectAnnouncementIsEmpty', () => {
     it('returns if the announcement is empty (false)', () => {
       const result = selector.selectAnnouncementIsEmpty(state)
