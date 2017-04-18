@@ -1,5 +1,10 @@
 import { isElloAndroid } from './jello'
 
+export const launchEditor = (jsState, post, isComment, comment) => {
+  if (isElloAndroid() && typeof AndroidInterface.launchEditor === 'function') {
+    AndroidInterface.launchEditor(jsState, post, isComment, comment)
+  }
+}
 export const setIsStaff = (isStaff) => {
   if (isElloAndroid() && typeof AndroidInterface.setIsStaff === 'function') {
     AndroidInterface.setIsStaff(`${isStaff}`)
