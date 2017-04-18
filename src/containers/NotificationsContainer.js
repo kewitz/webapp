@@ -17,6 +17,7 @@ import {
     selectAnnouncementId,
     selectAnnouncementImage,
     selectAnnouncementIsEmpty,
+    selectAnnouncementIsStaffPreview,
     selectAnnouncementTitle,
 } from '../selectors/notifications'
 import { selectPropsPathname } from '../selectors/routing'
@@ -53,6 +54,7 @@ function mapStateToProps(state, props) {
     announcementId: selectAnnouncementId(state),
     announcementImage: selectAnnouncementImage(state),
     announcementIsEmpty: selectAnnouncementIsEmpty(state),
+    announcementIsStaffPreview: selectAnnouncementIsStaffPreview(state),
     announcementTitle: selectAnnouncementTitle(state),
     isNotificationsUnread: selectIsNotificationsUnread(state),
     notificationScrollPosition: selectActiveNotificationScrollPosition(state),
@@ -71,6 +73,7 @@ class NotificationsContainer extends Component {
     announcementId: PropTypes.string,
     announcementImage: PropTypes.string,
     announcementIsEmpty: PropTypes.bool.isRequired,
+    announcementIsStaffPreview: PropTypes.bool.isRequired,
     announcementTitle: PropTypes.string,
     dispatch: PropTypes.func.isRequired,
     isModal: PropTypes.bool,
@@ -228,6 +231,7 @@ class NotificationsContainer extends Component {
       announcementCTAHref,
       announcementImage,
       announcementIsEmpty,
+      announcementIsStaffPreview,
       announcementTitle,
       isModal,
       pathname,
@@ -250,6 +254,7 @@ class NotificationsContainer extends Component {
           body={announcementBody}
           ctaCaption={announcementCTACaption}
           ctaHref={announcementCTAHref}
+          isStaffPreview={announcementIsStaffPreview}
           key="announcementNotification"
           src={announcementImage}
           title={announcementTitle}

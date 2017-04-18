@@ -36,6 +36,10 @@ export const selectAnnouncementTitle = createSelector(
   [selectAnnouncement], announcement => announcement.get('header'),
 )
 
+export const selectAnnouncementIsStaffPreview = createSelector(
+  [selectAnnouncement], announcement => announcement.get('isStaffPreview', false),
+)
+
 // Derived or additive properties
 export const selectAnnouncementIsEmpty = createSelector(
   [selectAnnouncement], announcement => announcement.isEmpty(),

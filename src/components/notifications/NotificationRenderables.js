@@ -86,7 +86,12 @@ export const AnnouncementNotification = (props, context) => {
     />
 
   return (
-    <div className={classNames('AnnouncementNotification', { hasAsset: props.src })}>
+    <div
+      className={classNames(
+        'AnnouncementNotification',
+        { hasAsset: props.src, isStaffPreview: props.isStaffPreview },
+      )}
+    >
       {!isInternalLink && !isExternalLink && image}
       {isInternalLink && image &&
         <Link className="AnnouncementNotificationAsset js-ANCTA" {...linkProps} >
@@ -126,6 +131,7 @@ AnnouncementNotification.propTypes = {
   body: PropTypes.string,
   ctaCaption: PropTypes.string,
   ctaHref: PropTypes.string,
+  isStaffPreview: PropTypes.boolean,
   src: PropTypes.string,
   title: PropTypes.string,
 }
@@ -133,6 +139,7 @@ AnnouncementNotification.defaultProps = {
   body: null,
   ctaCaption: null,
   ctaHref: null,
+  isStaffPreview: false,
   src: null,
   title: null,
 }
