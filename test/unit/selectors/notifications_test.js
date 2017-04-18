@@ -81,7 +81,6 @@ describe('announcement selectors', () => {
 
     it('returns if the announcement is staff preview (true)', () => {
       state.json = state.json.setIn(['announcements', '8', 'isStaffPreview'], true)
-      console.log(state.json.toJS())
       expect(selector.selectAnnouncementIsStaffPreview(state)).to.equal(true)
     })
   })
