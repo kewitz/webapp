@@ -110,7 +110,7 @@ class AppContainer extends Component {
     }
     dispatch(getCategories())
     dispatch(getPagePromotionals())
-    ElloAndroidInterface.setIsStaff(isStaff)
+    ElloAndroidInterface.initialize(dispatch, isStaff)
   }
 
   componentWillReceiveProps(nextProps) {

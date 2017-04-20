@@ -1,7 +1,6 @@
 import { decamelizeKeys } from 'humps'
 import store from '../store'
-import { requestPushSubscription, saveProfile } from '../actions/profile'
-import * as ElloAndroidInterface from '../lib/android_interface'
+import { saveProfile } from '../actions/profile'
 import { trackEvent } from '../actions/analytics'
 
 export function preferenceToggleChanged(obj) {
@@ -13,18 +12,6 @@ export function preferenceToggleChanged(obj) {
     }
   }
   store.dispatch(saveProfile(decamelizeKeys(newObj)))
-}
-
-if (typeof window !== 'undefined') {
-  window.registerAndroidNotifications = (registrationId,
-                                         bundleId,
-                                         marketingVersion,
-                                         buildVersion) => {
-    store.dispatch(
-      requestPushSubscription(registrationId, bundleId, marketingVersion, buildVersion),
-    )
-  }
-  ElloAndroidInterface.webAppLoaded()
 }
 
 export function dispatchTrackEvent(label, options = {}) {

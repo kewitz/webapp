@@ -1,5 +1,6 @@
 import { isElloAndroid } from './jello'
 import store from '../store'
+import { requestPushSubscription } from '../actions/profile'
 
 const getJSState = () => {
   const jsState = {}
@@ -34,4 +35,16 @@ export const webAppLoaded = () => {
   if (isElloAndroid() && typeof AndroidInterface.webAppLoaded === 'function') {
     AndroidInterface.webAppLoaded()
   }
+}
+export const exposeAndroidMethods = (dispatch) => {
+  if (isElloAndroid()) {
+    window.registerAndroidNotifications = (regId, bundleId, marketingVersion, buildVersion) => {
+      dispatch(requestPushSubscription(regId, bundleId, marketingVersion, buildVersion))
+    }
+  }
+}
+export const initialize = (dispatch, isStaff) => {
+  setIsStaff(isStaff)
+  webAppLoaded()
+  exposeAndroidMethods(dispatch)
 }
