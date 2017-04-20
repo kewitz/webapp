@@ -26,6 +26,10 @@
   transition: border-color var(--speed) ease;
 }
 
+.editor.LaunchCommentEditorButton.isComment::before {
+  border-right-color: #000;
+}
+
 .editor-region {
   min-height: 100px;
   padding: 20px;

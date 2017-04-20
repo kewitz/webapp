@@ -1,5 +1,7 @@
 import React, { PropTypes, PureComponent } from 'react'
 import classNames from 'classnames'
+import { PROFILE } from '../../constants/action_types'
+import * as ElloAndroidInterface from '../../lib/android_interface'
 
 class Uploader extends PureComponent {
 
@@ -32,7 +34,12 @@ class Uploader extends PureComponent {
   }
 
   onClickFileBrowser = () => {
-    this.fileBrowser.click()
+    const { saveAction } = this.props
+    if (ElloAndroidInterface.supportsNativeImagePicker()) {
+      ElloAndroidInterface.launchImagePicker(saveAction().type === PROFILE.SAVE_AVATAR ? 'avatar' : 'coverImage')
+    } else {
+      this.fileBrowser.click()
+    }
   }
 
   onDrop = (e) => {

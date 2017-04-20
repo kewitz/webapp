@@ -11,7 +11,7 @@ export const Omnibar = ({ avatar, classList, isActive, isFullScreen, onClickClos
   return (
     <div className={classNames('Omnibar', { isActive, isFullScreen }, classList)} >
       <Avatar sources={avatar} />
-      <Editor shouldLoadFromState shouldPersist />
+      <Editor shouldPersist />
       <button className="OmnibarRevealNavbar" onClick={onClickCloseOmnibar}>
         <ChevronIcon />
         Navigation

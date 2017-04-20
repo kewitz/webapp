@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import classNames from 'classnames'
 import { selectIsLoggedIn } from '../selectors/authentication'
+import { selectIsStaff } from '../selectors/profile'
 import { trackEvent, trackInitialPage } from '../actions/analytics'
 import { getCategories, getPagePromotionals } from '../actions/discover'
 import { setSignupModalLaunched } from '../actions/gui'
@@ -30,6 +31,7 @@ import {
 } from '../selectors/promotions'
 import { selectIsAuthenticationView } from '../selectors/routing'
 import { scrollToPosition } from '../lib/jello'
+import * as ElloAndroidInterface from '../lib/android_interface'
 
 function mapStateToProps(state) {
   return {
@@ -39,6 +41,7 @@ function mapStateToProps(state) {
     isCategoryPromotion: selectIsCategoryPromotion(state),
     isLoggedIn: selectIsLoggedIn(state),
     isPagePromotion: selectIsPagePromotion(state),
+    isStaff: selectIsStaff(state),
   }
 }
 
@@ -53,6 +56,7 @@ class AppContainer extends Component {
     isCategoryPromotion: PropTypes.bool.isRequired,
     isLoggedIn: PropTypes.bool.isRequired,
     isPagePromotion: PropTypes.bool.isRequired,
+    isStaff: PropTypes.bool.isRequired,
     params: PropTypes.object.isRequired,
   }
 
@@ -80,6 +84,7 @@ class AppContainer extends Component {
     onClickScrollToContent: PropTypes.func,
     onClickTrackCredits: PropTypes.func,
     onClickTrackCTA: PropTypes.func,
+    onLaunchNativeEditor: PropTypes.func,
   }
 
   getChildContext() {
@@ -88,12 +93,13 @@ class AppContainer extends Component {
       onClickScrollToContent: this.onClickScrollToContent,
       onClickTrackCredits: this.onClickTrackCredits,
       onClickTrackCTA: this.onClickTrackCTA,
+      onLaunchNativeEditor: this.onLaunchNativeEditor,
     }
   }
 
   componentDidMount() {
     addGlobalDrag()
-    const { dispatch, isLoggedIn } = this.props
+    const { dispatch, isLoggedIn, isStaff } = this.props
     dispatch(trackInitialPage())
     if (isLoggedIn) {
       dispatch(loadProfile())
@@ -104,6 +110,7 @@ class AppContainer extends Component {
     }
     dispatch(getCategories())
     dispatch(getPagePromotionals())
+    ElloAndroidInterface.initialize(dispatch, isStaff)
   }
 
   componentWillReceiveProps(nextProps) {
@@ -162,6 +169,14 @@ class AppContainer extends Component {
   onClickTrackCTA = () => {
     const { dispatch, categoryData } = this.props
     dispatch(trackEvent('promoCTA_clicked', { name: categoryData.category.get('slug', 'general') }))
+  }
+
+  onLaunchNativeEditor = (post = null, isComment = false, comment = null) => {
+    ElloAndroidInterface.launchEditor(
+      post ? JSON.stringify(post.toJS()) : null,
+      `${isComment}`,
+      comment ? JSON.stringify(comment.toJS()) : null,
+    )
   }
 
   render() {

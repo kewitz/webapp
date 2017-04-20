@@ -45,6 +45,7 @@ import {
   selectPostViewsCountRounded,
   selectPropsPostId,
 } from '../selectors/post'
+import { selectAvatar } from '../selectors/profile'
 import { selectIsDiscoverRoot, selectIsPostDetail, selectPathname, selectPreviousPath } from '../selectors/routing'
 import { trackEvent } from '../actions/analytics'
 import { openModal, closeModal } from '../actions/modals'
@@ -68,16 +69,19 @@ import ShareDialog from '../components/dialogs/ShareDialog'
 import Editor from '../components/editor/Editor'
 import {
   CategoryHeader,
+  LaunchCommentEditorButton,
   PostBody,
   PostHeader,
   RepostHeader,
 } from '../components/posts/PostRenderables'
 import { PostTools, WatchTool } from '../components/posts/PostTools'
 import { isLink } from '../lib/jello'
+import * as ElloAndroidInterface from '../lib/android_interface'
 
 export function makeMapStateToProps() {
   return (state, props) =>
     ({
+      avatar: selectAvatar(state),
       author: selectPostAuthor(state, props),
       categoryName: selectPostCategoryName(state, props),
       categoryPath: selectPostCategorySlug(state, props),
@@ -125,6 +129,7 @@ class PostContainer extends Component {
 
   static propTypes = {
     author: PropTypes.object.isRequired,
+    avatar: PropTypes.object,
     categoryName: PropTypes.string,
     categoryPath: PropTypes.string,
     columnWidth: PropTypes.number.isRequired,
@@ -170,6 +175,7 @@ class PostContainer extends Component {
   }
 
   static defaultProps = {
+    avatar: null,
     categoryName: null,
     categoryPath: null,
     content: null,
@@ -204,7 +210,8 @@ class PostContainer extends Component {
   }
 
   static contextTypes = {
-    onClickOpenRegistrationRequestDialog: PropTypes.func,
+    onClickOpenRegistrationRequestDialog: PropTypes.func.isRequired,
+    onLaunchNativeEditor: PropTypes.func.isRequired,
   }
 
   getChildContext() {
@@ -379,6 +386,7 @@ class PostContainer extends Component {
   render() {
     const {
       author,
+      avatar,
       categoryName,
       categoryPath,
       columnWidth,
@@ -418,6 +426,7 @@ class PostContainer extends Component {
       showEditor,
       summary,
     } = this.props
+    const { onLaunchNativeEditor } = this.context
     if (isPostEmpty || !author || !author.get('id')) { return null }
     let postHeader
     const headerProps = { detailPath, postCreatedAt, postId }
@@ -452,10 +461,16 @@ class PostContainer extends Component {
     }
 
     const isRepostAnimating = isReposting && !postBody
+    const supportsNativeEditor = ElloAndroidInterface.supportsNativeEditor()
+    if (supportsNativeEditor) {
+      if (showEditor) {
+        onLaunchNativeEditor(post, false, null)
+      }
+    }
     return (
       <div className={classNames('Post', { isPostHeaderHidden: isPostHeaderHidden && !isRepost })}>
         {postHeader}
-        {showEditor ?
+        {showEditor && !supportsNativeEditor ?
           <Editor post={post} /> :
           <PostBody
             author={author}
@@ -503,7 +518,10 @@ class PostContainer extends Component {
             onClickWatchPost={this.onClickWatchPost}
           />
         }
-        {showCommentEditor && <Editor post={post} isComment />}
+        {showCommentEditor && supportsNativeEditor &&
+          <LaunchCommentEditorButton avatar={avatar} post={post} />
+        }
+        {showCommentEditor && !supportsNativeEditor && <Editor post={post} isComment />}
         {showCommentEditor &&
           <StreamContainer
             action={loadComments(postId)}

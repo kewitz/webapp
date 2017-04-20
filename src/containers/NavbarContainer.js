@@ -1,6 +1,7 @@
 import React, { PropTypes, PureComponent } from 'react'
 import { connect } from 'react-redux'
 import { scrollToPosition } from '../lib/jello'
+import * as ElloAndroidInterface from '../lib/android_interface'
 import { ADD_NEW_IDS_TO_RESULT, SET_LAYOUT_MODE } from '../constants/action_types'
 import { selectIsLoggedIn } from '../selectors/authentication'
 import { selectCategoryTabs } from '../selectors/categories'
@@ -90,7 +91,8 @@ class NavbarContainer extends PureComponent {
   }
 
   static contextTypes = {
-    onClickScrollToContent: PropTypes.func,
+    onClickScrollToContent: PropTypes.func.isRequired,
+    onLaunchNativeEditor: PropTypes.func.isRequired,
   }
 
   componentWillMount() {
@@ -153,8 +155,12 @@ class NavbarContainer extends PureComponent {
 
   onClickOmniButton = () => {
     const { dispatch } = this.props
-    dispatch(openOmnibar())
-    scrollToPosition(0, 0)
+    if (ElloAndroidInterface.supportsNativeEditor()) {
+      this.context.onLaunchNativeEditor(null, false, null)
+    } else {
+      dispatch(openOmnibar())
+      scrollToPosition(0, 0)
+    }
   }
 
   onClickToggleLayoutMode = () => {

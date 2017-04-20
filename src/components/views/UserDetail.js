@@ -4,6 +4,7 @@ import { MainView } from '../views/MainView'
 import { ZeroStateCreateRelationship, ZeroStateFirstPost, ZeroStateSayHello } from '../zeros/Zeros'
 import { css, media, parent } from '../../styles/jss'
 import * as s from '../../styles/jso'
+import { isElloAndroid } from '../../lib/jello'
 
 // TODO: Seems like we move this up to Zeros.js?
 const zeroStatesStyle = css(
@@ -24,11 +25,11 @@ const ZeroStates = ({
   username,
   }) =>
     <div className={`ZeroStates ${zeroStatesStyle}`}>
-      {isSelf && hasZeroPosts && <ZeroStateFirstPost />}
+      {isSelf && hasZeroPosts && !isElloAndroid() && <ZeroStateFirstPost />}
       {!isSelf && hasZeroFollowers &&
         <ZeroStateCreateRelationship {...{ userId, username }} />
       }
-      {isLoggedIn && !isSelf && hasZeroPosts &&
+      {isLoggedIn && !isSelf && hasZeroPosts && !isElloAndroid() &&
         <ZeroStateSayHello
           onSubmit={() => onSubmitHello({ username })}
           hasPosted={hasSaidHelloTo}

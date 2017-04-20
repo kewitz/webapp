@@ -3,7 +3,8 @@ import { fork, put, select, take } from 'redux-saga/effects'
 import { registerForGCM, unregisterForGCM } from '../actions/profile'
 import { AUTHENTICATION, PROFILE } from '../constants/action_types'
 import { selectIsLoggedIn } from '../selectors/authentication'
-import { selectBundleId, selectRegistrationId } from '../selectors/profile'
+import { selectBundleId, selectIsStaff, selectRegistrationId } from '../selectors/profile'
+import * as ElloAndroidInterface from '../lib/android_interface'
 
 export function* loginPushSubscribe() {
   while (true) {
@@ -15,6 +16,8 @@ export function* loginPushSubscribe() {
       yield take(AUTHENTICATION.USER_SUCCESS)
       yield put(registerForGCM(registrationId, bundleId, marketingVersion, buildVersion))
     }
+    const isStaff = yield select(selectIsStaff)
+    ElloAndroidInterface.setIsStaff(isStaff)
   }
 }
 
@@ -31,6 +34,7 @@ export function* logoutPushUnsubscribe() {
     if (registrationId && bundleId) {
       yield put(unregisterForGCM(registrationId, bundleId))
     }
+    ElloAndroidInterface.setIsStaff(false)
   }
 }
 

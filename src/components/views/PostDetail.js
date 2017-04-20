@@ -4,10 +4,11 @@ import PostContainer from '../../containers/PostContainer'
 import StreamContainer from '../../containers/StreamContainer'
 import { MainView } from '../views/MainView'
 import { loadRelatedPosts } from '../../actions/posts'
-import { RelatedPostsButton } from '../posts/PostRenderables'
+import { LaunchCommentEditorButton, RelatedPostsButton } from '../posts/PostRenderables'
 import { TabListButtons } from '../tabs/TabList'
 import { css } from '../../styles/jss'
 import * as s from '../../styles/jso'
+import * as ElloAndroidInterface from '../../lib/android_interface'
 
 const navStyle = css(
   s.relative,
@@ -15,7 +16,7 @@ const navStyle = css(
 )
 
 export const PostDetail = (
-  { activeType, columnCount, hasEditor, hasRelatedPostsButton, post, streamAction, tabs },
+  { activeType, avatar, columnCount, hasEditor, hasRelatedPostsButton, post, streamAction, tabs },
   { onClickDetailTab }) =>
     <MainView className="PostDetail">
       <div className="PostDetails Posts asList">
@@ -35,7 +36,10 @@ export const PostDetail = (
                 {hasRelatedPostsButton && <RelatedPostsButton />}
               </div>
             }
-            {hasEditor && activeType === 'comments' && <Editor post={post} isComment />}
+            {hasEditor && activeType === 'comments' && !ElloAndroidInterface.supportsNativeEditor() && <Editor post={post} isComment />}
+            {ElloAndroidInterface.supportsNativeEditor() &&
+              <LaunchCommentEditorButton avatar={avatar} post={post} />
+            }
           </div>
           {streamAction && tabs && tabs.length > 0 &&
             <StreamContainer
@@ -57,6 +61,7 @@ export const PostDetail = (
     </MainView>
 PostDetail.propTypes = {
   activeType: PropTypes.string.isRequired,
+  avatar: PropTypes.object,
   columnCount: PropTypes.number.isRequired,
   hasEditor: PropTypes.bool.isRequired,
   hasRelatedPostsButton: PropTypes.bool.isRequired,
@@ -65,10 +70,12 @@ PostDetail.propTypes = {
   tabs: PropTypes.array.isRequired,
 }
 PostDetail.defaultProps = {
+  avatar: null,
   streamAction: null,
 }
 PostDetail.contextTypes = {
   onClickDetailTab: PropTypes.func.isRequired,
+  onLaunchNativeEditor: PropTypes.func.isRequired,
 }
 
 export const PostDetailError = ({ children }) =>

@@ -252,6 +252,42 @@ export class PostBody extends PureComponent {
   }
 }
 
+const launchCommentEditorButtonStyle = css(
+  s.bgcBlack,
+  s.colorWhite,
+  s.sansRegular,
+  {
+    borderRadius: 5,
+    height: 50,
+    minWidth: '100%',
+    maxWidth: '640px',
+    paddingLeft: 20,
+    textAlign: 'left',
+  },
+)
+
+export const LaunchCommentEditorButton = ({ avatar, post }, { onLaunchNativeEditor }) =>
+  <div className="editor isComment LaunchCommentEditorButton">
+    <Avatar sources={avatar} />
+    <button
+      className={launchCommentEditorButtonStyle}
+      onClick={() => onLaunchNativeEditor(post, true, null)}
+    >
+      Comment...
+    </button>
+  </div>
+LaunchCommentEditorButton.propTypes = {
+  avatar: PropTypes.object,
+  post: PropTypes.object,
+}
+LaunchCommentEditorButton.defaultProps = {
+  avatar: null,
+  post: null,
+}
+LaunchCommentEditorButton.contextTypes = {
+  onLaunchNativeEditor: PropTypes.func.isRequired,
+}
+
 const relatedPostButtonStyle = css(
   s.absolute,
   { top: 0, right: 0 },
