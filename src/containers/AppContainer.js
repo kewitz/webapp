@@ -42,7 +42,6 @@ function mapStateToProps(state) {
     isLoggedIn: selectIsLoggedIn(state),
     isPagePromotion: selectIsPagePromotion(state),
     isStaff: selectIsStaff(state),
-    reduxState: state,
   }
 }
 
@@ -59,7 +58,6 @@ class AppContainer extends Component {
     isPagePromotion: PropTypes.bool.isRequired,
     isStaff: PropTypes.bool.isRequired,
     params: PropTypes.object.isRequired,
-    reduxState: PropTypes.object.isRequired,
   }
 
   static defaultProps = {
@@ -174,17 +172,7 @@ class AppContainer extends Component {
   }
 
   onLaunchNativeEditor = (post = null, isComment = false, comment = null) => {
-    const { reduxState } = this.props
-    const jsState = {}
-    Object.keys(reduxState).forEach((key) => {
-      // whitelist the parts of state we care about here since
-      // sending the whole thing can result in memory issues
-      if (['authentication', 'editor', 'profile'].some(wlKey => key === wlKey)) {
-        jsState[key] = reduxState[key].toJS()
-      }
-    })
     ElloAndroidInterface.launchEditor(
-      JSON.stringify(jsState),
       post ? JSON.stringify(post.toJS()) : null,
       `${isComment}`,
       comment ? JSON.stringify(comment.toJS()) : null,
