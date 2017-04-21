@@ -16,7 +16,8 @@ const navStyle = css(
 )
 
 export const PostDetail = (
-  { activeType, avatar, columnCount, hasEditor, hasRelatedPostsButton, post, streamAction, tabs },
+  { activeType, avatar, columnCount, hasEditor, hasRelatedPostsButton,
+    isLoggedIn, post, streamAction, tabs },
   { onClickDetailTab }) =>
     <MainView className="PostDetail">
       <div className="PostDetails Posts asList">
@@ -37,7 +38,7 @@ export const PostDetail = (
               </div>
             }
             {hasEditor && activeType === 'comments' && !ElloAndroidInterface.supportsNativeEditor() && <Editor post={post} isComment />}
-            {ElloAndroidInterface.supportsNativeEditor() &&
+            {isLoggedIn && ElloAndroidInterface.supportsNativeEditor() &&
               <LaunchCommentEditorButton avatar={avatar} post={post} />
             }
           </div>
@@ -65,6 +66,7 @@ PostDetail.propTypes = {
   columnCount: PropTypes.number.isRequired,
   hasEditor: PropTypes.bool.isRequired,
   hasRelatedPostsButton: PropTypes.bool.isRequired,
+  isLoggedIn: PropTypes.bool.isRequired,
   post: PropTypes.object.isRequired,
   streamAction: PropTypes.object,
   tabs: PropTypes.array.isRequired,

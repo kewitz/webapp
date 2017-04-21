@@ -518,7 +518,7 @@ class PostContainer extends Component {
             onClickWatchPost={this.onClickWatchPost}
           />
         }
-        {showCommentEditor && supportsNativeEditor &&
+        {isLoggedIn && showCommentEditor && supportsNativeEditor &&
           <LaunchCommentEditorButton avatar={avatar} post={post} />
         }
         {showCommentEditor && !supportsNativeEditor && <Editor post={post} isComment />}
