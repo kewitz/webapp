@@ -5,8 +5,6 @@
 /* A, B, C, D, E, F... */
 @import "components/assets/Icons.css";
 
-@import "components/categories/CategoryLink.css";
-
 @import "components/comments/Comment.css";
 
 @import "components/editor/Editor.css";

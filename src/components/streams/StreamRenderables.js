@@ -9,13 +9,25 @@ import TreeButton from '../../components/navigation/TreeButton'
 import TreePanel from '../../components/navigation/TreePanel'
 import { preferenceToggleChanged } from '../../helpers/junk_drawer'
 import { isElloAndroid } from '../../lib/jello'
+import { css, media } from '../../styles/jss'
+import * as s from '../../styles/jso'
 
 // categories/comments/posts/users all get passed an Immutable.List
 // which contains ids required for their respective containers to
 // do their own lookup in the store to ensure they are up to date
 // CATEGORIES
+
+const categoriesStyle = css(
+  s.flex,
+  s.flexRow,
+  s.flexWrap,
+  s.mt10,
+  { marginLeft: -20 },
+  media(s.minBreak4, s.mt20, { marginLeft: -40 }),
+)
+
 export const categoriesAsGrid = categoryIds =>
-  <div className="Categories asGrid">
+  <div className={categoriesStyle}>
     {categoryIds.map(id =>
       <CategoryContainer
         categoryId={id}
