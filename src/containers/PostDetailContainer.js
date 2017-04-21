@@ -3,6 +3,7 @@ import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { POST } from '../constants/action_types'
 import { scrollToPosition, scrollToSelector } from '../lib/jello'
+import { selectIsLoggedIn } from '../selectors/authentication'
 import { selectColumnCount, selectInnerHeight } from '../selectors/gui'
 import { selectParamsToken, selectParamsUsername } from '../selectors/params'
 import {
@@ -30,6 +31,7 @@ function mapStateToProps(state, props) {
     columnCount: selectColumnCount(state, props),
     hasRelatedPostsButton: selectPostHasRelatedButton(state, props),
     innerHeight: selectInnerHeight(state, props),
+    isLoggedIn: selectIsLoggedIn(state),
     isPostEmpty: selectPostIsEmpty(state, props),
     locationKey: selectPropsLocationKey(state, props),
     locationStateFrom: selectPropsLocationStateFrom(state, props),
@@ -50,6 +52,7 @@ class PostDetailContainer extends Component {
     dispatch: PropTypes.func.isRequired,
     hasRelatedPostsButton: PropTypes.bool.isRequired,
     innerHeight: PropTypes.number.isRequired,
+    isLoggedIn: PropTypes.bool.isRequired,
     isPostEmpty: PropTypes.bool.isRequired,
     locationKey: PropTypes.string.isRequired,
     locationStateFrom: PropTypes.string,
@@ -173,6 +176,7 @@ class PostDetailContainer extends Component {
       avatar,
       columnCount,
       hasRelatedPostsButton,
+      isLoggedIn,
       isPostEmpty,
       paramsToken,
       post,
@@ -203,6 +207,7 @@ class PostDetailContainer extends Component {
       columnCount,
       hasEditor: author && author.get('hasCommentingEnabled') && !(post.get('isReposting') || post.get('isEditing')),
       hasRelatedPostsButton,
+      isLoggedIn,
       key: `postDetail_${paramsToken}`,
       post,
       streamAction: this.getStreamAction(),
