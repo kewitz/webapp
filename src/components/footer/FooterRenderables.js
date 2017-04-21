@@ -13,7 +13,7 @@ const baseStyle = css(
   s.flex,
   s.justifySpaceBetween,
   s.px10,
-  { lineHeight: 54 },
+  { height: 54, lineHeight: 54 },
   s.colorA,
   s.bgcE5,
   { transition: 'transform 150ms ease' },
