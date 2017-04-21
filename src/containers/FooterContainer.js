@@ -91,7 +91,7 @@ class FooterContainer extends Component {
 
   componentWillReceiveProps(nextProps) {
     const { availability } = nextProps
-    if (!availability) { return }
+    if (!availability || (document.body && document.body.classList.contains('isModalActive'))) { return }
     if (availability.has('email')) {
       this.validateEmailResponse(availability)
     }
