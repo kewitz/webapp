@@ -8,6 +8,7 @@ import { FORM_CONTROL_STATUS as STATUS } from '../constants/status_types'
 import { LOAD_NEXT_CONTENT_REQUEST, SET_LAYOUT_MODE } from '../constants/action_types'
 import { selectIsLoggedIn } from '../selectors/authentication'
 import { selectIsGridMode, selectIsLayoutToolHidden, selectIsMobile } from '../selectors/gui'
+import { selectIsModalActive } from '../selectors/modal'
 import { selectAvailability } from '../selectors/profile'
 import { selectPathname } from '../selectors/routing'
 import { selectStreamType } from '../selectors/stream'
@@ -27,6 +28,7 @@ type Props = {
   isLayoutToolHidden: boolean,
   isLoggedIn: boolean,
   isMobile: boolean,
+  isModalActive: boolean,
   isPaginatoring: boolean,
   pathname: string,
 }
@@ -48,6 +50,7 @@ function mapStateToProps(state, props) {
     isLayoutToolHidden: selectIsLayoutToolHidden(state, props),
     isLoggedIn: selectIsLoggedIn(state),
     isMobile: selectIsMobile(state),
+    isModalActive: selectIsModalActive(state),
     isPaginatoring: streamType === LOAD_NEXT_CONTENT_REQUEST,
     pathname: selectPathname(state),
   }
@@ -90,8 +93,8 @@ class FooterContainer extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { availability } = nextProps
-    if (!availability) { return }
+    const { availability, isModalActive } = nextProps
+    if (!availability || isModalActive) { return }
     if (availability.has('email')) {
       this.validateEmailResponse(availability)
     }
