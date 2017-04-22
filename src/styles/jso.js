@@ -310,6 +310,7 @@ export const borderTop = { borderTop: '1px solid' }
 export const borderBottom = { borderBottom: '1px solid' }
 export const borderBlack = { border: '1px solid #000' }
 export const borderWhite = { border: '1px solid #fff' }
+export const borderGreen = { border: '1px solid #00d100' }
 export const borderA = { border: '1px solid #aaa' }
 
 // -------------------------------------
