@@ -26,12 +26,6 @@
   max-width: none;
 }
 
-.AuthenticationFormDialog.inModal .HaveAccountLink {
-  margin-top: 0;
-  margin-bottom: 20px;
-  color: #aaa;
-}
-
 .AuthenticationFormDialog.inModal .HeroPromotionCredits {
   right: 20px;
 }
@@ -120,10 +114,6 @@
 
   .AuthenticationFormDialog.inModal .AuthenticationForm {
     margin-bottom: 30px;
-  }
-
-  .AuthenticationFormDialog.inModal .HaveAccountLink {
-    margin-bottom: 0;
   }
 
   .AuthenticationFormDialog.inModal .HeroPromotionCredits {

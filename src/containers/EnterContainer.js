@@ -26,6 +26,10 @@ import {
 } from '../components/forms/Validators'
 import { MainView } from '../components/views/MainView'
 import { loginToken } from '../networking/api'
+import { css } from '../styles/jss'
+import * as s from '../styles/jso'
+
+const forgotPasswordLink = css({ marginTop: 15 }, s.fontSize14, s.colorWhite)
 
 function renderStatus(state) {
   return () => {
@@ -193,7 +197,7 @@ class EnterContainer extends PureComponent {
               Log in
             </FormButton>
           </form>
-          <Link className="ForgotPasswordLink" to="/forgot-password">Forgot password?</Link>
+          <Link className={forgotPasswordLink} to="/forgot-password">Forgot password?</Link>
         </div>
       </MainView>
     )
