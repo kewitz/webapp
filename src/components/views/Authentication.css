@@ -26,10 +26,6 @@
   max-width: none;
 }
 
-.AuthenticationFormDialog.inModal .HeroPromotionCredits {
-  right: 20px;
-}
-
 .Authentication h1,
 .AuthenticationFormDialog h1 {
   padding-top: 100px;
@@ -114,10 +110,6 @@
 
   .AuthenticationFormDialog.inModal .AuthenticationForm {
     margin-bottom: 30px;
-  }
-
-  .AuthenticationFormDialog.inModal .HeroPromotionCredits {
-    right: 30px;
   }
 }
 

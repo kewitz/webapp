@@ -40,6 +40,7 @@ import {
 import { openModal } from '../actions/modals'
 import ShareDialog from '../components/dialogs/ShareDialog'
 import {
+  Hero,
   HeroBroadcast,
   HeroProfile,
   HeroPromotionAuth,
@@ -291,9 +292,9 @@ class HeroContainer extends Component {
       children.push(this.getHeroPromotionAuth())
     }
     return (
-      <div className="Hero">
+      <Hero>
         {children}
-      </div>
+      </Hero>
     )
   }
 }

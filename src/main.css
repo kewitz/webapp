@@ -6,11 +6,7 @@
 @import "components/assets/Icons.css";
 @import "components/comments/Comment.css";
 @import "components/editor/Editor.css";
-
 @import "components/forms/FormControl.css";
-
-@import "components/heros/HeroParts.css";
-@import "components/heros/HeroRenderables.css";
 
 @import "components/modals/Modal.css";
 

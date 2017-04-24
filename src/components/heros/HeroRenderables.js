@@ -9,6 +9,40 @@ import {
 } from './HeroParts'
 import { ZeroStream } from '../zeros/Zeros'
 import UserContainer from '../../containers/UserContainer'
+import { css, media, parent, select } from '../../styles/jss'
+import * as s from '../../styles/jso'
+
+// -------------------------------------
+
+const heroStyle = css(
+  { paddingTop: 85 },
+  s.bgcWhite,
+  select('.isOnboardingView ~ &', { paddingTop: '0 !important' }),
+  select('.isAuthenticationView ~ &', { paddingTop: '0 !important' }),
+  select('.isDiscoverView ~ &', { paddingTop: '160px !important' }),
+  media(s.maxBreak2,
+    parent('.isLoggedOut', { paddingTop: 50 }),
+    select('.isDiscoverView ~ &', { paddingTop: '155px !important' }),
+    select('.isLogged .isDiscoverView ~ &', { paddingTop: '120px !important' }),
+    select('.isProfileMenuActive ~ &', s.displayNone),
+  ),
+  media('(max-width: 23.375em)',
+    select('.isDiscoverView ~ &', { paddingTop: '135px !important' }),
+    select('.isLogged .isDiscoverView ~ &', { paddingTop: '100px !important' }),
+  ),
+  media(s.minBreak2,
+  { paddingTop: 80 },
+  ),
+)
+
+export const Hero = ({ children }) => (
+  <div className={`Hero ${heroStyle}`}>
+    {children}
+  </div>
+)
+Hero.propTypes = {
+  children: PropTypes.array.isRequired,
+}
 
 // -------------------------------------
 
@@ -21,9 +55,13 @@ HeroBroadcast.propTypes = {
 }
 
 // -------------------------------------
+const profileStyle = css(
+  s.relative, s.flex, s.overflowHidden,
+  media(s.minBreak2, { height: 'calc(100vh - 80px)', minHeight: 540 }),
+)
 
 export const HeroProfile = ({ dpi, sources, userId, useGif }) =>
-  <div className="HeroProfile">
+  <div className={profileStyle}>
     <BackgroundImage
       className="inHeroProfile hasOverlay6"
       dpi={dpi}
@@ -48,10 +86,12 @@ HeroProfile.defaultProps = {
 
 // -------------------------------------
 
+const promotionAuthStyle = css(s.fullscreen)
+
 export const HeroPromotionAuth = (props) => {
   const { creditSources, creditUsername, dpi, sources } = props
   return (
-    <div className="HeroPromotionAuth fullscreen">
+    <div className={promotionAuthStyle}>
       <BackgroundImage className="hasOverlay4" dpi={dpi} sources={sources} />
       {creditUsername ?
         <HeroPromotionCredits sources={creditSources} username={creditUsername} /> : null
@@ -74,22 +114,58 @@ HeroPromotionAuth.defaultProps = {
 }
 
 // -------------------------------------
+const promotionStyle = css(
+  s.relative,
+  s.flex,
+  s.itemsCenter,
+  s.fullWidth,
+  { minHeight: 240 },
+  s.overflowHidden,
+  s.colorWhite,
+  media(s.minBreak2, { minHeight: 380 }),
+)
+
+const captionStyle = css(
+  s.relative, s.py20, s.mx10, s.fontSize14,
+  media(s.minBreak2, s.mx20),
+  media(s.minBreak4, s.pr40, s.mx40),
+)
+
+const categoryCaptionStyle = css(
+  { ...captionStyle, maxWidth: 500 },
+  s.mxAuto,
+  media(s.maxBreak2, s.px10, { minHeight: 200 }),
+  media(s.minBreak4, s.pr0),
+)
+
+const categoryHeadingStyle = css(
+  s.fontSize18, { lineHeight: 1.5 }, s.center,
+  media(s.minBreak2, s.fontSize24),
+)
+const categoryHeadingTextStyle = css(s.inlineBlock, s.borderBottom)
+const mobileActionStyle = css(s.relative, s.fullWidth, s.px10, s.pb10, s.fontSize14, s.selfEnd)
+const categoryCopyStyle = css(s.mt40)
+
+const promotionCategoryStyle = css({ ...promotionStyle }, media(s.maxBreak2, s.flexColumn))
+
 
 export const HeroPromotionCategory = (props) => {
   const { creditLabel, creditSources, creditUsername, description, dpi, name, sources } = props
   const { ctaCaption, ctaHref, isLoggedIn, isMobile } = props
   return (
-    <div className="HeroPromotion HeroPromotionCategory">
+    <div className={promotionCategoryStyle}>
       <BackgroundImage className="hasOverlay4" dpi={dpi} sources={sources} />
-      <div className="HeroPromotionCaption isCentered">
-        <h1 className="HeroPromotionCategoryHeading"><span>{name}</span></h1>
-        <p className="HeroPromotionCategoryCopy">{description}</p>
+      <div className={categoryCaptionStyle}>
+        <h1 className={categoryHeadingStyle}>
+          <span className={categoryHeadingTextStyle}>{name}</span>
+        </h1>
+        <p className={categoryCopyStyle}>{description}</p>
         {!isMobile &&
           <HeroPromotionCTA caption={ctaCaption} isLoggedIn={isLoggedIn} to={ctaHref} />
         }
       </div>
       { isMobile &&
-        <div className="HeroPromotionMobileActions">
+        <div className={`HeroPromotionMobileActions ${mobileActionStyle}`}>
           <HeroPromotionCTA caption={ctaCaption} isLoggedIn={isLoggedIn} to={ctaHref} />
           {creditUsername &&
             <HeroPromotionCredits
@@ -134,15 +210,18 @@ HeroPromotionCategory.defaultProps = {
 
 // -------------------------------------
 
+const promotionHeadingStyle = css(s.fontSize18, media(s.minBreak2, s.fontSize48))
+const promotionSubheadingStyle = css(s.fontSize14, media(s.minBreak2, s.fontSize28))
+
 export const HeroPromotionPage = (props) => {
   const { creditSources, creditUsername, dpi, header, sources, subheader } = props
   const { ctaCaption, ctaHref, isLoggedIn } = props
   return (
-    <div className="HeroPromotion HeroPromotionPage">
+    <div className={promotionStyle}>
       <BackgroundImage className="hasOverlay4" dpi={dpi} sources={sources} />
-      <div className="HeroPromotionCaption">
-        <h1 className="HeroPromotionHeading">{header}</h1>
-        <h2 className="HeroPromotionSubheading">{subheader}</h2>
+      <div className={captionStyle}>
+        <h1 className={promotionHeadingStyle}>{header}</h1>
+        <h2 className={promotionSubheadingStyle}>{subheader}</h2>
         <HeroPromotionCTA caption={ctaCaption} isLoggedIn={isLoggedIn} to={ctaHref} />
       </div>
       {creditUsername &&

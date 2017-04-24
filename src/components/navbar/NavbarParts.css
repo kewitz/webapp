@@ -313,7 +313,6 @@
 
 @media (--break-2-max) {
   .isProfileMenuActive ~ .MainView,
-  .isProfileMenuActive ~ .Hero,
   .isProfileMenuActive ~ .Footer {
     display: none;
   }

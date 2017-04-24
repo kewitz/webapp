@@ -67,6 +67,7 @@ export const absolute = { position: 'absolute' }
 export const relative = { position: 'relative' }
 export const fixed = { position: 'fixed' }
 export const flood = { top: 0, right: 0, bottom: 0, left: 0 }
+export const fullscreen = { ...fixed, ...flood }
 
 export const zIndex0 = { zIndex: 0 }
 export const zIndex1 = { zIndex: 1 }
@@ -267,6 +268,8 @@ export const fontSize14 = { fontSize: 14 }
 export const fontSize16 = { fontSize: 16 }
 export const fontSize18 = { fontSize: 18 }
 export const fontSize24 = { fontSize: 24 }
+export const fontSize28 = { fontSize: 28 }
+export const fontSize48 = { fontSize: 48 }
 
 export const leftAlign = { textAlign: 'left' }
 export const center = { textAlign: 'center' }
@@ -287,6 +290,7 @@ export const color5 = { color: '#535353' }
 export const color6 = { color: '#666' }
 export const color9 = { color: '#999' }
 export const colorA = { color: '#aaa' }
+export const colorC = { color: '#ccc' }
 export const colorWhite = { color: '#fff' }
 
 export const bgcTransparent = { backgroundColor: 'transparent' }
