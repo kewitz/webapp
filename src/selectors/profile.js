@@ -20,6 +20,7 @@ export const selectHasCoverImagePresent = state => state.profile.get('hasCoverIm
 export const selectId = state => state.profile.get('id')
 export const selectIsPublic = state => state.profile.get('isPublic')
 export const selectIsStaff = state => state.profile.get('isStaff', false)
+export const selectIsCommunity = state => state.profile.get('isCommunity', false)
 export const selectProfileIsCollaborateable = state => state.profile.get('isCollaborateable', false)
 export const selectProfileIsHireable = state => state.profile.get('isHireable', false)
 export const selectLocation = state => state.profile.get('location', '')
@@ -80,5 +81,9 @@ export const selectIsOwnPage = createSelector(
 
 export const selectProfileIsFeatured = createSelector(
   [selectProfileLinksCategories], categories => !categories.isEmpty(),
+)
+
+export const selectBioLabel = createSelector(
+  [selectIsCommunity], isCommunity => (isCommunity ? 'Community Info' : 'Bio'),
 )
 

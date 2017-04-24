@@ -114,6 +114,7 @@ function stubUser(properties, shouldAdd = true) {
     hasSharingEnabled: true,
     href: '/href',
     isCollaborateable: false,
+    isCommunity: false,
     isHireable: true,
     location: 'Planet Earth, 90210',
     lovesCount: 0,

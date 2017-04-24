@@ -5,6 +5,7 @@ import FormControl from './FormControl'
 class BioControl extends PureComponent {
   static propTypes = {
     id: PropTypes.string.isRequired,
+    label: PropTypes.string,
     onChange: PropTypes.func.isRequired,
     text: PropTypes.string,
   }
@@ -44,9 +45,10 @@ class BioControl extends PureComponent {
   // let the Container control the state. The component is more portable this
   // way but it's still weird. Exceeding isn't really an error either.
   render() {
+    const { label } = this.props
     const { textLength } = this.state
     const hasExceeded = this.isValidBioLength()
-    const label = hasExceeded ? `Bio ${textLength}` : 'Bio'
+    const aLabel = hasExceeded ? `${label} ${textLength}` : label
     return (
       <FormControl
         {...this.props}
@@ -54,7 +56,7 @@ class BioControl extends PureComponent {
         autoCapitalize="off"
         autoCorrect="off"
         kind="textarea"
-        label={label}
+        label={aLabel}
         onChange={this.onChangeControl}
         type="text"
       />
