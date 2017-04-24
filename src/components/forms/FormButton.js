@@ -46,7 +46,6 @@ const buttonStyle = css(
 type Props = {
   children?: React.Element<*>,
   className?: string,
-  rest?: any,
 }
 
 const FormButton = ({ children, className, ...rest }: Props) =>
@@ -57,7 +56,6 @@ const FormButton = ({ children, className, ...rest }: Props) =>
 FormButton.defaultProps = {
   children: null,
   className: null,
-  rest: null,
 }
 
 export default FormButton
