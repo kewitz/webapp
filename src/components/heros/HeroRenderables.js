@@ -132,7 +132,8 @@ const captionStyle = css(
 )
 
 const categoryCaptionStyle = css(
-  { ...captionStyle, maxWidth: 500 },
+  { ...captionStyle },
+  { maxWidth: 500 },
   s.mxAuto,
   media(s.maxBreak2, s.px10, { minHeight: 200 }),
   media(s.minBreak4, s.pr0),
