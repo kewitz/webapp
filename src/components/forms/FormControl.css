@@ -338,6 +338,14 @@ textarea.FormControlInput.MessageMessageControl {
   opacity: 0;
 }
 
+.SettingsInfoForm .isInitialValue .FormControlStatus {
+  display: none;
+}
+
+.OnboardingInfoForm .FormControlStatus {
+  top: 10px;
+}
+
 .isSafari .PasswordControl .FormControlStatus {
   right: 20px;
 }

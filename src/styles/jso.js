@@ -31,6 +31,9 @@ export const easeInOutCubic = 'cubic-bezier(0.645, 0.045, 0.355, 1)'
 // - [react-native flex implementation](https://facebook.github.io/yoga/)
 
 export const flex = { display: 'flex' }
+export const flex1 = { ...flex, flex: 1 }
+export const flex2 = { ...flex, flex: 2 }
+export const flex3 = { ...flex, flex: 3 }
 export const inlineFlex = { display: 'inline-flex' }
 export const flexColumn = { flexDirection: 'column' }
 export const flexRow = { flexDirection: 'row' }
@@ -64,13 +67,16 @@ export const absolute = { position: 'absolute' }
 export const relative = { position: 'relative' }
 export const fixed = { position: 'fixed' }
 export const flood = { top: 0, right: 0, bottom: 0, left: 0 }
+export const fullscreen = { ...fixed, ...flood }
 
 export const zIndex0 = { zIndex: 0 }
 export const zIndex1 = { zIndex: 1 }
 export const zIndex2 = { zIndex: 2 }
 export const zIndex3 = { zIndex: 3 }
 export const zFooter = { zIndex: 1030 }
+export const zDecapitated = { zIndex: 1035 }
 export const zTools = { zIndex: 1070 }
+export const zModal = { zIndex: 1080 }
 export const zGrid = { zIndex: 3000 }
 
 // -------------------------------------
@@ -264,6 +270,8 @@ export const fontSize14 = { fontSize: 14 }
 export const fontSize16 = { fontSize: 16 }
 export const fontSize18 = { fontSize: 18 }
 export const fontSize24 = { fontSize: 24 }
+export const fontSize28 = { fontSize: 28 }
+export const fontSize48 = { fontSize: 48 }
 
 export const leftAlign = { textAlign: 'left' }
 export const center = { textAlign: 'center' }
@@ -274,6 +282,7 @@ export const lowercase = { textTransform: 'lowercase' }
 export const nowrap = { whiteSpace: 'nowrap' }
 export const breakWord = { wordWrap: 'break-word' }
 export const ellipsis = { textOverflow: 'ellipsis' }
+export const truncate = { ...fit, ...overflowHidden, ...ellipsis, ...nowrap }
 
 // -------------------------------------
 // Colors, backgrounds, opacity & fills
@@ -283,6 +292,7 @@ export const color5 = { color: '#535353' }
 export const color6 = { color: '#666' }
 export const color9 = { color: '#999' }
 export const colorA = { color: '#aaa' }
+export const colorC = { color: '#ccc' }
 export const colorWhite = { color: '#fff' }
 
 export const bgcTransparent = { backgroundColor: 'transparent' }
@@ -306,6 +316,8 @@ export const borderTop = { borderTop: '1px solid' }
 export const borderBottom = { borderBottom: '1px solid' }
 export const borderBlack = { border: '1px solid #000' }
 export const borderWhite = { border: '1px solid #fff' }
+export const borderGreen = { border: '1px solid #00d100' }
+export const borderA = { border: '1px solid #aaa' }
 
 // -------------------------------------
 // Transforms
@@ -319,6 +331,7 @@ export const transitionBgColor = { transition: 'background-color 0.2s ease' }
 export const transitionColor = { transition: 'color 0.2s ease' }
 export const transitionOpacity = { transition: 'opacity 0.2s ease' }
 export const transitionTransform = { transition: `transform 0.2s ${ease}` }
+export const transitionWidth = { transition: `width 0.2s ${ease}` }
 
 // -------------------------------------
 // Utility

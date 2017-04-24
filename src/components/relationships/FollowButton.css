@@ -10,8 +10,8 @@
   color: #fff;
   text-align: center;
   white-space: nowrap;
-  background-color: #00d101;
-  border: 1px solid #00d101;
+  background-color: #00d100;
+  border: 1px solid #00d100;
   border-radius: 15px;
   transition:
     background-color var(--speed) var(--ease),

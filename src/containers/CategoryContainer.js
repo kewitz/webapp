@@ -1,11 +1,11 @@
 import React, { PropTypes, PureComponent } from 'react'
 import { connect } from 'react-redux'
-import { Link } from 'react-router'
 import {
   selectCategoryName,
   selectCategorySlug,
   selectCategoryTileImageUrl,
 } from '../selectors/categories'
+import { CategoryLink } from '../components/buttons/Buttons'
 
 function mapStateToProps(state, props) {
   return {
@@ -16,23 +16,17 @@ function mapStateToProps(state, props) {
 }
 
 class CategoryContainer extends PureComponent {
-
   static propTypes = {
     name: PropTypes.string.isRequired,
     slug: PropTypes.string.isRequired,
     tileImageUrl: PropTypes.string.isRequired,
   }
-
   render() {
     const { name, slug, tileImageUrl } = this.props
     return (
-      <Link
-        className="CategoryLink"
-        to={`/discover/${slug}`}
-        style={{ backgroundImage: `url("${tileImageUrl}")` }}
-      >
-        <span className="CategoryLinkName truncate">{name}</span>
-      </Link>
+      <CategoryLink imageUrl={tileImageUrl} to={`/discover/${slug}`} >
+        {name}
+      </CategoryLink>
     )
   }
 }

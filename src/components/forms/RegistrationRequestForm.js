@@ -23,6 +23,8 @@ import {
   addPageVisibilityObserver,
   removePageVisibilityObserver,
 } from '../viewport/PageVisibilityComponent'
+import { css, media, parent } from '../../styles/jss'
+import * as s from '../../styles/jso'
 
 function mapStateToProps(state, props) {
   return {
@@ -31,6 +33,19 @@ function mapStateToProps(state, props) {
     invitationCode: selectParamsInvitationCode(state, props),
   }
 }
+
+const emailFormWrapperStyle = css(s.relative, s.zIndex1)
+const accountLinkStyle = css(
+  { marginTop: 15 },
+  s.fontSize14,
+  s.colorWhite,
+  parent('.AuthenticationFormDialog.inModal',
+    s.mt0,
+    s.mb20,
+    s.colorA,
+    media(s.minBreak2, s.mb0),
+  ),
+)
 
 class RegistrationRequestForm extends Component {
 
@@ -171,7 +186,7 @@ class RegistrationRequestForm extends Component {
     const showMessage = (message && message.length) &&
       (status === STATUS.FAILURE || status === STATUS.SUCCESS)
     return (
-      <div className="RegistrationRequestForm">
+      <div className={emailFormWrapperStyle}>
         <h1>
           Join The Creators Network.
         </h1>
@@ -202,7 +217,7 @@ class RegistrationRequestForm extends Component {
             Create account
           </FormButton>
         </form>
-        <Link className="HaveAccountLink" to="/enter">Already have an account?</Link>
+        <Link className={accountLinkStyle} to="/enter">Already have an account?</Link>
       </div>
     )
   }

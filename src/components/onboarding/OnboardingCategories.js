@@ -2,8 +2,12 @@ import React, { PropTypes, PureComponent } from 'react'
 import classNames from 'classnames'
 import OnboardingNavbar from './OnboardingNavbar'
 import { MainView } from '../views/MainView'
-import { CheckIconLG } from '../assets/Icons'
+import { CheckIconSM } from '../assets/Icons'
+import { categoryLinkStyle, categoryLinkTextStyle } from '../buttons/Buttons'
+import { css, media } from '../../styles/jss'
+import * as s from '../../styles/jso'
 
+// TODO: Eventually move to Buttons
 class CategoryButton extends PureComponent {
 
   static propTypes = {
@@ -27,11 +31,11 @@ class CategoryButton extends PureComponent {
     return (
       <button
         onClick={this.onClick}
-        className={classNames('CategoryLink', { isActive })}
+        className={classNames(`${categoryLinkStyle}`, { isActive })}
         style={{ backgroundImage: `url("${category.getIn(['tileImage', 'large', 'url'])}")` }}
       >
-        <span className="CategoryLinkName">
-          {isActive ? <CheckIconLG /> : null}
+        <span className={categoryLinkTextStyle}>
+          {isActive ? <CheckIconSM /> : null}
           {category.get('name')}
         </span>
       </button>
@@ -39,11 +43,16 @@ class CategoryButton extends PureComponent {
   }
 }
 
-const OnboardingCategories = ({
-  categories,
-  isNextDisabled,
-  onCategoryClick,
-}) => {
+const categoriesStyle = css(
+  s.flex,
+  s.flexRow,
+  s.flexWrap,
+  s.mt10,
+  { marginLeft: -20 },
+  media(s.minBreak4, s.mt20, { marginLeft: -40 }),
+)
+
+const OnboardingCategories = ({ categories, isNextDisabled, onCategoryClick }) => {
   const btns = []
   categories.map(category =>
     btns.push(
@@ -61,7 +70,7 @@ const OnboardingCategories = ({
         <span> Slow down & check out some cool ass shit.</span>
       </h1>
       <section className="StreamContainer">
-        <div className="Categories asGrid">{btns}</div>
+        <div className={categoriesStyle}>{btns}</div>
       </section>
       <OnboardingNavbar isNextDisabled={isNextDisabled} />
     </MainView>

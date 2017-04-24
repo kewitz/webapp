@@ -67,6 +67,10 @@ body {
   background-color: #fff;
 }
 
+body.isModalActive {
+  overflow: hidden;
+}
+
 ::selection {
   color: #fff;
   text-shadow: none;

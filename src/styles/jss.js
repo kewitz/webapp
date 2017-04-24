@@ -28,6 +28,9 @@ export const hover = (...styles:Array<JSO>) =>
 export const focus = (...styles:Array<JSO>) =>
   select(':focus', ...styles)
 
+export const firstChild = (...styles:Array<JSO>) =>
+  select(':first-child', ...styles)
+
 export const before = (...styles:Array<JSO>) =>
   select('::before', ...styles)
 

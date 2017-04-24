@@ -98,11 +98,6 @@
   text-align: left;
 }
 
-.SettingsCredentialActions .FormButton {
-  width: 120px;
-  margin-bottom: 20px;
-}
-
 /* // ------------------------------------- */
 
 @media (--break-2) {

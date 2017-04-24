@@ -4,6 +4,12 @@
   background-color: #fff;
 }
 
+/* stylelint-disable selector-no-qualifying-type */
+body.isModalActive .MainView {
+  pointer-events: none;
+}
+/* stylelint-enable selector-no-qualifying-type */
+
 .PostDetail.MainView {
   padding-bottom: 30px;
 }

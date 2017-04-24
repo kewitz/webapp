@@ -7,6 +7,13 @@ import InfoForm from '../forms/InfoForm'
 import Uploader from '../uploaders/Uploader'
 import Avatar from '../assets/Avatar'
 import BackgroundImage from '../assets/BackgroundImage'
+import { css, media } from '../../styles/jss'
+import * as s from '../../styles/jso'
+
+const formStyle = css(
+  { padding: '20px 10px 80px' },
+  media(s.minBreak2, s.pt40, { minHeight: 410, marginLeft: 285 }),
+)
 
 const OnboardingSettings = (props, context) => {
   const { avatar, isAvatarBlank, saveAvatar } = context
@@ -52,7 +59,7 @@ const OnboardingSettings = (props, context) => {
         />
       </div>
       <InfoForm
-        className="OnboardingInfoForm"
+        className={`OnboardingInfoForm ${formStyle}`}
         isOnboardingControl
         controlClassModifiers="isOnboardingControl"
         tabIndexStart={1}
