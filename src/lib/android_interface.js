@@ -5,13 +5,7 @@ import { requestPushSubscription } from '../actions/profile'
 const getJSState = () => {
   const jsState = {}
   const state = store.getState()
-  Object.keys(state).forEach((key) => {
-    // whitelist the parts of state we care about here since
-    // sending the whole thing can result in memory issues
-    if (['authentication', 'editor', 'profile'].some(wlKey => key === wlKey)) {
-      jsState[key] = state[key].toJS()
-    }
-  })
+  Object.keys(state).forEach(key => (jsState[key] = state[key].toJS()))
   return JSON.stringify(jsState)
 }
 export const supportsNativeEditor = () => isElloAndroid() && typeof AndroidInterface.launchEditor === 'function'
