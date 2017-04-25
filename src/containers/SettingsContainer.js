@@ -329,6 +329,7 @@ class SettingsContainer extends PureComponent {
         <div className="SettingsCoverPicker">
           <Uploader
             className="isCoverUploader"
+            kind="coverImage"
             line1="2560 x 1440"
             line2="Animated Gifs work too"
             line3={isMobile ? null : 'Drag & Drop'}
@@ -347,11 +348,12 @@ class SettingsContainer extends PureComponent {
           <div className="SettingsAvatarPicker" >
             <Uploader
               className="isAvatarUploader isSettingsAvatarUploader isLGUploader"
-              title="Upload Avatar"
+              kind="avatar"
               line1="360 x 360"
               line2="Animated Gifs work too"
               line3={isMobile ? null : 'Drag & Drop'}
               saveAction={bindActionCreators(saveAvatar, dispatch)}
+              title="Upload Avatar"
             />
             <Avatar
               className="isLarge"

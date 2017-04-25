@@ -1,6 +1,8 @@
+import Immutable from 'immutable'
 import { isElloAndroid } from './jello'
 import store from '../store'
 import { requestPushSubscription } from '../actions/profile'
+import { UPDATE_STATE_FROM_NATIVE } from '../constants/action_types'
 
 const getJSState = () => {
   const jsState = {}
@@ -35,8 +37,10 @@ export const exposeAndroidMethods = (dispatch) => {
     window.registerAndroidNotifications = (regId, bundleId, marketingVersion, buildVersion) => {
       dispatch(requestPushSubscription(regId, bundleId, marketingVersion, buildVersion))
     }
-    window.updateStateFromNative = (jsState) => {
-      console.log("updateStateFromNative: ", jsState)
+    window.updateStateFromNative = (state) => {
+      const immutableState = {}
+      Object.keys(state).forEach(key => (immutableState[key] = Immutable.fromJS(state[key])))
+      dispatch({ type: UPDATE_STATE_FROM_NATIVE, payload: immutableState })
     }
   }
 }

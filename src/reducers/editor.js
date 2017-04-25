@@ -2,7 +2,7 @@
 import Immutable from 'immutable'
 import { REHYDRATE } from 'redux-persist/constants'
 import get from 'lodash/get'
-import { AUTHENTICATION, EDITOR, PROFILE } from '../constants/action_types'
+import { AUTHENTICATION, EDITOR, PROFILE, UPDATE_STATE_FROM_NATIVE } from '../constants/action_types'
 import editorMethods from '../helpers/editor_helper'
 
 export const initialState = Immutable.Map({ completions: Immutable.Map() })
@@ -33,6 +33,12 @@ export default (state = initialState, action) => {
     case EDITOR.USER_COMPLETER_SUCCESS:
     case PROFILE.LOCATION_AUTOCOMPLETE_SUCCESS:
       return state.set('completions', editorMethods.getCompletions(action))
+    case UPDATE_STATE_FROM_NATIVE: {
+      if (!action.payload.editor.isEmpty()) {
+        return action.payload.editor
+      }
+      return state
+    }
     case REHYDRATE:
       if (action.payload.editor) {
         return editorMethods.rehydrateEditors(action.payload.editor)

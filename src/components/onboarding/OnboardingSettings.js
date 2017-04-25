@@ -28,6 +28,7 @@ const OnboardingSettings = (props, context) => {
       <div className="OnboardingCoverPicker">
         <Uploader
           className={classNames('isCoverUploader', { isCoverImageBlank })}
+          kind="coverImage"
           line1="2560 x 1440"
           line2="Animated Gifs work too"
           line3={isMobile ? null : 'Drag & Drop'}
@@ -44,6 +45,7 @@ const OnboardingSettings = (props, context) => {
       <div className="OnboardingAvatarPicker" >
         <Uploader
           className={classNames('isAvatarUploader isXLUploader', { isAvatarBlank })}
+          kind="avatar"
           title="Upload Avatar"
           line1="360 x 360"
           line2="Animated Gifs work too"

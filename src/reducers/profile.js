@@ -4,7 +4,7 @@ import { camelizeKeys } from 'humps'
 import jwtDecode from 'jwt-decode'
 import get from 'lodash/get'
 import { REHYDRATE } from 'redux-persist/constants'
-import { AUTHENTICATION, INVITATIONS, PROFILE } from '../constants/action_types'
+import { AUTHENTICATION, INVITATIONS, PROFILE, UPDATE_STATE_FROM_NATIVE } from '../constants/action_types'
 import { imageGuid } from '../helpers/file_helper'
 
 function parseJWT(token) {
@@ -88,6 +88,12 @@ export default (state = initialState, action) => {
       obj[assetType] = { ...state[assetType], ...action.payload }
       obj[key] = key
       return state.merge(obj)
+    }
+    case UPDATE_STATE_FROM_NATIVE: {
+      if (!action.payload.profile.isEmpty()) {
+        return action.payload.profile
+      }
+      return state
     }
     case REHYDRATE:
       if (!action.payload.profile) { return state }
