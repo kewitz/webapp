@@ -3,6 +3,7 @@ import { createSelector } from 'reselect'
 import get from 'lodash/get'
 import trunc from 'trunc-html'
 import { numberToHuman } from '../lib/number_to_human'
+import { selectBadges } from './badges'
 import { selectInvitationUserId } from './invitations'
 import { selectParamsUsername } from './params'
 import { selectJson } from './store'
@@ -34,6 +35,7 @@ export const selectUser = createSelector(
 // TODO: Supply defaults where applicable
 export const selectUserAvatar = createSelector([selectUser], user => user.get('avatar'))
 export const selectUserBadForSeo = createSelector([selectUser], user => user.get('badForSeo'))
+export const selectUserBadges = createSelector([selectUser], user => user.get('badges', Immutable.List()))
 export const selectUserCoverImage = createSelector([selectUser], user => user.get('coverImage'))
 export const selectUserExperimentalFeatures = createSelector([selectUser], user => user.get('experimentalFeatures'))
 export const selectUserExternalLinksList = createSelector([selectUser], user => user.get('externalLinksList'))
@@ -108,5 +110,31 @@ export const selectUserTruncatedShortBio = createSelector(
       160,
       { sanitizer: { allowedAttributes: { img: ['align', 'alt', 'class', 'height', 'src', 'width'] } } },
     ),
+)
+
+export const selectUserProfileBadges = createSelector(
+  [selectUserBadges, selectBadges], (userBadges, storeBadges) =>
+    userBadges.take(3).map((userBadge) => {
+      const badge = storeBadges.find(storeBadge => storeBadge.get('slug') === userBadge)
+      return Immutable.Map({ name: badge.get('name'), image: badge.get('image') })
+    }),
+)
+
+export const selectUserProfileCardBadges = createSelector(
+  [selectUserProfileBadges], badges => badges.take(1),
+)
+
+export const selectUserBadgeSummary = createSelector(
+  [selectUserBadges, selectBadges, selectUserCategories], (userBadges, storeBadges, categories) =>
+    userBadges.map((userBadge) => {
+      let badge = storeBadges.find(storeBadge => storeBadge.get('slug') === userBadge)
+      if (userBadge === 'featured') {
+        const cats = categories.map(category =>
+          Immutable.Map({ slug: category.get('slug'), name: category.get('name') }),
+        )
+        badge = badge.set('featuredIn', cats)
+      }
+      return badge
+    }),
 )
 

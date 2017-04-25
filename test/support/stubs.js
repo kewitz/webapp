@@ -96,6 +96,7 @@ function stubUser(properties, shouldAdd = true) {
     avatar: stubAvatar(),
     backgroundPosition: null,
     badForSeo: false,
+    badges: [],
     coverImage: stubCoverImage(),
     experimentalFeatures: false,
     externalLinksList: [
@@ -211,6 +212,55 @@ function stubComment(properties, shouldAdd = true) {
   const model = Immutable.fromJS({ ...commonProps, ...defaultProps, ...properties })
   if (shouldAdd) { addToJSON(MAPPING_TYPES.COMMENTS, model) }
   return model
+}
+
+export function stubBadges() {
+  const badges = [
+    {
+      image: '/assets/badges/featured.png',
+      learnMoreCaption: 'Learn More',
+      learnMoreHref: 'https://ello.co/wtf/help/featured-users/',
+      name: 'Featured',
+      slug: 'featured',
+    },
+    {
+      image: '/assets/badges/community.png',
+      learnMoreCaption: 'Learn More',
+      learnMoreHref: 'https://ello.co/wtf/resources/community-directory/',
+      name: 'Community Profile',
+      slug: 'community',
+    },
+    {
+      image: '/assets/badges/experimental.png',
+      learnMoreCaption: 'Learn More',
+      learnMoreHref: 'https://ello.co/wtf/help/featured-users/',
+      name: 'Experimental Group',
+      slug: 'experimental',
+    },
+    {
+      image: '/assets/badges/staff.png',
+      learnMoreCaption: 'Meet the Staff',
+      learnMoreHref: 'https://ello.co/wtf/about/the-people-of-ello/',
+      name: 'Ello Staff Member',
+      slug: 'staff',
+    },
+    {
+      name: 'Spam',
+      slug: 'spam',
+      learnMoreHref: null,
+      learnMoreCaption: null,
+      image: '/assets/badges/spam.png',
+    },
+    {
+      name: 'NSFW',
+      slug: 'nsfw',
+      learnMoreHref: null,
+      learnMoreCaption: null,
+      image: '/assets/badges/nsfw.png',
+    },
+  ]
+  json = json.set(MAPPING_TYPES.BADGES, Immutable.fromJS(badges))
+  return json.get(MAPPING_TYPES.BADGES)
 }
 
 export function stubCategories(properties) {
