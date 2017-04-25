@@ -35,6 +35,9 @@ export const exposeAndroidMethods = (dispatch) => {
     window.registerAndroidNotifications = (regId, bundleId, marketingVersion, buildVersion) => {
       dispatch(requestPushSubscription(regId, bundleId, marketingVersion, buildVersion))
     }
+    window.updateStateFromNative = (jsState) => {
+      console.log("updateStateFromNative: ", jsState)
+    }
   }
 }
 export const initialize = (dispatch, isStaff) => {
