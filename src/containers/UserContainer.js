@@ -1,7 +1,6 @@
 import Immutable from 'immutable'
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
-import { Link } from 'react-router'
 import { bindActionCreators } from 'redux'
 import { selectIsLoggedIn } from '../selectors/authentication'
 import { selectIsMobile } from '../selectors/gui'
@@ -11,7 +10,8 @@ import { selectIsPostDetail } from '../selectors/routing'
 import {
   selectUser,
   selectUserAvatar,
-  selectUserCategories,
+  selectUserBadges,
+  selectUserBadgeSummary,
   selectUserCoverImage,
   selectUserExternalLinksList,
   selectUserFollowersCount,
@@ -20,7 +20,6 @@ import {
   selectUserId,
   selectUserIsCollaborateable,
   selectUserIsEmpty,
-  selectUserIsFeatured,
   selectUserIsHireable,
   selectUserIsSelf,
   selectUserLocation,
@@ -28,6 +27,8 @@ import {
   selectUserName,
   selectUserPostsAdultContent,
   selectUserPostsCount,
+  selectUserProfileBadges,
+  selectUserProfileCardBadges,
   selectUserRelationshipPriority,
   selectUserTotalViewsCount,
   selectUserTruncatedShortBio,
@@ -41,7 +42,7 @@ import {
 } from '../components/users/UserRenderables'
 import MessageDialog from '../components/dialogs/MessageDialog'
 import ShareDialog from '../components/dialogs/ShareDialog'
-import { TextMarkupDialog, FeaturedInDialog } from '../components/dialogs/DialogRenderables'
+import { BadgeSummaryDialog, TextMarkupDialog } from '../components/dialogs/DialogRenderables'
 import { closeModal, openModal } from '../actions/modals'
 import { trackEvent } from '../actions/analytics'
 import { inviteUsers } from '../actions/invitations'
@@ -53,7 +54,6 @@ export function makeMapStateToProps() {
     return {
       avatar: selectUserAvatar(state, props),
       coverImage: selectUserCoverImage(state, props),
-      categories: selectUserCategories(state, props),
       externalLinksList: selectUserExternalLinksList(state, props),
       followersCount: selectUserFollowersCount(state, props),
       followingCount: selectUserFollowingCount(state, props),
@@ -62,7 +62,6 @@ export function makeMapStateToProps() {
       invitationAcceptedAt: selectInvitationAcceptedAt(state, props),
       invitationEmail: selectInvitationEmail(state, props),
       isCollaborateable: selectUserIsCollaborateable(state, props),
-      isFeatured: selectUserIsFeatured(state, props),
       isHireable: selectUserIsHireable(state, props),
       isLoggedIn: selectIsLoggedIn(state),
       isSelf: selectUserIsSelf(state, props),
@@ -79,6 +78,10 @@ export function makeMapStateToProps() {
       truncatedShortBio: truncatedShortBio.html,
       useGif: selectViewsAdultContent(state) || !selectUserPostsAdultContent(state, props),
       user: selectUser(state, props),
+      userBadgeCount: selectUserBadges(state, props).size,
+      userBadgeSummary: selectUserBadgeSummary(state, props),
+      userProfileBadges: selectUserProfileBadges(state, props),
+      userProfileCardBadges: selectUserProfileCardBadges(state, props).first() || Immutable.Map(),
       username: selectUserUsername(state, props),
     }
   }
@@ -88,7 +91,6 @@ class UserContainer extends Component {
 
   static propTypes = {
     avatar: PropTypes.object,
-    categories: PropTypes.object,
     className: PropTypes.string,
     coverImage: PropTypes.object,
     dispatch: PropTypes.func.isRequired,
@@ -103,7 +105,6 @@ class UserContainer extends Component {
     invitationEmail: PropTypes.string,
     id: PropTypes.string,
     isCollaborateable: PropTypes.bool.isRequired,
-    isFeatured: PropTypes.bool.isRequired,
     isHireable: PropTypes.bool.isRequired,
     isLoggedIn: PropTypes.bool.isRequired,
     isMiniProfileCard: PropTypes.bool.isRequired,
@@ -127,12 +128,15 @@ class UserContainer extends Component {
     useGif: PropTypes.bool,
     user: PropTypes.object.isRequired,
     username: PropTypes.string,
+    userBadgeCount: PropTypes.number.isRequired,
+    userBadgeSummary: PropTypes.object.isRequired,
+    userProfileBadges: PropTypes.object.isRequired,
+    userProfileCardBadges: PropTypes.object.isRequired,
   }
 
   static defaultProps = {
     avatar: null,
     coverImage: null,
-    categories: null,
     className: null,
     externalLinksList: null,
     formattedShortBio: null,
@@ -156,7 +160,7 @@ class UserContainer extends Component {
     onClickCollab: PropTypes.func,
     onClickHireMe: PropTypes.func,
     onClickOpenBio: PropTypes.func,
-    onClickOpenFeaturedModal: PropTypes.func,
+    onClickOpenBadgeModal: PropTypes.func,
     onClickReInvite: PropTypes.func,
     onClickShareProfile: PropTypes.func,
   }
@@ -165,10 +169,10 @@ class UserContainer extends Component {
     const {
       isCollaborateable,
       isHireable,
-      isFeatured,
       isLoggedIn,
       isMobile,
       isShortBioTruncated,
+      userBadgeCount,
     } = this.props
     const collabFunc = isLoggedIn ? this.onOpenCollabModal : this.onOpenSignupModal
     const hiremeFunc = isLoggedIn ? this.onOpenHireMeModal : this.onOpenSignupModal
@@ -176,7 +180,7 @@ class UserContainer extends Component {
       onClickCollab: isCollaborateable ? collabFunc : null,
       onClickHireMe: isHireable ? hiremeFunc : null,
       onClickOpenBio: isShortBioTruncated ? this.onClickOpenBio : null,
-      onClickOpenFeaturedModal: isFeatured ? this.onClickOpenFeaturedModal : null,
+      onClickOpenBadgeModal: userBadgeCount ? this.onClickOpenBadgeModal : null,
       onClickReInvite: this.onClickReInvite,
       onClickShareProfile: isMobile ? this.onClickShareProfile : null,
     }
@@ -203,22 +207,9 @@ class UserContainer extends Component {
     dispatch(openModal(<ShareDialog username={username} trackEvent={action} />, '', null, 'open-share-dialog-profile'))
   }
 
-  onClickOpenFeaturedModal = () => {
-    const { categories, dispatch, isMobile } = this.props
-    const len = categories.size
-    const links = categories.map((category, index) => {
-      let postfix = ''
-      if (index < len - 2) {
-        postfix = ', '
-      } else if (index < len - 1) {
-        postfix = ', & '
-      }
-      return [<Link to={`/discover/${category.get('slug')}`}>{category.get('name')}</Link>, postfix]
-    })
-    dispatch(openModal(
-      <FeaturedInDialog>{['Featured in '].concat(links.toArray())}</FeaturedInDialog>,
-      isMobile ? 'isFlex' : null,
-    ))
+  onClickOpenBadgeModal = () => {
+    const { dispatch, userBadgeSummary } = this.props
+    dispatch(openModal(<BadgeSummaryDialog badges={userBadgeSummary} />))
   }
 
   onOpenCollabModal = () => {
@@ -303,7 +294,10 @@ class UserContainer extends Component {
       truncatedShortBio,
       type,
       useGif,
+      userBadgeCount,
       username,
+      userProfileBadges,
+      userProfileCardBadges,
     } = this.props
     if (isUserEmpty && !invitationEmail) { return null }
     switch (type) {
@@ -343,6 +337,7 @@ class UserContainer extends Component {
               relationshipPriority,
               truncatedShortBio,
               username,
+              userProfileCardBadges,
             }}
           />
         )
@@ -368,7 +363,9 @@ class UserContainer extends Component {
               totalViewsCount,
               truncatedShortBio,
               useGif,
+              userBadgeCount,
               username,
+              userProfileBadges,
             }}
           />
         )

@@ -1,8 +1,26 @@
 import React, { PropTypes } from 'react'
 import { Link } from 'react-router'
 import { XIcon } from '../assets/Icons'
+import ImageAsset from '../assets/ImageAsset'
+import Hint from '../hints/Hint'
 import { after, before, css, hover, media, modifier, parent, select } from '../../styles/jss'
 import * as s from '../../styles/jso'
+
+// -------------------------------------
+
+const badgeButtonStyle = css(s.fontSize14, s.colorWhite, s.ml10)
+
+export const BadgeButton = ({ name, src, ...elementProps }) => (
+  <button className={badgeButtonStyle} {...elementProps}>
+    <ImageAsset alt={name} src={src} width={30} height={30} />
+    <Hint>{name}</Hint>
+  </button>
+)
+
+BadgeButton.propTypes = {
+  name: PropTypes.string.isRequired,
+  src: PropTypes.string.isRequired,
+}
 
 // -------------------------------------
 // exported styles for Onboarding category buttons :(

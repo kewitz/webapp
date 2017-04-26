@@ -4,9 +4,9 @@ import { Link } from 'react-router'
 import classNames from 'classnames'
 import Avatar from '../assets/Avatar'
 import BackgroundImage from '../assets/BackgroundImage'
+import { BadgeButton } from '../buttons/Buttons'
 import RelationshipContainer from '../../containers/RelationshipContainer'
 import {
-  UserFeaturedButton,
   UserFiguresCell,
   UserInfoCell,
   UserLinksCell,
@@ -17,6 +17,8 @@ import {
   UserShareButton,
   UserStatsCell,
 } from './UserParts'
+import { css, select } from '../../styles/jss'
+import * as s from '../../styles/jso'
 
 // -----------------
 
@@ -123,11 +125,16 @@ export class UserInvitee extends PureComponent {
 
 // -----------------
 
+const cardBadgeStyle = css(
+  s.absolute, { top: 10, right: 10, zIndex: 10 },
+  select('& .Hint', { top: 40, left: 'auto', right: 0 }),
+)
+
 export class UserProfileCard extends PureComponent {
   static contextTypes = {
     onClickCollab: PropTypes.func,
     onClickHireMe: PropTypes.func,
-    onClickOpenFeaturedModal: PropTypes.func,
+    onClickOpenBadgeModal: PropTypes.func,
   }
   static propTypes = {
     avatar: PropTypes.object.isRequired,
@@ -146,13 +153,14 @@ export class UserProfileCard extends PureComponent {
     relationshipPriority: PropTypes.string,
     truncatedShortBio: PropTypes.string.isRequired,
     username: PropTypes.string.isRequired,
+    userProfileCardBadges: PropTypes.object.isRequired,
   }
   static defaultProps = {
     name: null,
     relationshipPriority: null,
   }
   render() {
-    const { onClickCollab, onClickHireMe, onClickOpenFeaturedModal } = this.context
+    const { onClickCollab, onClickHireMe, onClickOpenBadgeModal } = this.context
     const {
       avatar,
       coverImage,
@@ -167,6 +175,7 @@ export class UserProfileCard extends PureComponent {
       relationshipPriority,
       truncatedShortBio,
       username,
+      userProfileCardBadges,
     } = this.props
     return (
       <div className={classNames('UserProfileCard', { isMiniProfileCard })}>
@@ -215,16 +224,20 @@ export class UserProfileCard extends PureComponent {
           sources={coverImage}
           to={`/${username}`}
         />
-        { onClickOpenFeaturedModal &&
-          <UserFeaturedButton
-            className={classNames('inUserProfileCard', { isMiniProfileCard })}
-            onClick={onClickOpenFeaturedModal}
-          />
+        { onClickOpenBadgeModal &&
+          <div className={cardBadgeStyle}>
+            <BadgeButton
+              name={userProfileCardBadges.get('name')}
+              src={userProfileCardBadges.get('image')}
+              onClick={onClickOpenBadgeModal}
+            />
+          </div>
         }
       </div>
     )
   }
 }
+
 // -----------------
 
 export class UserProfile extends PureComponent {
@@ -232,7 +245,7 @@ export class UserProfile extends PureComponent {
     onClickCollab: PropTypes.func,
     onClickHireMe: PropTypes.func,
     onClickOpenBio: PropTypes.func,
-    onClickOpenFeaturedModal: PropTypes.func,
+    onClickOpenBadgeModal: PropTypes.func,
     onClickShareProfile: PropTypes.func,
   }
   static propTypes = {
@@ -257,7 +270,9 @@ export class UserProfile extends PureComponent {
     totalViewsCount: PropTypes.string,
     truncatedShortBio: PropTypes.string.isRequired,
     useGif: PropTypes.bool.isRequired,
+    userBadgeCount: PropTypes.number.isRequired,
     username: PropTypes.string.isRequired,
+    userProfileBadges: PropTypes.object.isRequired,
   }
 
   static defaultProps = {
@@ -273,7 +288,7 @@ export class UserProfile extends PureComponent {
       onClickCollab,
       onClickHireMe,
       onClickOpenBio,
-      onClickOpenFeaturedModal,
+      onClickOpenBadgeModal,
       onClickShareProfile,
     } = this.context
     const {
@@ -295,7 +310,9 @@ export class UserProfile extends PureComponent {
       totalViewsCount,
       truncatedShortBio,
       useGif,
+      userBadgeCount,
       username,
+      userProfileBadges,
     } = this.props
     return (
       <div className="UserProfile">
@@ -314,12 +331,6 @@ export class UserProfile extends PureComponent {
           name={name}
           username={username}
         >
-          {onClickOpenFeaturedModal &&
-            <UserFeaturedButton
-              className="inUserProfile"
-              onClick={onClickOpenFeaturedModal}
-            />
-          }
           {onClickShareProfile &&
             <UserShareButton
               className="inUserProfile"
@@ -335,9 +346,12 @@ export class UserProfile extends PureComponent {
             /> : null
           }
         </UserNamesCell>
-        {totalViewsCount &&
+        {(totalViewsCount || !userProfileBadges.isEmpty()) &&
           <UserFiguresCell
+            badges={userProfileBadges}
+            badgeCount={userBadgeCount}
             className="inUserProfile"
+            onClick={onClickOpenBadgeModal}
             totalViewsCount={totalViewsCount}
           />
         }

@@ -132,32 +132,8 @@ User Names  */
 User Figures */
 
 .UserFiguresLabel {
+  margin-left: 5px;
   color: #aaa;
-}
-
-.UserFeaturedButton {
-  color: #00d100;
-}
-
-.UserFeaturedButton .CheckShape {
-  stroke: #fff;
-}
-
-.UserFeaturedButton.inUserProfile {
-  position: absolute;
-  top: -55px;
-  right: 0;
-}
-
-.UserFeaturedButton.inUserProfileCard {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  z-index: 2;
-}
-
-.UserFeaturedButton.inUserProfile + .RelationshipContainer .BlockMuteButton.inUserProfile {
-  right: 40px;
 }
 
 .UserShareButton.inUserProfile {
@@ -169,17 +145,9 @@ User Figures */
   color: #aaa;
 }
 
-.UserFeaturedButton.inUserProfile + .UserShareButton {
-  right: 40px;
-}
-
 @media (--break-2) {
   .UserFiguresLabel {
     color: #ccc;
-  }
-
-  .UserFeaturedButton.inUserProfile {
-    top: 2px;
   }
 }
 

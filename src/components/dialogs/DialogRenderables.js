@@ -1,9 +1,11 @@
 /* eslint-disable react/no-danger */
 import React, { PropTypes } from 'react'
+import { Link } from 'react-router'
+import ImageAsset from '../../components/assets/ImageAsset'
 import { DismissButton } from '../../components/buttons/Buttons'
-import { css, select } from '../../styles/jss'
-import * as s from '../../styles/jso'
 import { dialogStyle as baseDialogStyle } from './Dialog'
+import { css, hover, media, select } from '../../styles/jss'
+import * as s from '../../styles/jso'
 
 const textDialogStyle = css(
   { maxWidth: 480 },
@@ -24,16 +26,65 @@ TextMarkupDialog.propTypes = {
 
 // -------------------------------------
 
-const featuredDialogStyle = css(s.fontSize18, select('& a', s.borderBottom, { lineHeight: 1 }))
-const nestedDismissStyle = css(s.absolute, { top: -15, right: -15 })
-export const FeaturedInDialog = ({ children }) =>
-  <div className={`${baseDialogStyle} ${featuredDialogStyle}`}>
-    {children}
-    <div className={nestedDismissStyle}>
-      <DismissButton />
-    </div>
+const catLinkStyle = css(
+  s.colorWhite, s.borderBottom, s.transitionColor, { lineHeight: 1 },
+  hover(s.colorA),
+)
+
+const getCategoryLinks = (categories) => {
+  const len = categories.size
+  return categories.map((category, index) => {
+    let postfix = ''
+    if (index < len - 2) {
+      postfix = ', '
+    } else if (index < len - 1) {
+      postfix = ', & '
+    }
+    return [
+      <Link className={catLinkStyle} to={`/discover/${category.get('slug')}`}>
+        {category.get('name')}
+      </Link>,
+      postfix,
+    ]
+  })
+}
+
+const badgeDialogStyle = css(s.fullWidth, { maxWidth: 600 })
+const badgeCellStyle = css(
+  s.relative, s.px40, s.py20, { borderBottom: '1px solid #aaa' },
+  media(s.minBreak2, s.flex, s.itemsCenter, s.justifySpaceBetween, s.pr0),
+)
+const labelsCellStyle = css(s.relative)
+const moreCellStyle = css(s.relative)
+const badgeImgStyle = css(s.absolute, { top: 0, left: -40 })
+const learnMoreStyle = css(
+  s.colorA, s.borderBottom, s.transitionColor, { lineHeight: 1 },
+  hover(s.colorWhite),
+)
+
+export const BadgeSummaryDialog = ({ badges }) => (
+  <div className={`${baseDialogStyle} ${badgeDialogStyle}`}>
+    { badges.map(badge =>
+      <div className={badgeCellStyle} key={`BadgeSummary_${badge.get('slug')}`}>
+        <div className={labelsCellStyle}>
+          <ImageAsset className={badgeImgStyle} alt={badge.get('name')} src={badge.get('image')} width={30} height={30} />
+          <span>{badge.get('name')}</span>
+          { badge.get('featuredIn') && <span> in </span> }
+          { badge.get('featuredIn') && getCategoryLinks(badge.get('featuredIn')) }
+        </div>
+        { badge.get('learnMoreHref') &&
+          <div className={moreCellStyle}>
+            <a className={learnMoreStyle} href={badge.get('learnMoreHref')} target="_blank" rel="noopener noreferrer">
+              {badge.get('learnMoreCaption', 'Learn More')}
+            </a>
+          </div>
+        }
+      </div>,
+    )}
+    <DismissButton />
   </div>
-FeaturedInDialog.propTypes = {
-  children: PropTypes.node.isRequired,
+)
+BadgeSummaryDialog.propTypes = {
+  badges: PropTypes.object.isRequired,
 }
 
