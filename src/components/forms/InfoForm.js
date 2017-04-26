@@ -181,7 +181,6 @@ class InfoForm extends PureComponent {
     if (!username) {
       return null
     }
-    console.log(bioLabel)
     return (
       <form
         action={profilePath().path}
