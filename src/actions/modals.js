@@ -1,6 +1,6 @@
 import { MODAL, ALERT } from '../constants/action_types'
 
-export function openModal(component, classList = '', type = null, trackLabel = null) {
+export function openModal(component, classList = '', type = null, trackLabel = null, trackOptions = null) {
   return {
     type: MODAL.OPEN,
     payload: {
@@ -9,6 +9,7 @@ export function openModal(component, classList = '', type = null, trackLabel = n
       isActive: true,
       kind: 'Modal',
       trackLabel,
+      trackOptions,
       type,
     },
   }
@@ -27,7 +28,7 @@ export function closeModal() {
   }
 }
 
-export function openAlert(component, classList = '', type = null, trackLabel = null) {
+export function openAlert(component, classList = '', type = null, trackLabel = null, trackOptions = null) {
   return {
     type: ALERT.OPEN,
     payload: {
@@ -36,6 +37,7 @@ export function openAlert(component, classList = '', type = null, trackLabel = n
       isActive: true,
       kind: 'Alert',
       trackLabel,
+      trackOptions,
       type,
     },
   }
