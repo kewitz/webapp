@@ -256,6 +256,7 @@ const launchCommentEditorStyle = css(
   s.flex,
   s.flexRow,
   s.itemsCenter,
+  s.mt30,
 )
 
 const launchCommentEditorButtonStyle = css(
