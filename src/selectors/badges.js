@@ -1,8 +1,6 @@
-/* eslint-disable import/prefer-default-export */
 import Immutable from 'immutable'
 import { createSelector } from 'reselect'
 import get from 'lodash/get'
-// import { selectJson } from './store'
 import { BADGES } from '../constants/mapping_types'
 
 const selectPropsBadgeId = (state, props) => get(props, 'badgeId')
