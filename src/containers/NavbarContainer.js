@@ -19,6 +19,7 @@ import { selectAnnouncementHasBeenViewed } from '../selectors/notifications'
 import { selectAvatar, selectUsername } from '../selectors/profile'
 import { selectPage } from '../selectors/pages'
 import { selectPathname, selectViewNameFromRoute } from '../selectors/routing'
+import { trackEvent } from '../actions/analytics'
 import { logout } from '../actions/authentication'
 import { setIsProfileMenuActive, toggleNotifications } from '../actions/gui'
 import { checkForNewNotifications, loadAnnouncements } from '../actions/notifications'
@@ -156,6 +157,7 @@ class NavbarContainer extends PureComponent {
   onClickOmniButton = () => {
     const { dispatch } = this.props
     if (ElloAndroidInterface.supportsNativeEditor()) {
+      dispatch(trackEvent('opened_omnibar'))
       this.context.onLaunchNativeEditor(null, false, null)
     } else {
       dispatch(openOmnibar())

@@ -7,7 +7,7 @@ import { ArrowIcon, RepostIcon } from '../assets/Icons'
 import ContentWarningButton from '../posts/ContentWarningButton'
 import RelationshipContainer from '../../containers/RelationshipContainer'
 import { RegionItems } from '../regions/RegionRenderables'
-import { css, hover, select } from '../../styles/jss'
+import { before, css, hover, select } from '../../styles/jss'
 import * as s from '../../styles/jso'
 
 const PostHeaderTimeAgoLink = ({ to, createdAt }) =>
@@ -252,22 +252,45 @@ export class PostBody extends PureComponent {
   }
 }
 
+const launchCommentEditorStyle = css(
+  s.flex,
+  s.flexRow,
+  s.itemsCenter,
+)
+
 const launchCommentEditorButtonStyle = css(
+  s.relative,
   s.bgcBlack,
   s.colorWhite,
   s.sansRegular,
+  s.ml20,
+  s.fontSize14,
   {
     borderRadius: 5,
     height: 50,
-    minWidth: '100%',
+    width: 'calc(100% - 40px)',
     maxWidth: '640px',
-    paddingLeft: 20,
+    paddingLeft: 8,
     textAlign: 'left',
   },
+  before(
+    s.absolute,
+    {
+      top: 15,
+      left: -20,
+      width: 0,
+      height: 0,
+      content: '""',
+      borderColor: 'transparent',
+      borderStyle: 'solid',
+      borderWidth: 10,
+      borderRightColor: '#000',
+    },
+  ),
 )
 
 export const LaunchCommentEditorButton = ({ avatar, post }, { onLaunchNativeEditor }) =>
-  <div className="editor isComment LaunchCommentEditorButton">
+  <div className={launchCommentEditorStyle}>
     <Avatar sources={avatar} />
     <button
       className={launchCommentEditorButtonStyle}

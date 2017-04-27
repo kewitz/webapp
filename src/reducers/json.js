@@ -380,6 +380,12 @@ export default function json(state = initialState, action = { type: '' }) {
     case ACTION_TYPES.RELATIONSHIPS.UPDATE_REQUEST:
     case ACTION_TYPES.RELATIONSHIPS.UPDATE_SUCCESS:
       return relationshipMethods.updateRelationship(state, action)
+    case ACTION_TYPES.UPDATE_STATE_FROM_NATIVE: {
+      if (!action.payload.json.isEmpty()) {
+        return action.payload.json
+      }
+      return state
+    }
     case REHYDRATE: {
       // if we start with an initial state we are iso
       // rendering and we should keep it to display the page

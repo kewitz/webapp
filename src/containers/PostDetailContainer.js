@@ -54,7 +54,7 @@ class PostDetailContainer extends Component {
     innerHeight: PropTypes.number.isRequired,
     isLoggedIn: PropTypes.bool.isRequired,
     isPostEmpty: PropTypes.bool.isRequired,
-    locationKey: PropTypes.string.isRequired,
+    locationKey: PropTypes.string,
     locationStateFrom: PropTypes.string,
     post: PropTypes.object,
     paramsToken: PropTypes.string.isRequired,
@@ -66,6 +66,7 @@ class PostDetailContainer extends Component {
   static defaultProps = {
     author: null,
     avatar: null,
+    locationKey: null,
     locationStateFrom: null,
     post: null,
     streamType: null,

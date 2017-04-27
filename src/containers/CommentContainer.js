@@ -59,6 +59,7 @@ export function makeMapStateToProps() {
       isLoggedIn: selectIsLoggedIn(state),
       isNavbarHidden: selectIsNavbarHidden(state),
       isOwnComment: selectCommentIsOwn(state, props),
+      isPostDetail,
       post: selectCommentPost(state, props),
     }
   }
@@ -86,6 +87,7 @@ class CommentContainer extends Component {
     isLoggedIn: PropTypes.bool.isRequired,
     isNavbarHidden: PropTypes.bool.isRequired,
     isOwnComment: PropTypes.bool.isRequired,
+    isPostDetail: PropTypes.bool.isRequired,
     post: PropTypes.object.isRequired,
   }
 
@@ -205,6 +207,7 @@ class CommentContainer extends Component {
       isGridMode,
       isLoggedIn,
       isOwnComment,
+      isPostDetail,
     } = this.props
     if (!comment || !comment.get('id') || !author || !author.get('id')) { return null }
     if (isEditing && commentBody && ElloAndroidInterface.supportsNativeEditor()) {
@@ -227,6 +230,7 @@ class CommentContainer extends Component {
             detailPath={detailPath}
             innerHeight={innerHeight}
             isGridMode={isGridMode}
+            isPostDetail={isPostDetail}
           />
         }
         <CommentTools

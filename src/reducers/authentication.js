@@ -2,7 +2,7 @@
 import Immutable from 'immutable'
 import { REHYDRATE } from 'redux-persist/constants'
 import { LOCATION_CHANGE } from 'react-router-redux'
-import { AUTHENTICATION, PROFILE } from '../constants/action_types'
+import { AUTHENTICATION, PROFILE, UPDATE_STATE_FROM_NATIVE } from '../constants/action_types'
 
 export const initialState = Immutable.Map({
   accessToken: null,
@@ -40,6 +40,12 @@ export default (state = initialState, action) => {
         return state
       }
       return state
+    case UPDATE_STATE_FROM_NATIVE: {
+      if (!action.payload.authentication.isEmpty()) {
+        return action.payload.authentication
+      }
+      return state
+    }
     case REHYDRATE:
       auth = action.payload.authentication
       if (typeof window !== 'undefined' && window.nonImmutableState && window.nonImmutableState.authentication) {

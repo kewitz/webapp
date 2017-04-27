@@ -75,7 +75,7 @@ import {
   RepostHeader,
 } from '../components/posts/PostRenderables'
 import { PostTools, WatchTool } from '../components/posts/PostTools'
-import { isLink } from '../lib/jello'
+import { isElloAndroid, isLink } from '../lib/jello'
 import * as ElloAndroidInterface from '../lib/android_interface'
 
 export function makeMapStateToProps() {
@@ -314,12 +314,16 @@ class PostContainer extends Component {
   onClickToggleComments = () => {
     const { detailPath, dispatch, isLoggedIn, isRelatedPost, post, showCommentEditor } = this.props
     if (isLoggedIn && !isRelatedPost) {
-      const nextShowComments = !showCommentEditor
-      this.setState({ isCommentsActive: nextShowComments })
-      dispatch(toggleComments(post, nextShowComments))
+      if (isElloAndroid()) {
+        dispatch(push(detailPath))
+      } else {
+        const nextShowComments = !showCommentEditor
+        this.setState({ isCommentsActive: nextShowComments })
+        dispatch(toggleComments(post, nextShowComments))
+      }
     } else {
       dispatch(push(detailPath))
-      this.onTrackRelatedPostClick()
+      if (isRelatedPost) { this.onTrackRelatedPostClick() }
     }
   }
 

@@ -47,6 +47,7 @@ export class CommentBody extends PureComponent {
     detailPath: PropTypes.string.isRequired,
     innerHeight: PropTypes.number.isRequired,
     isGridMode: PropTypes.bool.isRequired,
+    isPostDetail: PropTypes.bool.isRequired,
   }
   render() {
     const {
@@ -58,6 +59,7 @@ export class CommentBody extends PureComponent {
       detailPath,
       innerHeight,
       isGridMode,
+      isPostDetail,
     } = this.props
     return (
       <div className="CommentBody" key={`CommentBody${commentId}`} >
@@ -71,6 +73,7 @@ export class CommentBody extends PureComponent {
           innerHeight={innerHeight}
           isComment
           isGridMode={isGridMode}
+          isPostDetail={isPostDetail}
         />
       </div>
     )
