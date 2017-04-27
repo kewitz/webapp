@@ -12,7 +12,7 @@ const badgeButtonStyle = css(s.fontSize14, s.colorWhite, s.ml10)
 
 export const BadgeButton = ({ name, src, ...elementProps }) => (
   <button className={badgeButtonStyle} {...elementProps}>
-    <ImageAsset alt={name} src={src} width={30} height={30} />
+    <ImageAsset alt={name} src={src} width={24} height={24} />
     <Hint>{name}</Hint>
   </button>
 )
@@ -109,8 +109,8 @@ const dismissButtonStyle = css(
   media(s.minBreak2, { top: 10, right: 10 }),
 )
 
-export const DismissButton = (...elementProps) =>
-  <button className={`CloseModal ${dismissButtonStyle}`} {...elementProps}><XIcon /></button>
+export const DismissButton = () =>
+  <button className={`CloseModal ${dismissButtonStyle}`}><XIcon /></button>
 
 // -------------------------------------
 

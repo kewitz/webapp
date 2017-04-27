@@ -49,9 +49,9 @@ const getCategoryLinks = (categories) => {
   })
 }
 
-const badgeDialogStyle = css(s.fullWidth, { maxWidth: 600 })
+const badgeDialogStyle = css(s.fullWidth, { maxWidth: 600 }, select('> .CloseModal', s.fixed))
 const badgeCellStyle = css(
-  s.relative, s.px40, s.py20, { borderBottom: '1px solid #aaa' },
+  s.relative, s.px40, s.py30, { borderBottom: '1px solid #aaa' },
   media(s.minBreak2, s.flex, s.itemsCenter, s.justifySpaceBetween, s.pr0),
 )
 const labelsCellStyle = css(s.relative)
