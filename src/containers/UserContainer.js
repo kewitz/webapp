@@ -211,8 +211,9 @@ class UserContainer extends Component {
   onClickOpenBadgeModal = (e) => {
     const { dispatch, userBadgeSummary } = this.props
     const slug = get(e, 'target.dataset.slug')
+    const trackAction = bindActionCreators(trackEvent, dispatch)
     dispatch(openModal(
-      <BadgeSummaryDialog badges={userBadgeSummary} />,
+      <BadgeSummaryDialog badges={userBadgeSummary} trackEvent={trackAction} />,
       '',
       null,
       'badge-opened',

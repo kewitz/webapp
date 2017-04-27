@@ -62,7 +62,7 @@ const learnMoreStyle = css(
   hover(s.colorWhite),
 )
 
-export const BadgeSummaryDialog = ({ badges }) => (
+export const BadgeSummaryDialog = ({ badges, trackEvent }) => (
   <div className={`${baseDialogStyle} ${badgeDialogStyle}`}>
     { badges.map(badge =>
       <div className={badgeCellStyle} key={`BadgeSummary_${badge.get('slug')}`}>
@@ -74,7 +74,13 @@ export const BadgeSummaryDialog = ({ badges }) => (
         </div>
         { badge.get('learnMoreHref') &&
           <div className={moreCellStyle}>
-            <a className={learnMoreStyle} href={badge.get('learnMoreHref')} target="_blank" rel="noopener noreferrer">
+            <a
+              className={learnMoreStyle}
+              href={badge.get('learnMoreHref')}
+              onClick={() => trackEvent('badge-learn-more-clicked', { badge: badge.get('slug') })}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               {badge.get('learnMoreCaption', 'Learn More')}
             </a>
           </div>
@@ -86,5 +92,6 @@ export const BadgeSummaryDialog = ({ badges }) => (
 )
 BadgeSummaryDialog.propTypes = {
   badges: PropTypes.object.isRequired,
+  trackEvent: PropTypes.func.isRequired,
 }
 
