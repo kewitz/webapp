@@ -144,7 +144,7 @@ export default class CommentTools extends PureComponent {
       if (isOwnComment || canDeleteComment) {
         innerCells.push(<DeleteTool key={`DeleteTool_${commentId}`} />)
       }
-      cells.push(<div className="ShyTools">{innerCells}</div>)
+      cells.push(<div className="ShyTools" key={`ShyTools_${commentId}`}>{innerCells}</div>)
     }
     return (
       <footer className={classNames('PostTools CommentTools', { isMoreToolActive }, { isShyToolSolo })}>
