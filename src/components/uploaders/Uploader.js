@@ -1,6 +1,5 @@
 import React, { PropTypes, PureComponent } from 'react'
 import classNames from 'classnames'
-import { PROFILE } from '../../constants/action_types'
 import * as ElloAndroidInterface from '../../lib/android_interface'
 
 class Uploader extends PureComponent {
