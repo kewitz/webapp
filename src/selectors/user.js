@@ -116,7 +116,11 @@ export const selectUserProfileBadges = createSelector(
   [selectUserBadges, selectBadges], (userBadges, storeBadges) =>
     userBadges.take(3).map((userBadge) => {
       const badge = storeBadges.find(storeBadge => storeBadge.get('slug') === userBadge)
-      return Immutable.Map({ name: badge.get('name'), image: badge.get('image') })
+      return Immutable.Map({
+        name: badge.get('name'),
+        image: badge.get('image'),
+        slug: badge.get('slug'),
+      })
     }),
 )
 

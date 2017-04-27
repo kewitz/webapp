@@ -99,7 +99,8 @@ export const UserFiguresCell = ({ badges, badgeCount, className, onClick, totalV
       <div className={badgesCellStyle}>
         { badges.map(badge =>
           <BadgeButton
-            key={`BadgeButton_${badge.get('name').replace(' ', '_')}`}
+            data-slug={badge.get('slug')}
+            key={`BadgeButton_${badge.get('slug')}`}
             name={badge.get('name')}
             src={badge.get('image')}
             onClick={onClick}

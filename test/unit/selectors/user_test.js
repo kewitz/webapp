@@ -484,9 +484,9 @@ describe('user selectors', () => {
       const props = { userId: '666' }
       const result = selector.selectUserProfileBadges(state, props)
       const expected = Immutable.List([
-        Immutable.Map({ name: 'Featured', image: '/assets/badges/featured.png' }),
-        Immutable.Map({ name: 'Experimental Group', image: '/assets/badges/experimental.png' }),
-        Immutable.Map({ name: 'NSFW', image: '/assets/badges/nsfw.png' }),
+        Immutable.Map({ name: 'Featured', image: '/assets/badges/featured.png', slug: 'featured' }),
+        Immutable.Map({ name: 'Experimental Group', image: '/assets/badges/experimental.png', slug: 'experimental' }),
+        Immutable.Map({ name: 'NSFW', image: '/assets/badges/nsfw.png', slug: 'nsfw' }),
       ])
       expect(result).to.equal(expected)
     })
@@ -504,7 +504,7 @@ describe('user selectors', () => {
       const props = { userId: '666' }
       const result = selector.selectUserProfileCardBadges(state, props)
       const expected = Immutable.List([
-        Immutable.Map({ name: 'Featured', image: '/assets/badges/featured.png' }),
+        Immutable.Map({ name: 'Featured', image: '/assets/badges/featured.png', slug: 'featured' }),
       ])
       expect(result).to.equal(expected)
     })

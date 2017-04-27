@@ -227,6 +227,7 @@ export class UserProfileCard extends PureComponent {
         { onClickOpenBadgeModal &&
           <div className={cardBadgeStyle}>
             <BadgeButton
+              data-slug={userProfileCardBadges.get('slug')}
               name={userProfileCardBadges.get('name')}
               src={userProfileCardBadges.get('image')}
               onClick={onClickOpenBadgeModal}

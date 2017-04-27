@@ -2,6 +2,7 @@ import Immutable from 'immutable'
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+import get from 'lodash/get'
 import { selectIsLoggedIn } from '../selectors/authentication'
 import { selectIsMobile } from '../selectors/gui'
 import { selectInvitationAcceptedAt, selectInvitationEmail } from '../selectors/invitations'
@@ -207,9 +208,16 @@ class UserContainer extends Component {
     dispatch(openModal(<ShareDialog username={username} trackEvent={action} />, '', null, 'open-share-dialog-profile'))
   }
 
-  onClickOpenBadgeModal = () => {
+  onClickOpenBadgeModal = (e) => {
     const { dispatch, userBadgeSummary } = this.props
-    dispatch(openModal(<BadgeSummaryDialog badges={userBadgeSummary} />))
+    const slug = get(e, 'target.dataset.slug')
+    dispatch(openModal(
+      <BadgeSummaryDialog badges={userBadgeSummary} />,
+      '',
+      null,
+      'badge-opened',
+      slug ? { badge: slug } : null,
+    ))
   }
 
   onOpenCollabModal = () => {
