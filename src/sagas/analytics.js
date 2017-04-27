@@ -7,7 +7,6 @@ import * as ACTION_TYPES from '../constants/action_types'
 import { RELATIONSHIP_PRIORITY } from '../constants/relationship_types'
 import { trackEvent as trackEventAction } from '../actions/analytics'
 import { selectActiveNotificationsType } from '../selectors/gui'
-import { selectProfileIsFeatured } from '../selectors/profile'
 
 let shouldCallInitialTrackPage = false
 const agent = isElloAndroid() ? 'android' : 'webapp'
@@ -49,14 +48,12 @@ function* trackEvents() {
       case ACTION_TYPES.OMNIBAR.OPEN:
         yield put(trackEventAction('opened_omnibar'))
         break
-      case ACTION_TYPES.POST.CREATE_REQUEST: {
-        const isFeatured = yield select(selectProfileIsFeatured)
+      case ACTION_TYPES.POST.CREATE_REQUEST:
         if (get(action, 'payload.body.body[0].link_url', '').length) {
           yield put(trackEventAction('added_buy_button'))
         }
-        yield put(trackEventAction(get(action, 'meta.repostId') ? 'published_repost' : 'published_post', { isFeatured }))
+        yield put(trackEventAction(get(action, 'meta.repostId') ? 'published_repost' : 'published_post'))
         break
-      }
       case ACTION_TYPES.POST.DELETE_REQUEST:
         yield put(trackEventAction('deleted_post'))
         break

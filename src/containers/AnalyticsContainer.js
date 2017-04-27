@@ -2,11 +2,11 @@ import { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { isElloAndroid } from '../lib/jello'
 import { selectIsLoggedIn } from '../selectors/authentication'
-import { selectAllowsAnalytics, selectAnalyticsId, selectCreatedAt } from '../selectors/profile'
+import { selectAllowsAnalytics, selectAnalyticsId, selectCreatedAt, selectProfileIsFeatured } from '../selectors/profile'
 
 const agent = isElloAndroid() ? 'android' : 'webapp'
 
-export function addSegment(uid, createdAt) {
+export function addSegment(uid, createdAt, isFeatured) {
   if (typeof window !== 'undefined') {
     /* eslint-disable */
     !function(){const analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){const e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(let t=0;t<analytics.methods.length;t++){const e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){const e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";const n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};
@@ -14,7 +14,7 @@ export function addSegment(uid, createdAt) {
       analytics.SNIPPET_VERSION = '3.1.0'
       analytics.load(ENV.SEGMENT_WRITE_KEY)
       if (uid) {
-        analytics.identify(uid, { agent, createdAt })
+        analytics.identify(uid, { agent, createdAt, isFeatured })
       }
     }
     }();
@@ -36,6 +36,7 @@ function mapStateToProps(state) {
     allowsAnalytics: selectAllowsAnalytics(state),
     analyticsId: selectAnalyticsId(state),
     createdAt: selectCreatedAt(state),
+    isFeatured: selectProfileIsFeatured(state),
     isLoggedIn: selectIsLoggedIn(state),
   }
 }
@@ -46,6 +47,7 @@ class AnalyticsContainer extends Component {
     allowsAnalytics: PropTypes.bool,
     analyticsId: PropTypes.string,
     createdAt: PropTypes.string,
+    isFeatured: PropTypes.bool.isRequired,
     isLoggedIn: PropTypes.bool.isRequired,
   }
 
@@ -60,27 +62,27 @@ class AnalyticsContainer extends Component {
   }
 
   componentDidMount() {
-    const { analyticsId, allowsAnalytics, createdAt, isLoggedIn } = this.props
+    const { analyticsId, allowsAnalytics, createdAt, isFeatured, isLoggedIn } = this.props
     if (this.hasLoadedTracking) { return }
     if (!isLoggedIn && doesAllowTracking()) {
       this.hasLoadedTracking = true
       addSegment()
     } else if (analyticsId && allowsAnalytics) {
       this.hasLoadedTracking = true
-      addSegment(analyticsId, createdAt)
+      addSegment(analyticsId, createdAt, isFeatured)
     }
   }
 
   componentWillReceiveProps(nextProps) {
-    const { allowsAnalytics, analyticsId, createdAt } = nextProps
+    const { allowsAnalytics, analyticsId, createdAt, isFeatured } = nextProps
     if (this.hasLoadedTracking) {
       // identify the user if they didn't previously have an id to identify with
       if (!this.props.analyticsId && analyticsId) {
-        window.analytics.identify(analyticsId, { agent, createdAt })
+        window.analytics.identify(analyticsId, { agent, createdAt, isFeatured })
       }
     } else if (this.props.analyticsId && analyticsId && allowsAnalytics) {
       this.hasLoadedTracking = true
-      addSegment(analyticsId, createdAt)
+      addSegment(analyticsId, createdAt, isFeatured)
     }
   }
 
