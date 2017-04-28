@@ -5,10 +5,8 @@ import { requestPushSubscription } from '../actions/profile'
 import { UPDATE_STATE_FROM_NATIVE } from '../constants/action_types'
 
 const getJSState = () => {
-  const jsState = {}
   const state = store.getState()
-  Object.keys(state).forEach(key => (jsState[key] = state[key].toJS()))
-  return JSON.stringify(jsState)
+  return JSON.stringify(state)
 }
 export const supportsNativeEditor = () => isElloAndroid() && typeof AndroidInterface.launchEditor === 'function'
 export const supportsNativeImagePicker = () => isElloAndroid() && typeof AndroidInterface.launchImagePicker === 'function'
