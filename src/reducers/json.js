@@ -21,56 +21,8 @@ let path = '/'
 let hasLoadedFirstStream = false
 let dupArr = []
 
-// TODO: REMOVE WHEN THE API IS READY!!!!!!!!
-const tempBadges = [
-  {
-    image: { width: 48, height: 48, url: '/assets/badges/featured.png' },
-    learnMoreCaption: 'Learn More',
-    learnMoreHref: 'https://ello.co/wtf/help/featured-users/',
-    name: 'Featured',
-    slug: 'featured',
-  },
-  {
-    image: { width: 48, height: 48, url: '/assets/badges/community.png' },
-    learnMoreCaption: 'Learn More',
-    learnMoreHref: 'https://ello.co/wtf/resources/community-directory/',
-    name: 'Community Profile',
-    slug: 'community',
-  },
-  {
-    image: { width: 48, height: 48, url: '/assets/badges/experimental.png' },
-    learnMoreCaption: 'Learn More',
-    learnMoreHref: 'https://ello.co/wtf/help/featured-users/',
-    name: 'Experimental Group',
-    slug: 'experimental',
-  },
-  {
-    image: { width: 48, height: 48, url: '/assets/badges/staff.png' },
-    learnMoreCaption: 'Meet the Staff',
-    learnMoreHref: 'https://ello.co/wtf/about/the-people-of-ello/',
-    name: 'Ello Staff Member',
-    slug: 'staff',
-  },
-  {
-    image: { width: 48, height: 48, url: '/assets/badges/spam.png' },
-    learnMoreCaption: null,
-    learnMoreHref: null,
-    name: 'Spam',
-    slug: 'spam',
-  },
-  {
-    image: { width: 48, height: 48, url: '/assets/badges/nsfw.png' },
-    learnMoreCaption: null,
-    learnMoreHref: null,
-    name: 'NSFW',
-    slug: 'nsfw',
-  },
-]
-
 const initialState = Immutable.Map({
   pages: Immutable.Map(),
-  // TODO: REMOVE WHEN THE API IS READY!!!!!!!!
-  badges: Immutable.fromJS(tempBadges),
 })
 
 export function emptyPagination() {
@@ -485,6 +437,8 @@ export default function json(state = initialState, action = { type: '' }) {
   } else {
     if (mappingType === MAPPING_TYPES.COMMENTS) {
       response = methods.addParentPostIdToComments(response, state, action)
+    } else if (mappingType === MAPPING_TYPES.BADGES && response[MAPPING_TYPES.BADGES]) {
+      state = state.setIn([MAPPING_TYPES.BADGES], Immutable.fromJS(response[MAPPING_TYPES.BADGES]))
     }
     state = methods.updateResult(response, state, action)
   }

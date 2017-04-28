@@ -13,3 +13,6 @@ export const selectBadge = createSelector(
     badges.find(badge => badge.get('slug') === badgeId),
 )
 
+export const selectBadgesHasLoaded = createSelector(
+  [selectBadges], badges => !badges.isEmpty(),
+)

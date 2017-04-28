@@ -4,7 +4,7 @@ import classNames from 'classnames'
 import { selectIsLoggedIn } from '../selectors/authentication'
 import { selectIsStaff } from '../selectors/profile'
 import { trackEvent, trackInitialPage } from '../actions/analytics'
-// import { loadBadges } from '../actions/badges'
+import { loadBadges } from '../actions/badges'
 import { getCategories, getPagePromotionals } from '../actions/discover'
 import { setSignupModalLaunched } from '../actions/gui'
 import { openModal } from '../actions/modals'
@@ -111,7 +111,7 @@ class AppContainer extends Component {
     }
     dispatch(getCategories())
     dispatch(getPagePromotionals())
-    // dispatch(loadBadges())
+    dispatch(loadBadges())
     ElloAndroidInterface.initialize(dispatch, isStaff)
   }
 
@@ -121,13 +121,13 @@ class AppContainer extends Component {
       dispatch(loadProfile())
       dispatch(getCategories())
       dispatch(getPagePromotionals())
-      // dispatch(loadBadges())
+      dispatch(loadBadges())
       dispatch(loadAnnouncements())
     } else if (this.props.isLoggedIn && !nextProps.isLoggedIn) {
       dispatch(fetchAuthenticationPromos())
       dispatch(getCategories())
       dispatch(getPagePromotionals())
-      // dispatch(loadBadges())
+      dispatch(loadBadges())
     }
   }
 

@@ -89,13 +89,15 @@ const totalsCellStyle = css(s.flex2)
 const badgesCellStyle = css(s.flex2, s.justifyEnd)
 const moreBadgesStyle = css(s.fontSize14, s.ml5, s.colorA, s.transitionColor, hover(s.colorWhite))
 
-export const UserFiguresCell = ({ badges, badgeCount, className, onClick, totalViewsCount }) =>
+export const UserFiguresCell = (
+  { badges, badgeCount, className, isBadgesLoaded, onClick, totalViewsCount },
+) =>
   <div className={classNames(`UserCell ${figuresCellStyle}`, className)}>
     <div className={totalsCellStyle}>
       <span className="UserFiguresCount uppercase">{totalViewsCount}</span>
       <span className="UserFiguresLabel">Views</span>
     </div>
-    { !badges.isEmpty() &&
+    { !badges.isEmpty() && isBadgesLoaded &&
       <div className={badgesCellStyle}>
         { badges.map(badge =>
           <BadgeButton
@@ -118,8 +120,12 @@ UserFiguresCell.propTypes = {
   badges: PropTypes.object.isRequired,
   badgeCount: PropTypes.number.isRequired,
   className: PropTypes.string.isRequired,
-  onClick: PropTypes.func.isRequired,
+  isBadgesLoaded: PropTypes.bool.isRequired,
+  onClick: PropTypes.func,
   totalViewsCount: PropTypes.string.isRequired,
+}
+UserFiguresCell.defaultProps = {
+  onClick: null,
 }
 
 // -----------------

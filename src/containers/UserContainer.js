@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import get from 'lodash/get'
 import { selectIsLoggedIn } from '../selectors/authentication'
+import { selectBadgesHasLoaded } from '../selectors/badges'
 import { selectIsMobile } from '../selectors/gui'
 import { selectInvitationAcceptedAt, selectInvitationEmail } from '../selectors/invitations'
 import { selectViewsAdultContent } from '../selectors/profile'
@@ -62,6 +63,7 @@ export function makeMapStateToProps() {
       id: selectUserId(state, props),
       invitationAcceptedAt: selectInvitationAcceptedAt(state, props),
       invitationEmail: selectInvitationEmail(state, props),
+      isBadgesLoaded: selectBadgesHasLoaded(state),
       isCollaborateable: selectUserIsCollaborateable(state, props),
       isHireable: selectUserIsHireable(state, props),
       isLoggedIn: selectIsLoggedIn(state),
@@ -105,6 +107,7 @@ class UserContainer extends Component {
     invitationAcceptedAt: PropTypes.string,
     invitationEmail: PropTypes.string,
     id: PropTypes.string,
+    isBadgesLoaded: PropTypes.bool.isRequired,
     isCollaborateable: PropTypes.bool.isRequired,
     isHireable: PropTypes.bool.isRequired,
     isLoggedIn: PropTypes.bool.isRequired,
@@ -168,6 +171,7 @@ class UserContainer extends Component {
 
   getChildContext() {
     const {
+      isBadgesLoaded,
       isCollaborateable,
       isHireable,
       isLoggedIn,
@@ -181,7 +185,7 @@ class UserContainer extends Component {
       onClickCollab: isCollaborateable ? collabFunc : null,
       onClickHireMe: isHireable ? hiremeFunc : null,
       onClickOpenBio: isShortBioTruncated ? this.onClickOpenBio : null,
-      onClickOpenBadgeModal: userBadgeCount ? this.onClickOpenBadgeModal : null,
+      onClickOpenBadgeModal: userBadgeCount && isBadgesLoaded ? this.onClickOpenBadgeModal : null,
       onClickReInvite: this.onClickReInvite,
       onClickShareProfile: isMobile ? this.onClickShareProfile : null,
     }
@@ -189,7 +193,7 @@ class UserContainer extends Component {
 
   shouldComponentUpdate(nextProps) {
     return !Immutable.is(nextProps.user, this.props.user) ||
-      ['isLoggedIn', 'isMiniProfileCard', 'isMobile'].some(prop =>
+      ['isLoggedIn', 'isBadgesLoaded', 'isMiniProfileCard', 'isMobile'].some(prop =>
         nextProps[prop] !== this.props[prop],
       )
   }
@@ -287,6 +291,7 @@ class UserContainer extends Component {
       id,
       invitationAcceptedAt,
       invitationEmail,
+      isBadgesLoaded,
       isCollaborateable,
       isHireable,
       isLoggedIn,
@@ -338,6 +343,7 @@ class UserContainer extends Component {
               followersCount,
               followingCount,
               id,
+              isBadgesLoaded,
               isMiniProfileCard,
               isMobile,
               lovesCount,
@@ -359,6 +365,7 @@ class UserContainer extends Component {
               followersCount,
               followingCount,
               id,
+              isBadgesLoaded,
               isCollaborateable,
               isHireable,
               isLoggedIn,

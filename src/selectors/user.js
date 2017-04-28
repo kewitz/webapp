@@ -115,7 +115,7 @@ export const selectUserTruncatedShortBio = createSelector(
 export const selectUserProfileBadges = createSelector(
   [selectUserBadges, selectBadges], (userBadges, storeBadges) =>
     userBadges.take(3).map((userBadge) => {
-      const badge = storeBadges.find(storeBadge => storeBadge.get('slug') === userBadge)
+      const badge = storeBadges.find(storeBadge => storeBadge.get('slug') === userBadge) || Immutable.Map()
       return Immutable.Map({
         name: badge.get('name'),
         image: badge.getIn(['image', 'url']),
@@ -132,7 +132,7 @@ export const selectUserBadgeSummary = createSelector(
   [selectUserBadges, selectBadges, selectUserCategories], (userBadges, storeBadges, categories) =>
     userBadges.map((userBadge) => {
       let badge = storeBadges.find(storeBadge => storeBadge.get('slug') === userBadge)
-      if (userBadge === 'featured') {
+      if (badge && userBadge === 'featured') {
         const cats = categories.map(category =>
           Immutable.Map({ slug: category.get('slug'), name: category.get('name') }),
         )

@@ -258,6 +258,7 @@ export class UserProfile extends PureComponent {
     ]).isRequired,
     followingCount: PropTypes.number.isRequired,
     id: PropTypes.string.isRequired,
+    isBadgesLoaded: PropTypes.bool.isRequired,
     isCollaborateable: PropTypes.bool.isRequired,
     isHireable: PropTypes.bool.isRequired,
     isLoggedIn: PropTypes.bool.isRequired,
@@ -298,6 +299,7 @@ export class UserProfile extends PureComponent {
       followersCount,
       followingCount,
       id,
+      isBadgesLoaded,
       isCollaborateable,
       isHireable,
       isLoggedIn,
@@ -351,6 +353,7 @@ export class UserProfile extends PureComponent {
           <UserFiguresCell
             badges={userProfileBadges}
             badgeCount={userBadgeCount}
+            isBadgesLoaded={isBadgesLoaded}
             className="inUserProfile"
             onClick={onClickOpenBadgeModal}
             totalViewsCount={totalViewsCount}
