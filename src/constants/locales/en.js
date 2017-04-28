@@ -32,7 +32,7 @@ export const FOLLOWING = {
 }
 
 export const FOOTER_LINKS = [
-  { label: 'About', to: `${ENV.AUTH_DOMAIN}/wtf/about/what-is-ello/` },
+  { label: 'About', to: `${ENV.AUTH_DOMAIN}/wtf/about/ello/` },
   { label: 'Help', to: `${ENV.AUTH_DOMAIN}/wtf` },
   { label: 'Blog', to: `${ENV.AUTH_DOMAIN}/elloblog` },
   { label: 'Magazine', to: 'https://notforprint.co/' },
