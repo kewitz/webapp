@@ -168,10 +168,12 @@ function prerender(context) {
           const initialGlamTag = `<script id="glam-state">window.__GLAM__ = ${JSON.stringify(ids)}</script>`
           const initialIsoFetchesTag = `<script id="running-server-fetches">window.__ISO_FETCHES__ = ${JSON.stringify(runningServerFetches)}</script>`
           // Add helmet's stuff after the last statically rendered meta tag
-          const html = indexStr.replace(
-            'rel="copyright">',
-            `rel="copyright">${head.title.toString()} ${head.meta.toString()} ${head.link.toString()} ${timingHeader} <style>${css}</style>`,
-          ).replace('<div id="root"></div>', `<div id="root">${componentHTML}</div>${initialStateTag} ${initialGlamTag} ${initialIsoFetchesTag}`)
+          const [headTag, bodyTag] = indexStr.split('</head>')
+          const htmlWithoutRoot = `${headTag}${head.title.toString()} ${head.meta.toString()} ${head.link.toString()} ${timingHeader} <style>${css}</style></head>${bodyTag}`
+
+          // Splice in the body
+          const [preRoot, postRoot] = htmlWithoutRoot.split('<div id="root"></div>')
+          const html = `${preRoot}<div id="root">${componentHTML}</div>${initialStateTag} ${initialGlamTag} ${initialIsoFetchesTag}${postRoot}`
           console.log(`[${requestId}][prerender] Rendering 200 (total ${new Date() - startTime}ms)`)
           resolve({ type: 'render', body: html, postIds, postTokens, streamKind, streamId })
         }
