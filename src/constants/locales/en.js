@@ -37,9 +37,9 @@ export const FOOTER_LINKS = [
   { label: 'Blog', to: `${ENV.AUTH_DOMAIN}/elloblog` },
   { label: 'Magazine', to: 'https://notforprint.co/' },
   { label: 'Shop', to: `${ENV.AUTH_DOMAIN}/discover/shop` },
-  { label: 'Apps', to: `${ENV.AUTH_DOMAIN}/wtf/resources/mobile-features/` },
-  { label: 'Terms', to: `${ENV.AUTH_DOMAIN}/wtf/policies/terms-of-use/` },
-  { label: 'Privacy', to: `${ENV.AUTH_DOMAIN}/wtf/policies/privacy-policy/` },
+  { label: 'Apps', to: `${ENV.AUTH_DOMAIN}/wtf/resources/apps/` },
+  { label: 'Terms', to: `${ENV.AUTH_DOMAIN}/wtf/policies/terms/` },
+  { label: 'Privacy', to: `${ENV.AUTH_DOMAIN}/wtf/policies/privacy/` },
 ]
 
 export const META = {
