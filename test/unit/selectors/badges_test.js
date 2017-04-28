@@ -29,7 +29,7 @@ describe('badges selectors', () => {
   context('#selectBadge', () => {
     it('returns the staff badge from a badgeId', () => {
       const expected = Immutable.Map({
-        image: '/assets/badges/staff.png',
+        image: Immutable.Map({ width: 48, height: 48, url: '/assets/badges/staff.png' }),
         learnMoreCaption: 'Meet the Staff',
         learnMoreHref: 'https://ello.co/wtf/about/the-people-of-ello/',
         name: 'Ello Staff Member',

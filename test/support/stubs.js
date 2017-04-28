@@ -217,46 +217,46 @@ function stubComment(properties, shouldAdd = true) {
 export function stubBadges() {
   const badges = [
     {
-      image: '/assets/badges/featured.png',
+      image: { width: 48, height: 48, url: '/assets/badges/featured.png' },
       learnMoreCaption: 'Learn More',
       learnMoreHref: 'https://ello.co/wtf/help/featured-users/',
       name: 'Featured',
       slug: 'featured',
     },
     {
-      image: '/assets/badges/community.png',
+      image: { width: 48, height: 48, url: '/assets/badges/community.png' },
       learnMoreCaption: 'Learn More',
       learnMoreHref: 'https://ello.co/wtf/resources/community-directory/',
       name: 'Community Profile',
       slug: 'community',
     },
     {
-      image: '/assets/badges/experimental.png',
+      image: { width: 48, height: 48, url: '/assets/badges/experimental.png' },
       learnMoreCaption: 'Learn More',
       learnMoreHref: 'https://ello.co/wtf/help/featured-users/',
       name: 'Experimental Group',
       slug: 'experimental',
     },
     {
-      image: '/assets/badges/staff.png',
+      image: { width: 48, height: 48, url: '/assets/badges/staff.png' },
       learnMoreCaption: 'Meet the Staff',
       learnMoreHref: 'https://ello.co/wtf/about/the-people-of-ello/',
       name: 'Ello Staff Member',
       slug: 'staff',
     },
     {
+      image: { width: 48, height: 48, url: '/assets/badges/spam.png' },
+      learnMoreCaption: null,
+      learnMoreHref: null,
       name: 'Spam',
       slug: 'spam',
-      learnMoreHref: null,
-      learnMoreCaption: null,
-      image: '/assets/badges/spam.png',
     },
     {
+      image: { width: 48, height: 48, url: '/assets/badges/nsfw.png' },
+      learnMoreCaption: null,
+      learnMoreHref: null,
       name: 'NSFW',
       slug: 'nsfw',
-      learnMoreHref: null,
-      learnMoreCaption: null,
-      image: '/assets/badges/nsfw.png',
     },
   ]
   json = json.set(MAPPING_TYPES.BADGES, Immutable.fromJS(badges))

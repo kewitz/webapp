@@ -67,7 +67,13 @@ export const BadgeSummaryDialog = ({ badges, trackEvent }) => (
     { badges.map(badge =>
       <div className={badgeCellStyle} key={`BadgeSummary_${badge.get('slug')}`}>
         <div className={labelsCellStyle}>
-          <ImageAsset className={badgeImgStyle} alt={badge.get('name')} src={badge.get('image')} width={30} height={30} />
+          <ImageAsset
+            className={badgeImgStyle}
+            alt={badge.get('name')}
+            src={badge.getIn(['image', 'url'])}
+            width={24}
+            height={24}
+          />
           <span>{badge.get('name')}</span>
           { badge.get('featuredIn') && <span> in </span> }
           { badge.get('featuredIn') && getCategoryLinks(badge.get('featuredIn')) }
