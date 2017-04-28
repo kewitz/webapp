@@ -70,6 +70,7 @@ librato.on('error', (err) => {
 app.use(helmet())
 
 const indexStr = fs.readFileSync(path.join(__dirname, '../public/index.html'), 'utf-8')
+const stats = JSON.parse(fs.readFileSync(path.join(__dirname, '../stats.json'), 'utf-8'))
 
 // Wire up OAuth route
 addOauthRoute(app)
@@ -221,8 +222,8 @@ app.use((req, res) => {
   const timingHeader = newrelic.getBrowserTimingHeader()
 
   if (canPrerenderRequest(req)) {
-    const cacheGeneration = '1'
-    const cacheKey = cacheKeyForRequest(req, cacheGeneration)
+    // Ensure the cache gets busted when new JS is deployed
+    const cacheKey = cacheKeyForRequest(req, stats.hash)
     console.log(`[${requestId}][handler] Attempting to serve pre-rendered markup for path`, req.url, cacheKey)
     memcacheClient.get(cacheKey, (err, value) => {
       if (value) {

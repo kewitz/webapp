@@ -35,7 +35,14 @@ module.exports = {
       ENV: JSON.stringify(require(path.join(__dirname, './env.js')))
     }),
     new webpack.BannerPlugin('require("source-map-support").install();',
-                             {raw: true, entryOnly: false})
+                             {raw: true, entryOnly: false}),
+    function() {
+      this.plugin("done", (stats) => {
+        fs.writeFileSync(
+          path.join(__dirname, "stats.json"),
+          JSON.stringify(stats.toJson()))
+      })
+    }
   ],
   module:  {
     loaders: [
