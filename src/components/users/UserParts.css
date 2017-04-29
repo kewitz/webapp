@@ -89,7 +89,7 @@ User Names  */
 
 .UserNamesCell {
   min-height: 30px;
-  max-height: 62px;
+  max-height: none;
 }
 
 .UserNamesCell.inUserProfile {
@@ -125,6 +125,10 @@ User Names  */
 @media (--break-2) {
   .UserUsername {
     color: #ccc;
+  }
+
+  .UserNamesCell {
+    max-height: 62px;
   }
 }
 

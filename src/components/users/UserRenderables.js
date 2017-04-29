@@ -5,6 +5,7 @@ import classNames from 'classnames'
 import Avatar from '../assets/Avatar'
 import BackgroundImage from '../assets/BackgroundImage'
 import { BadgeButton } from '../buttons/Buttons'
+import { MarkerIcon } from '../assets/Icons'
 import RelationshipContainer from '../../containers/RelationshipContainer'
 import {
   UserFiguresCell,
@@ -17,7 +18,7 @@ import {
   UserShareButton,
   UserStatsCell,
 } from './UserParts'
-import { css, select } from '../../styles/jss'
+import { css, media, select } from '../../styles/jss'
 import * as s from '../../styles/jso'
 
 // -----------------
@@ -241,6 +242,11 @@ export class UserProfileCard extends PureComponent {
 
 // -----------------
 
+const mobileLocationStyle = media(s.maxBreak2,
+  s.inlineBlock, s.mb10, s.colorA, s.alignMiddle, { marginTop: -5 },
+  select('& .MarkerIcon', s.mr5, { marginTop: -4 }),
+)
+
 export class UserProfile extends PureComponent {
   static contextTypes = {
     onClickCollab: PropTypes.func,
@@ -334,6 +340,12 @@ export class UserProfile extends PureComponent {
           name={name}
           username={username}
         >
+          { isMobile && location &&
+            <span className={mobileLocationStyle}>
+              <MarkerIcon />
+              {location}
+            </span>
+          }
           {onClickShareProfile &&
             <UserShareButton
               className="inUserProfile"
@@ -367,10 +379,12 @@ export class UserProfile extends PureComponent {
           postsCount={postsCount}
           username={username}
         />
-        <UserLocationCell
-          className="inUserProfile"
-          location={location}
-        />
+        { !isMobile &&
+          <UserLocationCell
+            className="inUserProfile"
+            location={location}
+          />
+        }
         <UserInfoCell
           className="inUserProfile"
           onClickOpenBio={onClickOpenBio}

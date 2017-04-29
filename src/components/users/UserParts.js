@@ -7,7 +7,7 @@ import { numberToHuman } from '../../lib/number_to_human'
 import { MarkerIcon, ShareIcon } from '../assets/Icons'
 import { BadgeButton, MiniPillButtonProfile } from '../buttons/Buttons'
 import Hint from '../hints/Hint'
-import { css, hover } from '../../styles/jss'
+import { before, css, hover, media } from '../../styles/jss'
 import * as s from '../../styles/jso'
 
 // -------------------------------------
@@ -85,8 +85,16 @@ UserNamesCellCard.defaultProps = {
 // -----------------
 
 const figuresCellStyle = css(s.flex, s.flexRow, s.itemsCenter)
-const totalsCellStyle = css(s.flex2)
-const badgesCellStyle = css(s.flex2, s.justifyEnd)
+const totalsCellStyle = css(s.flex2, media(s.maxBreak2, s.justifyCenter))
+const badgesCellStyle = css(
+  s.relative,
+  s.flex2,
+  s.justifyEnd,
+  media(s.maxBreak2,
+    s.justifyCenter,
+    before(s.absolute, { top: -20, left: 0, bottom: -17, width: 1, content: '""' }, s.bgcA),
+  ),
+)
 const moreBadgesStyle = css(s.fontSize14, s.ml5, s.colorA, s.transitionColor, hover(s.colorWhite))
 
 export const UserFiguresCell = (
