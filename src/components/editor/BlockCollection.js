@@ -433,7 +433,7 @@ class BlockCollection extends PureComponent {
     return (
       <div
         className={editorClassNames}
-        data-placeholder="Say Ello..."
+        data-placeholder="Add images, embeds, text & links."
         onDragLeave={this.onDragLeave}
         onDragOver={this.onDragOver}
         onDrop={this.onDrop}
