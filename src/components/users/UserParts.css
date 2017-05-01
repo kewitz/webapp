@@ -98,15 +98,10 @@ User Names  */
 
 .UserNamesCell.inUserProfile.isSingle {
   min-height: 0;
-  max-height: 40px;
 }
 
 .UserName {
   font-size: 18px;
-}
-
-.UserNamesCell.inUserProfile.isSingle .UserName {
-  max-width: calc(100% - 70px);
 }
 
 .no-touch .UserName > a:hover {
@@ -116,6 +111,10 @@ User Names  */
 .UserUsername {
   margin-bottom: 10px;
   color: #aaa;
+}
+
+.UserNamesCell.inUserProfile.isSingle .UserName {
+  margin-bottom: 10px;
 }
 
 .isChrome .UserUsername {
@@ -129,6 +128,15 @@ User Names  */
 
   .UserNamesCell {
     max-height: 62px;
+  }
+
+  .UserNamesCell.inUserProfile.isSingle {
+    max-height: 40px;
+  }
+
+  .UserNamesCell.inUserProfile.isSingle .UserName {
+    max-width: calc(100% - 70px);
+    margin-bottom: 0;
   }
 }
 

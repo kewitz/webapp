@@ -243,7 +243,7 @@ export class UserProfileCard extends PureComponent {
 // -----------------
 
 const mobileLocationStyle = media(s.maxBreak2,
-  s.inlineBlock, s.mb10, s.colorA, s.alignMiddle, { marginTop: -5 },
+  s.inlineBlock, s.mb10, s.colorA, s.alignMiddle, { marginTop: -5 }, s.fontSize14,
   select('& .MarkerIcon', s.mr5, { marginTop: -4 }),
 )
 
