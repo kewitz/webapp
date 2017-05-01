@@ -9,3 +9,4 @@ dist/
 .tern-port
 public/static/emojis.json
 stats.json
+web-stats.json
