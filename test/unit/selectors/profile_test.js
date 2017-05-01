@@ -18,7 +18,9 @@ import {
   selectIsAvatarBlank,
   selectIsCoverImageBlank,
   selectIsInfoFormBlank,
+  selectIsNabaroo,
   selectIsPublic,
+  selectIsStaff,
   selectProfileIsCollaborateable,
   selectProfileIsHireable,
   selectLinksAsText,
@@ -44,7 +46,9 @@ describe('profile selectors', () => {
       bundleId: 'bundleId',
       hasAvatarPresent: true,
       hasCoverImagePresent: true,
+      isNabaroo: false,
       isPublic: true,
+      isStaff: false,
       isCollaborateable: false,
       isHireable: true,
       marketingVersion: '1',
@@ -143,9 +147,21 @@ describe('profile selectors', () => {
     })
   })
 
+  context('#selectIsNabaroo', () => {
+    it('returns the profile.isNabaroo', () => {
+      expect(selectIsNabaroo(state)).to.deep.equal(state.profile.get('isNabaroo'))
+    })
+  })
+
   context('#selectIsPublic', () => {
     it('returns the profile.isPublic', () => {
       expect(selectIsPublic(state)).to.deep.equal(state.profile.get('isPublic'))
+    })
+  })
+
+  context('#selectIsStaff', () => {
+    it('returns the profile.isStaff', () => {
+      expect(selectIsStaff(state)).to.deep.equal(state.profile.get('isStaff'))
     })
   })
 
