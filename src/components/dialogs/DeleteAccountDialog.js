@@ -1,4 +1,5 @@
-import React, { PropTypes, PureComponent } from 'react'
+import React, { PureComponent } from 'react'
+import PropTypes from 'prop-types'
 import { buttonStyle, headingStyle } from './ConfirmDialog'
 import { css, media } from '../../styles/jss'
 import * as s from '../../styles/jso'

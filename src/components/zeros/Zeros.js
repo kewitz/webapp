@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react'
+import React from 'react'
+import PropTypes from 'prop-types'
 import RelationshipContainer from '../../containers/RelationshipContainer'
 import Editor from '../editor/Editor'
 import { css, hover, media, parent, select } from '../../styles/jss'

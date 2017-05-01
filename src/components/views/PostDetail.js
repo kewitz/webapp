@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react'
+import React from 'react'
+import PropTypes from 'prop-types'
 import Editor from '../editor/Editor'
 import PostContainer from '../../containers/PostContainer'
 import StreamContainer from '../../containers/StreamContainer'

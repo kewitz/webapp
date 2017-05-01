@@ -1,5 +1,6 @@
 import Immutable from 'immutable'
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import debounce from 'lodash/debounce'
 import get from 'lodash/get'

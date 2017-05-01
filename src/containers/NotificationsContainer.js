@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import get from 'lodash/get'
 import { connect } from 'react-redux'
 import { ADD_NEW_IDS_TO_RESULT, CLEAR_PAGE_RESULT, GUI, LOAD_STREAM_SUCCESS } from '../constants/action_types'

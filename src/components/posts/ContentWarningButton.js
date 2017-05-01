@@ -1,4 +1,5 @@
-import React, { PropTypes, PureComponent } from 'react'
+import React, { PureComponent } from 'react'
+import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import { css, hover } from '../../styles/jss'
 import * as s from '../../styles/jso'

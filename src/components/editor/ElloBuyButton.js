@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react'
+import React from 'react'
+import PropTypes from 'prop-types'
 import { MoneyIcon } from '../assets/Icons'
 import { dispatchTrackEvent } from '../../helpers/junk_drawer'
 import { before, css, hover, parent, select } from '../../styles/jss'

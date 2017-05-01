@@ -1,5 +1,6 @@
 /* eslint-disable react/no-multi-comp */
-import React, { PropTypes, PureComponent } from 'react'
+import React, { PureComponent } from 'react'
+import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import Hint from '../hints/Hint'
 import { ChevronIcon, FlagIcon, PencilIcon, ReplyIcon, XBoxIcon } from '../assets/Icons'

@@ -1,4 +1,5 @@
-import React, { PropTypes, PureComponent } from 'react'
+import React, { PureComponent } from 'react'
+import PropTypes from 'prop-types'
 import RegistrationRequestForm from '../../components/forms/RegistrationRequestForm'
 import { HeroPromotionCredits } from '../../components/heros/HeroParts'
 import BackgroundImage from '../../components/assets/BackgroundImage'

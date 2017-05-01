@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import { DismissButton } from '../../components/buttons/Buttons'
 import { before, css, hover, media, modifier, select } from '../../styles/jss'

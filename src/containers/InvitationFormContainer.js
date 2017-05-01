@@ -1,4 +1,5 @@
-import React, { PropTypes, PureComponent } from 'react'
+import React, { PureComponent } from 'react'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { trackEvent } from '../actions/analytics'
 import { inviteUsers } from '../actions/invitations'

@@ -1,4 +1,5 @@
-import React, { PropTypes, PureComponent } from 'react'
+import React, { PureComponent } from 'react'
+import PropTypes from 'prop-types'
 import { FORM_CONTROL_STATUS as STATUS } from '../../constants/status_types'
 import TextControl from '../forms/TextControl'
 import { isValidURL } from '../forms/Validators'

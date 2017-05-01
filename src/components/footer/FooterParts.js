@@ -1,6 +1,7 @@
 // @flow
 /* eslint-disable react/no-multi-comp */
-import React, { Component, PropTypes, PureComponent } from 'react'
+import React, { Component, PureComponent } from 'react'
+import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import { FORM_CONTROL_STATUS as STATUS } from '../../constants/status_types'
 import { ArrowIcon } from '../assets/Icons'

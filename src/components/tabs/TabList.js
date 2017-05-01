@@ -1,6 +1,7 @@
 // TODO: There are only 3 of these at one time but still...
 /* eslint-disable react/jsx-no-bind */
-import React, { PropTypes } from 'react'
+import React from 'react'
+import PropTypes from 'prop-types'
 import { Link } from 'react-router'
 import classNames from 'classnames'
 

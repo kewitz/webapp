@@ -1,4 +1,5 @@
-import React, { PropTypes, PureComponent } from 'react'
+import React, { PureComponent } from 'react'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import debounce from 'lodash/debounce'
 import { EDITOR } from '../constants/action_types'
