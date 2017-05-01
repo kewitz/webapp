@@ -1,5 +1,6 @@
 import Immutable from 'immutable'
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { bindActionCreators } from 'redux'
 import { createSelector } from 'reselect'
 import sample from 'lodash/sample'

@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react'
+import React from 'react'
+import PropTypes from 'prop-types'
 import { MainView } from '../views/MainView'
 import Emoji from '../assets/Emoji'
 import EmailControl from '../forms/EmailControl'

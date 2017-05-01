@@ -1,5 +1,6 @@
 import Immutable from 'immutable'
-import React, { PropTypes, PureComponent } from 'react'
+import React, { PureComponent } from 'react'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import classNames from 'classnames'
 import { selectIsMobileGridStream, selectIsNavbarHidden } from '../../selectors/gui'

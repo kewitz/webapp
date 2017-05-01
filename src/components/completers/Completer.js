@@ -1,5 +1,6 @@
 import Immutable from 'immutable'
-import React, { PropTypes, PureComponent } from 'react'
+import React, { PureComponent } from 'react'
+import PropTypes from 'prop-types'
 import { isIOS } from '../../lib/jello'
 import Avatar from '../assets/Avatar'
 import Emoji from '../assets/Emoji'

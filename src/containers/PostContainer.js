@@ -1,5 +1,6 @@
 import Immutable from 'immutable'
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { push, replace } from 'react-router-redux'
 import { bindActionCreators } from 'redux'

@@ -1,4 +1,5 @@
-import React, { PropTypes, PureComponent } from 'react'
+import React, { PureComponent } from 'react'
+import PropTypes from 'prop-types'
 import FormControl from '../forms/FormControl'
 import { CheckIconLG } from '../assets/Icons'
 import { DismissButton } from '../../components/buttons/Buttons'

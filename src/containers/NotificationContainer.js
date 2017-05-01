@@ -1,5 +1,6 @@
 import Immutable from 'immutable'
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { getLinkObject } from '../helpers/json_helper'
 import * as MAPPING_TYPES from '../constants/mapping_types'

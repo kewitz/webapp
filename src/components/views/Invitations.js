@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react'
+import React from 'react'
+import PropTypes from 'prop-types'
 import { MainView } from '../views/MainView'
 import StreamContainer from '../../containers/StreamContainer'
 import InvitationFormContainer from '../../containers/InvitationFormContainer'

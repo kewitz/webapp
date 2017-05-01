@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react'
+import React from 'react'
+import PropTypes from 'prop-types'
 import { XIcon } from '../assets/Icons'
 import { css, hover, media, select } from '../../styles/jss'
 import * as s from '../../styles/jso'

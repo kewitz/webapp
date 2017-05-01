@@ -1,4 +1,5 @@
-import React, { PropTypes, PureComponent } from 'react'
+import React, { PureComponent } from 'react'
+import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import { CheckIcon, XIcon } from '../assets/Icons'
 import { css, hover, media, modifier, parent } from '../../styles/jss'

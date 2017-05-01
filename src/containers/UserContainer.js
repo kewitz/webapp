@@ -1,5 +1,6 @@
 import Immutable from 'immutable'
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import get from 'lodash/get'
@@ -98,7 +99,7 @@ class UserContainer extends Component {
     coverImage: PropTypes.object,
     dispatch: PropTypes.func.isRequired,
     externalLinksList: PropTypes.object,
-    followersCount: React.PropTypes.oneOfType([
+    followersCount: PropTypes.oneOfType([
       PropTypes.number,
       PropTypes.string,
     ]).isRequired,

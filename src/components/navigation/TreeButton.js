@@ -1,4 +1,5 @@
-import React, { PropTypes, PureComponent } from 'react'
+import React, { PureComponent } from 'react'
+import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import { ChevronCircleIcon } from '../assets/Icons'
 import { css, hover, media } from '../../styles/jss'

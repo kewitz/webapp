@@ -1,4 +1,5 @@
-import React, { PropTypes, PureComponent } from 'react'
+import React, { PureComponent } from 'react'
+import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import { getSelectionContainerElement } from '../editor/SelectionUtil'
 import { css, hover, modifier, select } from '../../styles/jss'

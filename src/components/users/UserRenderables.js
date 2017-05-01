@@ -1,5 +1,6 @@
 /* eslint-disable react/no-multi-comp */
-import React, { PropTypes, PureComponent } from 'react'
+import React, { PureComponent } from 'react'
+import PropTypes from 'prop-types'
 import { Link } from 'react-router'
 import classNames from 'classnames'
 import Avatar from '../assets/Avatar'
@@ -140,7 +141,7 @@ export class UserProfileCard extends PureComponent {
   static propTypes = {
     avatar: PropTypes.object.isRequired,
     coverImage: PropTypes.object.isRequired,
-    followersCount: React.PropTypes.oneOfType([
+    followersCount: PropTypes.oneOfType([
       PropTypes.number,
       PropTypes.string,
     ]).isRequired,
@@ -258,7 +259,7 @@ export class UserProfile extends PureComponent {
   static propTypes = {
     avatar: PropTypes.object.isRequired,
     externalLinksList: PropTypes.object,
-    followersCount: React.PropTypes.oneOfType([
+    followersCount: PropTypes.oneOfType([
       PropTypes.number,
       PropTypes.string,
     ]).isRequired,

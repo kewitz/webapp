@@ -1,5 +1,6 @@
 /* eslint-disable react/no-multi-comp */
-import React, { PropTypes, PureComponent } from 'react'
+import React, { PureComponent } from 'react'
+import PropTypes from 'prop-types'
 import { Link } from 'react-router'
 import { RegionItems } from '../regions/RegionRenderables'
 import Avatar from '../assets/Avatar'
