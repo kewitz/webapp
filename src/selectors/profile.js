@@ -18,6 +18,7 @@ export const selectHasAutoWatchEnabled = state => state.profile.get('hasAutoWatc
 export const selectHasAvatarPresent = state => state.profile.get('hasAvatarPresent', false)
 export const selectHasCoverImagePresent = state => state.profile.get('hasCoverImagePresent', false)
 export const selectId = state => state.profile.get('id')
+export const selectIsNabaroo = state => state.profile.get('isNabaroo', false)
 export const selectIsPublic = state => state.profile.get('isPublic')
 export const selectIsStaff = state => state.profile.get('isStaff', false)
 export const selectProfileIsCollaborateable = state => state.profile.get('isCollaborateable', false)
