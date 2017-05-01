@@ -4,9 +4,11 @@ import React, { PropTypes } from 'react'
 import { Link } from 'react-router'
 import classNames from 'classnames'
 import { numberToHuman } from '../../lib/number_to_human'
-import { BadgeCheckIcon, MarkerIcon, ShareIcon } from '../assets/Icons'
-import { MiniPillButtonProfile } from '../buttons/Buttons'
+import { MarkerIcon, ShareIcon } from '../assets/Icons'
+import { BadgeButton, MiniPillButtonProfile } from '../buttons/Buttons'
 import Hint from '../hints/Hint'
+import { before, css, hover, media } from '../../styles/jss'
+import * as s from '../../styles/jso'
 
 // -------------------------------------
 
@@ -31,15 +33,6 @@ UserStatsLink.contextTypes = {
 }
 
 // -----------------
-
-export const UserFeaturedButton = ({ className, onClick }) =>
-  <button className={classNames('UserFeaturedButton', className)} onClick={onClick} >
-    <BadgeCheckIcon />
-  </button>
-UserFeaturedButton.propTypes = {
-  className: PropTypes.string.isRequired,
-  onClick: PropTypes.func.isRequired,
-}
 
 export const UserShareButton = ({ className, onClick }) =>
   <button className={classNames('UserShareButton', className)} onClick={onClick} >
@@ -91,14 +84,56 @@ UserNamesCellCard.defaultProps = {
 
 // -----------------
 
-export const UserFiguresCell = ({ className, totalViewsCount }) =>
-  <div className={classNames('UserCell UserFiguresCell', className)}>
-    <span className="UserFiguresCount uppercase">{totalViewsCount} </span>
-    <span className="UserFiguresLabel">Total Views</span>
+const figuresCellStyle = css(s.flex, s.flexRow, s.itemsCenter)
+const totalsCellStyle = css(s.flex2, media(s.maxBreak2, s.justifyCenter))
+const badgesCellStyle = css(
+  s.relative,
+  s.flex2,
+  s.justifyEnd,
+  media(s.maxBreak2,
+    s.justifyCenter,
+    before(s.absolute, { top: -20, left: 0, bottom: -17, width: 1, content: '""' }, s.bgcA),
+  ),
+)
+const moreBadgesStyle = css(s.fontSize14, s.ml5, s.colorA, s.transitionColor, hover(s.colorWhite))
+
+export const UserFiguresCell = (
+  { badges, badgeCount, className, isBadgesLoaded, onClick, totalViewsCount },
+) =>
+  <div className={classNames(`UserCell ${figuresCellStyle}`, className)}>
+    <div className={totalsCellStyle}>
+      <span className="UserFiguresCount uppercase">{totalViewsCount}</span>
+      <span className="UserFiguresLabel">Views</span>
+    </div>
+    { !badges.isEmpty() && isBadgesLoaded &&
+      <div className={badgesCellStyle}>
+        { badges.map(badge =>
+          <BadgeButton
+            data-slug={badge.get('slug')}
+            key={`BadgeButton_${badge.get('slug')}`}
+            name={badge.get('name')}
+            src={badge.get('image')}
+            onClick={onClick}
+          />,
+        )}
+        {badgeCount > 3 &&
+          <button className={moreBadgesStyle} onClick={onClick}>
+            {`+${badgeCount - 3}`}
+          </button>
+        }
+      </div>
+    }
   </div>
 UserFiguresCell.propTypes = {
+  badges: PropTypes.object.isRequired,
+  badgeCount: PropTypes.number.isRequired,
   className: PropTypes.string.isRequired,
+  isBadgesLoaded: PropTypes.bool.isRequired,
+  onClick: PropTypes.func,
   totalViewsCount: PropTypes.string.isRequired,
+}
+UserFiguresCell.defaultProps = {
+  onClick: null,
 }
 
 // -----------------

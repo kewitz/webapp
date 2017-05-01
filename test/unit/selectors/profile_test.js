@@ -5,6 +5,7 @@ import {
   selectAnalyticsId,
   selectAvailability,
   selectAvatar,
+  selectBioLabel,
   selectBlockedCount,
   selectBuildVersion,
   selectBundleId,
@@ -265,6 +266,19 @@ describe('profile selectors', () => {
       state.profile = state.profile.setIn(['links', 'categories'], Immutable.List('1'))
       const result = selectProfileIsFeatured(state)
       expect(result).to.equal(true)
+    })
+  })
+
+  context('#selectBioLabel', () => {
+    it('returns the label to use for a bio field (Bio)', () => {
+      const result = selectBioLabel(state)
+      expect(result).to.equal('Bio')
+    })
+
+    it('returns the label to use for a bio field (Community)', () => {
+      state.profile = state.profile.setIn(['isCommunity'], true)
+      const result = selectBioLabel(state)
+      expect(result).to.equal('Community Info')
     })
   })
 })

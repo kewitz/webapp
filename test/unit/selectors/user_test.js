@@ -1,7 +1,8 @@
 import Immutable from 'immutable'
 import pad from 'lodash/pad'
-import { clearJSON, json, stub, stubUser, stubCategories, stubInvitation } from '../../support/stubs'
+import { clearJSON, json, stub, stubBadges, stubUser, stubCategories, stubInvitation } from '../../support/stubs'
 import * as selector from '../../../src/selectors/user'
+import { selectBadge } from '../../../src/selectors/badges'
 
 describe('user selectors', () => {
   let userSixes
@@ -9,6 +10,7 @@ describe('user selectors', () => {
   let state
   beforeEach(() => {
     userSixes = stub('user', {
+      badges: ['featured', 'experimental', 'nsfw', 'staff', 'spam'],
       id: '666',
       followersCount: 200,
       followingCount: 900,
@@ -33,6 +35,7 @@ describe('user selectors', () => {
     stub('user', { id: '4', relationshipPriority: 'self' })
     stubInvitation()
     stubCategories()
+    stubBadges()
     state = { json }
   })
 
@@ -473,6 +476,67 @@ describe('user selectors', () => {
       const truncatedShortBio = selector.selectUserTruncatedShortBio(state, props)
       expect(truncatedShortBio.text.length).to.equal(160)
       expect(truncatedShortBio.html).to.contain('<b>')
+    })
+  })
+
+  context('#selectUserProfileBadges', () => {
+    it('returns the top 3 badge links for a user profile', () => {
+      const props = { userId: '666' }
+      const result = selector.selectUserProfileBadges(state, props)
+      const expected = Immutable.List([
+        Immutable.Map({ name: 'Featured', image: '/assets/badges/featured.png', slug: 'featured' }),
+        Immutable.Map({ name: 'Experimental Group', image: '/assets/badges/experimental.png', slug: 'experimental' }),
+        Immutable.Map({ name: 'NSFW', image: '/assets/badges/nsfw.png', slug: 'nsfw' }),
+      ])
+      expect(result).to.equal(expected)
+    })
+
+    it('returns an empty list if the user has no badges for a user profile', () => {
+      const props = { userId: '667' }
+      const result = selector.selectUserProfileBadges(state, props)
+      const expected = Immutable.List([])
+      expect(result).to.equal(expected)
+    })
+  })
+
+  context('#selectUserProfileCardBadges', () => {
+    it('returns the top badge links for a user profile card', () => {
+      const props = { userId: '666' }
+      const result = selector.selectUserProfileCardBadges(state, props)
+      const expected = Immutable.List([
+        Immutable.Map({ name: 'Featured', image: '/assets/badges/featured.png', slug: 'featured' }),
+      ])
+      expect(result).to.equal(expected)
+    })
+
+    it('returns an empty list if the user has no badges for a user profile card', () => {
+      const props = { userId: '667' }
+      const result = selector.selectUserProfileCardBadges(state, props)
+      const expected = Immutable.List([])
+      expect(result).to.equal(expected)
+    })
+  })
+
+  context('#selectUserBadgeSummary', () => {
+    it('returns a summary of the user badges', () => {
+      const props = { userId: '666' }
+      const result = selector.selectUserBadgeSummary(state, props)
+      const featureList = Immutable.fromJS([{ slug: 'metal', name: 'Metal' }, { slug: 'art', name: 'Art' }])
+      const expected = Immutable.List([
+        selectBadge(state, { badgeId: 'featured' }).set('featuredIn', featureList),
+        selectBadge(state, { badgeId: 'experimental' }),
+        selectBadge(state, { badgeId: 'nsfw' }),
+        selectBadge(state, { badgeId: 'staff' }),
+        selectBadge(state, { badgeId: 'spam' }),
+      ])
+      expect(result).to.equal(expected)
+    })
+
+    it('returns an empty list if the user has no badges for a summary', () => {
+      const props = { userId: '667' }
+      const result = selector.selectUserBadgeSummary(state, props)
+      const expected = Immutable.List([])
+      expect(result).to.equal(expected)
     })
   })
 })

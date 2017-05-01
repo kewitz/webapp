@@ -4,6 +4,7 @@ import classNames from 'classnames'
 import debounce from 'lodash/debounce'
 import { hideSoftKeyboard } from '../../lib/jello'
 import {
+  selectBioLabel,
   selectLinksAsText,
   selectLocation,
   selectName,
@@ -25,6 +26,7 @@ import { profilePath } from '../../networking/api'
 
 function mapStateToProps(state) {
   return {
+    bioLabel: selectBioLabel(state),
     isCompleterActive: selectIsCompleterActive(state),
     linksText: selectLinksAsText(state),
     location: selectLocation(state),
@@ -42,6 +44,7 @@ function onSubmit(e) {
 class InfoForm extends PureComponent {
 
   static propTypes = {
+    bioLabel: PropTypes.string.isRequired,
     className: PropTypes.string.isRequired,
     controlClassModifiers: PropTypes.string.isRequired,
     dispatch: PropTypes.func.isRequired,
@@ -164,6 +167,7 @@ class InfoForm extends PureComponent {
   render() {
     const { bioStatus, linksStatus, locationStatus, nameStatus } = this.state
     const {
+      bioLabel,
       className,
       controlClassModifiers,
       isOnboardingControl,
@@ -208,6 +212,8 @@ class InfoForm extends PureComponent {
         />
         <BioControl
           classList={controlClassModifiers}
+          label={bioLabel}
+          placeholder={bioLabel}
           onChange={this.onChangeBioControl}
           status={bioStatus}
           tabIndex={`${tabIndexStart + 2}`}

@@ -36,7 +36,7 @@ function* trackEvents() {
       case ACTION_TYPES.ALERT.OPEN:
       case ACTION_TYPES.MODAL.OPEN:
         if (get(action, 'payload.trackLabel')) {
-          yield put(trackEventAction(get(action, 'payload.trackLabel')))
+          yield put(trackEventAction(get(action, 'payload.trackLabel'), get(action, 'payload.trackOptions')))
         }
         break
       case ACTION_TYPES.COMMENT.CREATE_REQUEST:

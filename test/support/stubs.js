@@ -96,6 +96,7 @@ function stubUser(properties, shouldAdd = true) {
     avatar: stubAvatar(),
     backgroundPosition: null,
     badForSeo: false,
+    badges: [],
     coverImage: stubCoverImage(),
     experimentalFeatures: false,
     externalLinksList: [
@@ -114,6 +115,7 @@ function stubUser(properties, shouldAdd = true) {
     hasSharingEnabled: true,
     href: '/href',
     isCollaborateable: false,
+    isCommunity: false,
     isHireable: true,
     location: 'Planet Earth, 90210',
     lovesCount: 0,
@@ -210,6 +212,55 @@ function stubComment(properties, shouldAdd = true) {
   const model = Immutable.fromJS({ ...commonProps, ...defaultProps, ...properties })
   if (shouldAdd) { addToJSON(MAPPING_TYPES.COMMENTS, model) }
   return model
+}
+
+export function stubBadges() {
+  const badges = [
+    {
+      image: { width: 48, height: 48, url: '/assets/badges/featured.png' },
+      learnMoreCaption: 'Learn More',
+      learnMoreHref: 'https://ello.co/wtf/help/featured-users/',
+      name: 'Featured',
+      slug: 'featured',
+    },
+    {
+      image: { width: 48, height: 48, url: '/assets/badges/community.png' },
+      learnMoreCaption: 'Learn More',
+      learnMoreHref: 'https://ello.co/wtf/resources/community-directory/',
+      name: 'Community Profile',
+      slug: 'community',
+    },
+    {
+      image: { width: 48, height: 48, url: '/assets/badges/experimental.png' },
+      learnMoreCaption: 'Learn More',
+      learnMoreHref: 'https://ello.co/wtf/help/featured-users/',
+      name: 'Experimental Group',
+      slug: 'experimental',
+    },
+    {
+      image: { width: 48, height: 48, url: '/assets/badges/staff.png' },
+      learnMoreCaption: 'Meet the Staff',
+      learnMoreHref: 'https://ello.co/wtf/about/the-people-of-ello/',
+      name: 'Ello Staff Member',
+      slug: 'staff',
+    },
+    {
+      image: { width: 48, height: 48, url: '/assets/badges/spam.png' },
+      learnMoreCaption: null,
+      learnMoreHref: null,
+      name: 'Spam',
+      slug: 'spam',
+    },
+    {
+      image: { width: 48, height: 48, url: '/assets/badges/nsfw.png' },
+      learnMoreCaption: null,
+      learnMoreHref: null,
+      name: 'NSFW',
+      slug: 'nsfw',
+    },
+  ]
+  json = json.set(MAPPING_TYPES.BADGES, Immutable.fromJS(badges))
+  return json.get(MAPPING_TYPES.BADGES)
 }
 
 export function stubCategories(properties) {

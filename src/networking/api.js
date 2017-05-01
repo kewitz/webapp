@@ -133,6 +133,12 @@ export function relationshipBatchPath() {
     path: getAPIPath('relationships/batches'),
   }
 }
+// Badges
+export function badges() {
+  return {
+    path: getAPIPath('badges.json'),
+  }
+}
 // Categories
 export function categories() {
   return {
