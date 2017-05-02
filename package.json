@@ -75,61 +75,10 @@
     }
   },
   "eslintConfig": {
-    "extends": "airbnb",
-    "parser": "babel-eslint",
-    "env": {
-      "browser": true,
-      "node": true,
-      "mocha": true
-    },
+    "extends": "ello",
     "globals": {
       "AndroidInterface": false,
       "ENV": false
-    },
-    "rules": {
-      "jsx-a11y/tabindex-no-positive": 0,
-      "no-alert": 2,
-      "no-console": 2,
-      "no-debugger": 2,
-      "react/forbid-prop-types": [
-        1,
-        {
-          "forbid": [
-            "any"
-          ]
-        }
-      ],
-      "react/jsx-filename-extension": [
-        1,
-        {
-          "extensions": [
-            ".js",
-            ".jsx"
-          ]
-        }
-      ],
-      "react/prefer-stateless-function": [
-        2,
-        {
-          "ignorePureComponents": true
-        }
-      ],
-      "react/sort-comp": [
-        "error",
-        {
-          "order": [
-            "type-annotations",
-            "static-methods",
-            "lifecycle",
-            "/^on.+$/",
-            "/^(get|set)(?!(InitialState$|DefaultProps$|ChildContext$)).+$/",
-            "everything-else",
-            "/^render.+$/",
-            "render"
-          ]
-        }
-      ],
-      "semi": 0
     }
   },
   "stylelint": {
@@ -157,7 +106,6 @@
     "babel": "6.23.0",
     "babel-cli": "6.24.1",
     "babel-core": "6.24.1",
-    "babel-eslint": "7.2.3",
     "babel-loader": "6.4.1",
     "babel-plugin-lodash": "3.2.11",
     "babel-plugin-transform-react-constant-elements": "6.23.0",
@@ -237,16 +185,14 @@
     "webpack-sources": "0.2.3"
   },
   "devDependencies": {
+    "babel-eslint": "7.2.3",
     "babel-plugin-react-transform": "2.0.2",
     "babel-plugin-transform-flow-strip-types": "6.22.0",
     "chai": "3.5.0",
     "chai-generator": "2.1.0",
     "chai-immutable": "1.6.0",
     "eslint": "3.19.0",
-    "eslint-config-airbnb": "14.1.0",
-    "eslint-plugin-import": "2.2.0",
-    "eslint-plugin-jsx-a11y": "4.0.0",
-    "eslint-plugin-react": "6.10.3",
+    "eslint-config-ello": "1.0.3",
     "flow-bin": "0.45.0",
     "mocha": "3.3.0",
     "react-addons-perf": "15.4.2",
