@@ -17,6 +17,7 @@ describe('isomorphically rendering on the server', () => {
   after(() => { Helmet.canUseDOM = true })
 
   beforeEach(() => {
+    global.ENV.API_DOMAIN = 'https://ello.co'
     global.ENV.AUTH_DOMAIN = 'https://ello.co'
     global.ENV.AUTH_CLIENT_ID = 'abc123'
     global.ENV.AUTH_CLIENT_SECRET = 'def456'
