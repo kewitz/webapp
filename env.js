@@ -3,6 +3,7 @@ module.exports = {
   AUTH_CLIENT_ID: process.env.AUTH_CLIENT_ID,
   AUTH_CLIENT_SECRET: process.env.AUTH_CLIENT_SECRET,
   AUTH_DOMAIN: process.env.AUTH_DOMAIN,
+  API_DOMAIN: process.env.API_DOMAIN || process.env.AUTH_DOMAIN,
   HAS_GUIDE: (process.env.HAS_GUIDE === 'true'),
   LOGO_MARK: process.env.LOGO_MARK,
   NODE_ENV: process.env.NODE_ENV,

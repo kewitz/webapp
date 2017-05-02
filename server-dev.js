@@ -4,6 +4,7 @@ import webpack from 'webpack'
 import config from './webpack.dev.config'
 import { addOauthRoute, fetchOauthToken } from './oauth'
 import { updateStrings as updateTimeAgoStrings } from './src/lib/time_ago_in_words'
+import httpProxy from 'http-proxy'
 
 // load env vars first
 require('dotenv').load({ silent: process.env.NODE_ENV === 'production' })
@@ -11,6 +12,10 @@ global.ENV = require('./env')
 
 const app = express()
 const compiler = webpack(config)
+const proxy = httpProxy.createProxyServer({
+  target: process.env.AUTH_DOMAIN,
+  changeOrigin: true,
+})
 
 updateTimeAgoStrings({ about: '' })
 addOauthRoute(app)
@@ -25,6 +30,14 @@ app.use(require('webpack-hot-middleware')(compiler))
 // Assets
 app.use(express.static('public'))
 app.use('/static', express.static('public/static'))
+
+// API Proxy
+app.use('/api/v2', (req, res, next) => {
+  // include root path in proxied request
+  req.url = '/api/v2/' + req.url
+  proxy.web(req, res, {})
+})
+
 
 // Main entry for app
 app.get('/*', (req, res) => {
