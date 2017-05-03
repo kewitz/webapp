@@ -32,9 +32,9 @@ app.use(express.static('public'))
 app.use('/static', express.static('public/static'))
 
 // API Proxy
-app.use('/api/v2', (req, res, next) => {
+app.use('/api/', (req, res, next) => {
   // include root path in proxied request
-  req.url = '/api/v2/' + req.url
+  req.url = '/api/' + req.url
   proxy.web(req, res, {})
 })
 
