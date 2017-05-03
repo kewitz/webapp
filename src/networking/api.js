@@ -2,7 +2,7 @@ import { getPagingQueryParams } from '../helpers/uri_helper'
 
 const API_VERSION = 'v2'
 const PER_PAGE = 25
-const basePath = () => `${ENV.AUTH_DOMAIN}/api`
+const basePath = () => `${ENV.API_DOMAIN}/api`
 
 function getAPIPath(relPath, queryParams = {}) {
   let path = `${basePath()}/${API_VERSION}/${relPath}`
