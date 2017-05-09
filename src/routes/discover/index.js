@@ -9,7 +9,7 @@ const indexRoute = {
 }
 
 const explore = store => ({
-  path: 'explore(/:type)',
+  path: 'explore(/:type)(/trending)',
   getComponents,
   onEnter(nextState, replace) {
     const { params: { type } } = nextState
@@ -25,7 +25,7 @@ const explore = store => ({
 })
 
 const discover = store => ({
-  path: 'discover(/:type)',
+  path: 'discover(/:type)(/trending)',
   getComponents,
   onEnter(nextState, replace) {
     const type = nextState.params.type

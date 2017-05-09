@@ -236,8 +236,13 @@ export function* performRequest(action) {
 
   let response
 
+  let endpointPath = endpoint.path
+  if (/\/posts\/recent/.test(endpoint.path) && /\/trending$/.test(pathname)) {
+    endpointPath = endpointPath.replace('/recent', '/trending')
+  }
+
   try {
-    response = yield call(sagaFetch, endpoint.path, options)
+    response = yield call(sagaFetch, endpointPath, options)
   } catch (error) {
     updateRunningFetches(error.response)
 
