@@ -6,7 +6,9 @@ import { isElloAndroid } from '../lib/jello'
 import * as ACTION_TYPES from '../constants/action_types'
 import { RELATIONSHIP_PRIORITY } from '../constants/relationship_types'
 import { trackEvent as trackEventAction } from '../actions/analytics'
+import { selectIsLoggedIn } from '../selectors/authentication'
 import { selectActiveNotificationsType } from '../selectors/gui'
+import { selectPathname } from '../selectors/routing'
 
 let shouldCallInitialTrackPage = false
 const agent = isElloAndroid() ? 'android' : 'webapp'
@@ -114,6 +116,16 @@ function* trackEvents() {
       case ACTION_TYPES.USER.HIRE_ME_REQUEST:
         yield put(trackEventAction('send-hire-dialog-profile'))
         break
+      case LOCATION_CHANGE: {
+        const isLoggedIn = yield select(selectIsLoggedIn)
+        const pathname = yield select(selectPathname)
+        if (isLoggedIn) {
+          yield put(trackEventAction('viewed_logged_in_page', { page_name: pathname }))
+        } else {
+          yield put(trackEventAction('viewed_logged_out_page', { page_name: pathname }))
+        }
+        break
+      }
       default:
         break
     }
