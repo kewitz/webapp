@@ -176,11 +176,12 @@ class AppContainer extends Component {
     dispatch(trackEvent('promoCTA_clicked', { name: categoryData.category.get('slug', 'general') }))
   }
 
-  onLaunchNativeEditor = (post = null, isComment = false, comment = null) => {
+  onLaunchNativeEditor = (post = null, isComment = false, comment = null, text = null) => {
     ElloAndroidInterface.launchEditor(
       post ? JSON.stringify(post.toJS()) : null,
       `${isComment}`,
       comment ? JSON.stringify(comment.toJS()) : null,
+      text,
     )
   }
 
