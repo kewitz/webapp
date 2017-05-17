@@ -34,7 +34,7 @@ import { CommentBody, CommentHeader } from '../components/comments/CommentRender
 import CommentTools from '../components/comments/CommentTools'
 import ConfirmDialog from '../components/dialogs/ConfirmDialog'
 import FlagDialog from '../components/dialogs/FlagDialog'
-import { scrollToLastTextBlock } from '../lib/jello'
+import { isElloAndroid, scrollToLastTextBlock } from '../lib/jello'
 import * as ElloAndroidInterface from '../lib/android_interface'
 
 export function makeMapStateToProps() {
@@ -175,14 +175,19 @@ class CommentContainer extends Component {
   onClickReplyToComment = () => {
     const { author, dispatch, isNavbarHidden, post } = this.props
     const editorId = getEditorId(post, null, true, false)
-    dispatch({
-      type: EDITOR.APPEND_TEXT,
-      payload: {
-        editorId,
-        text: `@${author.get('username')} `,
-      },
-    })
-    scrollToLastTextBlock(editorId, isNavbarHidden)
+    const replyUsername = `@${author.get('username')} `
+    if (isElloAndroid()) {
+      this.context.onLaunchNativeEditor(post, true, null, replyUsername)
+    } else {
+      dispatch({
+        type: EDITOR.APPEND_TEXT,
+        payload: {
+          editorId,
+          text: replyUsername,
+        },
+      })
+      scrollToLastTextBlock(editorId, isNavbarHidden)
+    }
   }
 
   onCloseModal = () => {

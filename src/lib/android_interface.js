@@ -10,9 +10,9 @@ const getJSState = () => {
 }
 export const supportsNativeEditor = () => isElloAndroid() && typeof AndroidInterface.launchEditor === 'function'
 export const supportsNativeImagePicker = () => isElloAndroid() && typeof AndroidInterface.launchImagePicker === 'function'
-export const launchEditor = (post, isComment, comment) => {
+export const launchEditor = (post, isComment, comment, text) => {
   if (supportsNativeEditor()) {
-    AndroidInterface.launchEditor(getJSState(), post, isComment, comment)
+    AndroidInterface.launchEditor(getJSState(), post, isComment, comment, text)
   }
 }
 export const launchImagePicker = (kind) => {
