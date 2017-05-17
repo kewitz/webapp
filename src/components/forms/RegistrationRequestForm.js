@@ -122,6 +122,11 @@ class RegistrationRequestForm extends Component {
     }
   }
 
+  onClickLogin = () => {
+    const { dispatch } = this.props
+    dispatch(trackEvent('clicked_signup_login'))
+  }
+
   onSubmit = (e) => {
     e.preventDefault()
     const { emailState } = this.state
@@ -218,7 +223,7 @@ class RegistrationRequestForm extends Component {
             Create account
           </FormButton>
         </form>
-        <Link className={accountLinkStyle} to="/enter">Already have an account?</Link>
+        <Link className={accountLinkStyle} onClick={this.onClickLogin} to="/enter">Already have an account?</Link>
       </div>
     )
   }

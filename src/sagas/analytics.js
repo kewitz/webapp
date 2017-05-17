@@ -41,6 +41,9 @@ function* trackEvents() {
           yield put(trackEventAction(get(action, 'payload.trackLabel'), get(action, 'payload.trackOptions')))
         }
         break
+      case ACTION_TYPES.AUTHENTICATION.USER_SUCCESS:
+        yield put(trackEventAction('login_success'))
+        break
       case ACTION_TYPES.COMMENT.CREATE_REQUEST:
         yield put(trackEventAction('published_comment'))
         break
@@ -85,9 +88,6 @@ function* trackEvents() {
         yield put(trackEventAction('Onboarding.Settings.Categories.Completed',
           { categories: get(action, 'payload.body.followed_category_ids', []).length },
         ))
-        break
-      case ACTION_TYPES.PROFILE.SIGNUP_REQUEST:
-        yield put(trackEventAction('clicked_join_button'))
         break
       case ACTION_TYPES.PROFILE.SIGNUP_SUCCESS:
         yield put(trackEventAction('join-successful'))
