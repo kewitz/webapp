@@ -97,6 +97,16 @@ class NavbarContainer extends PureComponent {
     onLaunchNativeEditor: PropTypes.func.isRequired,
   }
 
+  static childContextTypes = {
+    onClickSignup: PropTypes.func.isRequired,
+  }
+
+  getChildContext() {
+    return {
+      onClickSignup: this.onClickSignup,
+    }
+  }
+
   componentWillMount() {
     this.checkForNotifications(true)
   }
@@ -164,6 +174,11 @@ class NavbarContainer extends PureComponent {
       dispatch(openOmnibar())
       scrollToPosition(0, 0)
     }
+  }
+
+  onClickSignup = () => {
+    const { dispatch } = this.props
+    dispatch(trackEvent('clicked_join_button'))
   }
 
   onClickToggleLayoutMode = () => {

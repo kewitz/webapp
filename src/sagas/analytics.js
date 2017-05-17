@@ -86,9 +86,6 @@ function* trackEvents() {
           { categories: get(action, 'payload.body.followed_category_ids', []).length },
         ))
         break
-      case ACTION_TYPES.PROFILE.SIGNUP_REQUEST:
-        yield put(trackEventAction('clicked_join_button'))
-        break
       case ACTION_TYPES.PROFILE.SIGNUP_SUCCESS:
         yield put(trackEventAction('join-successful'))
         break
