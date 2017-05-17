@@ -41,6 +41,9 @@ function* trackEvents() {
           yield put(trackEventAction(get(action, 'payload.trackLabel'), get(action, 'payload.trackOptions')))
         }
         break
+      case ACTION_TYPES.AUTHENTICATION.USER_SUCCESS:
+        yield put(trackEventAction('login_success'))
+        break
       case ACTION_TYPES.COMMENT.CREATE_REQUEST:
         yield put(trackEventAction('published_comment'))
         break

@@ -30,7 +30,7 @@ export const NavbarLoggedOut = ({
   onClickLoadMorePosts,
   onClickNavbarMark,
   pathname,
-}, { onClickSignup }) =>
+}, { onClickLogin, onClickSignup }) =>
   <nav className="Navbar" role="navigation" >
     <div className="NavbarMain">
       <NavbarMark
@@ -58,6 +58,7 @@ export const NavbarLoggedOut = ({
         <NavbarLink
           className="LabelOnly"
           label="Log in"
+          onClick={onClickLogin}
           pathname={pathname}
           to="/enter"
         />
@@ -86,6 +87,7 @@ NavbarLoggedOut.defaultProps = {
   categoryTabs: null,
 }
 NavbarLoggedOut.contextTypes = {
+  onClickLogin: PropTypes.func.isRequired,
   onClickSignup: PropTypes.func.isRequired,
 }
 
