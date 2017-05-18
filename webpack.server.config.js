@@ -39,7 +39,7 @@ module.exports = {
     function() {
       this.plugin("done", (stats) => {
         fs.writeFileSync(
-          path.join(__dirname, "stats.json"),
+          path.join(__dirname, "webpack-stats/server.json"),
           JSON.stringify(stats.toJson()))
       })
     }
