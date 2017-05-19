@@ -2,9 +2,9 @@ import Immutable from 'immutable'
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { getLinkObject } from 'ello-brains/dist/helpers/json_helper'
-import { selectJson } from 'ello-brains/dist/selectors/store'
-import * as MAPPING_TYPES from 'ello-brains/dist/constants/mapping_types'
+import { getLinkObject } from 'ello-brains/helpers/json_helper'
+import { selectJson } from 'ello-brains/selectors/store'
+import * as MAPPING_TYPES from 'ello-brains/constants/mapping_types'
 import {
   CommentNotification,
   CommentMentionNotification,

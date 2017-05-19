@@ -1,5 +1,5 @@
 import Immutable from 'immutable'
-import * as selector from 'ello-brains/dist/selectors/notifications'
+import * as selector from 'ello-brains/selectors/notifications'
 import { clearJSON, json, stubAnnouncementNotification } from '../../support/stubs'
 
 describe('announcement selectors', () => {

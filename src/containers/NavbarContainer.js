@@ -1,13 +1,13 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { selectCategoryTabs } from 'ello-brains/dist/selectors/categories'
-import { selectPage } from 'ello-brains/dist/selectors/pages'
-import { selectPathname, selectViewNameFromRoute } from 'ello-brains/dist/selectors/routing'
-import { ADD_NEW_IDS_TO_RESULT, SET_LAYOUT_MODE } from 'ello-brains/dist/constants/action_types'
-import { selectIsLoggedIn } from 'ello-brains/dist/selectors/authentication'
-import { selectAvatar, selectUsername } from 'ello-brains/dist/selectors/profile'
-import { selectAnnouncementHasBeenViewed } from 'ello-brains/dist/selectors/notifications'
+import { selectCategoryTabs } from 'ello-brains/selectors/categories'
+import { selectPage } from 'ello-brains/selectors/pages'
+import { selectPathname, selectViewNameFromRoute } from 'ello-brains/selectors/routing'
+import { ADD_NEW_IDS_TO_RESULT, SET_LAYOUT_MODE } from 'ello-brains/constants/action_types'
+import { selectIsLoggedIn } from 'ello-brains/selectors/authentication'
+import { selectAvatar, selectUsername } from 'ello-brains/selectors/profile'
+import { selectAnnouncementHasBeenViewed } from 'ello-brains/selectors/notifications'
 import {
   selectActiveNotificationsType,
   selectHomeStream,
@@ -17,7 +17,7 @@ import {
   selectIsNotificationsActive,
   selectIsNotificationsUnread,
   selectIsProfileMenuActive,
-} from 'ello-brains/dist/selectors/gui'
+} from 'ello-brains/selectors/gui'
 import { scrollToPosition } from '../lib/jello'
 import * as ElloAndroidInterface from '../lib/android_interface'
 import { trackEvent } from '../actions/analytics'

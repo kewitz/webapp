@@ -10,7 +10,7 @@ import {
   selectOnboardingCategoriesFiltered,
   selectPropsCategoryId,
   sortCategories,
-} from 'ello-brains/dist/selectors/categories'
+} from 'ello-brains/selectors/categories'
 import { clearJSON, json, stubJSONStore } from '../../support/stubs'
 
 describe('categories selectors', () => {

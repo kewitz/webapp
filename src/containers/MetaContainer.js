@@ -2,9 +2,9 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { createSelector } from 'reselect'
-import { selectDiscoverMetaData } from 'ello-brains/dist/selectors/categories'
-import { selectPathname, selectQueryTerms, selectViewNameFromRoute } from 'ello-brains/dist/selectors/routing'
-import { META } from 'ello-brains/dist/constants/locales/en'
+import { selectDiscoverMetaData } from 'ello-brains/selectors/categories'
+import { selectPathname, selectQueryTerms, selectViewNameFromRoute } from 'ello-brains/selectors/routing'
+import { META } from 'ello-brains/constants/locales/en'
 import {
   selectPostMetaCanonicalUrl,
   selectPostMetaDescription,
@@ -13,13 +13,13 @@ import {
   selectPostMetaRobots,
   selectPostMetaTitle,
   selectPostMetaUrl,
-} from 'ello-brains/dist/selectors/post'
+} from 'ello-brains/selectors/post'
 import {
   selectUserMetaDescription,
   selectUserMetaImage,
   selectUserMetaRobots,
   selectUserMetaTitle,
-} from 'ello-brains/dist/selectors/user'
+} from 'ello-brains/selectors/user'
 import { selectPagination } from '../selectors/pagination'
 import { DefaultTags, PostDetailTags } from '../components/head/TagRenderables'
 

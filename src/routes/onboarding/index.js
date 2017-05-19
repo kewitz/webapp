@@ -1,4 +1,4 @@
-import { ONBOARDING_VERSION } from 'ello-brains/dist/constants/application_types'
+import { ONBOARDING_VERSION } from 'ello-brains/constants/application_types'
 import OnboardingCategoriesContainer from '../../containers/OnboardingCategoriesContainer'
 import OnboardingCollaborateContainer from '../../containers/OnboardingCollaborateContainer'
 import OnboardingInvitationsContainer from '../../containers/OnboardingInvitationsContainer'

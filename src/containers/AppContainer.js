@@ -7,10 +7,10 @@ import {
   selectIsCategoryPromotion,
   selectIsPagePromotion,
   selectRandomAuthPromotion,
-} from 'ello-brains/dist/selectors/promotions'
-import { selectIsAuthenticationView } from 'ello-brains/dist/selectors/routing'
-import { selectIsLoggedIn } from 'ello-brains/dist/selectors/authentication'
-import { selectIsStaff } from 'ello-brains/dist/selectors/profile'
+} from 'ello-brains/selectors/promotions'
+import { selectIsAuthenticationView } from 'ello-brains/selectors/routing'
+import { selectIsLoggedIn } from 'ello-brains/selectors/authentication'
+import { selectIsStaff } from 'ello-brains/selectors/profile'
 import { trackEvent, trackInitialPage } from '../actions/analytics'
 import { loadBadges } from '../actions/badges'
 import { getCategories, getPagePromotionals } from '../actions/discover'

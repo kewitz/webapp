@@ -1,7 +1,7 @@
 import Immutable from 'immutable'
 import React from 'react'
 import { LOCATION_CHANGE } from 'react-router-redux'
-import { ALERT, AUTHENTICATION, MODAL, PROFILE } from 'ello-brains/dist/constants/action_types'
+import { ALERT, AUTHENTICATION, MODAL, PROFILE } from 'ello-brains/constants/action_types'
 import reducer from '../../../src/reducers/modal'
 
 describe('modal reducer', () => {

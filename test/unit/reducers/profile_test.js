@@ -1,5 +1,5 @@
 import Immutable from 'immutable'
-import { AUTHENTICATION, INVITATIONS, PROFILE } from 'ello-brains/dist/constants/action_types'
+import { AUTHENTICATION, INVITATIONS, PROFILE } from 'ello-brains/constants/action_types'
 import { stubAvatar, stubCoverImage, stubUser } from '../../support/stubs'
 import reducer from '../../../src/reducers/profile'
 

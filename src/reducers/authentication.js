@@ -6,7 +6,7 @@ import {
   AUTHENTICATION,
   PROFILE,
   UPDATE_STATE_FROM_NATIVE,
-} from 'ello-brains/dist/constants/action_types'
+} from 'ello-brains/constants/action_types'
 
 export const initialState = Immutable.Map({
   accessToken: null,

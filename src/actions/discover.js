@@ -1,5 +1,5 @@
-import * as ACTION_TYPES from 'ello-brains/dist/constants/action_types'
-import * as MAPPING_TYPES from 'ello-brains/dist/constants/mapping_types'
+import * as ACTION_TYPES from 'ello-brains/constants/action_types'
+import * as MAPPING_TYPES from 'ello-brains/constants/mapping_types'
 import * as api from '../networking/api'
 import * as StreamFilters from '../components/streams/StreamFilters'
 import * as StreamRenderables from '../components/streams/StreamRenderables'

@@ -1,4 +1,4 @@
-export { default as json } from 'ello-brains/dist/reducers/json'
+export { default as json } from 'ello-brains/reducers/json'
 export { default as authentication } from './authentication'
 export { default as emoji } from './emoji'
 export { default as gui } from './gui'

@@ -3,7 +3,7 @@
 import React, { Component, PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
-import { FORM_CONTROL_STATUS as STATUS } from 'ello-brains/dist/constants/status_types'
+import { FORM_CONTROL_STATUS as STATUS } from 'ello-brains/constants/status_types'
 import { ArrowIcon } from '../assets/Icons'
 import EmailControl from '../forms/EmailControl'
 import FormButton from '../forms/FormButton'

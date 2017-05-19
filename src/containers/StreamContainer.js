@@ -5,20 +5,20 @@ import { connect } from 'react-redux'
 import debounce from 'lodash/debounce'
 import get from 'lodash/get'
 import classNames from 'classnames'
-import { selectOmnibar, selectStream } from 'ello-brains/dist/selectors/store'
-import * as ACTION_TYPES from 'ello-brains/dist/constants/action_types'
-import { selectIsLoggedIn } from 'ello-brains/dist/selectors/authentication'
+import { selectOmnibar, selectStream } from 'ello-brains/selectors/store'
+import * as ACTION_TYPES from 'ello-brains/constants/action_types'
+import { selectIsLoggedIn } from 'ello-brains/selectors/authentication'
 import {
   selectColumnCount,
   selectHasLaunchedSignupModal,
   selectInnerHeight,
   selectInnerWidth,
   selectIsGridMode,
-} from 'ello-brains/dist/selectors/gui'
+} from 'ello-brains/selectors/gui'
 import {
   selectStreamFilteredResult,
   selectStreamResultPath,
-} from 'ello-brains/dist/selectors/stream'
+} from 'ello-brains/selectors/stream'
 import { runningFetches, runningServerFetches } from '../sagas/requester'
 import { setNotificationScrollY } from '../actions/gui'
 import { getQueryParamValue } from '../helpers/uri_helper'

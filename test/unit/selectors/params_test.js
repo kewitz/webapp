@@ -3,7 +3,7 @@ import {
   selectParamsToken,
   selectParamsType,
   selectParamsUsername,
-} from 'ello-brains/dist/selectors/params'
+} from 'ello-brains/selectors/params'
 import { stubJSONStore } from '../../support/stubs'
 
 

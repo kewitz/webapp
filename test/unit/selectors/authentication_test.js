@@ -6,7 +6,7 @@ import {
   selectRefreshToken,
   selectShouldUseAccessToken,
   selectShouldUseRefreshToken,
-} from 'ello-brains/dist/selectors/authentication'
+} from 'ello-brains/selectors/authentication'
 import { stubAuthenticationStore } from '../../support/stubs'
 
 describe('authentication selectors', () => {

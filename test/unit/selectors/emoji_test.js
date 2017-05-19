@@ -1,5 +1,5 @@
 import Immutable from 'immutable'
-import { selectEmojis } from 'ello-brains/dist/selectors/emoji'
+import { selectEmojis } from 'ello-brains/selectors/emoji'
 
 describe('emoji selectors', () => {
   context('#selectEmojis', () => {

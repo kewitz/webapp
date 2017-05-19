@@ -1,5 +1,5 @@
 import Immutable from 'immutable'
-import { PROMOTIONS } from 'ello-brains/dist/constants/action_types'
+import { PROMOTIONS } from 'ello-brains/constants/action_types'
 import { stubAuthPromotion } from '../../support/stubs'
 import reducer from '../../../src/reducers/promotions'
 

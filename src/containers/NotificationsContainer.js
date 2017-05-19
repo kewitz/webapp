@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import get from 'lodash/get'
 import { connect } from 'react-redux'
-import { ADD_NEW_IDS_TO_RESULT, CLEAR_PAGE_RESULT, GUI, LOAD_STREAM_SUCCESS } from 'ello-brains/dist/constants/action_types'
-import { selectPropsPathname } from 'ello-brains/dist/selectors/routing'
+import { ADD_NEW_IDS_TO_RESULT, CLEAR_PAGE_RESULT, GUI, LOAD_STREAM_SUCCESS } from 'ello-brains/constants/action_types'
+import { selectPropsPathname } from 'ello-brains/selectors/routing'
 import {
     selectAnnouncementBody,
     selectAnnouncementCTACaption,
@@ -13,13 +13,13 @@ import {
     selectAnnouncementIsEmpty,
     selectAnnouncementIsStaffPreview,
     selectAnnouncementTitle,
-} from 'ello-brains/dist/selectors/notifications'
+} from 'ello-brains/selectors/notifications'
 import {
   selectActiveNotificationScrollPosition,
   selectActiveNotificationsType,
   selectIsNotificationsUnread,
-} from 'ello-brains/dist/selectors/gui'
-import { selectStreamType } from 'ello-brains/dist/selectors/stream'
+} from 'ello-brains/selectors/gui'
+import { selectStreamType } from 'ello-brains/selectors/stream'
 import { trackEvent } from '../actions/analytics'
 import { setLastAnnouncementSeen, setNotificationScrollY, toggleNotifications } from '../actions/gui'
 import { loadNotifications, markAnnouncementRead } from '../actions/notifications'

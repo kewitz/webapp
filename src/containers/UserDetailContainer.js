@@ -3,9 +3,9 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { createSelector } from 'reselect'
-import { selectParamsType, selectParamsUsername } from 'ello-brains/dist/selectors/params'
-import { USER } from 'ello-brains/dist/constants/action_types'
-import { selectIsLoggedIn } from 'ello-brains/dist/selectors/authentication'
+import { selectParamsType, selectParamsUsername } from 'ello-brains/selectors/params'
+import { USER } from 'ello-brains/constants/action_types'
+import { selectIsLoggedIn } from 'ello-brains/selectors/authentication'
 import {
   selectUserFollowersCount,
   selectUserId,
@@ -13,9 +13,9 @@ import {
   selectUserIsSelf,
   selectUserPostsCount,
   selectIsSystemUser,
-} from 'ello-brains/dist/selectors/user'
-import { selectHasSaidHelloTo } from 'ello-brains/dist/selectors/gui'
-import { selectStreamType } from 'ello-brains/dist/selectors/stream'
+} from 'ello-brains/selectors/user'
+import { selectHasSaidHelloTo } from 'ello-brains/selectors/gui'
+import { selectStreamType } from 'ello-brains/selectors/stream'
 import { sayHello } from '../actions/zeros'
 import {
   loadUserDetail, loadUserLoves, loadUserPosts, loadUserUsers, loadUserFollowing,

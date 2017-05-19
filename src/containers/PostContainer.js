@@ -11,8 +11,8 @@ import {
   selectIsPostDetail,
   selectPathname,
   selectPreviousPath,
-} from 'ello-brains/dist/selectors/routing'
-import { selectIsLoggedIn } from 'ello-brains/dist/selectors/authentication'
+} from 'ello-brains/selectors/routing'
+import { selectIsLoggedIn } from 'ello-brains/selectors/authentication'
 import {
   selectPost,
   selectPostAuthor,
@@ -43,8 +43,8 @@ import {
   selectPostSummary,
   selectPostViewsCountRounded,
   selectPropsPostId,
-} from 'ello-brains/dist/selectors/post'
-import { selectAvatar } from 'ello-brains/dist/selectors/profile'
+} from 'ello-brains/selectors/post'
+import { selectAvatar } from 'ello-brains/selectors/profile'
 import {
   selectColumnWidth,
   selectCommentOffset,
@@ -52,7 +52,7 @@ import {
   selectDeviceSize,
   selectInnerHeight,
   selectIsMobile,
-} from 'ello-brains/dist/selectors/gui'
+} from 'ello-brains/selectors/gui'
 import { trackEvent } from '../actions/analytics'
 import { openModal, closeModal } from '../actions/modals'
 import {

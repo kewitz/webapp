@@ -2,15 +2,15 @@ import Immutable from 'immutable'
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { selectIsLoggedIn } from 'ello-brains/dist/selectors/authentication'
-import { selectHasAutoWatchEnabled, selectIsOwnPage } from 'ello-brains/dist/selectors/profile'
+import { selectIsLoggedIn } from 'ello-brains/selectors/authentication'
+import { selectHasAutoWatchEnabled, selectIsOwnPage } from 'ello-brains/selectors/profile'
 import {
   selectPost,
   selectPostIsEditing,
   selectPostIsEmpty,
   selectPostIsOwn,
   selectPostIsReposting,
-} from 'ello-brains/dist/selectors/post'
+} from 'ello-brains/selectors/post'
 import { openModal, closeModal } from '../../actions/modals'
 import {
   createComment,

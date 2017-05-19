@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux'
 import { createSelector } from 'reselect'
 import sample from 'lodash/sample'
 import { connect } from 'react-redux'
-import { getLinkObject } from 'ello-brains/dist/helpers/json_helper'
+import { getLinkObject } from 'ello-brains/helpers/json_helper'
 import {
   selectAuthPromotionals,
   selectCategoryData,
@@ -13,26 +13,26 @@ import {
   selectIsPagePromotion,
   selectLoggedInPagePromotions,
   selectLoggedOutPagePromotions,
-} from 'ello-brains/dist/selectors/promotions'
-import { selectJson } from 'ello-brains/dist/selectors/store'
-import { DISCOVER, FOLLOWING } from 'ello-brains/dist/constants/locales/en'
-import { USER } from 'ello-brains/dist/constants/action_types'
-import { selectPathname, selectViewNameFromRoute } from 'ello-brains/dist/selectors/routing'
-import { selectIsLoggedIn } from 'ello-brains/dist/selectors/authentication'
-import { selectViewsAdultContent } from 'ello-brains/dist/selectors/profile'
+} from 'ello-brains/selectors/promotions'
+import { selectJson } from 'ello-brains/selectors/store'
+import { DISCOVER, FOLLOWING } from 'ello-brains/constants/locales/en'
+import { USER } from 'ello-brains/constants/action_types'
+import { selectPathname, selectViewNameFromRoute } from 'ello-brains/selectors/routing'
+import { selectIsLoggedIn } from 'ello-brains/selectors/authentication'
+import { selectViewsAdultContent } from 'ello-brains/selectors/profile'
 import {
   selectUserCoverImage,
   selectUserId,
   selectUserPostsAdultContent,
   selectUserUsername,
-} from 'ello-brains/dist/selectors/user'
+} from 'ello-brains/selectors/user'
 import {
   selectDPI,
   selectLastDiscoverBeaconVersion,
   selectLastFollowingBeaconVersion,
   selectIsMobile,
-} from 'ello-brains/dist/selectors/gui'
-import { selectStreamType } from 'ello-brains/dist/selectors/stream'
+} from 'ello-brains/selectors/gui'
+import { selectStreamType } from 'ello-brains/selectors/stream'
 import { trackEvent } from '../actions/analytics'
 import {
   setLastDiscoverBeaconVersion,

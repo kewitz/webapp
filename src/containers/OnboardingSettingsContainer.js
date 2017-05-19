@@ -9,8 +9,8 @@ import {
   selectIsAvatarBlank,
   selectIsCoverImageBlank,
   selectIsInfoFormBlank,
-} from 'ello-brains/dist/selectors/profile'
-import { selectDPI, selectIsMobile } from 'ello-brains/dist/selectors/gui'
+} from 'ello-brains/selectors/profile'
+import { selectDPI, selectIsMobile } from 'ello-brains/selectors/gui'
 import { trackEvent } from '../actions/analytics'
 import { saveAvatar, saveCover } from '../actions/profile'
 import OnboardingSettings from '../components/onboarding/OnboardingSettings'

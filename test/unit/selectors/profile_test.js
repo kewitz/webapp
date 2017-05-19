@@ -32,7 +32,7 @@ import {
   selectUsername,
   selectWebOnboardingVersion,
   selectProfileIsFeatured,
-} from 'ello-brains/dist/selectors/profile'
+} from 'ello-brains/selectors/profile'
 import { clearJSON, json, stubUser } from '../../support/stubs'
 
 describe('profile selectors', () => {

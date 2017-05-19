@@ -1,5 +1,5 @@
 import Immutable from 'immutable'
-import * as selector from 'ello-brains/dist/selectors/invitations'
+import * as selector from 'ello-brains/selectors/invitations'
 import { clearJSON, json, stub, stubInvitation } from '../../support/stubs'
 
 describe('user selectors', () => {

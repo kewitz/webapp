@@ -1,7 +1,7 @@
 /* eslint-disable import/no-mutable-exports */
 import Immutable from 'immutable'
 import upperFirst from 'lodash/upperFirst'
-import * as MAPPING_TYPES from 'ello-brains/dist/constants/mapping_types'
+import * as MAPPING_TYPES from 'ello-brains/constants/mapping_types'
 
 let json = Immutable.Map()
 

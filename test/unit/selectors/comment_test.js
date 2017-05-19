@@ -1,5 +1,5 @@
 import Immutable from 'immutable'
-import * as selector from 'ello-brains/dist/selectors/comment'
+import * as selector from 'ello-brains/selectors/comment'
 import {
   clearJSON,
   json,

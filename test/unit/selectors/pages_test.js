@@ -1,5 +1,5 @@
 import Immutable from 'immutable'
-import { selectPages, selectPagesResult, selectPage } from 'ello-brains/dist/selectors/pages'
+import { selectPages, selectPagesResult, selectPage } from 'ello-brains/selectors/pages'
 import { clearJSON, json, stubJSONStore } from '../../support/stubs'
 
 describe('pages selectors', () => {

@@ -5,7 +5,7 @@ import { push } from 'react-router-redux'
 import {
   selectProfileIsCollaborateable,
   selectProfileIsHireable,
-} from 'ello-brains/dist/selectors/profile'
+} from 'ello-brains/selectors/profile'
 import { trackEvent } from '../actions/analytics'
 import { preferenceToggleChanged } from '../helpers/junk_drawer'
 import OnboardingCollaborate from '../components/onboarding/OnboardingCollaborate'

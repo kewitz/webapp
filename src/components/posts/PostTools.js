@@ -3,7 +3,7 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import { Link } from 'react-router'
-import { numberToHuman } from 'ello-brains/dist/lib/number_to_human'
+import { numberToHuman } from 'ello-brains/lib/number_to_human'
 import Hint from '../hints/Hint'
 import {
   BoltIcon,

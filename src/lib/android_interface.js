@@ -1,5 +1,5 @@
 import Immutable from 'immutable'
-import { UPDATE_STATE_FROM_NATIVE } from 'ello-brains/dist/constants/action_types'
+import { UPDATE_STATE_FROM_NATIVE } from 'ello-brains/constants/action_types'
 import store from '../store'
 import { isElloAndroid } from './jello'
 import { requestPushSubscription } from '../actions/profile'

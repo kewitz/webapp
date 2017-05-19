@@ -1,6 +1,6 @@
 import Immutable from 'immutable'
-import subject from 'ello-brains/dist/reducers/experience_updates/posts'
-import * as ACTION_TYPES from 'ello-brains/dist/constants/action_types'
+import subject from 'ello-brains/reducers/experience_updates/posts'
+import * as ACTION_TYPES from 'ello-brains/constants/action_types'
 import { clearJSON, json, stub, stubJSONStore } from '../../../support/stubs'
 
 describe('posts experience update', () => {

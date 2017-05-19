@@ -6,7 +6,7 @@ import {
   selectStreamResultPath,
   selectStreamType,
   selectStreamUnfilteredResult,
-} from 'ello-brains/dist/selectors/stream'
+} from 'ello-brains/selectors/stream'
 
 describe('stream selectors', () => {
   let state

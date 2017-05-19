@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import classNames from 'classnames'
 import debounce from 'lodash/debounce'
-import { EDITOR } from 'ello-brains/dist/constants/action_types'
+import { EDITOR } from 'ello-brains/constants/action_types'
 import {
   selectBioLabel,
   selectLinksAsText,
@@ -11,9 +11,9 @@ import {
   selectName,
   selectShortBio,
   selectUsername,
-} from 'ello-brains/dist/selectors/profile'
-import { FORM_CONTROL_STATUS as STATUS } from 'ello-brains/dist/constants/status_types'
-import { selectIsCompleterActive } from 'ello-brains/dist/selectors/gui'
+} from 'ello-brains/selectors/profile'
+import { FORM_CONTROL_STATUS as STATUS } from 'ello-brains/constants/status_types'
+import { selectIsCompleterActive } from 'ello-brains/selectors/gui'
 import { hideSoftKeyboard } from '../../lib/jello'
 import { setIsCompleterActive } from '../../actions/editor'
 import { saveProfile } from '../../actions/profile'

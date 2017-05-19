@@ -5,7 +5,7 @@ import {
   selectCategoryName,
   selectCategorySlug,
   selectCategoryTileImageUrl,
-} from 'ello-brains/dist/selectors/categories'
+} from 'ello-brains/selectors/categories'
 import { CategoryLink } from '../components/buttons/Buttons'
 
 function mapStateToProps(state, props) {

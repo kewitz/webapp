@@ -3,7 +3,7 @@ import {
   selectAuthPromotionals,
   selectLoggedInPagePromotions,
   selectLoggedOutPagePromotions,
-} from 'ello-brains/dist/selectors/promotions'
+} from 'ello-brains/selectors/promotions'
 import { stubAuthPromotion } from '../../support/stubs'
 
 describe('promotions selectors', () => {

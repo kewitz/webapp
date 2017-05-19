@@ -2,13 +2,13 @@
 import 'isomorphic-fetch'
 import { push } from 'react-router-redux'
 import { call, put, select, take } from 'redux-saga/effects'
-import { AUTHENTICATION } from 'ello-brains/dist/constants/action_types'
+import { AUTHENTICATION } from 'ello-brains/constants/action_types'
 import {
   selectAccessToken,
   selectRefreshToken,
   selectShouldUseAccessToken,
   selectShouldUseRefreshToken,
-} from 'ello-brains/dist/selectors/authentication'
+} from 'ello-brains/selectors/authentication'
 import { refreshAuthenticationToken } from '../actions/authentication'
 
 export function getHeaders(accessToken) {
