@@ -1,7 +1,7 @@
 import { AUTHENTICATION, PROFILE } from 'ello-brains/dist/constants/action_types'
+import { selectIsLoggedIn } from 'ello-brains/dist/selectors/authentication'
+import { selectBundleId, selectRegistrationId } from 'ello-brains/dist/selectors/profile'
 import { loginPushSubscribe, logoutPushUnsubscribe } from '../../../src/sagas/push_subscription'
-import { selectBundleId, selectRegistrationId } from '../../../src/selectors/profile'
-import { selectIsLoggedIn } from '../../../src/selectors/authentication'
 import {
   registerForGCM,
   requestPushSubscription,

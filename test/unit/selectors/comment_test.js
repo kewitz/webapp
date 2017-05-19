@@ -1,4 +1,5 @@
 import Immutable from 'immutable'
+import * as selector from 'ello-brains/dist/selectors/comment'
 import {
   clearJSON,
   json,
@@ -7,7 +8,6 @@ import {
   stubImageRegion,
   stubTextRegion,
 } from '../../support/stubs'
-import * as selector from '../../../src/selectors/comment'
 
 describe('comment selectors', () => {
   let state

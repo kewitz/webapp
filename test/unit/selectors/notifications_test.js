@@ -1,6 +1,6 @@
 import Immutable from 'immutable'
+import * as selector from 'ello-brains/dist/selectors/notifications'
 import { clearJSON, json, stubAnnouncementNotification } from '../../support/stubs'
-import * as selector from '../../../src/selectors/notifications'
 
 describe('announcement selectors', () => {
   const gui = Immutable.Map({ lastAnnouncementSeen: '333' })

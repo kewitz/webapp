@@ -4,9 +4,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { selectIsPostDetail } from 'ello-brains/dist/selectors/routing'
 import { EDITOR } from 'ello-brains/dist/constants/action_types'
-import { deleteComment, flagComment, loadEditableComment, toggleEditing } from '../actions/comments'
-import { openModal, closeModal } from '../actions/modals'
-import { selectIsLoggedIn } from '../selectors/authentication'
+import { selectIsLoggedIn } from 'ello-brains/dist/selectors/authentication'
 import {
   selectComment,
   selectCommentAuthor,
@@ -19,7 +17,7 @@ import {
   selectCommentPost,
   selectCommentPostDetailPath,
   selectPropsCommentId,
-} from '../selectors/comment'
+} from 'ello-brains/dist/selectors/comment'
 import {
   selectColumnWidth,
   selectCommentOffset,
@@ -28,7 +26,9 @@ import {
   selectInnerHeight,
   selectIsGridMode,
   selectIsNavbarHidden,
-} from '../selectors/gui'
+} from 'ello-brains/dist/selectors/gui'
+import { deleteComment, flagComment, loadEditableComment, toggleEditing } from '../actions/comments'
+import { openModal, closeModal } from '../actions/modals'
 import Editor, { getEditorId } from '../components/editor/Editor'
 import { CommentBody, CommentHeader } from '../components/comments/CommentRenderables'
 import CommentTools from '../components/comments/CommentTools'

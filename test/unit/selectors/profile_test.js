@@ -1,5 +1,4 @@
 import Immutable from 'immutable'
-import { clearJSON, json, stubUser } from '../../support/stubs'
 import {
   selectAllowsAnalytics,
   selectAnalyticsId,
@@ -33,7 +32,8 @@ import {
   selectUsername,
   selectWebOnboardingVersion,
   selectProfileIsFeatured,
-} from '../../../src/selectors/profile'
+} from 'ello-brains/dist/selectors/profile'
+import { clearJSON, json, stubUser } from '../../support/stubs'
 
 describe('profile selectors', () => {
   let state

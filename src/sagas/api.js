@@ -8,7 +8,7 @@ import {
   selectRefreshToken,
   selectShouldUseAccessToken,
   selectShouldUseRefreshToken,
-} from '../selectors/authentication'
+} from 'ello-brains/dist/selectors/authentication'
 import { refreshAuthenticationToken } from '../actions/authentication'
 
 export function getHeaders(accessToken) {

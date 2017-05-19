@@ -9,7 +9,7 @@ import {
   stubImageRegion,
   stubEmbedRegion,
 } from '../../support/stubs'
-import * as selector from '../../../src/selectors/post'
+import * as selector from 'ello-brains/dist/selectors/post'
 
 describe('post selectors', () => {
   let propsPost

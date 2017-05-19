@@ -5,11 +5,8 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import get from 'lodash/get'
 import { selectIsPostDetail } from 'ello-brains/dist/selectors/routing'
-import { selectIsLoggedIn } from '../selectors/authentication'
-import { selectBadgesHasLoaded } from '../selectors/badges'
-import { selectIsMobile } from '../selectors/gui'
-import { selectInvitationAcceptedAt, selectInvitationEmail } from '../selectors/invitations'
-import { selectViewsAdultContent } from '../selectors/profile'
+import { selectIsLoggedIn } from 'ello-brains/dist/selectors/authentication'
+import { selectViewsAdultContent } from 'ello-brains/dist/selectors/profile'
 import {
   selectUser,
   selectUserAvatar,
@@ -36,7 +33,13 @@ import {
   selectUserTotalViewsCount,
   selectUserTruncatedShortBio,
   selectUserUsername,
-} from '../selectors/user'
+} from 'ello-brains/dist/selectors/user'
+import { selectBadgesHasLoaded } from 'ello-brains/dist/selectors/badges'
+import {
+  selectInvitationAcceptedAt,
+  selectInvitationEmail,
+} from 'ello-brains/dist/selectors/invitations'
+import { selectIsMobile } from 'ello-brains/dist/selectors/gui'
 import {
   UserCompact,
   UserInvitee,

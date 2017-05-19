@@ -1,5 +1,4 @@
 import Immutable from 'immutable'
-import { stubAuthenticationStore } from '../../support/stubs'
 import {
   selectAccessToken,
   selectExpirationDate,
@@ -7,7 +6,8 @@ import {
   selectRefreshToken,
   selectShouldUseAccessToken,
   selectShouldUseRefreshToken,
-} from '../../../src/selectors/authentication'
+} from 'ello-brains/dist/selectors/authentication'
+import { stubAuthenticationStore } from '../../support/stubs'
 
 describe('authentication selectors', () => {
   let state

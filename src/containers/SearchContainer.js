@@ -9,7 +9,7 @@ import {
   selectPropsQueryTerms,
   selectPropsQueryType,
 } from 'ello-brains/dist/selectors/routing'
-import { selectIsLoggedIn } from '../selectors/authentication'
+import { selectIsLoggedIn } from 'ello-brains/dist/selectors/authentication'
 import { updateQueryParams } from '../helpers/uri_helper'
 import { searchForPosts, searchForUsers } from '../actions/search'
 import { trackEvent } from '../actions/analytics'

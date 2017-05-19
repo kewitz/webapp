@@ -5,9 +5,7 @@ import { bindActionCreators } from 'redux'
 import { createSelector } from 'reselect'
 import { selectParamsType, selectParamsUsername } from 'ello-brains/dist/selectors/params'
 import { USER } from 'ello-brains/dist/constants/action_types'
-import { selectIsLoggedIn } from '../selectors/authentication'
-import { selectHasSaidHelloTo } from '../selectors/gui'
-import { selectStreamType } from '../selectors/stream'
+import { selectIsLoggedIn } from 'ello-brains/dist/selectors/authentication'
 import {
   selectUserFollowersCount,
   selectUserId,
@@ -15,7 +13,9 @@ import {
   selectUserIsSelf,
   selectUserPostsCount,
   selectIsSystemUser,
-} from '../selectors/user'
+} from 'ello-brains/dist/selectors/user'
+import { selectHasSaidHelloTo } from 'ello-brains/dist/selectors/gui'
+import { selectStreamType } from 'ello-brains/dist/selectors/stream'
 import { sayHello } from '../actions/zeros'
 import {
   loadUserDetail, loadUserLoves, loadUserPosts, loadUserUsers, loadUserFollowing,

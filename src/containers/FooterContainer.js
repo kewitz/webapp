@@ -6,13 +6,17 @@ import { connect } from 'react-redux'
 import { selectPathname } from 'ello-brains/dist/selectors/routing'
 import { FOOTER_LINKS as links } from 'ello-brains/dist/constants/locales/en'
 import { LOAD_NEXT_CONTENT_REQUEST, SET_LAYOUT_MODE } from 'ello-brains/dist/constants/action_types'
+import { selectIsLoggedIn } from 'ello-brains/dist/selectors/authentication'
+import { FORM_CONTROL_STATUS as STATUS } from 'ello-brains/dist/constants/status_types'
+import { selectAvailability } from 'ello-brains/dist/selectors/profile'
+import {
+  selectIsGridMode,
+  selectIsLayoutToolHidden,
+  selectIsMobile,
+} from 'ello-brains/dist/selectors/gui'
+import { selectStreamType } from 'ello-brains/dist/selectors/stream'
 import { isIOS, scrollToPosition } from '../lib/jello'
-import { FORM_CONTROL_STATUS as STATUS } from '../constants/status_types'
-import { selectIsLoggedIn } from '../selectors/authentication'
-import { selectIsGridMode, selectIsLayoutToolHidden, selectIsMobile } from '../selectors/gui'
 import { selectIsModalActive } from '../selectors/modal'
-import { selectAvailability } from '../selectors/profile'
-import { selectStreamType } from '../selectors/stream'
 import { trackEvent } from '../actions/analytics'
 import { checkAvailability, resetAvailability } from '../actions/profile'
 import { getEmailStateFromClient, getEmailStateFromServer } from '../components/forms/Validators'

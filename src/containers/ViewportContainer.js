@@ -8,7 +8,7 @@ import {
   selectPathname,
   selectViewNameFromRoute,
 } from 'ello-brains/dist/selectors/routing'
-import { selectIsLoggedIn } from '../selectors/authentication'
+import { selectIsLoggedIn } from 'ello-brains/dist/selectors/authentication'
 import {
   selectHasLaunchedSignupModal,
   selectInnerHeight,
@@ -17,7 +17,7 @@ import {
   selectIsNotificationsActive,
   selectIsProfileMenuActive,
   selectScrollOffset,
-} from '../selectors/gui'
+} from 'ello-brains/dist/selectors/gui'
 import { selectModalType } from '../selectors/modal'
 import { setIsNavbarHidden, setViewportSizeAttributes } from '../actions/gui'
 import { addScrollObject, removeScrollObject } from '../components/viewport/ScrollComponent'

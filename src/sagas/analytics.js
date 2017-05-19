@@ -5,10 +5,10 @@ import get from 'lodash/get'
 import * as ACTION_TYPES from 'ello-brains/dist/constants/action_types'
 import { RELATIONSHIP_PRIORITY } from 'ello-brains/dist/constants/relationship_types'
 import { selectPathname } from 'ello-brains/dist/selectors/routing'
+import { selectIsLoggedIn } from 'ello-brains/dist/selectors/authentication'
+import { selectActiveNotificationsType } from 'ello-brains/dist/selectors/gui'
 import { isElloAndroid } from '../lib/jello'
 import { trackEvent as trackEventAction } from '../actions/analytics'
-import { selectIsLoggedIn } from '../selectors/authentication'
-import { selectActiveNotificationsType } from '../selectors/gui'
 
 let shouldCallInitialTrackPage = false
 const agent = isElloAndroid() ? 'android' : 'webapp'

@@ -6,9 +6,13 @@ import { createSelector } from 'reselect'
 import classNames from 'classnames'
 import { RELATIONSHIP_PRIORITY } from 'ello-brains/dist/constants/relationship_types'
 import { selectPathname, selectPreviousPath } from 'ello-brains/dist/selectors/routing'
-import { selectIsLoggedIn } from '../selectors/authentication'
-import { selectDeviceSize } from '../selectors/gui'
-import { selectUserId, selectUserRelationshipPriority, selectUserUsername } from '../selectors/user'
+import { selectIsLoggedIn } from 'ello-brains/dist/selectors/authentication'
+import {
+  selectUserId,
+  selectUserRelationshipPriority,
+  selectUserUsername,
+} from 'ello-brains/dist/selectors/user'
+import { selectDeviceSize } from 'ello-brains/dist/selectors/gui'
 import { openModal, closeModal } from '../actions/modals'
 import { updateRelationship } from '../actions/relationships'
 import { flagUser } from '../actions/user'

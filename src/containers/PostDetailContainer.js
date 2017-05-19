@@ -5,9 +5,8 @@ import { connect } from 'react-redux'
 import { selectParamsToken, selectParamsUsername } from 'ello-brains/dist/selectors/params'
 import { selectPropsLocationKey } from 'ello-brains/dist/selectors/routing'
 import { POST } from 'ello-brains/dist/constants/action_types'
-import { scrollToPosition, scrollToSelector } from '../lib/jello'
-import { selectIsLoggedIn } from '../selectors/authentication'
-import { selectColumnCount, selectInnerHeight } from '../selectors/gui'
+import { selectIsLoggedIn } from 'ello-brains/dist/selectors/authentication'
+import { selectAvatar } from 'ello-brains/dist/selectors/profile'
 import {
   selectPost,
   selectPostAuthor,
@@ -15,9 +14,10 @@ import {
   selectPostHasRelatedButton,
   selectPostIsEmpty,
   selectPropsLocationStateFrom,
-} from '../selectors/post'
-import { selectAvatar } from '../selectors/profile'
-import { selectStreamType } from '../selectors/stream'
+} from 'ello-brains/dist/selectors/post'
+import { selectColumnCount, selectInnerHeight } from 'ello-brains/dist/selectors/gui'
+import { selectStreamType } from 'ello-brains/dist/selectors/stream'
+import { scrollToPosition, scrollToSelector } from '../lib/jello'
 import { loadComments, loadPostDetail, loadRelatedPosts } from '../actions/posts'
 import { ErrorState4xx } from '../components/errors/Errors'
 import { Paginator } from '../components/streams/Paginator'

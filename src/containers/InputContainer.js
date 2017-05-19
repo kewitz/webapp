@@ -3,15 +3,15 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import debounce from 'lodash/debounce'
 import { EDITOR } from 'ello-brains/dist/constants/action_types'
-import { selectCompletions } from '../selectors/editor'
-import { selectEmojis } from '../selectors/emoji'
+import { selectEmojis } from 'ello-brains/dist/selectors/emoji'
 import {
   selectDeviceSize,
   selectIsCompleterActive,
   selectIsTextToolsActive,
   selectTextToolsCoordinates,
   selectTextToolsStates,
-} from '../selectors/gui'
+} from 'ello-brains/dist/selectors/gui'
+import { selectCompletions } from '../selectors/editor'
 import {
   autoCompleteUsers,
   loadEmojis,

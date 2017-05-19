@@ -6,10 +6,14 @@ import { connect } from 'react-redux'
 import classNames from 'classnames'
 import debounce from 'lodash/debounce'
 import { PREFERENCES, SETTINGS } from 'ello-brains/dist/constants/locales/en'
-import { FORM_CONTROL_STATUS as STATUS } from '../constants/status_types'
+import { FORM_CONTROL_STATUS as STATUS } from 'ello-brains/dist/constants/status_types'
+import {
+  selectAvailability,
+  selectBlockedCount,
+  selectMutedCount,
+} from 'ello-brains/dist/selectors/profile'
+import { selectDPI, selectIsMobile } from 'ello-brains/dist/selectors/gui'
 import { preferenceToggleChanged } from '../helpers/junk_drawer'
-import { selectDPI, selectIsMobile } from '../selectors/gui'
-import { selectAvailability, selectBlockedCount, selectMutedCount } from '../selectors/profile'
 import { openModal, closeModal } from '../actions/modals'
 import { logout } from '../actions/authentication'
 import {

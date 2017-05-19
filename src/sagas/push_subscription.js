@@ -1,9 +1,9 @@
 /* eslint-disable no-constant-condition */
 import { fork, put, select, take } from 'redux-saga/effects'
 import { AUTHENTICATION, PROFILE } from 'ello-brains/dist/constants/action_types'
+import { selectIsLoggedIn } from 'ello-brains/dist/selectors/authentication'
+import { selectBundleId, selectIsStaff, selectRegistrationId } from 'ello-brains/dist/selectors/profile'
 import { registerForGCM, unregisterForGCM } from '../actions/profile'
-import { selectIsLoggedIn } from '../selectors/authentication'
-import { selectBundleId, selectIsStaff, selectRegistrationId } from '../selectors/profile'
 import * as ElloAndroidInterface from '../lib/android_interface'
 
 export function* loginPushSubscribe() {

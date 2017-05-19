@@ -18,21 +18,21 @@ import { selectJson } from 'ello-brains/dist/selectors/store'
 import { DISCOVER, FOLLOWING } from 'ello-brains/dist/constants/locales/en'
 import { USER } from 'ello-brains/dist/constants/action_types'
 import { selectPathname, selectViewNameFromRoute } from 'ello-brains/dist/selectors/routing'
-import { selectIsLoggedIn } from '../selectors/authentication'
-import {
-  selectDPI,
-  selectLastDiscoverBeaconVersion,
-  selectLastFollowingBeaconVersion,
-  selectIsMobile,
-} from '../selectors/gui'
-import { selectViewsAdultContent } from '../selectors/profile'
-import { selectStreamType } from '../selectors/stream'
+import { selectIsLoggedIn } from 'ello-brains/dist/selectors/authentication'
+import { selectViewsAdultContent } from 'ello-brains/dist/selectors/profile'
 import {
   selectUserCoverImage,
   selectUserId,
   selectUserPostsAdultContent,
   selectUserUsername,
-} from '../selectors/user'
+} from 'ello-brains/dist/selectors/user'
+import {
+  selectDPI,
+  selectLastDiscoverBeaconVersion,
+  selectLastFollowingBeaconVersion,
+  selectIsMobile,
+} from 'ello-brains/dist/selectors/gui'
+import { selectStreamType } from 'ello-brains/dist/selectors/stream'
 import { trackEvent } from '../actions/analytics'
 import {
   setLastDiscoverBeaconVersion,

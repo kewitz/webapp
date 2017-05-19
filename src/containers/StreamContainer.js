@@ -7,17 +7,20 @@ import get from 'lodash/get'
 import classNames from 'classnames'
 import { selectOmnibar, selectStream } from 'ello-brains/dist/selectors/store'
 import * as ACTION_TYPES from 'ello-brains/dist/constants/action_types'
-import { runningFetches, runningServerFetches } from '../sagas/requester'
-import { setNotificationScrollY } from '../actions/gui'
-import { selectIsLoggedIn } from '../selectors/authentication'
+import { selectIsLoggedIn } from 'ello-brains/dist/selectors/authentication'
 import {
   selectColumnCount,
   selectHasLaunchedSignupModal,
   selectInnerHeight,
   selectInnerWidth,
   selectIsGridMode,
-} from '../selectors/gui'
-import { selectStreamFilteredResult, selectStreamResultPath } from '../selectors/stream'
+} from 'ello-brains/dist/selectors/gui'
+import {
+  selectStreamFilteredResult,
+  selectStreamResultPath,
+} from 'ello-brains/dist/selectors/stream'
+import { runningFetches, runningServerFetches } from '../sagas/requester'
+import { setNotificationScrollY } from '../actions/gui'
 import { getQueryParamValue } from '../helpers/uri_helper'
 import {
   addScrollObject,

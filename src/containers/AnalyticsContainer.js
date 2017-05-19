@@ -1,15 +1,15 @@
 import { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { isElloAndroid } from '../lib/jello'
-import { selectIsLoggedIn } from '../selectors/authentication'
+import { selectIsLoggedIn } from 'ello-brains/dist/selectors/authentication'
 import {
   selectAllowsAnalytics,
   selectAnalyticsId,
   selectCreatedAt,
   selectIsNabaroo,
   selectProfileIsFeatured,
-} from '../selectors/profile'
+} from 'ello-brains/dist/selectors/profile'
+import { isElloAndroid } from '../lib/jello'
 
 const agent = isElloAndroid() ? 'android' : 'webapp'
 

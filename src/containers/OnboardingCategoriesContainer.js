@@ -3,11 +3,11 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { push } from 'react-router-redux'
 import { selectOnboardingCategoriesFiltered } from 'ello-brains/dist/selectors/categories'
+import { ONBOARDING_VERSION } from 'ello-brains/dist/constants/application_types'
+import { selectUuid } from 'ello-brains/dist/selectors/profile'
 import OnboardingCategories from '../components/onboarding/OnboardingCategories'
-import { ONBOARDING_VERSION } from '../constants/application_types'
 import { getCategories } from '../actions/discover'
 import { followCategories, saveProfile, splitFinish } from '../actions/profile'
-import { selectUuid } from '../selectors/profile'
 
 const CATEGORIES_NEEDED = 1
 

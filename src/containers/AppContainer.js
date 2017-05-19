@@ -9,8 +9,8 @@ import {
   selectRandomAuthPromotion,
 } from 'ello-brains/dist/selectors/promotions'
 import { selectIsAuthenticationView } from 'ello-brains/dist/selectors/routing'
-import { selectIsLoggedIn } from '../selectors/authentication'
-import { selectIsStaff } from '../selectors/profile'
+import { selectIsLoggedIn } from 'ello-brains/dist/selectors/authentication'
+import { selectIsStaff } from 'ello-brains/dist/selectors/profile'
 import { trackEvent, trackInitialPage } from '../actions/analytics'
 import { loadBadges } from '../actions/badges'
 import { getCategories, getPagePromotionals } from '../actions/discover'

@@ -5,7 +5,6 @@ import { createSelector } from 'reselect'
 import { selectDiscoverMetaData } from 'ello-brains/dist/selectors/categories'
 import { selectPathname, selectQueryTerms, selectViewNameFromRoute } from 'ello-brains/dist/selectors/routing'
 import { META } from 'ello-brains/dist/constants/locales/en'
-import { selectPagination } from '../selectors/pagination'
 import {
   selectPostMetaCanonicalUrl,
   selectPostMetaDescription,
@@ -14,13 +13,14 @@ import {
   selectPostMetaRobots,
   selectPostMetaTitle,
   selectPostMetaUrl,
-} from '../selectors/post'
+} from 'ello-brains/dist/selectors/post'
 import {
   selectUserMetaDescription,
   selectUserMetaImage,
   selectUserMetaRobots,
   selectUserMetaTitle,
-} from '../selectors/user'
+} from 'ello-brains/dist/selectors/user'
+import { selectPagination } from '../selectors/pagination'
 import { DefaultTags, PostDetailTags } from '../components/head/TagRenderables'
 
 const selectDefaultMetaRobots = createSelector(

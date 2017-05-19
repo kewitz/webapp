@@ -4,7 +4,6 @@ import { connect } from 'react-redux'
 import classNames from 'classnames'
 import debounce from 'lodash/debounce'
 import { EDITOR } from 'ello-brains/dist/constants/action_types'
-import { hideSoftKeyboard } from '../../lib/jello'
 import {
   selectBioLabel,
   selectLinksAsText,
@@ -12,9 +11,10 @@ import {
   selectName,
   selectShortBio,
   selectUsername,
-} from '../../selectors/profile'
-import { selectIsCompleterActive } from '../../selectors/gui'
-import { FORM_CONTROL_STATUS as STATUS } from '../../constants/status_types'
+} from 'ello-brains/dist/selectors/profile'
+import { FORM_CONTROL_STATUS as STATUS } from 'ello-brains/dist/constants/status_types'
+import { selectIsCompleterActive } from 'ello-brains/dist/selectors/gui'
+import { hideSoftKeyboard } from '../../lib/jello'
 import { setIsCompleterActive } from '../../actions/editor'
 import { saveProfile } from '../../actions/profile'
 import { MarkerIcon } from '../assets/Icons'

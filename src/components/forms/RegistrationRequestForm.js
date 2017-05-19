@@ -4,8 +4,9 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router'
 import debounce from 'lodash/debounce'
 import { selectParamsInvitationCode } from 'ello-brains/dist/selectors/params'
+import { FORM_CONTROL_STATUS as STATUS } from 'ello-brains/dist/constants/status_types'
+import { selectAvailability, selectEmail } from 'ello-brains/dist/selectors/profile'
 import { isAndroid } from '../../lib/jello'
-import { FORM_CONTROL_STATUS as STATUS } from '../../constants/status_types'
 import { trackEvent } from '../../actions/analytics'
 import { getInviteEmail } from '../../actions/invitations'
 import { checkAvailability, resetAvailability } from '../../actions/profile'
@@ -19,7 +20,6 @@ import {
   getInvitationCodeStateFromServer,
 } from './Validators'
 import { invite } from '../../networking/api'
-import { selectAvailability, selectEmail } from '../../selectors/profile'
 import {
   addPageVisibilityObserver,
   removePageVisibilityObserver,
