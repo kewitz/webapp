@@ -2,7 +2,8 @@ import Immutable from 'immutable'
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { EDITOR } from '../constants/action_types'
+import { selectIsPostDetail } from 'ello-brains/dist/selectors/routing'
+import { EDITOR } from 'ello-brains/dist/constants/action_types'
 import { deleteComment, flagComment, loadEditableComment, toggleEditing } from '../actions/comments'
 import { openModal, closeModal } from '../actions/modals'
 import { selectIsLoggedIn } from '../selectors/authentication'
@@ -28,7 +29,6 @@ import {
   selectIsGridMode,
   selectIsNavbarHidden,
 } from '../selectors/gui'
-import { selectIsPostDetail } from '../selectors/routing'
 import Editor, { getEditorId } from '../components/editor/Editor'
 import { CommentBody, CommentHeader } from '../components/comments/CommentRenderables'
 import CommentTools from '../components/comments/CommentTools'

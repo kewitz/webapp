@@ -2,6 +2,13 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import classNames from 'classnames'
+import {
+  selectCategoryData,
+  selectIsCategoryPromotion,
+  selectIsPagePromotion,
+  selectRandomAuthPromotion,
+} from 'ello-brains/dist/selectors/promotions'
+import { selectIsAuthenticationView } from 'ello-brains/dist/selectors/routing'
 import { selectIsLoggedIn } from '../selectors/authentication'
 import { selectIsStaff } from '../selectors/profile'
 import { trackEvent, trackInitialPage } from '../actions/analytics'
@@ -25,13 +32,6 @@ import ModalContainer from '../containers/ModalContainer'
 import NavbarContainer from '../containers/NavbarContainer'
 import OmnibarContainer from '../containers/OmnibarContainer'
 import ViewportContainer from '../containers/ViewportContainer'
-import {
-  selectCategoryData,
-  selectIsCategoryPromotion,
-  selectIsPagePromotion,
-  selectRandomAuthPromotion,
-} from '../selectors/promotions'
-import { selectIsAuthenticationView } from '../selectors/routing'
 import { scrollToPosition } from '../lib/jello'
 import * as ElloAndroidInterface from '../lib/android_interface'
 

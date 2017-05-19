@@ -1,7 +1,7 @@
 import Immutable from 'immutable'
 import { createSelector } from 'reselect'
 import get from 'lodash/get'
-import { COMMENTS } from '../constants/mapping_types'
+import { COMMENTS } from 'ello-brains/dist/constants/mapping_types'
 import { selectAssets } from './assets'
 import { selectId as selectProfileId } from './profile'
 import { addAssetToRegion, selectPosts } from './post'

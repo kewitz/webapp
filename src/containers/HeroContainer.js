@@ -5,9 +5,19 @@ import { bindActionCreators } from 'redux'
 import { createSelector } from 'reselect'
 import sample from 'lodash/sample'
 import { connect } from 'react-redux'
-import { DISCOVER, FOLLOWING } from '../constants/locales/en'
-import { USER } from '../constants/action_types'
-import { getLinkObject } from '../helpers/json_helper'
+import { getLinkObject } from 'ello-brains/dist/helpers/json_helper'
+import {
+  selectAuthPromotionals,
+  selectCategoryData,
+  selectIsCategoryPromotion,
+  selectIsPagePromotion,
+  selectLoggedInPagePromotions,
+  selectLoggedOutPagePromotions,
+} from 'ello-brains/dist/selectors/promotions'
+import { selectJson } from 'ello-brains/dist/selectors/store'
+import { DISCOVER, FOLLOWING } from 'ello-brains/dist/constants/locales/en'
+import { USER } from 'ello-brains/dist/constants/action_types'
+import { selectPathname, selectViewNameFromRoute } from 'ello-brains/dist/selectors/routing'
 import { selectIsLoggedIn } from '../selectors/authentication'
 import {
   selectDPI,
@@ -16,16 +26,6 @@ import {
   selectIsMobile,
 } from '../selectors/gui'
 import { selectViewsAdultContent } from '../selectors/profile'
-import {
-  selectAuthPromotionals,
-  selectCategoryData,
-  selectIsCategoryPromotion,
-  selectIsPagePromotion,
-  selectLoggedInPagePromotions,
-  selectLoggedOutPagePromotions,
-} from '../selectors/promotions'
-import { selectPathname, selectViewNameFromRoute } from '../selectors/routing'
-import { selectJson } from '../selectors/store'
 import { selectStreamType } from '../selectors/stream'
 import {
   selectUserCoverImage,

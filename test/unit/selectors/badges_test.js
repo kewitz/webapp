@@ -1,6 +1,6 @@
 import Immutable from 'immutable'
+import { BADGES } from 'ello-brains/dist/constants/mapping_types'
 import * as selector from '../../../src/selectors/badges'
-import { BADGES } from '../../../src/constants/mapping_types'
 import { clearJSON, json, stubBadges } from '../../support/stubs'
 
 describe('badges selectors', () => {

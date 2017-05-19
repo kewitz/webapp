@@ -1,10 +1,10 @@
 import Immutable from 'immutable'
 import { createSelector } from 'reselect'
 import get from 'lodash/get'
-import { selectPathname } from './routing'
-import { selectPages } from './pages'
-import { selectJson } from './store'
-import { emptyPagination } from '../reducers/json'
+import { selectPages } from 'ello-brains/dist/selectors/pages'
+import { selectJson } from 'ello-brains/dist/selectors/store'
+import { selectPathname } from 'ello-brains/dist/selectors/routing'
+import { emptyPagination } from 'ello-brains/dist/reducers/json'
 
 // props.xxx
 const selectMeta = (state, props) => get(props, 'action.meta', {})

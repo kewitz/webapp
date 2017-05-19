@@ -3,10 +3,10 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { createSelector } from 'reselect'
-import { USER } from '../constants/action_types'
+import { selectParamsType, selectParamsUsername } from 'ello-brains/dist/selectors/params'
+import { USER } from 'ello-brains/dist/constants/action_types'
 import { selectIsLoggedIn } from '../selectors/authentication'
 import { selectHasSaidHelloTo } from '../selectors/gui'
-import { selectParamsType, selectParamsUsername } from '../selectors/params'
 import { selectStreamType } from '../selectors/stream'
 import {
   selectUserFollowersCount,

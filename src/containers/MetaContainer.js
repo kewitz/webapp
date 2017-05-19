@@ -2,10 +2,10 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { createSelector } from 'reselect'
-import { META } from '../constants/locales/en'
-import { selectDiscoverMetaData } from '../selectors/categories'
+import { selectDiscoverMetaData } from 'ello-brains/dist/selectors/categories'
+import { selectPathname, selectQueryTerms, selectViewNameFromRoute } from 'ello-brains/dist/selectors/routing'
+import { META } from 'ello-brains/dist/constants/locales/en'
 import { selectPagination } from '../selectors/pagination'
-import { selectPathname, selectQueryTerms, selectViewNameFromRoute } from '../selectors/routing'
 import {
   selectPostMetaCanonicalUrl,
   selectPostMetaDescription,

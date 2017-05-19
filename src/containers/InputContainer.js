@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import debounce from 'lodash/debounce'
-import { EDITOR } from '../constants/action_types'
+import { EDITOR } from 'ello-brains/dist/constants/action_types'
 import { selectCompletions } from '../selectors/editor'
 import { selectEmojis } from '../selectors/emoji'
 import {

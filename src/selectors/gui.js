@@ -1,6 +1,6 @@
 import { createSelector } from 'reselect'
-import { selectParamsUsername } from './params'
-import { selectPathname, selectPropsQueryType } from './routing'
+import { selectParamsUsername } from 'ello-brains/dist/selectors/params'
+import { selectPathname, selectPropsQueryType } from 'ello-brains/dist/selectors/routing'
 
 // state.gui.xxx
 export const selectActiveNotificationsType = state => state.gui.get('activeNotificationsType')

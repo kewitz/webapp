@@ -2,11 +2,12 @@ import Immutable from 'immutable'
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { POST } from '../constants/action_types'
+import { selectParamsToken, selectParamsUsername } from 'ello-brains/dist/selectors/params'
+import { selectPropsLocationKey } from 'ello-brains/dist/selectors/routing'
+import { POST } from 'ello-brains/dist/constants/action_types'
 import { scrollToPosition, scrollToSelector } from '../lib/jello'
 import { selectIsLoggedIn } from '../selectors/authentication'
 import { selectColumnCount, selectInnerHeight } from '../selectors/gui'
-import { selectParamsToken, selectParamsUsername } from '../selectors/params'
 import {
   selectPost,
   selectPostAuthor,
@@ -16,7 +17,6 @@ import {
   selectPropsLocationStateFrom,
 } from '../selectors/post'
 import { selectAvatar } from '../selectors/profile'
-import { selectPropsLocationKey } from '../selectors/routing'
 import { selectStreamType } from '../selectors/stream'
 import { loadComments, loadPostDetail, loadRelatedPosts } from '../actions/posts'
 import { ErrorState4xx } from '../components/errors/Errors'

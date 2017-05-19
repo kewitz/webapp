@@ -1,5 +1,5 @@
-import { RELATIONSHIPS } from '../constants/action_types'
-import * as MAPPING_TYPES from '../constants/mapping_types'
+import { RELATIONSHIPS } from 'ello-brains/dist/constants/action_types'
+import * as MAPPING_TYPES from 'ello-brains/dist/constants/mapping_types'
 import * as api from '../networking/api'
 
 export function batchUpdateRelationship(userIds, priority) {

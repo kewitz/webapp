@@ -1,8 +1,8 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { selectParamsType } from '../selectors/params'
-import { selectPropsPathname } from '../selectors/routing'
+import { selectParamsType } from 'ello-brains/dist/selectors/params'
+import { selectPropsPathname } from 'ello-brains/dist/selectors/routing'
 import {
   bindDiscoverKey,
   getCategories,

@@ -1,6 +1,6 @@
 import Immutable from 'immutable'
 import get from 'lodash/get'
-import { ASSETS } from '../constants/mapping_types'
+import { ASSETS } from 'ello-brains/dist/constants/mapping_types'
 
 // state.json.assets.xxx
 export const selectAssets = state => state.json.get(ASSETS, Immutable.Map())

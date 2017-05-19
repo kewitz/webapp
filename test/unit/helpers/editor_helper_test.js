@@ -1,6 +1,6 @@
 import Immutable from 'immutable'
+import { COMMENT, EDITOR, POST } from 'ello-brains/dist/constants/action_types'
 import * as subject from '../../../src/helpers/editor_helper'
-import { COMMENT, EDITOR, POST } from '../../../src/constants/action_types'
 
 describe('editor helper', () => {
   let action = null

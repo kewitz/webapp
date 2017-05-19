@@ -2,7 +2,11 @@
 import Immutable from 'immutable'
 import { REHYDRATE } from 'redux-persist/constants'
 import get from 'lodash/get'
-import { AUTHENTICATION, EDITOR, PROFILE, UPDATE_STATE_FROM_NATIVE } from '../constants/action_types'
+import { AUTHENTICATION,
+  EDITOR,
+  PROFILE,
+  UPDATE_STATE_FROM_NATIVE
+} from 'ello-brains/dist/constants/action_types'
 import editorMethods from '../helpers/editor_helper'
 
 export const initialState = Immutable.Map({ completions: Immutable.Map() })

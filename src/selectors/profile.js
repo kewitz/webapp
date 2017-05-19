@@ -1,6 +1,6 @@
 import Immutable from 'immutable'
 import { createSelector } from 'reselect'
-import { selectPathname } from './routing'
+import { selectPathname } from 'ello-brains/dist/selectors/routing'
 
 // state.profile.xxx
 export const selectAllowsAnalytics = state => state.profile.get('allowsAnalytics')

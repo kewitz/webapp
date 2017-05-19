@@ -2138,6 +2138,18 @@ elliptic@^6.0.0:
     hash.js "^1.0.0"
     inherits "^2.0.1"
 
+"ello-brains@https://github.com/ello/brains.git":
+  version "1.0.0"
+  resolved "https://github.com/ello/brains.git#8d971c1e143ad75605c9d263dd9dc42bcd3a1467"
+  dependencies:
+    humps "2.0.0"
+    immutable "3.8.1"
+    lodash "4.17.4"
+    react-router-redux "4.0.8"
+    redux-persist "4.8.0"
+    reselect "3.0.1"
+    trunc-html "1.1.2"
+
 emitter-listener@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/emitter-listener/-/emitter-listener-1.0.1.tgz#b2499ea6e58230a52c268d5df261eecd9f10fe97"
@@ -5492,9 +5504,17 @@ redux-persist-transform-immutable@4.2.0, redux-persist-transform-immutable@^4.1.
     transit-immutable-js ">= 0.5"
     transit-js ">= 0.8"
 
-redux-persist@4.7.1, redux-persist@^4.0.0:
+redux-persist@4.7.1:
   version "4.7.1"
   resolved "https://registry.yarnpkg.com/redux-persist/-/redux-persist-4.7.1.tgz#162abce7063066db37fdb2d51ed39a16c6561ac5"
+  dependencies:
+    json-stringify-safe "^5.0.1"
+    lodash "^4.17.4"
+    lodash-es "^4.17.4"
+
+redux-persist@4.8.0, redux-persist@^4.0.0:
+  version "4.8.0"
+  resolved "https://registry.yarnpkg.com/redux-persist/-/redux-persist-4.8.0.tgz#17fd998949bdeef9275e4cf60ad5bbe1c73675fc"
   dependencies:
     json-stringify-safe "^5.0.1"
     lodash "^4.17.4"
@@ -5672,6 +5692,10 @@ requires-port@1.x.x:
 reselect@3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/reselect/-/reselect-3.0.0.tgz#b2e35977f03048700028eaee3a8c0639e40e8f35"
+
+reselect@3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/reselect/-/reselect-3.0.1.tgz#efdaa98ea7451324d092b2b2163a6a1d7a9a2147"
 
 resolve-from@^1.0.0:
   version "1.0.1"

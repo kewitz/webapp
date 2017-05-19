@@ -6,6 +6,11 @@ import { push, replace } from 'react-router-redux'
 import { bindActionCreators } from 'redux'
 import classNames from 'classnames'
 import set from 'lodash/set'
+import { selectIsDiscoverRoot,
+  selectIsPostDetail,
+  selectPathname,
+  selectPreviousPath,
+} from 'ello-brains/dist/selectors/routing'
 import { selectIsLoggedIn } from '../selectors/authentication'
 import {
   selectColumnWidth,
@@ -47,7 +52,6 @@ import {
   selectPropsPostId,
 } from '../selectors/post'
 import { selectAvatar } from '../selectors/profile'
-import { selectIsDiscoverRoot, selectIsPostDetail, selectPathname, selectPreviousPath } from '../selectors/routing'
 import { trackEvent } from '../actions/analytics'
 import { openModal, closeModal } from '../actions/modals'
 import {

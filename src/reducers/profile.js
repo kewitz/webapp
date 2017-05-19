@@ -4,7 +4,11 @@ import { camelizeKeys } from 'humps'
 import jwtDecode from 'jwt-decode'
 import get from 'lodash/get'
 import { REHYDRATE } from 'redux-persist/constants'
-import { AUTHENTICATION, INVITATIONS, PROFILE, UPDATE_STATE_FROM_NATIVE } from '../constants/action_types'
+import { AUTHENTICATION,
+  INVITATIONS,
+  PROFILE,
+  UPDATE_STATE_FROM_NATIVE,
+} from 'ello-brains/dist/constants/action_types'
 import { imageGuid } from '../helpers/file_helper'
 
 function parseJWT(token) {

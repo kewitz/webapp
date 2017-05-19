@@ -1,6 +1,6 @@
 import Immutable from 'immutable'
+import { AUTHENTICATION, OMNIBAR, PROFILE } from 'ello-brains/dist/constants/action_types'
 import reducer from '../../../src/reducers/omnibar'
-import { AUTHENTICATION, OMNIBAR, PROFILE } from '../../../src/constants/action_types'
 
 describe('omnibar reducer', () => {
   const initialState = reducer(undefined, {})

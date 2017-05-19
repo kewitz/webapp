@@ -1,6 +1,6 @@
 import Immutable from 'immutable'
 import { createSelector } from 'reselect'
-import { ANNOUNCEMENTS } from '../constants/mapping_types'
+import { ANNOUNCEMENTS } from 'ello-brains/dist/constants/mapping_types'
 import { selectLastAnnouncementSeen } from './gui'
 
 export const selectAnnouncements = state => state.json.get(ANNOUNCEMENTS, Immutable.Map())

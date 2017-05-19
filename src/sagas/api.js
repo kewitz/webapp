@@ -2,7 +2,7 @@
 import 'isomorphic-fetch'
 import { push } from 'react-router-redux'
 import { call, put, select, take } from 'redux-saga/effects'
-import { AUTHENTICATION } from '../constants/action_types'
+import { AUTHENTICATION } from 'ello-brains/dist/constants/action_types'
 import {
   selectAccessToken,
   selectRefreshToken,

@@ -1,5 +1,5 @@
+import { EDITOR } from 'ello-brains/dist/constants/action_types'
 import reducer, { initialState } from '../../../src/reducers/emoji'
-import { EDITOR } from '../../../src/constants/action_types'
 
 describe('emoji reducer', () => {
   const emojis = [

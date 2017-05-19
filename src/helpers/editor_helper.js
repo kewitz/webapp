@@ -2,9 +2,9 @@
 import Immutable from 'immutable'
 import get from 'lodash/get'
 import reduce from 'lodash/reduce'
+import { COMMENT, EDITOR, POST } from 'ello-brains/dist/constants/action_types'
 import { suggestEmoji } from '../components/completers/EmojiSuggester'
 import { userRegex } from '../components/completers/Completer'
-import { COMMENT, EDITOR, POST } from '../constants/action_types'
 
 const methods = {}
 const initialState = Immutable.Map({

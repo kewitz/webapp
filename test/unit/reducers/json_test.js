@@ -1,11 +1,11 @@
 /* eslint-disable max-len */
 
 import Immutable from 'immutable'
+import * as subject from 'ello-brains/dist/reducers/json'
+import * as ACTION_TYPES from 'ello-brains/dist/constants/action_types'
+import * as MAPPING_TYPES from 'ello-brains/dist/constants/mapping_types'
 import { isValidResult } from '../../support/test_helpers'
 import { clearJSON, stubJS, stubJSONStore } from '../../support/stubs'
-import * as subject from '../../../src/reducers/json'
-import * as ACTION_TYPES from '../../../src/constants/action_types'
-import * as MAPPING_TYPES from '../../../src/constants/mapping_types'
 
 describe('json reducer', () => {
   let state

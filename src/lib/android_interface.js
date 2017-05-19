@@ -1,8 +1,8 @@
 import Immutable from 'immutable'
-import { isElloAndroid } from './jello'
+import { UPDATE_STATE_FROM_NATIVE } from 'ello-brains/dist/constants/action_types'
 import store from '../store'
+import { isElloAndroid } from './jello'
 import { requestPushSubscription } from '../actions/profile'
-import { UPDATE_STATE_FROM_NATIVE } from '../constants/action_types'
 
 const getJSState = () => {
   const state = store.getState()

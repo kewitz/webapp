@@ -1,6 +1,11 @@
 import Immutable from 'immutable'
 import get from 'lodash/get'
-import { AUTHENTICATION, LOAD_STREAM_FAILURE, POST, PROFILE, USER } from '../constants/action_types'
+import { AUTHENTICATION,
+  LOAD_STREAM_FAILURE,
+  POST,
+  PROFILE,
+  USER,
+} from 'ello-brains/dist/constants/action_types'
 
 let should404 = false
 

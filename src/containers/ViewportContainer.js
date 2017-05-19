@@ -2,6 +2,12 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { createSelector } from 'reselect'
+import {
+  selectIsAuthenticationView,
+  selectIsOnboardingView,
+  selectPathname,
+  selectViewNameFromRoute,
+} from 'ello-brains/dist/selectors/routing'
 import { selectIsLoggedIn } from '../selectors/authentication'
 import {
   selectHasLaunchedSignupModal,
@@ -13,12 +19,6 @@ import {
   selectScrollOffset,
 } from '../selectors/gui'
 import { selectModalType } from '../selectors/modal'
-import {
-  selectIsAuthenticationView,
-  selectIsOnboardingView,
-  selectPathname,
-  selectViewNameFromRoute,
-} from '../selectors/routing'
 import { setIsNavbarHidden, setViewportSizeAttributes } from '../actions/gui'
 import { addScrollObject, removeScrollObject } from '../components/viewport/ScrollComponent'
 import {

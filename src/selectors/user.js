@@ -2,13 +2,13 @@ import Immutable from 'immutable'
 import { createSelector } from 'reselect'
 import get from 'lodash/get'
 import trunc from 'trunc-html'
+import { getLinkArray } from 'ello-brains/dist/helpers/json_helper'
+import { selectParamsUsername } from 'ello-brains/dist/selectors/params'
+import { selectJson } from 'ello-brains/dist/selectors/store'
+import { USERS } from 'ello-brains/dist/constants/mapping_types'
 import { numberToHuman } from '../lib/number_to_human'
 import { selectBadges } from './badges'
 import { selectInvitationUserId } from './invitations'
-import { selectParamsUsername } from './params'
-import { selectJson } from './store'
-import { USERS } from '../constants/mapping_types'
-import { getLinkArray } from '../helpers/json_helper'
 
 export const selectPropsUserId = (state, props) =>
   get(props, 'userId') || get(props, 'user', Immutable.Map()).get('id')

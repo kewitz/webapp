@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import { selectPathname } from 'ello-brains/dist/selectors/routing'
 import { trackEvent } from '../actions/analytics'
 import { inviteUsers } from '../actions/invitations'
 import { FORM_CONTROL_STATUS as STATUS } from '../constants/status_types'
@@ -8,7 +9,6 @@ import BatchEmailControl from '../components/forms/BatchEmailControl'
 import FormButton from '../components/forms/FormButton'
 import { getBatchEmailState } from '../components/forms/Validators'
 import { invite } from '../networking/api'
-import { selectPathname } from '../selectors/routing'
 
 function mapStateToProps(state) {
   return {

@@ -1,7 +1,7 @@
 import Immutable from 'immutable'
 import { createSelector } from 'reselect'
 import get from 'lodash/get'
-import { BADGES } from '../constants/mapping_types'
+import { BADGES } from 'ello-brains/dist/constants/mapping_types'
 
 const selectPropsBadgeId = (state, props) => get(props, 'badgeId')
 

@@ -1,7 +1,7 @@
 import Immutable from 'immutable'
 import { createSelector } from 'reselect'
 import get from 'lodash/get'
-import { INVITATIONS } from '../constants/mapping_types'
+import { INVITATIONS } from 'ello-brains/dist/constants/mapping_types'
 
 export const selectPropsInvitationId = (state, props) =>
   get(props, 'invitationId') || get(props, 'invitation', Immutable.Map()).get('id')

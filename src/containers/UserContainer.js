@@ -4,12 +4,12 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import get from 'lodash/get'
+import { selectIsPostDetail } from 'ello-brains/dist/selectors/routing'
 import { selectIsLoggedIn } from '../selectors/authentication'
 import { selectBadgesHasLoaded } from '../selectors/badges'
 import { selectIsMobile } from '../selectors/gui'
 import { selectInvitationAcceptedAt, selectInvitationEmail } from '../selectors/invitations'
 import { selectViewsAdultContent } from '../selectors/profile'
-import { selectIsPostDetail } from '../selectors/routing'
 import {
   selectUser,
   selectUserAvatar,

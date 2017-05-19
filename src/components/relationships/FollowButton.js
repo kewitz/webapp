@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router'
 import classNames from 'classnames'
-import { RELATIONSHIP_PRIORITY } from '../../constants/relationship_types'
+import { RELATIONSHIP_PRIORITY } from 'ello-brains/dist/constants/relationship_types'
 import { CheckCircleIcon, CheckIconSM, PlusCircleIcon, PlusIconSM } from '../assets/Icons'
 
 export function getNextPriority(currentPriority) {

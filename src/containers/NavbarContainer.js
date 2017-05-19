@@ -1,11 +1,13 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import { selectCategoryTabs } from 'ello-brains/dist/selectors/categories'
+import { selectPage } from 'ello-brains/dist/selectors/pages'
+import { selectPathname, selectViewNameFromRoute } from 'ello-brains/dist/selectors/routing'
+import { ADD_NEW_IDS_TO_RESULT, SET_LAYOUT_MODE } from 'ello-brains/dist/constants/action_types'
 import { scrollToPosition } from '../lib/jello'
 import * as ElloAndroidInterface from '../lib/android_interface'
-import { ADD_NEW_IDS_TO_RESULT, SET_LAYOUT_MODE } from '../constants/action_types'
 import { selectIsLoggedIn } from '../selectors/authentication'
-import { selectCategoryTabs } from '../selectors/categories'
 import {
   selectActiveNotificationsType,
   selectHomeStream,
@@ -18,8 +20,6 @@ import {
 } from '../selectors/gui'
 import { selectAnnouncementHasBeenViewed } from '../selectors/notifications'
 import { selectAvatar, selectUsername } from '../selectors/profile'
-import { selectPage } from '../selectors/pages'
-import { selectPathname, selectViewNameFromRoute } from '../selectors/routing'
 import { trackEvent } from '../actions/analytics'
 import { logout } from '../actions/authentication'
 import { setIsProfileMenuActive, toggleNotifications } from '../actions/gui'

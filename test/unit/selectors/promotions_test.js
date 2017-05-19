@@ -1,10 +1,10 @@
 import Immutable from 'immutable'
-import { stubAuthPromotion } from '../../support/stubs'
 import {
   selectAuthPromotionals,
   selectLoggedInPagePromotions,
   selectLoggedOutPagePromotions,
-} from '../../../src/selectors/promotions'
+} from 'ello-brains/dist/selectors/promotions'
+import { stubAuthPromotion } from '../../support/stubs'
 
 describe('promotions selectors', () => {
   let authentication

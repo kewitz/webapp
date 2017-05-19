@@ -5,7 +5,7 @@ import { REHYDRATE } from 'redux-persist/constants'
 import {
   AUTHENTICATION,
   PROFILE,
-} from '../constants/action_types'
+} from 'ello-brains/dist/constants/action_types'
 import { getUserCredentials, refreshAuthenticationToken } from '../actions/authentication'
 
 const toMilliseconds = seconds => seconds * 1000

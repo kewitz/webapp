@@ -5,8 +5,9 @@ import { connect } from 'react-redux'
 import debounce from 'lodash/debounce'
 import get from 'lodash/get'
 import classNames from 'classnames'
+import { selectOmnibar, selectStream } from 'ello-brains/dist/selectors/store'
+import * as ACTION_TYPES from 'ello-brains/dist/constants/action_types'
 import { runningFetches, runningServerFetches } from '../sagas/requester'
-import * as ACTION_TYPES from '../constants/action_types'
 import { setNotificationScrollY } from '../actions/gui'
 import { selectIsLoggedIn } from '../selectors/authentication'
 import {
@@ -16,7 +17,6 @@ import {
   selectInnerWidth,
   selectIsGridMode,
 } from '../selectors/gui'
-import { selectOmnibar, selectStream } from '../selectors/store'
 import { selectStreamFilteredResult, selectStreamResultPath } from '../selectors/stream'
 import { getQueryParamValue } from '../helpers/uri_helper'
 import {
