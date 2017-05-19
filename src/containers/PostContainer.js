@@ -6,7 +6,8 @@ import { push, replace } from 'react-router-redux'
 import { bindActionCreators } from 'redux'
 import classNames from 'classnames'
 import set from 'lodash/set'
-import { selectIsDiscoverRoot,
+import {
+  selectIsDiscoverRoot,
   selectIsPostDetail,
   selectPathname,
   selectPreviousPath,

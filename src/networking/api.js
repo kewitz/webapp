@@ -147,7 +147,6 @@ export function categories() {
 }
 export function categoryPosts(type) {
   const typePath = type ? `/${type}` : ''
-  console.log('api.js, line: 150 CAGEGORY', type)
   return {
     path: getAPIPath(`categories${typePath}/posts/recent`, { per_page: PER_PAGE }),
   }

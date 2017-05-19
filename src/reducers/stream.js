@@ -1,6 +1,7 @@
 import Immutable from 'immutable'
 import get from 'lodash/get'
-import { AUTHENTICATION,
+import {
+  AUTHENTICATION,
   LOAD_STREAM_FAILURE,
   POST,
   PROFILE,

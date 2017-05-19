@@ -2,7 +2,8 @@
 import Immutable from 'immutable'
 import { REHYDRATE } from 'redux-persist/constants'
 import { LOCATION_CHANGE } from 'react-router-redux'
-import { AUTHENTICATION,
+import {
+  AUTHENTICATION,
   PROFILE,
   UPDATE_STATE_FROM_NATIVE,
 } from 'ello-brains/dist/constants/action_types'

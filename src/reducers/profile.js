@@ -4,7 +4,8 @@ import { camelizeKeys } from 'humps'
 import jwtDecode from 'jwt-decode'
 import get from 'lodash/get'
 import { REHYDRATE } from 'redux-persist/constants'
-import { AUTHENTICATION,
+import {
+  AUTHENTICATION,
   INVITATIONS,
   PROFILE,
   UPDATE_STATE_FROM_NATIVE,

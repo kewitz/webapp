@@ -2,10 +2,11 @@
 import Immutable from 'immutable'
 import { REHYDRATE } from 'redux-persist/constants'
 import get from 'lodash/get'
-import { AUTHENTICATION,
+import {
+  AUTHENTICATION,
   EDITOR,
   PROFILE,
-  UPDATE_STATE_FROM_NATIVE
+  UPDATE_STATE_FROM_NATIVE,
 } from 'ello-brains/dist/constants/action_types'
 import editorMethods from '../helpers/editor_helper'
 
