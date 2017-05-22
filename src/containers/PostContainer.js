@@ -6,15 +6,13 @@ import { push, replace } from 'react-router-redux'
 import { bindActionCreators } from 'redux'
 import classNames from 'classnames'
 import set from 'lodash/set'
-import { selectIsLoggedIn } from '../selectors/authentication'
 import {
-  selectColumnWidth,
-  selectCommentOffset,
-  selectContentWidth,
-  selectDeviceSize,
-  selectInnerHeight,
-  selectIsMobile,
-} from '../selectors/gui'
+  selectIsDiscoverRoot,
+  selectIsPostDetail,
+  selectPathname,
+  selectPreviousPath,
+} from 'ello-brains/selectors/routing'
+import { selectIsLoggedIn } from 'ello-brains/selectors/authentication'
 import {
   selectPost,
   selectPostAuthor,
@@ -45,9 +43,16 @@ import {
   selectPostSummary,
   selectPostViewsCountRounded,
   selectPropsPostId,
-} from '../selectors/post'
-import { selectAvatar } from '../selectors/profile'
-import { selectIsDiscoverRoot, selectIsPostDetail, selectPathname, selectPreviousPath } from '../selectors/routing'
+} from 'ello-brains/selectors/post'
+import { selectAvatar } from 'ello-brains/selectors/profile'
+import {
+  selectColumnWidth,
+  selectCommentOffset,
+  selectContentWidth,
+  selectDeviceSize,
+  selectInnerHeight,
+  selectIsMobile,
+} from 'ello-brains/selectors/gui'
 import { trackEvent } from '../actions/analytics'
 import { openModal, closeModal } from '../actions/modals'
 import {

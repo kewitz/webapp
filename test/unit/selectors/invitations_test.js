@@ -1,6 +1,6 @@
 import Immutable from 'immutable'
+import * as selector from 'ello-brains/selectors/invitations'
 import { clearJSON, json, stub, stubInvitation } from '../../support/stubs'
-import * as selector from '../../../src/selectors/invitations'
 
 describe('user selectors', () => {
   let unaccepted

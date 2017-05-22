@@ -11,7 +11,7 @@ import {
   take,
 } from 'redux-saga/effects'
 
-import { AUTHENTICATION, EDITOR, PROFILE } from '../constants/action_types'
+import { AUTHENTICATION, EDITOR, PROFILE } from 'ello-brains/constants/action_types'
 
 import { fetchCredentials, getHeaders, sagaFetch } from './api'
 import { s3CredentialsPath } from '../networking/api'

@@ -1,4 +1,5 @@
 import Immutable from 'immutable'
+import * as selector from 'ello-brains/selectors/post'
 import {
   clearJSON,
   json,
@@ -9,7 +10,6 @@ import {
   stubImageRegion,
   stubEmbedRegion,
 } from '../../support/stubs'
-import * as selector from '../../../src/selectors/post'
 
 describe('post selectors', () => {
   let propsPost

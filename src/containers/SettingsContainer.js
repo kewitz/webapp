@@ -5,11 +5,15 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import classNames from 'classnames'
 import debounce from 'lodash/debounce'
-import { PREFERENCES, SETTINGS } from '../constants/locales/en'
-import { FORM_CONTROL_STATUS as STATUS } from '../constants/status_types'
+import { PREFERENCES, SETTINGS } from 'ello-brains/constants/locales/en'
+import { FORM_CONTROL_STATUS as STATUS } from 'ello-brains/constants/status_types'
+import {
+  selectAvailability,
+  selectBlockedCount,
+  selectMutedCount,
+} from 'ello-brains/selectors/profile'
+import { selectDPI, selectIsMobile } from 'ello-brains/selectors/gui'
 import { preferenceToggleChanged } from '../helpers/junk_drawer'
-import { selectDPI, selectIsMobile } from '../selectors/gui'
-import { selectAvailability, selectBlockedCount, selectMutedCount } from '../selectors/profile'
 import { openModal, closeModal } from '../actions/modals'
 import { logout } from '../actions/authentication'
 import {

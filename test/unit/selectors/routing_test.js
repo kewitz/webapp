@@ -9,7 +9,7 @@ import {
   selectPathname,
   selectQueryTerms,
   selectViewNameFromRoute,
-} from '../../../src/selectors/routing'
+} from 'ello-brains/selectors/routing'
 
 
 describe('routing selectors', () => {

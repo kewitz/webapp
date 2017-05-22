@@ -1,8 +1,8 @@
 import Immutable from 'immutable'
 import pad from 'lodash/pad'
+import * as selector from 'ello-brains/selectors/user'
+import { selectBadge } from 'ello-brains/selectors/badges'
 import { clearJSON, json, stub, stubBadges, stubUser, stubCategories, stubInvitation } from '../../support/stubs'
-import * as selector from '../../../src/selectors/user'
-import { selectBadge } from '../../../src/selectors/badges'
 
 describe('user selectors', () => {
   let userSixes

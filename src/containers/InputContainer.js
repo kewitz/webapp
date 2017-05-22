@@ -2,16 +2,16 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import debounce from 'lodash/debounce'
-import { EDITOR } from '../constants/action_types'
-import { selectCompletions } from '../selectors/editor'
-import { selectEmojis } from '../selectors/emoji'
+import { EDITOR } from 'ello-brains/constants/action_types'
+import { selectEmojis } from 'ello-brains/selectors/emoji'
 import {
   selectDeviceSize,
   selectIsCompleterActive,
   selectIsTextToolsActive,
   selectTextToolsCoordinates,
   selectTextToolsStates,
-} from '../selectors/gui'
+} from 'ello-brains/selectors/gui'
+import { selectCompletions } from '../selectors/editor'
 import {
   autoCompleteUsers,
   loadEmojis,

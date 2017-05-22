@@ -1,5 +1,5 @@
 import { channel } from 'redux-saga'
-import { selectRefreshToken } from '../../../src/selectors/authentication'
+import { selectRefreshToken } from 'ello-brains/selectors/authentication'
 import { loadDiscoverPosts } from '../../../src/actions/discover'
 import { clearAuthToken, refreshAuthenticationToken } from '../../../src/actions/authentication'
 import {

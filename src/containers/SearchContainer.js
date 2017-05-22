@@ -4,10 +4,12 @@ import { connect } from 'react-redux'
 import { replace } from 'react-router-redux'
 import debounce from 'lodash/debounce'
 import get from 'lodash/get'
-import { selectIsLoggedIn } from '../selectors/authentication'
 import {
-  selectPropsPathname, selectPropsQueryTerms, selectPropsQueryType,
-} from '../selectors/routing'
+  selectPropsPathname,
+  selectPropsQueryTerms,
+  selectPropsQueryType,
+} from 'ello-brains/selectors/routing'
+import { selectIsLoggedIn } from 'ello-brains/selectors/authentication'
 import { updateQueryParams } from '../helpers/uri_helper'
 import { searchForPosts, searchForUsers } from '../actions/search'
 import { trackEvent } from '../actions/analytics'

@@ -2,11 +2,11 @@ import Immutable from 'immutable'
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { POST } from '../constants/action_types'
-import { scrollToPosition, scrollToSelector } from '../lib/jello'
-import { selectIsLoggedIn } from '../selectors/authentication'
-import { selectColumnCount, selectInnerHeight } from '../selectors/gui'
-import { selectParamsToken, selectParamsUsername } from '../selectors/params'
+import { selectParamsToken, selectParamsUsername } from 'ello-brains/selectors/params'
+import { selectPropsLocationKey } from 'ello-brains/selectors/routing'
+import { POST } from 'ello-brains/constants/action_types'
+import { selectIsLoggedIn } from 'ello-brains/selectors/authentication'
+import { selectAvatar } from 'ello-brains/selectors/profile'
 import {
   selectPost,
   selectPostAuthor,
@@ -14,10 +14,10 @@ import {
   selectPostHasRelatedButton,
   selectPostIsEmpty,
   selectPropsLocationStateFrom,
-} from '../selectors/post'
-import { selectAvatar } from '../selectors/profile'
-import { selectPropsLocationKey } from '../selectors/routing'
-import { selectStreamType } from '../selectors/stream'
+} from 'ello-brains/selectors/post'
+import { selectColumnCount, selectInnerHeight } from 'ello-brains/selectors/gui'
+import { selectStreamType } from 'ello-brains/selectors/stream'
+import { scrollToPosition, scrollToSelector } from '../lib/jello'
 import { loadComments, loadPostDetail, loadRelatedPosts } from '../actions/posts'
 import { ErrorState4xx } from '../components/errors/Errors'
 import { Paginator } from '../components/streams/Paginator'

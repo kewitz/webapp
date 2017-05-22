@@ -1,4 +1,3 @@
-import { clearJSON, json, stubJSONStore } from '../../support/stubs'
 import {
   selectCategories,
   selectCategory,
@@ -11,7 +10,8 @@ import {
   selectOnboardingCategoriesFiltered,
   selectPropsCategoryId,
   sortCategories,
-} from '../../../src/selectors/categories'
+} from 'ello-brains/selectors/categories'
+import { clearJSON, json, stubJSONStore } from '../../support/stubs'
 
 describe('categories selectors', () => {
   let params

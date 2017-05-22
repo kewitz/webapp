@@ -1,5 +1,5 @@
 import Immutable from 'immutable'
-import * as selector from '../../../src/selectors/gui'
+import * as selector from 'ello-brains/selectors/gui'
 
 describe('gui selectors', () => {
   context('#selectActiveNotificationScrollPosition', () => {

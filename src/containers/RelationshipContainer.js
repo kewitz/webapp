@@ -4,11 +4,15 @@ import { connect } from 'react-redux'
 import { replace } from 'react-router-redux'
 import { createSelector } from 'reselect'
 import classNames from 'classnames'
-import { RELATIONSHIP_PRIORITY } from '../constants/relationship_types'
-import { selectIsLoggedIn } from '../selectors/authentication'
-import { selectDeviceSize } from '../selectors/gui'
-import { selectPathname, selectPreviousPath } from '../selectors/routing'
-import { selectUserId, selectUserRelationshipPriority, selectUserUsername } from '../selectors/user'
+import { RELATIONSHIP_PRIORITY } from 'ello-brains/constants/relationship_types'
+import { selectPathname, selectPreviousPath } from 'ello-brains/selectors/routing'
+import { selectIsLoggedIn } from 'ello-brains/selectors/authentication'
+import {
+  selectUserId,
+  selectUserRelationshipPriority,
+  selectUserUsername,
+} from 'ello-brains/selectors/user'
+import { selectDeviceSize } from 'ello-brains/selectors/gui'
 import { openModal, closeModal } from '../actions/modals'
 import { updateRelationship } from '../actions/relationships'
 import { flagUser } from '../actions/user'

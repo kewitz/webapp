@@ -3,8 +3,10 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
 import debounce from 'lodash/debounce'
+import { selectParamsInvitationCode } from 'ello-brains/selectors/params'
+import { FORM_CONTROL_STATUS as STATUS } from 'ello-brains/constants/status_types'
+import { selectAvailability, selectEmail } from 'ello-brains/selectors/profile'
 import { isAndroid } from '../../lib/jello'
-import { FORM_CONTROL_STATUS as STATUS } from '../../constants/status_types'
 import { trackEvent } from '../../actions/analytics'
 import { getInviteEmail } from '../../actions/invitations'
 import { checkAvailability, resetAvailability } from '../../actions/profile'
@@ -18,8 +20,6 @@ import {
   getInvitationCodeStateFromServer,
 } from './Validators'
 import { invite } from '../../networking/api'
-import { selectParamsInvitationCode } from '../../selectors/params'
-import { selectAvailability, selectEmail } from '../../selectors/profile'
 import {
   addPageVisibilityObserver,
   removePageVisibilityObserver,

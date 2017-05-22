@@ -2,10 +2,9 @@ import Immutable from 'immutable'
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { EDITOR } from '../constants/action_types'
-import { deleteComment, flagComment, loadEditableComment, toggleEditing } from '../actions/comments'
-import { openModal, closeModal } from '../actions/modals'
-import { selectIsLoggedIn } from '../selectors/authentication'
+import { selectIsPostDetail } from 'ello-brains/selectors/routing'
+import { EDITOR } from 'ello-brains/constants/action_types'
+import { selectIsLoggedIn } from 'ello-brains/selectors/authentication'
 import {
   selectComment,
   selectCommentAuthor,
@@ -18,7 +17,7 @@ import {
   selectCommentPost,
   selectCommentPostDetailPath,
   selectPropsCommentId,
-} from '../selectors/comment'
+} from 'ello-brains/selectors/comment'
 import {
   selectColumnWidth,
   selectCommentOffset,
@@ -27,8 +26,9 @@ import {
   selectInnerHeight,
   selectIsGridMode,
   selectIsNavbarHidden,
-} from '../selectors/gui'
-import { selectIsPostDetail } from '../selectors/routing'
+} from 'ello-brains/selectors/gui'
+import { deleteComment, flagComment, loadEditableComment, toggleEditing } from '../actions/comments'
+import { openModal, closeModal } from '../actions/modals'
 import Editor, { getEditorId } from '../components/editor/Editor'
 import { CommentBody, CommentHeader } from '../components/comments/CommentRenderables'
 import CommentTools from '../components/comments/CommentTools'

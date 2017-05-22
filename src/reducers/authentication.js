@@ -2,7 +2,11 @@
 import Immutable from 'immutable'
 import { REHYDRATE } from 'redux-persist/constants'
 import { LOCATION_CHANGE } from 'react-router-redux'
-import { AUTHENTICATION, PROFILE, UPDATE_STATE_FROM_NATIVE } from '../constants/action_types'
+import {
+  AUTHENTICATION,
+  PROFILE,
+  UPDATE_STATE_FROM_NATIVE,
+} from 'ello-brains/constants/action_types'
 
 export const initialState = Immutable.Map({
   accessToken: null,

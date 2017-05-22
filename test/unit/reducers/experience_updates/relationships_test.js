@@ -1,9 +1,9 @@
 import Immutable from 'immutable'
+import subject, { jsonReducer } from 'ello-brains/reducers/experience_updates/relationships'
+import * as ACTION_TYPES from 'ello-brains/constants/action_types'
+import * as MAPPING_TYPES from 'ello-brains/constants/mapping_types'
+import { RELATIONSHIP_PRIORITY } from 'ello-brains/constants/relationship_types'
 import { clearJSON, json, stub, stubJSONStore } from '../../../support/stubs'
-import subject, { jsonReducer } from '../../../../src/reducers/experience_updates/relationships'
-import * as ACTION_TYPES from '../../../../src/constants/action_types'
-import * as MAPPING_TYPES from '../../../../src/constants/mapping_types'
-import { RELATIONSHIP_PRIORITY } from '../../../../src/constants/relationship_types'
 
 describe('relationships experience update', () => {
   let state

@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-import { FORM_CONTROL_STATUS as STATUS } from '../../constants/status_types'
+import { FORM_CONTROL_STATUS as STATUS } from 'ello-brains/constants/status_types'
 import TextControl from '../forms/TextControl'
 import { isValidURL } from '../forms/Validators'
 import { css, disabled, focus, hover, select } from '../../styles/jss'

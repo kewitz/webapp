@@ -2,13 +2,13 @@
 import { actionChannel, fork, put, select, take } from 'redux-saga/effects'
 import { LOCATION_CHANGE } from 'react-router-redux'
 import get from 'lodash/get'
+import * as ACTION_TYPES from 'ello-brains/constants/action_types'
+import { RELATIONSHIP_PRIORITY } from 'ello-brains/constants/relationship_types'
+import { selectPathname } from 'ello-brains/selectors/routing'
+import { selectIsLoggedIn } from 'ello-brains/selectors/authentication'
+import { selectActiveNotificationsType } from 'ello-brains/selectors/gui'
 import { isElloAndroid } from '../lib/jello'
-import * as ACTION_TYPES from '../constants/action_types'
-import { RELATIONSHIP_PRIORITY } from '../constants/relationship_types'
 import { trackEvent as trackEventAction } from '../actions/analytics'
-import { selectIsLoggedIn } from '../selectors/authentication'
-import { selectActiveNotificationsType } from '../selectors/gui'
-import { selectPathname } from '../selectors/routing'
 
 let shouldCallInitialTrackPage = false
 const agent = isElloAndroid() ? 'android' : 'webapp'

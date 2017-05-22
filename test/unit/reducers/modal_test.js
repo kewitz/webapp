@@ -1,8 +1,8 @@
 import Immutable from 'immutable'
 import React from 'react'
 import { LOCATION_CHANGE } from 'react-router-redux'
+import { ALERT, AUTHENTICATION, MODAL, PROFILE } from 'ello-brains/constants/action_types'
 import reducer from '../../../src/reducers/modal'
-import { ALERT, AUTHENTICATION, MODAL, PROFILE } from '../../../src/constants/action_types'
 
 describe('modal reducer', () => {
   const initialState = reducer(undefined, {})

@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import Mousetrap from 'mousetrap'
-import { SHORTCUT_KEYS } from '../constants/application_types'
+import { SHORTCUT_KEYS } from 'ello-brains/constants/application_types'
 import { closeModal, closeAlert } from '../actions/modals'
 import { Modal } from '../components/modals/Modal'
 

@@ -2,7 +2,8 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import debounce from 'lodash/debounce'
-import { FORM_CONTROL_STATUS as STATUS } from '../../constants/status_types'
+import { FORM_CONTROL_STATUS as STATUS } from 'ello-brains/constants/status_types'
+import { selectAvailability } from 'ello-brains/selectors/profile'
 import { checkAvailability, signUpUser } from '../../actions/profile'
 import FormButton from './FormButton'
 import PasswordControl from './PasswordControl'
@@ -13,7 +14,6 @@ import {
   getUsernameStateFromServer,
   getPasswordState,
 } from './Validators'
-import { selectAvailability } from '../../selectors/profile'
 import { signupPath } from '../../networking/api'
 
 function renderStatus(state) {

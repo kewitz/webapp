@@ -1,10 +1,10 @@
-import { stubJSONStore } from '../../support/stubs'
 import {
   selectParamsInvitationCode,
   selectParamsToken,
   selectParamsType,
   selectParamsUsername,
-} from '../../../src/selectors/params'
+} from 'ello-brains/selectors/params'
+import { stubJSONStore } from '../../support/stubs'
 
 
 describe('params selectors', () => {

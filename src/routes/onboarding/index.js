@@ -1,8 +1,8 @@
+import { ONBOARDING_VERSION } from 'ello-brains/constants/application_types'
 import OnboardingCategoriesContainer from '../../containers/OnboardingCategoriesContainer'
 import OnboardingCollaborateContainer from '../../containers/OnboardingCollaborateContainer'
 import OnboardingInvitationsContainer from '../../containers/OnboardingInvitationsContainer'
 import OnboardingSettingsContainer from '../../containers/OnboardingSettingsContainer'
-import { ONBOARDING_VERSION } from '../../constants/application_types'
 
 export default (store) => {
   function onEnter(nextState, replace) {

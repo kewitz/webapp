@@ -1,6 +1,6 @@
 /* eslint-disable max-len */
 import React from 'react'
-import { SHORTCUT_KEYS } from '../../constants/application_types'
+import { SHORTCUT_KEYS } from 'ello-brains/constants/application_types'
 import { DismissButton } from '../../components/buttons/Buttons'
 import { css, media } from '../../styles/jss'
 import * as s from '../../styles/jso'

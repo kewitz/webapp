@@ -2,8 +2,9 @@ import Immutable from 'immutable'
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { getLinkObject } from '../helpers/json_helper'
-import * as MAPPING_TYPES from '../constants/mapping_types'
+import { getLinkObject } from 'ello-brains/helpers/json_helper'
+import { selectJson } from 'ello-brains/selectors/store'
+import * as MAPPING_TYPES from 'ello-brains/constants/mapping_types'
 import {
   CommentNotification,
   CommentMentionNotification,
@@ -22,7 +23,6 @@ import {
   WatchOnOriginalPostNotification,
   WatchOnRepostNotification,
 } from '../components/notifications/NotificationRenderables'
-import { selectJson } from '../selectors/store'
 
 const NOTIFICATION_KIND = {
   COMMENT: 'comment_notification',

@@ -2138,6 +2138,18 @@ elliptic@^6.0.0:
     hash.js "^1.0.0"
     inherits "^2.0.1"
 
+"ello-brains@https://github.com/ello/brains.git":
+  version "1.0.0"
+  resolved "https://github.com/ello/brains.git#7bfc95788b54e9893a93be22c5b9214a241f5061"
+  dependencies:
+    humps "2.0.0"
+    immutable "3.8.1"
+    lodash "4.17.4"
+    react-router-redux "4.0.8"
+    redux-persist "4.7.1"
+    reselect "3.0.0"
+    trunc-html "1.1.2"
+
 emitter-listener@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/emitter-listener/-/emitter-listener-1.0.1.tgz#b2499ea6e58230a52c268d5df261eecd9f10fe97"

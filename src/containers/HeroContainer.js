@@ -5,17 +5,7 @@ import { bindActionCreators } from 'redux'
 import { createSelector } from 'reselect'
 import sample from 'lodash/sample'
 import { connect } from 'react-redux'
-import { DISCOVER, FOLLOWING } from '../constants/locales/en'
-import { USER } from '../constants/action_types'
-import { getLinkObject } from '../helpers/json_helper'
-import { selectIsLoggedIn } from '../selectors/authentication'
-import {
-  selectDPI,
-  selectLastDiscoverBeaconVersion,
-  selectLastFollowingBeaconVersion,
-  selectIsMobile,
-} from '../selectors/gui'
-import { selectViewsAdultContent } from '../selectors/profile'
+import { getLinkObject } from 'ello-brains/helpers/json_helper'
 import {
   selectAuthPromotionals,
   selectCategoryData,
@@ -23,16 +13,26 @@ import {
   selectIsPagePromotion,
   selectLoggedInPagePromotions,
   selectLoggedOutPagePromotions,
-} from '../selectors/promotions'
-import { selectPathname, selectViewNameFromRoute } from '../selectors/routing'
-import { selectJson } from '../selectors/store'
-import { selectStreamType } from '../selectors/stream'
+} from 'ello-brains/selectors/promotions'
+import { selectJson } from 'ello-brains/selectors/store'
+import { DISCOVER, FOLLOWING } from 'ello-brains/constants/locales/en'
+import { USER } from 'ello-brains/constants/action_types'
+import { selectPathname, selectViewNameFromRoute } from 'ello-brains/selectors/routing'
+import { selectIsLoggedIn } from 'ello-brains/selectors/authentication'
+import { selectViewsAdultContent } from 'ello-brains/selectors/profile'
 import {
   selectUserCoverImage,
   selectUserId,
   selectUserPostsAdultContent,
   selectUserUsername,
-} from '../selectors/user'
+} from 'ello-brains/selectors/user'
+import {
+  selectDPI,
+  selectLastDiscoverBeaconVersion,
+  selectLastFollowingBeaconVersion,
+  selectIsMobile,
+} from 'ello-brains/selectors/gui'
+import { selectStreamType } from 'ello-brains/selectors/stream'
 import { trackEvent } from '../actions/analytics'
 import {
   setLastDiscoverBeaconVersion,

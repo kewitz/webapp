@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import { connect } from 'react-redux'
-import { selectDeviceSize } from '../../selectors/gui'
+import { selectDeviceSize } from 'ello-brains/selectors/gui'
 import {
   ArrowIcon,
   BrowseIcon,

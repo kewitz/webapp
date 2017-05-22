@@ -4,12 +4,9 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import get from 'lodash/get'
-import { selectIsLoggedIn } from '../selectors/authentication'
-import { selectBadgesHasLoaded } from '../selectors/badges'
-import { selectIsMobile } from '../selectors/gui'
-import { selectInvitationAcceptedAt, selectInvitationEmail } from '../selectors/invitations'
-import { selectViewsAdultContent } from '../selectors/profile'
-import { selectIsPostDetail } from '../selectors/routing'
+import { selectIsPostDetail } from 'ello-brains/selectors/routing'
+import { selectIsLoggedIn } from 'ello-brains/selectors/authentication'
+import { selectViewsAdultContent } from 'ello-brains/selectors/profile'
 import {
   selectUser,
   selectUserAvatar,
@@ -36,7 +33,13 @@ import {
   selectUserTotalViewsCount,
   selectUserTruncatedShortBio,
   selectUserUsername,
-} from '../selectors/user'
+} from 'ello-brains/selectors/user'
+import { selectBadgesHasLoaded } from 'ello-brains/selectors/badges'
+import {
+  selectInvitationAcceptedAt,
+  selectInvitationEmail,
+} from 'ello-brains/selectors/invitations'
+import { selectIsMobile } from 'ello-brains/selectors/gui'
 import {
   UserCompact,
   UserInvitee,
