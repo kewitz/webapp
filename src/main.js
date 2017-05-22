@@ -1,5 +1,8 @@
+/* eslint-disable import/first */
 import 'babel-polyfill'
 import 'isomorphic-fetch'
+// This needs to be imported before everything else to work properly
+import './vendor/glamor-pxtorem'
 
 import React from 'react'
 import ReactDOM from 'react-dom'
@@ -12,7 +15,6 @@ import immutableTransform from 'redux-persist-transform-immutable'
 import { syncHistoryWithStore } from 'react-router-redux'
 import store from './store'
 
-import './vendor/glamor-pxtorem'
 import './main.css'
 import { addFeatureDetection, isIOS } from './lib/jello'
 import MemoryStore from './lib/memory_store'
