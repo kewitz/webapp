@@ -2138,7 +2138,7 @@ elliptic@^6.0.0:
     hash.js "^1.0.0"
     inherits "^2.0.1"
 
-"ello-brains@https://github.com/ello/brains.git":
+"ello-brains@https://github.com/ello/brains.git#794028d26cb743d3a9ba55b97992088d63a2832b":
   version "1.0.0"
   resolved "https://github.com/ello/brains.git#794028d26cb743d3a9ba55b97992088d63a2832b"
   dependencies:
