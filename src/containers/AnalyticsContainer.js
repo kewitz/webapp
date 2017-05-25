@@ -76,7 +76,7 @@ class AnalyticsContainer extends Component {
     if (this.hasLoadedTracking) { return }
     if (!isLoggedIn && doesAllowTracking()) {
       this.hasLoadedTracking = true
-      addSegment()
+      addSegment({})
     } else if (analyticsId && allowsAnalytics) {
       this.hasLoadedTracking = true
       addSegment({ createdAt, hasAccount: isLoggedIn, isFeatured, isNabaroo, uid: analyticsId })
