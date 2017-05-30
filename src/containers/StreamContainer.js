@@ -19,9 +19,9 @@ import {
   selectStreamFilteredResult,
   selectStreamResultPath,
 } from 'ello-brains/selectors/stream'
+import { setNotificationScrollY } from 'ello-brains/actions/gui'
+import { getQueryParamValue } from 'ello-brains/helpers/uri_helper'
 import { runningFetches, runningServerFetches } from '../sagas/requester'
-import { setNotificationScrollY } from '../actions/gui'
-import { getQueryParamValue } from '../helpers/uri_helper'
 import {
   addScrollObject,
   addScrollTarget,

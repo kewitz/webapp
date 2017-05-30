@@ -7,9 +7,9 @@ import * as ACTION_TYPES from 'ello-brains/constants/action_types'
 import { selectPathname } from 'ello-brains/selectors/routing'
 import { selectRefreshToken } from 'ello-brains/selectors/authentication'
 import { selectLastNotificationCheck } from 'ello-brains/selectors/gui'
-import { clearAuthToken, refreshAuthenticationToken } from '../actions/authentication'
+import { clearAuthToken, refreshAuthenticationToken } from 'ello-brains/actions/authentication'
+import { openAlert } from 'ello-brains/actions/modals'
 import { extractJSON, fetchCredentials, getHeaders, getHeadHeader, sagaFetch } from './api'
-import { openAlert } from '../actions/modals'
 import Dialog from '../components/dialogs/Dialog'
 
 export const requestTypes = [

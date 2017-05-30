@@ -9,7 +9,7 @@ import {
   selectShouldUseAccessToken,
   selectShouldUseRefreshToken,
 } from 'ello-brains/selectors/authentication'
-import { refreshAuthenticationToken } from '../actions/authentication'
+import { refreshAuthenticationToken } from 'ello-brains/actions/authentication'
 
 export function getHeaders(accessToken) {
   return {
