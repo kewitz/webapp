@@ -13,6 +13,8 @@ const postcssPxToRem = require('postcss-pxtorem')
 const postcssReporter = require('postcss-reporter')
 const postcssUrl = require('postcss-url')
 const pkg = require('./package.json')
+const fs = require('fs')
+
 // load env vars first
 require('dotenv').load({ silent: process.env.NODE_ENV === 'production' })
 
@@ -52,6 +54,13 @@ module.exports = {
       },
     }),
     new webpack.optimize.OccurenceOrderPlugin(true),
+    function() {
+      this.plugin("done", (stats) => {
+        fs.writeFileSync(
+          path.join(__dirname, "webpack-stats/prod.json"),
+          JSON.stringify(stats.toJson()))
+      })
+    }
   ],
   module: {
     loaders: [

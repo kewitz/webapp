@@ -8,5 +8,4 @@ coverage
 dist/
 .tern-port
 public/static/emojis.json
-stats.json
-web-stats.json
+webpack-stats/*.json

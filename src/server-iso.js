@@ -70,7 +70,7 @@ librato.on('error', (err) => {
 app.use(helmet())
 
 const indexStr = fs.readFileSync(path.join(__dirname, '../public/index.html'), 'utf-8')
-const stats = JSON.parse(fs.readFileSync(path.join(__dirname, '../stats.json'), 'utf-8'))
+const stats = JSON.parse(fs.readFileSync(path.join(__dirname, '../webpack-stats/server.json'), 'utf-8'))
 
 // Wire up OAuth route
 addOauthRoute(app)
