@@ -1,9 +1,13 @@
+import Immutable from 'immutable'
 import React from 'react'
 import CategoryContainer from '../../containers/CategoryContainer'
 import CommentContainer from '../../containers/CommentContainer'
 import NotificationContainer from '../../containers/NotificationContainer'
 import PostContainer from '../../containers/PostContainer'
+import CuratedPostContainer from '../../containers/CuratedPostContainer'
 import UserContainer from '../../containers/UserContainer'
+import { EditorialCarousel } from '../../components/carousels/CarouselRenderables'
+import EditorialLayout from '../../components/editorials/EditorialLayout'
 import Preference from '../../components/forms/Preference'
 import TreeButton from '../../components/navigation/TreeButton'
 import TreePanel from '../../components/navigation/TreePanel'
@@ -47,6 +51,30 @@ export const commentsAsList = commentIds =>
     )}
   </div>
 
+// EDITORIAL: chunk layouts into pages of 24 editorials
+export const editorials = editorialIds => (
+  Immutable.Range(0, editorialIds.size - 1, 24)
+    .map(chunkStart => editorialIds.slice(chunkStart, chunkStart + 24))
+    .map(pageIds => <EditorialLayout key={pageIds} ids={pageIds} />)
+)
+
+export const postsAsCuratedEditorial = (postIds, columnCount, isPostHeaderHidden, renderProps) => (
+  <EditorialCarousel
+    isContinuous
+    limit={(postIds.size || 0)}
+    maxTicks={(postIds.size || 0) * 5}
+    timerDuration={5000}
+    timerRange={1000}
+  >
+    {postIds.map(id =>
+      <CuratedPostContainer
+        key={`curatedEditorial_post_${id}`}
+        postId={id}
+        {...renderProps}
+      />,
+    )}
+  </EditorialCarousel>
+)
 
 // POSTS
 export const postsAsGrid = (postIds, columnCount, isPostHeaderHidden) => {

@@ -15,6 +15,12 @@ function getAPIPath(relPath, queryParams = {}) {
   }
   return path
 }
+// Editorials
+export function editorials(isPreview) {
+  return {
+    path: getAPIPath('editorials', isPreview ? { preview: true } : {}),
+  }
+}
 // Announcements
 export function announcements() {
   return {

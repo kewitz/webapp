@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
@@ -44,6 +45,7 @@ const baseStyle = css(
   before(s.absolute, s.flood, s.zIndex1, s.bgcTransparent, s.transitionBgColor, { content: '""' }),
   modifier('.hasOverlay3', before({ backgroundColor: 'rgba(0, 0, 0, 0.3)' })),
   modifier('.hasOverlay4', before({ backgroundColor: 'rgba(0, 0, 0, 0.4)' })),
+  modifier('.hasOverlay5', before({ backgroundColor: 'rgba(0, 0, 0, 0.5)' })),
   modifier('.hasOverlay6', before({ backgroundColor: 'rgba(0, 0, 0, 0.6)' })),
   select('.no-touch &.isLink:hover::before', { backgroundColor: 'rgba(0, 0, 0, 0.4)' }),
   media(s.maxBreak2, modifier('.inHeroProfile', { height: 220 })),
@@ -53,11 +55,13 @@ const baseStyle = css(
 export default class BackgroundImage extends PureComponent {
   static propTypes = {
     className: PropTypes.string,
+    onClick: PropTypes.func,
     to: PropTypes.string,
   }
 
   static defaultProps = {
     className: null,
+    onClick: null,
     to: null,
   }
 
@@ -86,7 +90,7 @@ export default class BackgroundImage extends PureComponent {
   }
 
   render() {
-    const { className, to } = this.props
+    const { className, onClick, to } = this.props
     const { status } = this.state
     const classList = classNames(`BackgroundImage ${baseStyle}`, status, className)
     const imageAssetProps = {
@@ -96,10 +100,10 @@ export default class BackgroundImage extends PureComponent {
       src: getSource(this.props),
     }
     return to ?
-      <Link className={classNames(classList, 'isLink')} to={to}>
+      <Link className={classNames(classList, 'isLink')} onClick={onClick} to={to}>
         <ImageAsset {...imageAssetProps} />
       </Link> :
-      <div className={classList}>
+      <div className={classList} onClick={onClick}>
         <ImageAsset {...imageAssetProps} />
       </div>
   }

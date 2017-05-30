@@ -78,13 +78,13 @@ describe('isomorphically rendering on the server', () => {
   // - Manually edit the responses to redact any sensitive data such as client_id,
   //   client_secret, and access tokens before committing
   describe('prerendering content', () => {
-    it('isomorphically renders the homepage', (done) => {
+    it('isomorphically renders the discover page', (done) => {
       currentToken().then((token) => {
         const renderOpts = {
           accessToken: token.token.access_token,
           expiresAt: token.token.expires_at,
-          originalUrl: '/',
-          url: '/',
+          originalUrl: '/discover',
+          url: '/discover',
           timingHeader: '',
           requestId: '1' }
         prerender(renderOpts).then((result) => {
@@ -386,6 +386,42 @@ describe('isomorphically rendering on the server', () => {
           expect(result.streamId).to.equal('9')
           const document = jsdom.jsdom(result.body)
           expect(document.querySelectorAll('main.UserDetail')).to.have.lengthOf(1)
+          done()
+        }).catch(done)
+      })
+    }).timeout(15000)
+
+    it('isomorphically renders a editorial page (/)', (done) => {
+      currentToken().then((token) => {
+        const renderOpts = {
+          accessToken: token.token.access_token,
+          expiresAt: token.token.expires_at,
+          originalUrl: '/',
+          url: '/',
+          timingHeader: '',
+          requestId: '1' }
+        prerender(renderOpts).then((result) => {
+          expect(result.type).to.equal('render')
+          expect(result.postIds).to.eql([
+            '95',
+            '93',
+            '92',
+            '85',
+            '66',
+            '65',
+            '64',
+            '63',
+            '56',
+            '61',
+            '51',
+            '42',
+            '48',
+          ])
+          expect(result.postTokens).to.eql([])
+          expect(result.streamKind).to.equal('editorial')
+          expect(result.streamId).to.equal(null)
+          const document = jsdom.jsdom(result.body)
+          expect(document.querySelectorAll('main.Editorial')).to.have.lengthOf(1)
           done()
         }).catch(done)
       })

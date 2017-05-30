@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { replace } from 'react-router-redux'
 import { createSelector } from 'reselect'
-import classNames from 'classnames'
 import { RELATIONSHIP_PRIORITY } from 'ello-brains/constants/relationship_types'
 import { selectPathname, selectPreviousPath } from 'ello-brains/selectors/routing'
 import { selectIsLoggedIn } from 'ello-brains/selectors/authentication'
@@ -19,6 +18,7 @@ import { flagUser } from '../actions/user'
 import BlockMuteDialog from '../components/dialogs/BlockMuteDialog'
 import FlagDialog from '../components/dialogs/FlagDialog'
 import BlockMuteButton from '../components/relationships/BlockMuteButton'
+import Relationship from '../components/relationships/Relationship'
 import FollowButton from '../components/relationships/FollowButton'
 
 const selectRelationshipPriority = (state, props) => props.relationshipPriority
@@ -175,8 +175,8 @@ class RelationshipContainer extends PureComponent {
     const { className, id, relationshipPriority } = this.props
     const { onClickCallback, shouldRenderBlockMute } = this.props
     return (
-      <div
-        className={classNames('RelationshipContainer', className)}
+      <Relationship
+        className={className}
         data-priority={relationshipPriority}
       >
         {shouldRenderBlockMute &&
@@ -195,7 +195,7 @@ class RelationshipContainer extends PureComponent {
             userId={id}
           />
         }
-      </div>
+      </Relationship>
     )
   }
 }

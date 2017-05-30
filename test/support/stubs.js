@@ -91,6 +91,63 @@ export function stubAnnouncementNotification(properties = {}, shouldAdd = true) 
   return model
 }
 
+export function stubEditorial(kind, properties, shouldAdd = true) {
+  const stubImageSet = (prefix, size) => {
+    const set = {};
+    ['hdpi', 'xhdpi', 'optimized', 'original'].forEach((dpi) => {
+      set[dpi] = { url: `${prefix}-${size}-${dpi}.jpg` }
+    })
+    return set
+  }
+
+  const defaultProps = () => {
+    switch (kind) {
+      case 'post_stream': {
+        return {
+          id: 'editorialCuratedId',
+          kind: 'post_stream',
+          links: { postStream: { href: '/postStream/href' } },
+          title: 'Editorial PostStream Title',
+          oneByOneImage: stubImageSet('post_stream', '1x1'),
+          oneByTwoImage: stubImageSet('post_stream', '1x2'),
+          twoByOneImage: stubImageSet('post_stream', '2x1'),
+          twoByTwoImage: stubImageSet('post_stream', '2x2'),
+        }
+      }
+      case 'external': {
+        return {
+          id: 'editorialExternalId',
+          kind: 'external',
+          subtitle: 'Editorial External Subtitle',
+          title: 'Editorial External Title',
+          url: '/external/url',
+          oneByOneImage: stubImageSet('external', '1x1'),
+          oneByTwoImage: stubImageSet('external', '1x2'),
+          twoByOneImage: stubImageSet('external', '2x1'),
+          twoByTwoImage: stubImageSet('external', '2x2'),
+        }
+      }
+      case 'post':
+      default: {
+        return {
+          id: 'editorialPostId',
+          kind: 'post',
+          links: { post: { href: '/api/v2/posts/1', id: '1', type: 'posts' } },
+          subtitle: 'Editorial Post Subtitle',
+          title: 'Editorial Post Title',
+          oneByOneImage: stubImageSet('post', '1x1'),
+          oneByTwoImage: stubImageSet('post', '1x2'),
+          twoByOneImage: stubImageSet('post', '2x1'),
+          twoByTwoImage: stubImageSet('post', '2x2'),
+        }
+      }
+    }
+  }
+  const model = Immutable.fromJS({ ...defaultProps(), ...properties })
+  if (shouldAdd) { addToJSON(MAPPING_TYPES.EDITORIALS, model) }
+  return model
+}
+
 function stubUser(properties, shouldAdd = true) {
   const defaultProps = {
     avatar: stubAvatar(),

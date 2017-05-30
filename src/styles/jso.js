@@ -73,8 +73,10 @@ export const zIndex0 = { zIndex: 0 }
 export const zIndex1 = { zIndex: 1 }
 export const zIndex2 = { zIndex: 2 }
 export const zIndex3 = { zIndex: 3 }
+export const zIndex4 = { zIndex: 4 }
 export const zFooter = { zIndex: 1030 }
 export const zDecapitated = { zIndex: 1035 }
+export const zNavbar = { zIndex: 1040 }
 export const zTools = { zIndex: 1070 }
 export const zModal = { zIndex: 1080 }
 export const zGrid = { zIndex: 3000 }
@@ -90,6 +92,7 @@ export const hidden = { visibility: 'hidden' }
 export const overflowVisible = { overflow: 'visible' }
 export const overflowHidden = { overflow: 'hidden' }
 export const overflowScroll = { overflow: 'scroll' }
+export const overflowScrollWebX = { WebkitOverflowScrolling: 'touch', overflowX: 'auto', overflowY: 'hidden' }
 export const overflowScrollWebY = { WebkitOverflowScrolling: 'touch', overflowX: 'hidden', overflowY: 'auto' }
 
 // -------------------------------------
@@ -98,14 +101,17 @@ export const fit = { maxWidth: '100%' }
 export const fullWidth = { width: '100%' }
 export const fullHeight = { height: '100%' }
 
+export const wv20 = { width: 20 }
 export const wv30 = { width: 30 }
 export const wv40 = { width: 40 }
 export const wv60 = { width: 60 }
 
+export const hv20 = { height: 20 }
 export const hv30 = { height: 30 }
 export const hv40 = { height: 40 }
 export const hv60 = { height: 60 }
 
+export const lh20 = { lineHeight: 20 }
 export const lh30 = { lineHeight: 30 }
 export const lh40 = { lineHeight: 40 }
 export const lh60 = { lineHeight: 60 }
@@ -125,6 +131,14 @@ export const pb0 = { paddingBottom: 0 }
 export const pl0 = { paddingLeft: 0 }
 export const px0 = { ...pr0, ...pl0 }
 export const py0 = { ...pt0, ...pb0 }
+
+export const p5 = { padding: 5 }
+export const pt5 = { paddingTop: 5 }
+export const pr5 = { paddingRight: 5 }
+export const pb5 = { paddingBottom: 5 }
+export const pl5 = { paddingLeft: 5 }
+export const px5 = { ...pr5, ...pl5 }
+export const py5 = { ...pt5, ...pb5 }
 
 export const p10 = { padding: 10 }
 export const pt10 = { paddingTop: 10 }
@@ -216,7 +230,9 @@ export const mx40 = { ...mr40, ...ml40 }
 export const my40 = { ...mt40, ...mb40 }
 
 export const mAuto = { margin: 'auto' }
+export const mtAuto = { marginTop: 'auto' }
 export const mrAuto = { marginRight: 'auto' }
+export const mbAuto = { marginBottom: 'auto' }
 export const mlAuto = { marginLeft: 'auto' }
 export const mxAuto = { ...mrAuto, ...mlAuto }
 
@@ -271,6 +287,7 @@ export const fontSize16 = { fontSize: 16 }
 export const fontSize18 = { fontSize: 18 }
 export const fontSize24 = { fontSize: 24 }
 export const fontSize28 = { fontSize: 28 }
+export const fontSize32 = { fontSize: 32 }
 export const fontSize48 = { fontSize: 48 }
 
 export const leftAlign = { textAlign: 'left' }
@@ -295,6 +312,7 @@ export const colorA = { color: '#aaa' }
 export const colorC = { color: '#ccc' }
 export const colorWhite = { color: '#fff' }
 
+export const bgcCurrentColor = { backgroundColor: 'currentColor' }
 export const bgcTransparent = { backgroundColor: 'transparent' }
 export const bgcBlack = { backgroundColor: '#000' }
 export const bgc4 = { backgroundColor: '#4d4d4d' }
@@ -306,12 +324,14 @@ export const bgcE5 = { backgroundColor: '#e5e5e5' }
 export const bgcWhite = { backgroundColor: '#fff' }
 export const bgcGreen = { backgroundColor: '#00d100' }
 export const bgcRed = { backgroundColor: '#f00' }
+export const bgcYellow = { backgroundColor: '#ffc' }
 
 export const opacity0 = { opacity: 0 }
 export const opacity1 = { opacity: 1 }
 
 // -------------------------------------
 // Borders & strokes
+export const borderSolid = { border: '1px solid' }
 export const borderTop = { borderTop: '1px solid' }
 export const borderBottom = { borderBottom: '1px solid' }
 export const borderBlack = { border: '1px solid #000' }
@@ -323,11 +343,13 @@ export const borderA = { border: '1px solid #aaa' }
 // Transforms
 export const transformNone = { transform: 'none' }
 export const rotate90 = { transform: 'rotate(90deg)' }
+export const rotate180 = { transform: 'rotate(180deg)' }
 
 // -------------------------------------
 // Transitions & animations
 
 export const transitionBgColor = { transition: 'background-color 0.2s ease' }
+export const transitionBgColorSlow = { transition: 'background-color 0.4s ease' }
 export const transitionColor = { transition: 'color 0.2s ease' }
 export const transitionOpacity = { transition: 'opacity 0.2s ease' }
 export const transitionTransform = { transition: `transform 0.2s ${ease}` }
