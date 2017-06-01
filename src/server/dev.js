@@ -1,14 +1,16 @@
 import path from 'path'
 import express from 'express'
 import webpack from 'webpack'
-import config from './webpack.dev.config'
-import { addOauthRoute, fetchOauthToken } from './oauth'
-import { updateStrings as updateTimeAgoStrings } from './src/lib/time_ago_in_words'
+import webpackDevMiddleware from 'webpack-dev-middleware' // eslint-disable-line import/no-extraneous-dependencies
+import webpackHotMiddleware from 'webpack-hot-middleware' // eslint-disable-line import/no-extraneous-dependencies
 import httpProxy from 'http-proxy'
+import config from './../../webpack.dev.config'
+import { addOauthRoute, fetchOauthToken } from './oauth'
+import { updateStrings as updateTimeAgoStrings } from './../lib/time_ago_in_words'
 
 // load env vars first
 require('dotenv').load({ silent: process.env.NODE_ENV === 'production' })
-global.ENV = require('./env')
+global.ENV = require('./../../env')
 
 const app = express()
 const compiler = webpack(config)
@@ -21,27 +23,27 @@ updateTimeAgoStrings({ about: '' })
 addOauthRoute(app)
 
 // Development Middleware
-app.use(require('webpack-dev-middleware')(compiler, {
+app.use(webpackDevMiddleware(compiler, {
   noInfo: true,
   publicPath: config.output.publicPath,
 }))
-app.use(require('webpack-hot-middleware')(compiler))
+app.use(webpackHotMiddleware(compiler))
 
 // Assets
 app.use(express.static('public'))
 app.use('/static', express.static('public/static'))
 
 // API Proxy
-app.use('/api/', (req, res, next) => {
+app.use('/api/', (req, res) => {
   // include root path in proxied request
-  req.url = '/api/' + req.url
+  req.url = `/api/${req.url}`
   proxy.web(req, res, {})
 })
 
 
 // Main entry for app
 app.get('/*', (req, res) => {
-  res.sendFile(path.join(__dirname, './public/dev.html'))
+  res.sendFile(path.join(__dirname, './../../public/dev.html'))
 })
 
 

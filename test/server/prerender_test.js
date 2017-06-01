@@ -3,9 +3,9 @@ import Helmet from 'react-helmet'
 import Retell from 'retell'
 import jsdom from 'jsdom'
 import path from 'path'
-import prerender from '../../src/prerender'
-import { canPrerenderRequest } from '../../src/server-iso'
-import { currentToken } from '../../oauth'
+import prerender from '../../src/server/prerender'
+import { canPrerenderRequest } from './../../src/server/iso'
+import { currentToken } from '../../src/server/oauth'
 
 Retell.fixtures = path.join(__dirname, '../support/fixtures/retell')
 Retell.headers = [/^accept/, /^content-type/, /^host/, /^if-/]

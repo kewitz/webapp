@@ -15,9 +15,9 @@ import memjs from 'memjs'
 import kue from 'kue'
 import crypto from 'crypto'
 import httpProxy from 'http-proxy'
-import { updateStrings as updateTimeAgoStrings } from './lib/time_ago_in_words'
-import { addOauthRoute, currentToken } from '../oauth'
-import { trackPostViews as trackPostViewsPath } from './networking/api'
+import { updateStrings as updateTimeAgoStrings } from './../lib/time_ago_in_words'
+import { addOauthRoute, currentToken } from './oauth'
+import { trackPostViews as trackPostViewsPath } from './../networking/api'
 
 function handleZlibError(error) {
   if (error.code === 'Z_BUF_ERROR') {
@@ -31,7 +31,7 @@ process.on('uncaughtException', handleZlibError)
 
 // load env vars first
 require('dotenv').load({ silent: process.env.NODE_ENV === 'production' })
-global.ENV = require('../env')
+global.ENV = require('./../../env')
 
 updateTimeAgoStrings({ about: '' })
 
@@ -76,8 +76,8 @@ librato.on('error', (err) => {
 // Use Helmet to lock things down
 app.use(helmet())
 
-const indexStr = fs.readFileSync(path.join(__dirname, '../public/index.html'), 'utf-8')
-const stats = JSON.parse(fs.readFileSync(path.join(__dirname, '../webpack-stats/server.json'), 'utf-8'))
+const indexStr = fs.readFileSync(path.join(__dirname, './../../public/index.html'), 'utf-8')
+const stats = JSON.parse(fs.readFileSync(path.join(__dirname, './../../webpack-stats/server.json'), 'utf-8'))
 
 // Wire up OAuth route
 addOauthRoute(app)
