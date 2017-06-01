@@ -2,6 +2,7 @@ import Immutable from 'immutable'
 import { UPDATE_STATE_FROM_NATIVE } from 'ello-brains/constants/action_types'
 import store from '../store'
 import { isElloAndroid } from './jello'
+import { trackEvent } from '../actions/analytics'
 import { requestPushSubscription } from '../actions/profile'
 
 const getJSState = () => {
@@ -43,6 +44,9 @@ export const exposeAndroidMethods = (dispatch) => {
       const immutableState = {}
       Object.keys(state).forEach(key => (immutableState[key] = Immutable.fromJS(state[key])))
       dispatch({ type: UPDATE_STATE_FROM_NATIVE, payload: immutableState })
+    }
+    window.trackAndroidEvent = (name, options) => {
+      dispatch(trackEvent(name, options))
     }
   }
 }
