@@ -11,9 +11,11 @@ import { rehydrate } from 'glamor'
 import * as reducers from './reducers'
 import rootSaga from './sagas'
 
-const reducer = combineReducers({
-  ...reducers,
-})
+const reducer = combineReducers({ ...reducers })
+
+// Always take the reducedState from rehydrate since the inboundState
+// seems to be a subset of what is actually returned from the rehydrate action
+const stateReconciler = (state, inboundState, reducedState) => ({ ...reducedState })
 
 const createBrowserStore = (history, passedInitialState = {}) => {
   const logConfig = {
@@ -50,7 +52,7 @@ const createBrowserStore = (history, passedInitialState = {}) => {
   if (window.__GLAM__) { rehydrate(window.__GLAM__) }
 
   const store = compose(
-    autoRehydrate(),
+    autoRehydrate({ stateReconciler }),
     applyMiddleware(
       sagaMiddleware,
       reduxRouterMiddleware,
