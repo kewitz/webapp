@@ -310,7 +310,7 @@ class PostContainer extends Component {
   onClickSharePost = () => {
     const { post, author } = this.props
     const { openShareDialog } = this.context
-    openShareDialog({ post, author })
+    openShareDialog({ post, postAuthor: author })
   }
 
   onClickToggleComments = () => {
