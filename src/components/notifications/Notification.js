@@ -69,7 +69,7 @@ const hideMarkdownImageStyle = select('& > .TextRegion img:not(.emoji)', s.displ
 const Body = ({ children, summary }) => (
   <div className={bodyStyle}>
     {children}
-    {summary && summary.texts && summary.texts.length &&
+    {summary && summary.texts && summary.texts.length > 0 &&
       <div className={hideMarkdownImageStyle}>
         {summary.texts}
       </div>
@@ -126,13 +126,13 @@ export const Notification = ({
   notifier,
   summary,
   }) => {
-  const hasAsset = summary && summary.assets && summary.assets.length
+  const hasAsset = summary && summary.assets && summary.assets.length > 0
   return (
     <div className={classNames(`Notification ${notificationStyle}`, className, { hasAsset })}>
       { notifier &&
         <Header notifier={notifier} />
       }
-      {summary && summary.assets && summary.assets.length &&
+      {summary && summary.assets && summary.assets.length > 0 &&
         <Asset summaryAsset={summary.assets[0]} />
       }
       { children &&
