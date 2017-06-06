@@ -26,8 +26,8 @@ module.exports = {
     main: './src/main',
   },
   output: {
-    filename: '[name]-[hash].entry.js',
-    chunkFilename: '[id]-[chunkhash].chunk.js',
+    filename: '[name].entry.js',
+    chunkFilename: '[id].chunk.js',
     hash: true,
     path: path.join(__dirname, 'public/static'),
     publicPath: `${(process.env.CDN || '')}/static/`,
