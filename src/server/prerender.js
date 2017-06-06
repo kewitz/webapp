@@ -14,13 +14,13 @@ import { syncHistoryWithStore } from 'react-router-redux'
 import { Provider } from 'react-redux'
 import { selectViewNameFromRoute } from 'ello-brains/selectors/routing'
 import { EDITORIALS, POSTS } from 'ello-brains/constants/mapping_types'
-import './vendor/glamor-pxtorem'
-import { createServerStore } from './store'
-import createRoutes from './routes'
-import { serverRoot } from './sagas'
-import { runningServerFetches } from './sagas/requester'
+import './../vendor/glamor-pxtorem'
+import { createServerStore } from './../store'
+import createRoutes from './../routes'
+import { serverRoot } from './../sagas'
+import { runningServerFetches } from './../sagas/requester'
 
-const indexStr = fs.readFileSync(path.join(__dirname, '../public/index.html'), 'utf-8')
+const indexStr = fs.readFileSync(path.join(__dirname, './../../public/index.html'), 'utf-8')
 
 // Return promises for initial loads
 function preRenderComponents(renderProps, store, sagaTask, startTime, requestId) {

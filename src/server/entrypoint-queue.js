@@ -2,8 +2,8 @@ import kue from 'kue'
 import cluster from 'cluster'
 import librato from 'librato-node'
 import Honeybadger from 'honeybadger'
-import { updateStrings as updateTimeAgoStrings } from './src/lib/time_ago_in_words'
 import cp from 'child_process'
+import { updateStrings as updateTimeAgoStrings } from './../lib/time_ago_in_words'
 
 updateTimeAgoStrings({ about: '' })
 
@@ -21,7 +21,7 @@ queue.watchStuckJobs()
 librato.configure({
   email: process.env.LIBRATO_EMAIL,
   token: process.env.LIBRATO_TOKEN,
-  source: process.env.DYNO
+  source: process.env.DYNO,
 })
 librato.start()
 librato.on('error', (err) => {
