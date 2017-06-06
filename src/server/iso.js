@@ -14,9 +14,10 @@ import fs from 'fs'
 import memjs from 'memjs'
 import kue from 'kue'
 import crypto from 'crypto'
-import { updateStrings as updateTimeAgoStrings } from './lib/time_ago_in_words'
-import { addOauthRoute, currentToken } from '../oauth'
-import { trackPostViews as trackPostViewsPath } from './networking/api'
+import httpProxy from 'http-proxy'
+import { updateStrings as updateTimeAgoStrings } from './../lib/time_ago_in_words'
+import { addOauthRoute, currentToken } from './oauth'
+import { trackPostViews as trackPostViewsPath } from './../networking/api'
 
 function handleZlibError(error) {
   if (error.code === 'Z_BUF_ERROR') {
@@ -30,7 +31,7 @@ process.on('uncaughtException', handleZlibError)
 
 // load env vars first
 require('dotenv').load({ silent: process.env.NODE_ENV === 'production' })
-global.ENV = require('../env')
+global.ENV = require('./../../env')
 
 updateTimeAgoStrings({ about: '' })
 
@@ -39,6 +40,12 @@ const preRenderTimeout = (parseInt(process.env.PRERENDER_TIMEOUT, 10) || 15) * 1
 const memcacheDefaultTTL = (parseInt(process.env.MEMCACHE_DEFAULT_TTL, 10) || 300)
 const memcacheClient = memjs.Client.create(null, { expires: memcacheDefaultTTL })
 const queue = kue.createQueue({ redis: process.env[process.env.REDIS_PROVIDER] })
+
+// Set up CORS proxy
+const proxy = httpProxy.createProxyServer({
+  target: process.env.AUTH_DOMAIN,
+  changeOrigin: true,
+})
 
 // Honeybadger "before everything" middleware
 app.use(Honeybadger.requestHandler);
@@ -69,8 +76,8 @@ librato.on('error', (err) => {
 // Use Helmet to lock things down
 app.use(helmet())
 
-const indexStr = fs.readFileSync(path.join(__dirname, '../public/index.html'), 'utf-8')
-const stats = JSON.parse(fs.readFileSync(path.join(__dirname, '../webpack-stats/server.json'), 'utf-8'))
+const indexStr = fs.readFileSync(path.join(__dirname, './../../public/index.html'), 'utf-8')
+const stats = JSON.parse(fs.readFileSync(path.join(__dirname, './../../webpack-stats/server.json'), 'utf-8'))
 
 // Wire up OAuth route
 addOauthRoute(app)
@@ -78,6 +85,15 @@ addOauthRoute(app)
 // Assets
 app.use(express.static('public', { index: false, redirect: false }))
 app.use('/static', express.static('public/static', { maxAge: '1y', index: false, redirect: false, fallthrough: false }))
+
+// API Proxy for local ISO testing
+if (process.env.API_DOMAIN) {
+  app.use('/api/', (req, res) => {
+    // include root path in proxied request
+    req.url = `/api/${req.url}`
+    proxy.web(req, res, {})
+  })
+}
 
 function saveResponseToCache(cacheKey, body, postIds, postTokens, streamKind, streamId) {
   const cacheBody = JSON.stringify({ body, postIds, postTokens, streamKind, streamId })

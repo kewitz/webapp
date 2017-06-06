@@ -1,8 +1,7 @@
-import app from './src/server-iso'
+import app from './iso'
 import { fetchOauthToken } from './oauth'
 
 const port = process.env.PORT || 6660
-const workers = process.env.WEB_CONCURRENCY || 1;
 const backlog = process.env.BACKLOG || 511
 
 const start = (workerId) => {
@@ -11,7 +10,7 @@ const start = (workerId) => {
       console.log('Listen error', err)
       return
     }
-    console.log('Worker ' + workerId + ' listening at http://localhost:' + port)
+    console.log(`Worker ${workerId}  listening at http://localhost:${port}`)
   })
 
   process.on('SIGINT', () => {
