@@ -24,7 +24,7 @@ import {
   processImage,
   SUPPORTED_IMAGE_TYPES,
 } from 'ello-brains/helpers/file_helper'
-import { fetchCredentials, getHeaders, sagaFetch } from './api'
+import { fetchCredentials, getHeaders, sagaFetch } from 'ello-brains/sagas/api'
 import DialogContainer from '../containers/DialogContainer'
 
 const uploadTypes = [
