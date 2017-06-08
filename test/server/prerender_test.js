@@ -418,7 +418,7 @@ describe('isomorphically rendering on the server', () => {
             '48',
           ])
           expect(result.postTokens).to.eql([])
-          expect(result.streamKind).to.equal('editorial')
+          expect(result.streamKind).to.equal('editorials')
           expect(result.streamId).to.equal(null)
           const document = jsdom.jsdom(result.body)
           expect(document.querySelectorAll('main.Editorial')).to.have.lengthOf(1)

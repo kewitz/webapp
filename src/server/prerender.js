@@ -60,7 +60,7 @@ function getPostTrackingMetadata(url, state, renderProps) {
 
   switch (selectViewNameFromRoute(state, renderProps)) {
     case 'editorial':
-      streamKind = 'editorial'
+      streamKind = 'editorials'
       break
     case 'search':
       streamKind = 'search'
