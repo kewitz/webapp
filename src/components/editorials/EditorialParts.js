@@ -107,6 +107,7 @@ EditorialTools.contextTypes = {
 const titleStyle = css(
   s.colorWhite,
   s.fontSize32,
+  s.sansBold,
   { lineHeight: 38 },
   media(s.minBreak2, { fontSize: 38, lineHeight: 42 }),
 )

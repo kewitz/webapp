@@ -1,135 +1,72 @@
-// @flow
-import React, { Component } from 'react'
-import TWEEN from 'tween.js'
-import { scrollToPosition } from '../../lib/jello'
-import CycleContainer from '../../containers/CycleContainer'
-import TimerContainer from '../../containers/TimerContainer'
-import { addScrollTarget, removeScrollTarget } from '../viewport/ScrollComponent'
-import { Carousel, NextPaddle, PrevPaddle } from './CarouselParts'
-import { css, media } from '../../styles/jss'
+import React, { PureComponent } from 'react'
+import Slider from 'react-slick'
+import { NextPaddle, PrevPaddle } from './CarouselParts'
+import CuratedPostContainer from '../../containers/CuratedPostContainer'
+import { css, media, select } from '../../styles/jss'
 import * as s from '../../styles/jso'
 
-const getWrapperWidth = wrapper => (wrapper && wrapper.offsetWidth) || 0
-
-const editorialWrapperStyle = css(s.relative, s.fullHeight)
+const editorialWrapperStyle = css(
+  s.relative,
+  s.fullHeight,
+  select('& .slick-slider, & .slick-list, & .slick-track', s.fullHeight),
+)
 const editorialNavStyle = css(
   s.absolute,
   s.zIndex3,
   { top: 0, right: 0 },
   media(s.minBreak2, { top: 5, right: 5 }),
 )
+const itemBaseStyle = css(
+  s.relative,
+  s.flex,
+  s.flexWrap,
+  s.fullWidth,
+  s.fullHeight,
+  s.px20,
+  s.py20,
+  s.bgcTransparent,
+  media(s.minBreak2, s.px40, s.py40),
+)
 
-type EditorialComponentProps = {
-  children: React.Element<*>,
-  goto: () => {},
-  index: number,
-  isContinuous: boolean,
-  limit: number,
-  next: () => {},
-  previous: () => {},
-  start: () => {},
-  stop: () => {},
-  tickCount: number,
+type SlickCarouselProps = {
+  postIds: Array<string>,
+  renderProps: any,
 }
 
-type EditorialComponentState = {
-  isScrolling: boolean,
-}
+export class SlickCarousel extends PureComponent {
+  props: SlickCarouselProps
 
-type ScrollProps = {
-  scrollX: number,
-}
-
-class EditorialComponent extends Component {
-  props: EditorialComponentProps
-  state: EditorialComponentState
-  scrollObject: {
-    component: React.Component<*, EditorialComponentProps, EditorialComponentState>,
-    element: React.Element<*>
-  } | null
-  scrollable: React.Element<*> | null
-  wrapper: HTMLElement | null
-
-  state = { isScrolling: false }
-
-  componentWillMount() {
-    if (this.props.limit <= 1) {
-      this.props.stop()
-    }
+  next = () => {
+    this.slider.slickNext()
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (this.props.tickCount !== nextProps.tickCount) {
-      this.props.next()
-    }
-    if (this.props.index !== nextProps.index && this.scrollable) {
-      this.scrollToIndex(nextProps.index)
-    }
-  }
-
-  shouldComponentUpdate(nextProps) {
-    if (!nextProps.isContinuous && nextProps.index !== this.props.index) {
-      return true
-    }
-    return false
-  }
-
-  componentWillUnmount() {
-    removeScrollTarget(this.scrollObject)
-  }
-
-  onScrollCompleteTarget = (props: ScrollProps) => {
-    if (this.state.isScrolling) { return }
-    const { goto, index } = this.props
-    const { scrollX } = props
-    const wrapperWidth = getWrapperWidth(this.wrapper)
-    const newIndex = Math.floor((scrollX + (wrapperWidth / 2)) / wrapperWidth)
-    if (newIndex !== index) {
-      goto(newIndex)
-    } else {
-      this.scrollToIndex(newIndex)
-    }
-  }
-
-  scrollToIndex = (index) => {
-    const wrapperWidth = getWrapperWidth(this.wrapper)
-    this.setState({ isScrolling: true })
-    this.props.stop()
-    scrollToPosition(wrapperWidth * index, 0, {
-      el: this.scrollable,
-      onComplete: () => {
-        this.setState({ isScrolling: false })
-        this.props.start()
-      },
-      easing: TWEEN.Easing.Exponential.Out,
-      duration: 750,
-    })
-  }
-
-  addScrollCapabilities = (comp) => {
-    if (!this.wrapper) {
-      this.wrapper = comp
-      this.scrollable = comp.querySelector('[data-slides]')
-      this.scrollObject = { component: this, element: this.scrollable }
-      addScrollTarget(this.scrollObject)
-    }
+  prev = () => {
+    this.slider.slickPrev()
   }
 
   render() {
-    const { children, index, isContinuous, limit } = this.props
+    const { postIds, renderProps } = this.props
     return (
-      <div className={editorialWrapperStyle} ref={this.addScrollCapabilities} >
-        <Carousel>
-          {children}
-        </Carousel>
-        { limit > 1 &&
+      <div className={editorialWrapperStyle}>
+        <Slider
+          autoplay
+          arrows={false}
+          infinite
+          ref={comp => (this.slider = comp)}
+        >
+          {postIds.map(id =>
+            <div className={itemBaseStyle} key={`curatedEditorial_post_${id}`}>
+              <CuratedPostContainer
+                postId={id}
+                {...renderProps}
+              />
+            </div>,
+          )}
+        </Slider>
+        {postIds.size > 1 &&
           <nav className={editorialNavStyle}>
-            { (isContinuous || index !== 0) &&
-              <PrevPaddle onClick={this.props.previous} />
-            }
-            { (isContinuous || index !== limit) &&
-              <NextPaddle onClick={this.props.next} />
-            }
+            <PrevPaddle onClick={this.prev} />
+            <NextPaddle onClick={this.next} />
           </nav>
         }
       </div>
@@ -137,6 +74,5 @@ class EditorialComponent extends Component {
   }
 }
 
-// eslint-disable-next-line import/prefer-default-export
-export const EditorialCarousel = TimerContainer(CycleContainer(EditorialComponent))
+export default SlickCarousel
 
