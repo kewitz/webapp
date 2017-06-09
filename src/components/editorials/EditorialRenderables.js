@@ -147,11 +147,11 @@ export const CuratedPost = (props: PostProps) => (
 
 export const LinkEditorial = (props: EditorialProps) => (
   <div className={baseStyle}>
-    {props.url && props.kind === 'internal' &&
+    {props.path && props.kind === 'internal' &&
       <Link
         className={linkStyle}
         onClick={props.onClickEditorial}
-        to={props.url}
+        to={props.path}
       >
         <span className={linkTextStyle}>{props.url}</span>
       </Link>
