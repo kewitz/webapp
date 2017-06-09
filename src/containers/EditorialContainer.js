@@ -19,8 +19,8 @@ import type { EditorialProps } from 'ello-brains/types/flowtypes'
 import { trackEvent } from '../actions/analytics'
 import {
   ErrorEditorial,
-  ExternalEditorial,
-  CuratedEditorial,
+  LinkEditorial,
+  PostStream,
   PostEditorial,
 } from '../components/editorials/EditorialRenderables'
 
@@ -112,12 +112,13 @@ class EditorialContainer extends Component {
       onClickEditorial: this.onClickEditorial,
     }
     switch (this.props.kind) {
-      case 'post_stream':
-        return <CuratedEditorial {...props} />
       case 'external':
-        return <ExternalEditorial {...props} />
+      case 'internal':
+        return <LinkEditorial {...props} />
       case 'post':
         return <PostEditorial {...props} />
+      case 'post_stream':
+        return <PostStream {...props} />
       default:
         return <ErrorEditorial {...props} />
     }

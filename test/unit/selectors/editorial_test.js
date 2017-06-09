@@ -132,13 +132,13 @@ describe('editorial selectors', () => {
   })
 
   context('#selectEditorialUrl', () => {
-    it('returns the url property on a ExternalEditorial', () => {
+    it('returns the url property on a LinkEditorial', () => {
       const expected = '/external/url'
       const result = selector.selectEditorialUrl(state, { editorialId: 'editorialExternalId' })
       expect(expected).to.equal(result)
     })
 
-    it('returns undefined for url on a non ExternalEditorial', () => {
+    it('returns undefined for url on a non LinkEditorial', () => {
       const expected = undefined
       const result = selector.selectEditorialUrl(state, { editorialId: 'editorialCuratedId' })
       expect(expected).to.equal(result)

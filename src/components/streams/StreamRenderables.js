@@ -58,7 +58,7 @@ export const editorials = editorialIds => (
     .map(pageIds => <EditorialLayout key={pageIds} ids={pageIds} />)
 )
 
-export const postsAsCuratedEditorial = (postIds, columnCount, isPostHeaderHidden, renderProps) => (
+export const postsAsPostStream = (postIds, columnCount, isPostHeaderHidden, renderProps) => (
   <EditorialCarousel
     isContinuous
     limit={(postIds.size || 0)}

@@ -2,7 +2,7 @@ import React from 'react'
 import { LOAD_STREAM } from 'ello-brains/constants/action_types'
 import { EDITORIALS, POSTS } from 'ello-brains/constants/mapping_types'
 import { editorials as editorialsApi } from '../networking/api'
-import { editorials as editorialRenderable, postsAsCuratedEditorial } from '../components/streams/StreamRenderables'
+import { editorials as editorialRenderable, postsAsPostStream } from '../components/streams/StreamRenderables'
 import { ErrorStateEditorial } from '../components/errors/Errors'
 import { ZeroStateEditorial } from '../components/zeros/Zeros'
 
@@ -20,7 +20,7 @@ export const loadEditorials = isPreview => (
   }
 )
 
-export const loadCuratedPosts = ({ endpointPath, resultKey, ...props }) => (
+export const loadPostStream = ({ endpointPath, resultKey, ...props }) => (
   {
     type: LOAD_STREAM,
     payload: { endpoint: { path: endpointPath } },
@@ -28,8 +28,8 @@ export const loadCuratedPosts = ({ endpointPath, resultKey, ...props }) => (
       mappingType: POSTS,
       renderProps: { ...props },
       renderStream: {
-        asList: postsAsCuratedEditorial,
-        asGrid: postsAsCuratedEditorial,
+        asList: postsAsPostStream,
+        asGrid: postsAsPostStream,
         asZero: <ZeroStateEditorial />,
         asError: <ErrorStateEditorial />,
       },

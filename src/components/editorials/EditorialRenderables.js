@@ -1,7 +1,7 @@
 // @flow
 import React from 'react'
 import { Link } from 'react-router'
-import { loadCuratedPosts } from '../../actions/editorials'
+import { loadPostStream } from '../../actions/editorials'
 import StreamContainer from '../../containers/StreamContainer'
 import BackgroundImage from '../assets/BackgroundImage'
 import { EditorialOverlay, EditorialTitle, EditorialSubtitle, EditorialTools } from './EditorialParts'
@@ -81,12 +81,12 @@ const curatedBaseStyle = css(
   { padding: '0 !important' },
 )
 
-export const CuratedEditorial = (props: EditorialProps) => (
+export const PostStream = (props: EditorialProps) => (
   <div className={curatedBaseStyle}>
     { props.postStreamHref &&
       <StreamContainer
         className="inEditorial"
-        action={loadCuratedPosts({
+        action={loadPostStream({
           endpointPath: props.postStreamHref,
           editorialTrackOptions: props.trackOptions,
           fallbackSources: props.sources,
@@ -145,9 +145,18 @@ export const CuratedPost = (props: PostProps) => (
 
 // -------------------------------------
 
-export const ExternalEditorial = (props: EditorialProps) => (
+export const LinkEditorial = (props: EditorialProps) => (
   <div className={baseStyle}>
-    { props.url &&
+    {props.url && props.kind === 'internal' &&
+      <Link
+        className={linkStyle}
+        onClick={props.onClickEditorial}
+        to={props.url}
+      >
+        <span className={linkTextStyle}>{props.url}</span>
+      </Link>
+    }
+    {props.url && props.kind === 'external' &&
       <a
         className={linkStyle}
         href={props.url}
