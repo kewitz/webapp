@@ -55,12 +55,14 @@ class RegistrationRequestForm extends Component {
     dispatch: PropTypes.func.isRequired,
     email: PropTypes.string,
     inModal: PropTypes.bool,
+    inEditorial: PropTypes.bool,
   }
 
   static defaultProps = {
     availability: null,
     email: null,
     inModal: false,
+    inEditorial: false,
   }
 
   componentWillMount() {
@@ -186,6 +188,7 @@ class RegistrationRequestForm extends Component {
   }
 
   renderEmailForm() {
+    const { inEditorial } = this.props
     const { emailState } = this.state
     const { message, status } = emailState
     const isValid = isFormValid([emailState])
@@ -223,7 +226,7 @@ class RegistrationRequestForm extends Component {
             Create account
           </FormButton>
         </form>
-        <Link className={accountLinkStyle} onClick={this.onClickLogin} to="/enter">Already have an account?</Link>
+        {!inEditorial && <Link className={accountLinkStyle} onClick={this.onClickLogin} to="/enter">Already have an account?</Link>}
       </div>
     )
   }

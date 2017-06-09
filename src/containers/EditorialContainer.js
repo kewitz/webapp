@@ -20,6 +20,7 @@ import type { EditorialProps } from 'ello-brains/types/flowtypes'
 import { trackEvent } from '../actions/analytics'
 import {
   ErrorEditorial,
+  JoinEditorial,
   LinkEditorial,
   PostStream,
   PostEditorial,
@@ -117,6 +118,8 @@ class EditorialContainer extends Component {
       case 'external':
       case 'internal':
         return <LinkEditorial {...props} />
+      case 'join':
+        return <JoinEditorial {...props} />
       case 'post':
         return <PostEditorial {...props} />
       case 'post_stream':

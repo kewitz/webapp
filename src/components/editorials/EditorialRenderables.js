@@ -4,6 +4,7 @@ import { Link } from 'react-router'
 import { loadPostStream } from '../../actions/editorials'
 import StreamContainer from '../../containers/StreamContainer'
 import BackgroundImage from '../assets/BackgroundImage'
+import RegistrationRequestForm from '../forms/RegistrationRequestForm'
 import { EditorialOverlay, EditorialTitle, EditorialSubtitle, EditorialTools } from './EditorialParts'
 import { css, media, select } from '../../styles/jss'
 import * as s from '../../styles/jso'
@@ -216,6 +217,36 @@ export const ErrorEditorial = () => (
   <div className={errorStyle}>
     <span className={errorTextStyle}>Something went wrong.</span>
     <EditorialOverlay />
+  </div>
+)
+
+// -------------------------------------
+
+const joinStyle = css(
+  { ...baseStyle },
+  s.colorWhite,
+  select(
+    '& .AuthenticationForm',
+    s.absolute,
+    { bottom: 0, maxWidth: '100%', width: '100%' },
+  ),
+  select(
+    '& .JoinForm',
+    s.relative,
+  ),
+  select('& h1', s.fontSize24, s.mt30),
+  select('& h2', s.fontSize16),
+)
+
+export const JoinEditorial = (props: EditorialProps) => (
+  <div className={joinStyle}>
+    <BackgroundImage
+      className="hasOverlay6"
+      dpi={props.dpi}
+      sources={props.sources}
+      useGif
+    />
+    <RegistrationRequestForm inEditorial />
   </div>
 )
 
