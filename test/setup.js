@@ -42,3 +42,13 @@ if (!global.document) {
   })
 }
 
+// this is a polyfill to get enquire.js to work in a headless
+// environment. it is required by react-slick for carousels
+window.matchMedia = window.matchMedia || function () {
+  return {
+    matches: false,
+    addListener: () => {},
+    removeListener: () => {},
+  }
+}
+
