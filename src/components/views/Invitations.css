@@ -30,6 +30,7 @@
 
 .InvitationForm .BatchEmailControlSuggestions {
   max-width: calc(100% - 120px);
+  color: "#aaa";
 }
 
 @media (--break-2) {

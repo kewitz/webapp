@@ -2,6 +2,7 @@
 import React from 'react'
 import { Link } from 'react-router'
 import { loadPostStream } from '../../actions/editorials'
+import InvitationFormContainer from '../../containers/InvitationFormContainer'
 import StreamContainer from '../../containers/StreamContainer'
 import BackgroundImage from '../assets/BackgroundImage'
 import RegistrationRequestForm from '../forms/RegistrationRequestForm'
@@ -247,6 +248,37 @@ export const JoinEditorial = (props: EditorialProps) => (
       useGif
     />
     <RegistrationRequestForm inEditorial />
+  </div>
+)
+
+// -------------------------------------
+
+const inviteStyle = css(
+  { ...baseStyle },
+  s.colorWhite,
+  select('& .InvitationsForm', s.mx0, s.relative, s.fullWidth, s.zIndex3),
+  select('& .InvitationsForm form', s.absolute, s.fullWidth, { bottom: 0 }),
+  select('& .BatchEmailControl .FormControlInput.isBoxControl',
+    { height: '85px' },
+  ),
+  select('& h1', s.fontSize24),
+  select('& header p', s.fontSize16),
+  select('& .BatchEmailControlSuggestions', s.colorWhite, s.mb30),
+)
+
+export const InviteEditorial = (props: EditorialProps) => (
+  <div className={inviteStyle}>
+    <BackgroundImage
+      className="hasOverlay6"
+      dpi={props.dpi}
+      sources={props.sources}
+      useGif
+    />
+    <header className={headerStyle}>
+      <h1>Invite some cool people</h1>
+      <p>Help Ello grow.</p>
+    </header>
+    <InvitationFormContainer inEditorial />
   </div>
 )
 
