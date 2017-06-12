@@ -16,8 +16,8 @@ import kue from 'kue'
 import crypto from 'crypto'
 import httpProxy from 'http-proxy'
 import { trackPostViews as trackPostViewsPath } from 'ello-brains/networking/api'
-import { updateStrings as updateTimeAgoStrings } from './lib/time_ago_in_words'
-import { addOauthRoute, currentToken } from '../oauth'
+import { updateStrings as updateTimeAgoStrings } from '../lib/time_ago_in_words'
+import { addOauthRoute, currentToken } from './oauth'
 
 function handleZlibError(error) {
   if (error.code === 'Z_BUF_ERROR') {
