@@ -258,6 +258,7 @@ const inviteStyle = css(
   s.colorWhite,
   select('& .InvitationsForm', s.mx0, s.relative, s.fullWidth, s.zIndex3),
   select('& .InvitationsForm form', s.absolute, s.fullWidth, { bottom: 0 }),
+  select('& .InvitationsForm .FormButton', s.mt0),
   select('& .BatchEmailControl .FormControlInput.isBoxControl',
     { height: '85px' },
   ),
