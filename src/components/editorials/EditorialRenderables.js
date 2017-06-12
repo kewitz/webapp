@@ -5,7 +5,7 @@ import { loadPostStream } from '../../actions/editorials'
 import StreamContainer from '../../containers/StreamContainer'
 import BackgroundImage from '../assets/BackgroundImage'
 import { EditorialOverlay, EditorialTitle, EditorialSubtitle, EditorialTools } from './EditorialParts'
-import { css, media } from '../../styles/jss'
+import { css, media, select } from '../../styles/jss'
 import * as s from '../../styles/jso'
 import type { EditorialProps } from '../../types/flowtypes'
 
@@ -76,13 +76,14 @@ export const PostEditorial = (props: EditorialProps) => (
 
 // -------------------------------------
 
-const curatedBaseStyle = css(
+const postStreamBaseStyle = css(
   { ...baseStyle },
   { padding: '0 !important' },
+  select('& .ElloMark.isSpinner > .SmileShape', { fill: '#fff !important' }),
 )
 
 export const PostStream = (props: EditorialProps) => (
-  <div className={curatedBaseStyle}>
+  <div className={postStreamBaseStyle}>
     { props.postStreamHref &&
       <StreamContainer
         className="inEditorial"

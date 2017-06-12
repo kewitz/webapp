@@ -101,8 +101,7 @@
   display: none;
 }
 
-.TabListStreamContainer .ElloMark > .SmileShape,
-.Editorial .ElloMark > .SmileShape {
+.TabListStreamContainer .ElloMark > .SmileShape {
   fill: #fff !important;
 }
 
