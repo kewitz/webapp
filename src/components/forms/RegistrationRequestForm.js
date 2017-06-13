@@ -184,7 +184,13 @@ class RegistrationRequestForm extends Component {
   }
 
   renderSignupForm() {
-    return <JoinForm email={this.emailValue} invitationCode={this.invitationCodeValue} />
+    return (
+      <JoinForm
+        email={this.emailValue}
+        inEditorial={this.props.inEditorial}
+        invitationCode={this.invitationCodeValue}
+      />
+    )
   }
 
   renderEmailForm() {
