@@ -138,6 +138,10 @@ User Names  */
     max-width: calc(100% - 70px);
     margin-bottom: 0;
   }
+
+  .isLoggedIn .UserName {
+    padding-right: 30px;
+  }
 }
 
 /* -------------------------------------
