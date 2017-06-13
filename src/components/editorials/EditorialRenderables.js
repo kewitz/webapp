@@ -30,9 +30,18 @@ const headerStyle = css(
 
 const bodyStyle = css(
   s.relative,
-  s.zIndex4,
   s.fullWidth,
   s.selfEnd,
+)
+
+const subtitleStyle = css(
+  { ...bodyStyle },
+  s.zIndex2,
+)
+
+const toolsStyle = css(
+  { ...bodyStyle },
+  s.zIndex4,
 )
 
 const linkStyle = css(
@@ -61,8 +70,10 @@ export const PostEditorial = (props: EditorialProps) => (
     <header className={headerStyle}>
       <EditorialTitle label={props.editorial.get('title')} />
     </header>
-    <div className={bodyStyle}>
+    <div className={subtitleStyle}>
       <EditorialSubtitle label={props.editorial.get('subtitle')} />
+    </div>
+    <div className={toolsStyle}>
       <EditorialTools isPostLoved={props.isPostLoved} postPath={props.postPath} />
     </div>
     <EditorialOverlay />
@@ -132,7 +143,7 @@ export const CuratedPost = (props: PostProps) => (
       <EditorialTitle label={`${props.title} `} />
       <EditorialTitle label={`@${props.username}`} />
     </header>
-    <div className={bodyStyle}>
+    <div className={toolsStyle}>
       <EditorialTools isPostLoved={props.isPostLoved} postPath={props.detailPath} />
     </div>
     <EditorialOverlay />
@@ -171,7 +182,7 @@ export const LinkEditorial = (props: EditorialProps) => (
     <header className={headerStyle}>
       <EditorialTitle label={props.editorial.get('title')} />
     </header>
-    <div className={bodyStyle}>
+    <div className={subtitleStyle}>
       <EditorialSubtitle label={props.editorial.get('subtitle')} />
     </div>
     <EditorialOverlay />
