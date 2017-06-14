@@ -43,7 +43,7 @@ class ImageRegion extends Component {
   }
 
   static contextTypes = {
-    onTrackRelatedPostClick: PropTypes.func.isRequired,
+    onTrackRelatedPostClick: PropTypes.func,
   }
 
   componentWillMount() {
