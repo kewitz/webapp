@@ -85,7 +85,6 @@
 
 /* // MAX WIDTH! */
 @media (--break-2-max) {
-
   .CommentTools.PostTools.isMoreToolActive {
     transform: translate3d(-60px, 0, 0);
   }
