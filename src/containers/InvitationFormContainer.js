@@ -62,6 +62,10 @@ class InvitationFormContainer extends PureComponent {
       dispatch(trackEvent('Onboarding.Invitations.Emails.Completed',
                           { emails: this.batchEmailValue.length }))
     }
+    // set form back to initial state
+    setTimeout(() => {
+      this.setState({ formStatus: STATUS.INDETERMINATE })
+    }, 2000)
   }
 
   renderMessage() {
