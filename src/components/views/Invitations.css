@@ -33,6 +33,10 @@
   color: "#aaa";
 }
 
+.Editorial .InvitationForm .BatchEmailControlSuggestions {
+  height: 42px;
+}
+
 @media (--break-2) {
   .InvitationsHeader {
     margin: 40px 20px 20px;
