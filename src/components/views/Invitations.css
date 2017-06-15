@@ -1,5 +1,10 @@
 @import "../../lib/styles/properties.css";
 
+.Invitations.MainView {
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
 .InvitationsHeader {
   max-width: 440px;
   margin: 20px 10px 0;
