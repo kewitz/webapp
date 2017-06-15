@@ -31,18 +31,17 @@ const headerStyle = css(
 )
 
 const bodyStyle = css(
-  s.relative,
   s.fullWidth,
   s.selfEnd,
 )
 
 const subtitleStyle = css(
-  { ...bodyStyle },
+  s.relative,
   s.zIndex2,
 )
 
 const toolsStyle = css(
-  { ...bodyStyle },
+  s.relative,
   s.zIndex4,
 )
 
@@ -72,11 +71,13 @@ export const PostEditorial = (props: EditorialProps) => (
     <header className={headerStyle}>
       <EditorialTitle label={props.editorial.get('title')} />
     </header>
-    <div className={subtitleStyle}>
-      <EditorialSubtitle label={props.editorial.get('subtitle')} />
-    </div>
-    <div className={toolsStyle}>
-      <EditorialTools isPostLoved={props.isPostLoved} postPath={props.postPath} />
+    <div className={bodyStyle}>
+      <div className={subtitleStyle}>
+        <EditorialSubtitle label={props.editorial.get('subtitle')} />
+      </div>
+      <div className={toolsStyle}>
+        <EditorialTools isPostLoved={props.isPostLoved} postPath={props.postPath} />
+      </div>
     </div>
     <EditorialOverlay />
     <BackgroundImage
@@ -145,8 +146,10 @@ export const CuratedPost = (props: PostProps) => (
       <EditorialTitle label={`${props.title} `} />
       <EditorialTitle label={`@${props.username}`} />
     </header>
-    <div className={toolsStyle}>
-      <EditorialTools isPostLoved={props.isPostLoved} postPath={props.detailPath} />
+    <div className={bodyStyle}>
+      <div className={toolsStyle}>
+        <EditorialTools isPostLoved={props.isPostLoved} postPath={props.detailPath} />
+      </div>
     </div>
     <EditorialOverlay />
     <BackgroundImage
@@ -184,8 +187,10 @@ export const LinkEditorial = (props: EditorialProps) => (
     <header className={headerStyle}>
       <EditorialTitle label={props.editorial.get('title')} />
     </header>
-    <div className={subtitleStyle}>
-      <EditorialSubtitle label={props.editorial.get('subtitle')} />
+    <div className={bodyStyle}>
+      <div className={subtitleStyle}>
+        <EditorialSubtitle label={props.editorial.get('subtitle')} />
+      </div>
     </div>
     <EditorialOverlay />
     <BackgroundImage
