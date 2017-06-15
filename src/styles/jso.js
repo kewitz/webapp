@@ -102,6 +102,7 @@ export const overflowScrollWebY = { WebkitOverflowScrolling: 'touch', overflowX:
 export const fit = { maxWidth: '100%' }
 export const fullWidth = { width: '100%' }
 export const fullHeight = { height: '100%' }
+export const maxSiteWidth = { maxWidth: 1360 }
 
 export const wv20 = { width: 20 }
 export const wv30 = { width: 30 }

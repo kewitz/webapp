@@ -82,7 +82,7 @@ const sectionStyle = css(
   s.flex,
   s.flexWrap,
   s.mxAuto,
-  { maxWidth: 1360 },
+  s.maxSiteWidth,
 )
 
 export default({ ids }: { ids: List<string> }) => (
