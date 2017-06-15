@@ -92,6 +92,13 @@
   min-height: 100vh;
 }
 
+.PostDetails .TabListStreamContainer,
+.PostDetailStreamContainer {
+  max-width: 1360px;
+  padding: 0;
+  margin: 0 auto;
+}
+
 @media (--break-2) {
   .MainView > .StreamContainer.isBusy {
     min-height: 220px;

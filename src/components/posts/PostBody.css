@@ -103,6 +103,10 @@
   background-color: #000;
 }
 
+.PostDetails .ImageRegion img {
+  height: auto;
+}
+
 /* // ------------------------------------- */
 
 .RepostedBody {
