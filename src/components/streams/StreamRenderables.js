@@ -102,7 +102,13 @@ export const postsAsRelated = (postIds, columnCount, isPostHeaderHidden) => {
   postIds.forEach((value, index) => columns[index % columnCount].push(postIds.get(index)))
   return (
     <div className="Posts asGrid">
-      {postIds.size && <h2 className="RelatedPostsTitle">Related Posts</h2>}
+      {postIds.size &&
+        <div className="RelatedPostsTitleWrapper">
+          <h2 className="RelatedPostsTitle">
+            Related Posts
+          </h2>
+        </div>
+      }
       {columns.map((columnPostIds, i) =>
         <div className="Column" key={`column_${i + 1}`}>
           {columnPostIds.map(id =>

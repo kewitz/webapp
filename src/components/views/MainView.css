@@ -17,7 +17,8 @@
 }
 
 .RelatedPostsTitle {
-  margin: 15px 0 10px 20px;
+  margin-top: 15px;
+  margin-bottom: 10px;
   font-size: 18px;
   color: #aaa;
 }
@@ -40,7 +41,8 @@
   }
 
   .RelatedPostsTitle {
-    margin: 20px 0 20px 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
   }
 
   .TabListStreamContainer + .RelatedPostsStreamContainer .RelatedPostsTitle {
@@ -55,12 +57,6 @@
 @media (--break-3) {
   .isOnboardingView ~ .MainView {
     padding-bottom: 80px;
-  }
-}
-
-@media (--break-4) {
-  .RelatedPostsTitle {
-    margin-left: 40px;
   }
 }
 
