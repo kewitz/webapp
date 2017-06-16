@@ -11,8 +11,6 @@ const baseStyle = css(
   s.fixed,
   { right: 0, bottom: 0, left: 0 },
   s.zFooter,
-  s.flex,
-  s.justifySpaceBetween,
   s.px10,
   { height: 54, lineHeight: 54 },
   s.colorA,
@@ -39,6 +37,14 @@ const baseStyle = css(
     ),
   ),
   media(s.minBreak4, s.px40),
+)
+
+const wrapperStyle = css(
+  s.maxSiteWidth,
+  s.mxAuto,
+  s.fullWidth,
+  s.flex,
+  s.justifySpaceBetween,
 )
 
 const linksStyle = css(
@@ -114,48 +120,50 @@ export const Footer = ({
     className={classNames(`Footer ${baseStyle}`, { isPaginatoring })}
     role="contentinfo"
   >
-    <div className={linksStyle}>
-      { links.map(link =>
-        <FooterLink
-          href={link.to}
-          label={link.label}
-          key={`FooterLink_${link.label}`}
-        />,
-      )}
-    </div>
-    <div className={`FooterTools ${toolsStyle}`}>
-      { !isLoggedIn &&
-        <FooterForm
-          {...{
-            formActionPath,
-            formMessage,
-            formStatus,
-            isDisabled: isFormDisabled,
-            isMobile,
-          }}
-        />
-      }
-      { isEditorial &&
-        <a className={rssStyle} href="/feeds/editorials">
-          <RSSIcon />
-        </a>
-      }
-      { (isLoggedIn || (!isLoggedIn && !isMobile)) && // TODO: move to FooterContainer
-        <FooterTool
-          className="TopTool"
-          icon={<ChevronIcon />}
-          label="Top"
-          onClick={onClickScrollToTop}
-        />
-      }
-      {!isLayoutToolHidden && (isLoggedIn || (!isLoggedIn && !isMobile)) &&
-        <FooterTool
-          className="LayoutTool"
-          icon={isGridMode ? <ListIcon /> : <GridIcon />}
-          label={isGridMode ? 'List View' : 'Grid View'}
-          onClick={onClickToggleLayoutMode}
-        />
-      }
+    <div className={wrapperStyle}>
+      <div className={linksStyle}>
+        { links.map(link =>
+          <FooterLink
+            href={link.to}
+            label={link.label}
+            key={`FooterLink_${link.label}`}
+          />,
+        )}
+      </div>
+      <div className={`FooterTools ${toolsStyle}`}>
+        { !isLoggedIn &&
+          <FooterForm
+            {...{
+              formActionPath,
+              formMessage,
+              formStatus,
+              isDisabled: isFormDisabled,
+              isMobile,
+            }}
+          />
+        }
+        { isEditorial &&
+          <a className={rssStyle} href="/feeds/editorials">
+            <RSSIcon />
+          </a>
+        }
+        { (isLoggedIn || (!isLoggedIn && !isMobile)) && // TODO: move to FooterContainer
+          <FooterTool
+            className="TopTool"
+            icon={<ChevronIcon />}
+            label="Top"
+            onClick={onClickScrollToTop}
+          />
+        }
+        {!isLayoutToolHidden && (isLoggedIn || (!isLoggedIn && !isMobile)) &&
+          <FooterTool
+            className="LayoutTool"
+            icon={isGridMode ? <ListIcon /> : <GridIcon />}
+            label={isGridMode ? 'List View' : 'Grid View'}
+            onClick={onClickToggleLayoutMode}
+          />
+        }
+      </div>
     </div>
   </footer>
 
