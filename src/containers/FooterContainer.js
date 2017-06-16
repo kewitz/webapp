@@ -48,16 +48,20 @@ type State = {
 
 function mapStateToProps(state, props) {
   const streamType = selectStreamType(state)
+  const pathname = selectPathname(state)
+  let isLayoutToolHidden = selectIsLayoutToolHidden(state, props)
+  // hide the layout tool on the editorial homepage
+  if (/^\/$/.test(pathname)) { isLayoutToolHidden = true }
   return {
     availability: selectAvailability(state),
     formActionPath: checkAvailability().payload.endpoint.path,
     isGridMode: selectIsGridMode(state),
-    isLayoutToolHidden: selectIsLayoutToolHidden(state, props),
+    isLayoutToolHidden,
     isLoggedIn: selectIsLoggedIn(state),
     isMobile: selectIsMobile(state),
     isModalActive: selectIsModalActive(state),
     isPaginatoring: streamType === LOAD_NEXT_CONTENT_REQUEST,
-    pathname: selectPathname(state),
+    pathname,
   }
 }
 
