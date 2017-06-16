@@ -320,14 +320,14 @@ const threadlessLink = 'http://ello.threadless.com/'
 
 const profilePopStyle = css(
   s.absolute,
-  { top: 0, left: 0, right: 0, zIndex: 4 },
+  { top: 0, left: 0, zIndex: 4 },
   s.transitionTransform,
   // wtf...?
   media(s.maxBreak2,
     select('.isProfileMenuActive ~ .Navbar .NavbarMain > *:not(.NavbarProfile)', s.displayNone),
   ),
   media(s.minBreak2,
-    { top: 0, left: 'auto' },
+    { top: 0, left: 'auto', right: 0 },
     hover(before(
       s.absolute,
       { top: 15, left: 0, width: 100, height: 30, content: '""' },

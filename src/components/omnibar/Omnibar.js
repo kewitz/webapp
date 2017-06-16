@@ -12,6 +12,8 @@ const omnibarStyle = css(
   s.displayNone,
   s.pt30,
   s.bgcWhite,
+  s.mxAuto,
+  { maxWidth: 1440 },
   modifier('.isActive', s.block),
   media(s.minBreak2, s.pt0),
 )
