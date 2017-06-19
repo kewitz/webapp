@@ -2,8 +2,10 @@
 import React from 'react'
 import { Link } from 'react-router'
 import { loadPostStream } from '../../actions/editorials'
+import InvitationFormContainer from '../../containers/InvitationFormContainer'
 import StreamContainer from '../../containers/StreamContainer'
 import BackgroundImage from '../assets/BackgroundImage'
+import RegistrationRequestForm from '../forms/RegistrationRequestForm'
 import { EditorialOverlay, EditorialTitle, EditorialSubtitle, EditorialTools } from './EditorialParts'
 import { css, media, select } from '../../styles/jss'
 import * as s from '../../styles/jso'
@@ -29,18 +31,17 @@ const headerStyle = css(
 )
 
 const bodyStyle = css(
-  s.relative,
   s.fullWidth,
   s.selfEnd,
 )
 
 const subtitleStyle = css(
-  { ...bodyStyle },
+  s.relative,
   s.zIndex2,
 )
 
 const toolsStyle = css(
-  { ...bodyStyle },
+  s.relative,
   s.zIndex4,
 )
 
@@ -70,11 +71,13 @@ export const PostEditorial = (props: EditorialProps) => (
     <header className={headerStyle}>
       <EditorialTitle label={props.editorial.get('title')} />
     </header>
-    <div className={subtitleStyle}>
-      <EditorialSubtitle label={props.editorial.get('subtitle')} />
-    </div>
-    <div className={toolsStyle}>
-      <EditorialTools isPostLoved={props.isPostLoved} postPath={props.postPath} />
+    <div className={bodyStyle}>
+      <div className={subtitleStyle}>
+        <EditorialSubtitle label={props.editorial.get('subtitle')} />
+      </div>
+      <div className={toolsStyle}>
+        <EditorialTools isPostLoved={props.isPostLoved} postPath={props.postPath} />
+      </div>
     </div>
     <EditorialOverlay />
     <BackgroundImage
@@ -143,8 +146,10 @@ export const CuratedPost = (props: PostProps) => (
       <EditorialTitle label={`${props.title} `} />
       <EditorialTitle label={`@${props.username}`} />
     </header>
-    <div className={toolsStyle}>
-      <EditorialTools isPostLoved={props.isPostLoved} postPath={props.detailPath} />
+    <div className={bodyStyle}>
+      <div className={toolsStyle}>
+        <EditorialTools isPostLoved={props.isPostLoved} postPath={props.detailPath} />
+      </div>
     </div>
     <EditorialOverlay />
     <BackgroundImage
@@ -182,8 +187,10 @@ export const LinkEditorial = (props: EditorialProps) => (
     <header className={headerStyle}>
       <EditorialTitle label={props.editorial.get('title')} />
     </header>
-    <div className={subtitleStyle}>
-      <EditorialSubtitle label={props.editorial.get('subtitle')} />
+    <div className={bodyStyle}>
+      <div className={subtitleStyle}>
+        <EditorialSubtitle label={props.editorial.get('subtitle')} />
+      </div>
     </div>
     <EditorialOverlay />
     <BackgroundImage
@@ -216,6 +223,62 @@ export const ErrorEditorial = () => (
   <div className={errorStyle}>
     <span className={errorTextStyle}>Something went wrong.</span>
     <EditorialOverlay />
+  </div>
+)
+
+// -------------------------------------
+
+const joinStyle = css(
+  { ...baseStyle },
+  s.colorWhite,
+  select('& .AuthenticationForm', s.absolute, { bottom: 0, maxWidth: '100%', width: '100%' }),
+  select('& .JoinForm', s.relative, s.fullWidth),
+  select('& .JoinForm .FormButton', s.mt40),
+  select('& .JoinForm .FormControlStatusMessage', s.mb0),
+  select('& .JoinForm .AuthenticationTermsCopy', s.absolute, s.fontSize12, { bottom: 50 }),
+  select('& h1', s.fontSize24, s.mt30),
+  select('& h2', s.fontSize16),
+)
+
+export const JoinEditorial = (props: EditorialProps) => (
+  <div className={joinStyle}>
+    <BackgroundImage
+      className="hasOverlay6"
+      dpi={props.dpi}
+      sources={props.sources}
+      useGif
+    />
+    <RegistrationRequestForm inEditorial />
+  </div>
+)
+
+// -------------------------------------
+
+const inviteStyle = css(
+  { ...baseStyle },
+  s.colorWhite,
+  select('& .InvitationsForm', s.mx0, s.relative, s.fullWidth, s.zIndex3),
+  select('& .InvitationsForm form', s.absolute, s.fullWidth, { bottom: 0 }),
+  select('& .InvitationsForm .FormButton', s.mt0),
+  select('& .BatchEmailControl .FormControlInput.isBoxControl', { height: 85 }),
+  select('& h1', s.fontSize24),
+  select('& header p', s.fontSize16),
+  select('& .BatchEmailControlSuggestions', s.colorWhite, s.mb30),
+)
+
+export const InviteEditorial = (props: EditorialProps) => (
+  <div className={inviteStyle}>
+    <BackgroundImage
+      className="hasOverlay6"
+      dpi={props.dpi}
+      sources={props.sources}
+      useGif
+    />
+    <header className={headerStyle}>
+      <h1>Invite some cool people</h1>
+      <p>Help Ello grow.</p>
+    </header>
+    <InvitationFormContainer inEditorial />
   </div>
 )
 

@@ -20,7 +20,12 @@ class InvitationFormContainer extends PureComponent {
 
   static propTypes = {
     dispatch: PropTypes.func.isRequired,
+    inEditorial: PropTypes.bool,
     pathname: PropTypes.string.isRequired,
+  }
+
+  static defaultProps = {
+    inEditorial: false,
   }
 
   componentWillMount() {
@@ -57,6 +62,10 @@ class InvitationFormContainer extends PureComponent {
       dispatch(trackEvent('Onboarding.Invitations.Emails.Completed',
                           { emails: this.batchEmailValue.length }))
     }
+    // set form back to initial state
+    setTimeout(() => {
+      this.setState({ formStatus: STATUS.INDETERMINATE })
+    }, 2000)
   }
 
   renderMessage() {
@@ -76,8 +85,13 @@ class InvitationFormContainer extends PureComponent {
   }
 
   render() {
+    const { inEditorial } = this.props
     const { batchEmailState } = this.state
     const isValid = batchEmailState.status === STATUS.SUCCESS
+    const buttonClassNames = inEditorial ?
+      'FormButton isRounded isGreen' :
+      'FormButton isAutoSize isOutlined isRounded'
+
     return (
       <div className="InvitationsForm">
         <form
@@ -95,16 +109,16 @@ class InvitationFormContainer extends PureComponent {
             tabIndex="1"
             ref={(comp) => { this.control = comp }}
           />
+          <p className="BatchEmailControlSuggestions">
+            {this.renderMessage()}
+          </p>
           <FormButton
-            className="FormButton isAutoSize isOutlined isRounded"
+            className={buttonClassNames}
             disabled={!isValid}
             tabIndex="2"
           >
             Invite
           </FormButton>
-          <p className="BatchEmailControlSuggestions" style={{ color: '#aaa' }}>
-            {this.renderMessage()}
-          </p>
         </form>
       </div>
     )

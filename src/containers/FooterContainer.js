@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { is } from 'immutable'
 import { connect } from 'react-redux'
+import get from 'lodash/get'
 import { selectPathname } from 'ello-brains/selectors/routing'
 import { FOOTER_LINKS as links } from 'ello-brains/constants/locales/en'
 import { LOAD_NEXT_CONTENT_REQUEST, SET_LAYOUT_MODE } from 'ello-brains/constants/action_types'
@@ -173,6 +174,8 @@ class FooterContainer extends Component {
   }
 
   validateEmailResponse(availability) {
+    // only validate if we are in the footer input
+    if (!get(document, 'activeElement.classList', { contains: () => false }).contains('inFooter')) { return }
     const { dispatch, pathname } = this.props
     const { formStatus } = this.state
     const newState = getEmailStateFromServer({ availability, currentStatus: formStatus })

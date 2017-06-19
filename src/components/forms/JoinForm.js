@@ -37,6 +37,7 @@ class JoinForm extends PureComponent {
     availability: PropTypes.object,
     dispatch: PropTypes.func.isRequired,
     email: PropTypes.string,
+    inEditorial: PropTypes.bool.isRequired,
     invitationCode: PropTypes.string,
   }
 
@@ -124,7 +125,8 @@ class JoinForm extends PureComponent {
     }
     const { usernameState } = this.state
     const currentStatus = usernameState.status
-    const newState = getUsernameStateFromServer({ availability, currentStatus })
+    const { inEditorial } = this.props
+    const newState = getUsernameStateFromServer({ availability, currentStatus, inEditorial })
     if (newState.status !== currentStatus) {
       this.setState({ usernameState: newState })
     }
@@ -164,7 +166,7 @@ class JoinForm extends PureComponent {
             placeholder="Username"
             status={usernameState.status}
             renderStatus={showUsernameError ? renderStatus(usernameState) : null}
-            suggestions={usernameState.suggestions}
+            suggestions={this.props.inEditorial ? null : usernameState.suggestions}
             tabIndex="1"
           />
           <PasswordControl

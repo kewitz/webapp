@@ -46,7 +46,7 @@ export function getUsernameStateFromClient({ currentStatus, value }) {
 }
 
 // Validate and normalize the response from the API's validation
-export function getUsernameStateFromServer({ availability, currentStatus }) {
+export function getUsernameStateFromServer({ availability, currentStatus, inEditorial }) {
   if (!availability && currentStatus !== STATUS.FAILURE) {
     return { status: STATUS.FAILURE, suggestions: null, message: ERROR.USERNAME.INVALID }
   }
@@ -58,7 +58,7 @@ export function getUsernameStateFromServer({ availability, currentStatus }) {
     return {
       status: STATUS.FAILURE,
       suggestions: suggestions.get('username', null),
-      message: ERROR.USERNAME.EXISTS,
+      message: inEditorial ? 'Username already exists.' : ERROR.USERNAME.EXISTS,
     }
   }
   return { status: STATUS.INDETERMINATE, suggestions: null, message: ERROR.NONE }

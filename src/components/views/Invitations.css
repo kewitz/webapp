@@ -30,6 +30,11 @@
 
 .InvitationForm .BatchEmailControlSuggestions {
   max-width: calc(100% - 120px);
+  color: "#aaa";
+}
+
+.Editorial .InvitationForm .BatchEmailControlSuggestions {
+  height: 42px;
 }
 
 @media (--break-2) {
