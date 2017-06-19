@@ -5,7 +5,7 @@
 }
 
 .Search .SearchControl .FormControlInput {
-  @apply --sanserif-regular;
+  @apply --sanserif-black;
   font-size: 24px;
 }
 
