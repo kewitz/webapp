@@ -30,7 +30,7 @@ const navbarStyle = css(
   s.zNavbar,
   s.p10,
   s.bgcWhite,
-  { borderBottom: '2px solid #f2f2f2' },
+  // { borderBottom: '2px solid #f2f2f2' },
   { transition: 'transform 150ms ease, height 150ms ease, background-color 0s' },
   parent('.isLoggedIn', { height: 85 }),
   parent('.isLoggedOut', { height: 50 }),
