@@ -17,11 +17,16 @@ import { hideSoftKeyboard } from '../lib/jello'
 import SearchControl from '../components/forms/SearchControl'
 import StreamContainer from './StreamContainer'
 import { MainView } from '../components/views/MainView'
+import { css } from '../styles/jss'
 
 const TABS = [
   { type: 'posts', children: 'Posts' },
   { type: 'users', children: 'People' },
 ]
+
+const searchStyle = css(
+  { paddingBottom: 80 },
+)
 
 // TODO: turn this into a selector and test that
 export function getStreamAction(terms, type) {
@@ -117,7 +122,7 @@ class SearchContainer extends PureComponent {
       inputText = ''
     }
     return (
-      <MainView className="Search">
+      <MainView className={`Search ${searchStyle}`}>
         <SearchControl
           activeType={type}
           onChange={this.onChangeControl}

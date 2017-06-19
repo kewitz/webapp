@@ -347,7 +347,6 @@ export const rotate180 = { transform: 'rotate(180deg)' }
 
 // -------------------------------------
 // Transitions & animations
-
 export const transitionBgColor = { transition: 'background-color 0.2s ease' }
 export const transitionBgColorSlow = { transition: 'background-color 0.4s ease' }
 export const transitionColor = { transition: 'color 0.2s ease' }
