@@ -72,6 +72,7 @@ class SearchControl extends Component {
           autoCorrect="off"
           autoComplete="off"
           icon={<SearchIcon />}
+          isSearch
           key={activeType}
           ref={(comp) => { this.text = comp }}
           type="text"

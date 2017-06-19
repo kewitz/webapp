@@ -12,6 +12,7 @@ class FormControl extends Component {
     className: PropTypes.string,
     icon: PropTypes.object,
     id: PropTypes.string.isRequired,
+    isSearch: PropTypes.bool,
     kind: PropTypes.string,
     label: PropTypes.string,
     onBlur: PropTypes.func,
@@ -28,6 +29,7 @@ class FormControl extends Component {
     classList: null,
     className: null,
     icon: null,
+    isSearch: false,
     kind: 'input',
     label: null,
     onBlur: null,
@@ -46,7 +48,7 @@ class FormControl extends Component {
     const { text } = this.props
     this.state = {
       hasFocus: false,
-      hasValue: text && text.length,
+      hasValue: this.getHasValue(text),
       isInitialValue: true,
       text,
     }
@@ -93,12 +95,21 @@ class FormControl extends Component {
     const { id, onChange } = this.props
     this.setState({
       text: val,
-      hasValue: val.length,
+      hasValue: this.getHasValue(val),
       isInitialValue: val === this.initialValue,
     })
     if (id && typeof onChange === 'function') {
       onChange({ [id]: val })
     }
+  }
+
+  getHasValue(text) {
+    const { isSearch } = this.props
+    let hasValue = text && text.length
+    if (hasValue && isSearch) {
+      hasValue = !/^@$/.test(text)
+    }
+    return hasValue
   }
 
   getStatusAsClassName() {
@@ -173,6 +184,7 @@ class FormControl extends Component {
     const blacklistedProps = [
       'activeType',
       'icon',
+      'isSearch',
       'classList',
       'renderFeedback',
       'renderStatus',
