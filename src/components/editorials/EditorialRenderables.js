@@ -236,7 +236,7 @@ const joinStyle = css(
   select('& .JoinForm .FormButton', s.mt40),
   select('& .JoinForm .FormControlStatusMessage', s.mb0),
   select('& .JoinForm .AuthenticationTermsCopy', s.absolute, s.fontSize12, { bottom: 50 }),
-  select('& h1', s.fontSize24, s.mt30),
+  select('& h1', s.fontSize24, s.mt30, s.sansBlack),
   select('& h2', s.fontSize16),
 )
 
@@ -261,7 +261,7 @@ const inviteStyle = css(
   select('& .InvitationsForm form', s.absolute, s.fullWidth, { bottom: 0 }),
   select('& .InvitationsForm .FormButton', s.mt0),
   select('& .BatchEmailControl .FormControlInput.isBoxControl', { height: 85 }),
-  select('& h1', s.fontSize24),
+  select('& h1', s.fontSize24, s.sansBlack),
   select('& header p', s.fontSize16),
   select('& .BatchEmailControlSuggestions', s.colorWhite, s.mb30),
 )
