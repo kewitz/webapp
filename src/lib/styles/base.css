@@ -32,6 +32,32 @@
 }
 
 @font-face {
+  font-family: AtlasGroteskBlack;
+  font-style: normal;
+  font-weight: 400;
+  font-stretch: normal;
+  src:
+    local("AtlasGrotesk-Black"),
+    url("//fonts.ello.co/AtlasGrotesk-Black-Web.eot?#iefix") format("embedded-opentype"),
+    url("//fonts.ello.co/AtlasGrotesk-Black-Web.woff") format("woff"),
+    url("//fonts.ello.co/AtlasGrotesk-Black-Web.ttf") format("truetype"),
+    url("//fonts.ello.co/AtlasGrotesk-Black-Web.svg#AtlasGroteskBold") format("svg");
+}
+
+@font-face {
+  font-family: AtlasGroteskBlackItalic;
+  font-style: normal;
+  font-weight: 400;
+  font-stretch: normal;
+  src:
+    local("AtlasGrotesk-BlackItalic"),
+    url("//fonts.ello.co/AtlasGrotesk-BlackItalic-Web.eot?#iefix") format("embedded-opentype"),
+    url("//fonts.ello.co/AtlasGrotesk-BlackItalic-Web.woff") format("woff"),
+    url("//fonts.ello.co/AtlasGrotesk-BlackItalic-Web.ttf") format("truetype"),
+    url("//fonts.ello.co/AtlasGrotesk-BlackItalic-Web.svg#AtlasGroteskBold") format("svg");
+}
+
+@font-face {
   font-family: AtlasTypewriterRegular;
   font-style: normal;
   font-weight: 400;

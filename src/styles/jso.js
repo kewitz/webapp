@@ -9,6 +9,8 @@ import { css, media } from './jss'
 // Configuration
 export const sansRegularFontStack = '"AtlasGroteskRegular", "AtlasGrotesk-Regular", "Helvetica Neue", "HelveticaNeue", "Helvetica", sans-serif'
 export const sansBoldFontStack = '"AtlasGroteskBold", "AtlasGrotesk-Bold", "Helvetica Neue", "HelveticaNeue", "Helvetica", sans-serif'
+export const sansBlackFontStack = '"AtlasGroteskBlack", "AtlasGrotesk-Black", "Helvetica Neue", "HelveticaNeue", "Helvetica", sans-serif'
+export const sansBlackItalicFontStack = '"AtlasGroteskBlackItalic", "AtlasGrotesk-Black", "Helvetica Neue", "HelveticaNeue", "Helvetica", sans-serif'
 export const monoRegularFontStack = '"AtlasTypewriterRegular", "AtlasTypewriter-Regular", "Andale Mono", "Consolas", "Lucida Console", "Menlo", "Luxi Mono", monospace'
 
 // Web specific
@@ -268,6 +270,16 @@ export const sansBoldItalic = {
   fontWeight: 700,
 }
 
+export const sansBlack = {
+  fontFamily: sansBlackFontStack,
+  fontStyle: 'normal',
+  fontWeight: 400,
+}
+export const sansBlackItalic = {
+  fontFamily: sansBlackItalicFontStack,
+  fontStyle: 'italic',
+  fontWeight: 400,
+}
 export const monoRegular = {
   fontFamily: monoRegularFontStack,
   fontStyle: 'normal',
@@ -347,7 +359,6 @@ export const rotate180 = { transform: 'rotate(180deg)' }
 
 // -------------------------------------
 // Transitions & animations
-
 export const transitionBgColor = { transition: 'background-color 0.2s ease' }
 export const transitionBgColorSlow = { transition: 'background-color 0.4s ease' }
 export const transitionColor = { transition: 'color 0.2s ease' }
