@@ -12,8 +12,9 @@ const postcssImport = require('postcss-import')
 const postcssPxToRem = require('postcss-pxtorem')
 const postcssReporter = require('postcss-reporter')
 const postcssUrl = require('postcss-url')
-const pkg = require('./package.json')
 const fs = require('fs')
+const S3Plugin = require('webpack-s3-plugin')
+const pkg = require('./package.json')
 
 // load env vars first
 require('dotenv').load({ silent: process.env.NODE_ENV === 'production' })
@@ -26,7 +27,7 @@ module.exports = {
     main: './src/main',
   },
   output: {
-    filename: '[name].entry.js',
+    filename: '[name]-[hash].entry.js',
     chunkFilename: '[id].chunk.js',
     hash: true,
     path: path.join(__dirname, 'public/static'),
@@ -38,7 +39,7 @@ module.exports = {
       ENV: JSON.stringify(require(path.join(__dirname, './env.js'))), // eslint-disable-line
       'process.env': { NODE_ENV: JSON.stringify(nodeEnv) },
     }),
-    new ExtractTextPlugin('bundle.css'),
+    new ExtractTextPlugin('[name]-[contenthash].css'),
     new HtmlWebpackPlugin({
       filename: '../index.html',
       chunks: ['main'],
@@ -54,13 +55,23 @@ module.exports = {
       },
     }),
     new webpack.optimize.OccurenceOrderPlugin(true),
-    function() {
-      this.plugin("done", (stats) => {
+    new S3Plugin({
+      s3Options: {
+        accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+        region: process.env.AWS_REGION,
+      },
+      s3UploadOptions: {
+        Bucket: process.env.S3_BUCKET,
+      },
+    }),
+    function () {
+      this.plugin('done', (stats) => {
         fs.writeFileSync(
-          path.join(__dirname, "webpack-stats/prod.json"),
+          path.join(__dirname, 'webpack-stats/prod.json'),
           JSON.stringify(stats.toJson()))
       })
-    }
+    },
   ],
   module: {
     loaders: [
