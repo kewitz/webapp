@@ -54,7 +54,6 @@ module.exports = {
         warnings: false,
       },
     }),
-    new webpack.optimize.OccurenceOrderPlugin(true),
     new S3Plugin({
       s3Options: {
         accessKeyId: process.env.AWS_ACCESS_KEY_ID,
@@ -86,7 +85,7 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        loader: ExtractTextPlugin.extract('style-loader', ['css-loader', 'postcss-loader']),
+        loader: ExtractTextPlugin.extract({ fallback: 'style-loader', use: ['css-loader', 'postcss-loader'] }),
       },
     ],
   },
