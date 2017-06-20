@@ -11,7 +11,6 @@
     "lint:css": "stylelint 'src/**/*.css'",
     "lint:js": "eslint src test",
     "lint:js:fix": "eslint src test --fix",
-    "postinstall": "yarn run build",
     "pretest": "yarn run lint",
     "test": "yarn run test:all",
     "test:all": "NODE_ENV=test mocha test/unit --recursive",
