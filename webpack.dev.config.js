@@ -1,6 +1,6 @@
-import path from 'path'
-import webpack from 'webpack'
+/* eslint-disable import/no-extraneous-dependencies */
 import autoprefixer from 'autoprefixer'
+import path from 'path'
 import postcssApply from 'postcss-apply'
 import postcssCalc from 'postcss-calc'
 import postcssColorFunction from 'postcss-color-function'
@@ -10,6 +10,7 @@ import postcssImport from 'postcss-import'
 import postcssPxToRem from 'postcss-pxtorem'
 import postcssReporter from 'postcss-reporter'
 import postcssUrl from 'postcss-url'
+import webpack from 'webpack'
 import pkg from './package.json'
 // load env vars first
 require('dotenv').load({ silent: process.env.NODE_ENV === 'production' })
@@ -27,7 +28,6 @@ module.exports = {
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin(),
     new webpack.DefinePlugin({
       __DEV__: JSON.stringify(JSON.parse(process.env.BUILD_DEV || 'true')),
       __PRERELEASE__: JSON.stringify(JSON.parse(process.env.BUILD_PRERELEASE || 'false')),
@@ -35,35 +35,43 @@ module.exports = {
     }),
   ],
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.js$/,
-        loader: 'babel',
+        exclude: /node_modules/,
         include: [
           path.join(__dirname, 'src'),
+          // this is so we can compile brains when working locally
           path.join(__dirname, 'node_modules/ello-brains'),
         ],
-        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+        },
       },
       {
         test: /\.css$/,
-        loaders: ['style-loader', 'css-loader', 'postcss-loader'],
+        use: [
+          'css-loader',
+          {
+            loader: 'postcss-loader',
+            options: {
+              plugins: loader => [
+                autoprefixer({ browsers: pkg.browserlist }),
+                postcssApply(),
+                postcssCalc(),
+                postcssColorFunction(),
+                postcssCustomMedia(),
+                postcssCustomProperties(),
+                postcssImport({ result: { messages: { dependency: loader } } }),
+                postcssPxToRem({ propWhiteList: [], minPixelValue: 5 }),
+                postcssReporter(),
+                postcssUrl(),
+              ],
+            },
+          },
+        ],
       },
     ],
-  },
-  postcss(wp) {
-    return [
-      postcssImport({ result: { messages: { dependency: wp } } }),
-      postcssUrl(),
-      postcssCustomProperties(),
-      postcssApply(),
-      postcssCalc(),
-      postcssColorFunction(),
-      postcssCustomMedia(),
-      postcssPxToRem({ propWhiteList: [], minPixelValue: 5 }),
-      autoprefixer({ browsers: pkg.browserlist }),
-      postcssReporter(),
-    ]
   },
 }
 

@@ -1,3 +1,4 @@
 bundle.*
 *.entry.js
+*.css
 common*

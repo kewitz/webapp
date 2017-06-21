@@ -1,8 +1,10 @@
-const path = require('path')
-const webpack = require('webpack')
+/* eslint-disable import/no-extraneous-dependencies */
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const S3Plugin = require('webpack-s3-plugin')
 const autoprefixer = require('autoprefixer')
+const fs = require('fs')
+const path = require('path')
 const postcssApply = require('postcss-apply')
 const postcssCalc = require('postcss-calc')
 const postcssColorFunction = require('postcss-color-function')
@@ -12,8 +14,7 @@ const postcssImport = require('postcss-import')
 const postcssPxToRem = require('postcss-pxtorem')
 const postcssReporter = require('postcss-reporter')
 const postcssUrl = require('postcss-url')
-const fs = require('fs')
-const S3Plugin = require('webpack-s3-plugin')
+const webpack = require('webpack')
 const pkg = require('./package.json')
 
 // load env vars first
@@ -29,30 +30,28 @@ module.exports = {
   output: {
     filename: '[name]-[hash].entry.js',
     chunkFilename: '[id].chunk.js',
-    hash: true,
     path: path.join(__dirname, 'public/static'),
     publicPath: `${(process.env.CDN || '')}/static/`,
   },
   plugins: [
-    new webpack.NoErrorsPlugin(),
+    new webpack.NoEmitOnErrorsPlugin(),
     new webpack.DefinePlugin({
       ENV: JSON.stringify(require(path.join(__dirname, './env.js'))), // eslint-disable-line
       'process.env': { NODE_ENV: JSON.stringify(nodeEnv) },
     }),
-    new ExtractTextPlugin('[name]-[contenthash].css'),
+    new ExtractTextPlugin({ filename: '[name]-[contenthash].css' }),
     new HtmlWebpackPlugin({
       filename: '../index.html',
       chunks: ['main'],
       hash: true,
-      template: 'public/template.html',
+      template: '!!html-loader!public/template.html',
       inject: 'body',
     }),
-    new webpack.optimize.DedupePlugin(),
     new webpack.optimize.UglifyJsPlugin({
       compress: {
         screw_ie8: true,
-        warnings: false,
       },
+      sourceMap: true,
     }),
     new S3Plugin({
       s3Options: {
@@ -64,7 +63,7 @@ module.exports = {
         Bucket: process.env.S3_BUCKET,
       },
     }),
-    function () {
+    function () { // eslint-disable-line
       this.plugin('done', (stats) => {
         fs.writeFileSync(
           path.join(__dirname, 'webpack-stats/prod.json'),
@@ -73,35 +72,45 @@ module.exports = {
     },
   ],
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.js$/,
-        loader: 'babel',
-        include: [
-          path.join(__dirname, 'src'),
-          path.join(__dirname, 'node_modules/ello-brains'),
-        ],
         exclude: /node_modules/,
+        include: path.join(__dirname, 'src'),
+        use: {
+          loader: 'babel-loader',
+        },
       },
       {
         test: /\.css$/,
-        loader: ExtractTextPlugin.extract({ fallback: 'style-loader', use: ['css-loader', 'postcss-loader'] }),
+        use: ExtractTextPlugin.extract({
+          use: [
+            'css-loader',
+            {
+              loader: 'postcss-loader',
+              options: {
+                plugins: loader => [
+                  autoprefixer({ browsers: pkg.browserlist }),
+                  postcssApply(),
+                  postcssCalc(),
+                  postcssColorFunction(),
+                  postcssCustomMedia(),
+                  postcssCustomProperties(),
+                  postcssImport({ result: { messages: { dependency: loader } } }),
+                  postcssPxToRem({ propWhiteList: [], minPixelValue: 5 }),
+                  postcssReporter(),
+                  postcssUrl(),
+                ],
+              },
+            },
+          ],
+        }),
+      },
+      {
+        test: /\.html$/,
+        loader: 'html-loader',
       },
     ],
-  },
-  postcss(wp) {
-    return [
-      postcssImport({ result: { messages: { dependency: wp } } }),
-      postcssUrl(),
-      postcssCustomProperties(),
-      postcssApply(),
-      postcssCalc(),
-      postcssColorFunction(),
-      postcssCustomMedia(),
-      postcssPxToRem({ propWhiteList: [], minPixelValue: 5 }),
-      autoprefixer({ browsers: pkg.browserlist }),
-      postcssReporter(),
-    ]
   },
 }
 
