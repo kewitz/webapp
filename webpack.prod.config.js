@@ -84,22 +84,23 @@ module.exports = {
       {
         test: /\.css$/,
         use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
           use: [
             'css-loader',
             {
               loader: 'postcss-loader',
               options: {
                 plugins: loader => [
-                  autoprefixer({ browsers: pkg.browserlist }),
+                  postcssImport({ result: { messages: { dependency: loader } } }),
+                  postcssUrl(),
+                  postcssCustomProperties(),
                   postcssApply(),
                   postcssCalc(),
                   postcssColorFunction(),
                   postcssCustomMedia(),
-                  postcssCustomProperties(),
-                  postcssImport({ result: { messages: { dependency: loader } } }),
                   postcssPxToRem({ propWhiteList: [], minPixelValue: 5 }),
+                  autoprefixer({ browsers: pkg.browserlist }),
                   postcssReporter(),
-                  postcssUrl(),
                 ],
               },
             },

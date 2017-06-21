@@ -51,21 +51,22 @@ module.exports = {
       {
         test: /\.css$/,
         use: [
+          'style-loader',
           'css-loader',
           {
             loader: 'postcss-loader',
             options: {
               plugins: loader => [
-                autoprefixer({ browsers: pkg.browserlist }),
+                postcssImport({ root: loader.resourcePath }),
+                postcssUrl(),
+                postcssCustomProperties(),
                 postcssApply(),
                 postcssCalc(),
                 postcssColorFunction(),
                 postcssCustomMedia(),
-                postcssCustomProperties(),
-                postcssImport({ result: { messages: { dependency: loader } } }),
                 postcssPxToRem({ propWhiteList: [], minPixelValue: 5 }),
+                autoprefixer({ browsers: pkg.browserlist }),
                 postcssReporter(),
-                postcssUrl(),
               ],
             },
           },
