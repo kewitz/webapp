@@ -1,6 +1,7 @@
 /* eslint-disable no-underscore-dangle */
 import { createLogger } from 'redux-logger'
 import Immutable from 'immutable'
+import { browserHistory } from 'react-router'
 import { routerMiddleware } from 'react-router-redux'
 import { compose, combineReducers, createStore, applyMiddleware } from 'redux'
 import { autoRehydrate } from 'redux-persist'
@@ -16,7 +17,7 @@ const reducer = combineReducers({ ...reducers })
 // seems to be a subset of what is actually returned from the rehydrate action
 const stateReconciler = (state, inboundState, reducedState) => ({ ...reducedState })
 
-const createElloStore = (history, passedInitialState = {}) => {
+const createElloStore = (passedInitialState = {}) => {
   const logConfig = {
     collapsed: true,
     predicate: () => ENV.APP_DEBUG,
@@ -34,7 +35,7 @@ const createElloStore = (history, passedInitialState = {}) => {
     window.Pam = r => fromJSON(JSON.parse(localStorage.getItem(`reduxPersist:${r}`))).toJS()
   }
   const logger = createLogger(logConfig)
-  const reduxRouterMiddleware = routerMiddleware(history)
+  const reduxRouterMiddleware = routerMiddleware(browserHistory)
   const sagaMiddleware = createSagaMiddleware()
   const serverInitState = window.__INITIAL_STATE__
   if (serverInitState) {
@@ -63,8 +64,6 @@ const createElloStore = (history, passedInitialState = {}) => {
   store.sagaTask = sagaMiddleware.run(rootSaga)
   return store
 }
-
-export { createElloStore }
 
 export default createElloStore()
 
