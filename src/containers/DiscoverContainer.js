@@ -51,9 +51,6 @@ class DiscoverContainer extends PureComponent {
     paramsType: 'featured',
   }
 
-  static preRender = (store, routerState) =>
-    store.dispatch(getStreamAction(routerState.params.type || 'featured'))
-
   componentWillMount() {
     const { dispatch, paramsType } = this.props
     dispatch(bindDiscoverKey(paramsType))
