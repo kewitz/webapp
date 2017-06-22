@@ -16,22 +16,23 @@ const postcssReporter = require('postcss-reporter')
 const postcssUrl = require('postcss-url')
 const webpack = require('webpack')
 const pkg = require('./package.json')
+const UploadHTMLPlugin = require('./src/server/upload_html_plugin')
 
 // load env vars first
 require('dotenv').load({ silent: process.env.NODE_ENV === 'production' })
 
 const nodeEnv = process.env.NODE_ENV || 'production'
 
-module.exports = {
+module.exports = env => ({
   devtool: 'source-map',
   entry: {
     main: './src/main',
   },
   output: {
-    filename: '[name]-[hash].entry.js',
+    filename: `${env.commitsha}.js`,
     chunkFilename: '[id].chunk.js',
     path: path.join(__dirname, 'public/static'),
-    publicPath: `${(process.env.CDN || '')}/static/`,
+    publicPath: `${(process.env.CDN || '')}/`,
   },
   plugins: [
     new webpack.NoEmitOnErrorsPlugin(),
@@ -39,9 +40,9 @@ module.exports = {
       ENV: JSON.stringify(require(path.join(__dirname, './env.js'))), // eslint-disable-line
       'process.env': { NODE_ENV: JSON.stringify(nodeEnv) },
     }),
-    new ExtractTextPlugin({ filename: '[name]-[contenthash].css' }),
+    new ExtractTextPlugin({ filename: `${env.commitsha}.css` }),
     new HtmlWebpackPlugin({
-      filename: '../index.html',
+      filename: `${env.commitsha}.html`,
       chunks: ['main'],
       hash: true,
       template: '!!html-loader!public/template.html',
@@ -63,7 +64,12 @@ module.exports = {
         Bucket: process.env.S3_BUCKET,
       },
     }),
-    function () { // eslint-disable-line
+    new UploadHTMLPlugin({
+      path: `${process.env.AUTH_DOMAIN}/api/serve/v1/versions`,
+      authUsername: process.env.HTML_UPLOAD_USERNAME,
+      authPassword: process.env.HTML_UPLOAD_PASSWORD,
+    }),
+    function webpackStats() {
       this.plugin('done', (stats) => {
         fs.writeFileSync(
           path.join(__dirname, 'webpack-stats/prod.json'),
@@ -113,5 +119,5 @@ module.exports = {
       },
     ],
   },
-}
+})
 

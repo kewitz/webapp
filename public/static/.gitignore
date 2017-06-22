@@ -1,4 +1,5 @@
-bundle.*
-*.entry.js
 *.css
+*.html
+*.js
+bundle.*
 common*

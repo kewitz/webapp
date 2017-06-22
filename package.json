@@ -3,8 +3,8 @@
   "version": "3.0.21",
   "private": true,
   "scripts": {
-    "clean": "rm -f .yarnclean public/index.html public/static/*.js public/static/*.map public/static/*.css",
-    "build": "yarn run clean && NODE_ENV=production node ./node_modules/webpack/bin/webpack.js -p --progress --config=webpack.prod.config.js",
+    "clean": "rm -f .yarnclean public/static/*.css public/static/*.html public/static/*.js public/static/*.map",
+    "build": "yarn run clean && NODE_ENV=production node ./node_modules/webpack/bin/webpack.js -p --progress --config=webpack.prod.config.js --env.commitsha=`git rev-parse HEAD`",
     "dev": "DEBUG=express:* NODE_ENV=development babel-node src/server/dev.js",
     "flow": "flow",
     "lint": "yarn lint:js && yarn lint:css",
@@ -144,7 +144,7 @@
     "url-regex": "3.2.0"
   },
   "devDependencies": {
-    "autoprefixer": "^7.1.1",
+    "autoprefixer": "7.1.1",
     "babel-cli": "6.24.1",
     "babel-core": "6.25.0",
     "babel-eslint": "7.2.3",
