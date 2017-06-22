@@ -10,6 +10,8 @@ script:
 - rvm use 2.3.1
 - gem install danger -v 2.0.1 --no-ri --no-rdoc
 - danger
+after_success:
+- yarn build
 notifications:
   email: false
   slack:

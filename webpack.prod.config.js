@@ -65,9 +65,9 @@ module.exports = env => ({
       },
     }),
     new UploadHTMLPlugin({
-      path: `${process.env.AUTH_DOMAIN}/api/serve/v1/versions`,
-      authUsername: process.env.HTML_UPLOAD_USERNAME,
-      authPassword: process.env.HTML_UPLOAD_PASSWORD,
+      endpoint: process.env.APEX_SERVE_ENDPOINT,
+      username: process.env.APEX_SERVE_USERNAME,
+      password: process.env.APEX_SERVE_PASSWORD,
     }),
     function webpackStats() {
       this.plugin('done', (stats) => {

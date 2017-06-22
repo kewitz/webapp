@@ -2,9 +2,9 @@
 require('isomorphic-fetch')
 
 function UploadHTMLPlugin(options) {
-  this.path = options.path
-  this.username = options.authUsername
-  this.password = options.authPassword
+  this.endpoint = options.endpoint
+  this.username = options.username
+  this.password = options.password
 }
 
 UploadHTMLPlugin.prototype.apply = function apply(compiler) {
@@ -17,7 +17,7 @@ UploadHTMLPlugin.prototype.apply = function apply(compiler) {
           version: filename.split('.')[0],
           html: source,
         }
-        console.log(`\n\nUploading version ${body.version} to apex/serve at ${this.path}\n\n`)
+        console.log(`\n\nUploading version ${body.version} to apex/serve at ${this.endpoint}\n\n`)
         const headers = new Headers()
         headers.append('Authorization', `Basic ${new Buffer(`${this.username}:${this.password}`).toString('base64')}`)
         headers.append('Content-Type', 'application/json')
@@ -26,17 +26,17 @@ UploadHTMLPlugin.prototype.apply = function apply(compiler) {
           method: 'POST',
           headers,
         }
-        fetch(this.path, options)
+        fetch(this.endpoint, options)
           .then((response) => {
             if (response.ok) {
-              console.log(`\n\nSUCCESSFULLY uploaded version ${body.version} to ${this.path}\n\n`)
+              console.log(`\n\nSUCCESSFULLY uploaded version ${body.version} to ${this.endpoint}\n\n`)
             } else {
               console.log('response', response)
               throw new Error('Failed')
             }
           })
           .catch((err) => {
-            console.log(`\n\nFAILED to upload version ${body.version} to ${this.path}\n\n`, err)
+            console.log(`\n\nFAILED to upload version ${body.version} to ${this.endpoint}\n\n`, err)
           })
       }
     })
