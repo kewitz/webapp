@@ -2,8 +2,8 @@
 import path from 'path'
 import express from 'express'
 import webpack from 'webpack'
-import webpackDevMiddleware from 'webpack-dev-middleware' // eslint-disable-line import/no-extraneous-dependencies
-import webpackHotMiddleware from 'webpack-hot-middleware' // eslint-disable-line import/no-extraneous-dependencies
+import webpackDevMiddleware from 'webpack-dev-middleware'
+import webpackHotMiddleware from 'webpack-hot-middleware'
 import httpProxy from 'http-proxy'
 import config from './../../webpack.dev.config'
 import { addOauthRoute, fetchOauthToken } from './oauth'
