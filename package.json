@@ -139,7 +139,7 @@
     "transit-immutable-js": "0.7.0",
     "trunc-html": "1.1.2",
     "tween.js": "16.6.0",
-    "url-regex": "4.1.1"
+    "url-regex": "3.2.0"
   },
   "devDependencies": {
     "autoprefixer": "7.1.1",
@@ -151,12 +151,12 @@
     "babel-plugin-react-transform": "2.0.2",
     "babel-plugin-transform-flow-strip-types": "6.22.0",
     "babel-plugin-transform-react-constant-elements": "6.23.0",
-    "babel-plugin-transform-react-remove-prop-types": "0.4.6",
+    "babel-plugin-transform-react-remove-prop-types": "0.4.3",
     "babel-preset-es2015": "6.24.1",
     "babel-preset-react": "6.24.1",
     "babel-preset-stage-0": "6.24.1",
     "babel-register": "6.24.1",
-    "chai": "4.0.2",
+    "chai": "3.5.0",
     "chai-generator": "2.1.0",
     "chai-immutable": "1.6.0",
     "css-loader": "0.28.4",

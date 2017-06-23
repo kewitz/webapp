@@ -40,6 +40,7 @@ module.exports = env => ({
       template: '!!html-loader!public/template.html',
       inject: 'body',
     }),
+    new webpack.optimize.ModuleConcatenationPlugin(),
     new webpack.optimize.UglifyJsPlugin({
       compress: {
         screw_ie8: true,

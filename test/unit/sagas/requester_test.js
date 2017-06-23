@@ -22,7 +22,7 @@ describe('requester saga', function () {
     expect(requester).to.take(myChannel)
   })
 
-  xdescribe('#performRequest', function () {
+  describe('#performRequest', function () {
     const pretendAction = {
       type: 'PRETEND_ACTION',
       payload: {
