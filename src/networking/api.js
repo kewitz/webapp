@@ -3,10 +3,7 @@ import * as ENV from '../../env'
 
 const API_VERSION = 'v2'
 const PER_PAGE = 25
-const basePath = () => {
-  console.log('ENV', ENV)
-  return `${ENV.API_DOMAIN}/api`
-}
+const basePath = () => `${ENV.API_DOMAIN}/api`
 
 function getAPIPath(relPath, queryParams = {}) {
   let path = `${basePath()}/${API_VERSION}/${relPath}`
