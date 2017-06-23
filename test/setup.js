@@ -15,7 +15,6 @@ chai.use(chaiImmutable)
 chai.use(sinonChai)
 
 dotenv.load()
-global.ENV = require('../env')
 
 global.chai = chai
 global.expect = expect
@@ -51,5 +50,10 @@ window.matchMedia = window.matchMedia || function () {
     addListener: () => {},
     removeListener: () => {},
   }
+}
+
+// set specific env vars here
+window.webappEnv = {
+  AUTH_CLIENT_ID: 'abc123',
 }
 

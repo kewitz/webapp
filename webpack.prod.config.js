@@ -18,11 +18,6 @@ const webpack = require('webpack')
 const pkg = require('./package.json')
 const UploadHTMLPlugin = require('./src/server/upload_html_plugin')
 
-// load env vars first
-require('dotenv').load({ silent: process.env.NODE_ENV === 'production' })
-
-const nodeEnv = process.env.NODE_ENV || 'production'
-
 module.exports = env => ({
   devtool: 'source-map',
   entry: {
@@ -36,10 +31,7 @@ module.exports = env => ({
   },
   plugins: [
     new webpack.NoEmitOnErrorsPlugin(),
-    new webpack.DefinePlugin({
-      ENV: JSON.stringify(require(path.join(__dirname, './env.js'))), // eslint-disable-line
-      'process.env': { NODE_ENV: JSON.stringify(nodeEnv) },
-    }),
+    new webpack.DefinePlugin({ 'process.env': { NODE_ENV: "'production'" } }),
     new ExtractTextPlugin({ filename: `${env.commitsha}.css` }),
     new HtmlWebpackPlugin({
       filename: `${env.commitsha}.html`,

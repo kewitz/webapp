@@ -15,6 +15,7 @@ import {
   getPasswordState,
 } from './Validators'
 import { signupPath } from '../../networking/api'
+import * as ENV from '../../../env'
 
 function renderStatus(state) {
   return () => {

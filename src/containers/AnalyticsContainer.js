@@ -11,6 +11,7 @@ import {
   selectProfileIsFeatured,
 } from 'ello-brains/selectors/profile'
 import { isElloAndroid } from '../lib/jello'
+import * as ENV from '../../env'
 
 const agent = isElloAndroid() ? 'android' : 'webapp'
 

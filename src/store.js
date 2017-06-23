@@ -10,6 +10,7 @@ import { fromJSON } from 'transit-immutable-js'
 import { rehydrate } from 'glamor'
 import * as reducers from './reducers'
 import rootSaga from './sagas'
+import * as ENV from '../env'
 
 const reducer = combineReducers({ ...reducers })
 

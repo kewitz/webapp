@@ -13,8 +13,9 @@ import postcssUrl from 'postcss-url'
 import webpack from 'webpack'
 import pkg from './package.json'
 // load env vars first
-require('dotenv').load({ silent: process.env.NODE_ENV === 'production' })
+require('dotenv').load()
 
+console.log('process.env server', process.env)
 
 module.exports = {
   devtool: 'source-map',
@@ -28,10 +29,17 @@ module.exports = {
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.DefinePlugin({
-      __DEV__: JSON.stringify(JSON.parse(process.env.BUILD_DEV || 'true')),
-      __PRERELEASE__: JSON.stringify(JSON.parse(process.env.BUILD_PRERELEASE || 'false')),
-      ENV: JSON.stringify(require(path.join(__dirname, './env.js'))), // eslint-disable-line
+    new webpack.DefinePlugin({ 'process.env': {
+      API_DOMAIN: `'${process.env.API_DOMAIN || process.env.AUTH_DOMAIN}'`,
+      APP_DEBUG: `'${process.env.APP_DEBUG}'`,
+      AUTH_CLIENT_ID: `'${process.env.AUTH_CLIENT_ID}'`,
+      AUTH_CLIENT_SECRET: `'${process.env.AUTH_CLIENT_SECRET}'`,
+      AUTH_DOMAIN: `'${process.env.AUTH_DOMAIN}'`,
+      LOGO_MARK: `'${process.env.LOGO_MARK}'`,
+      NODE_ENV: "'development'",
+      PROMO_HOST: `'${process.env.PROMO_HOST}'`,
+      SEGMENT_WRITE_KEY: `'${process.env.SEGMENT_WRITE_KEY}'`,
+      USE_LOCAL_EMOJI: `'${process.env.USE_LOCAL_EMOJI}'` },
     }),
   ],
   module: {

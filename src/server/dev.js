@@ -10,8 +10,7 @@ import { addOauthRoute, fetchOauthToken } from './oauth'
 import { updateStrings as updateTimeAgoStrings } from './../lib/time_ago_in_words'
 
 // load env vars first
-require('dotenv').load({ silent: process.env.NODE_ENV === 'production' })
-global.ENV = require('./../../env')
+require('dotenv').load()
 
 const app = express()
 const compiler = webpack(config)

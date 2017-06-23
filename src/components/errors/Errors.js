@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { EditorialOverlay } from '../editorials/EditorialParts'
 import { css, media } from '../../styles/jss'
 import * as s from '../../styles/jso'
+import * as ENV from '../../../env'
 
 const spinGif = '/static/images/support/ello-spin.gif'
 

@@ -1,4 +1,5 @@
 const OAuth2 = require('simple-oauth2')
+const ENV = require('../../env')
 
 // Initialize the OAuth2 Library
 const tokenConfig = { scope: 'public scoped_refresh_token' }

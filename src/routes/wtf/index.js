@@ -1,3 +1,5 @@
+import * as ENV from '../../../env'
+
 export default {
   path: 'wtf(/**/**)',
   onEnter(nextState, replace, callback) {

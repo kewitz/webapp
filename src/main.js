@@ -2,7 +2,6 @@
 import 'babel-polyfill'
 // This needs to be imported before everything else to work properly
 import './vendor/glamor-pxtorem'
-
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
@@ -22,6 +21,7 @@ import createRoutes from './routes'
 import Honeybadger from 'honeybadger-js'
 import './vendor/embetter'
 import './vendor/embetter_initializer'
+import * as ENV from '../env'
 
 /* eslint-disable global-require */
 // only use fastclick if we are on iOS
@@ -42,10 +42,12 @@ function shouldScroll() {
 //   whyDidYouUpdate(React)
 // }
 
-Honeybadger.configure({
-  api_key: ENV.HONEYBADGER_API_KEY,
-  environment: ENV.HONEYBADGER_ENVIRONMENT,
-})
+if (ENV.HONEYBADGER_API_KEY && ENV.HONEYBADGER_ENVIRONMENT) {
+  Honeybadger.configure({
+    api_key: ENV.HONEYBADGER_API_KEY,
+    environment: ENV.HONEYBADGER_ENVIRONMENT,
+  })
+}
 
 updateTimeAgoStrings({ about: '' })
 

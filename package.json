@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "clean": "rm -f .yarnclean public/static/*.css public/static/*.html public/static/*.js public/static/*.map",
-    "build": "yarn run clean && NODE_ENV=production node ./node_modules/webpack/bin/webpack.js -p --progress --config=webpack.prod.config.js --env.commitsha=`git rev-parse HEAD`",
+    "build": "yarn run clean && node ./node_modules/webpack/bin/webpack.js -p --progress --config=webpack.prod.config.js --env.commitsha=`git rev-parse HEAD`",
     "dev": "DEBUG=express:* NODE_ENV=development babel-node src/server/dev.js",
     "flow": "flow",
     "lint": "yarn lint:js && yarn lint:css",
@@ -71,8 +71,7 @@
   "eslintConfig": {
     "extends": "ello",
     "globals": {
-      "AndroidInterface": false,
-      "ENV": false
+      "AndroidInterface": false
     }
   },
   "stylelint": {

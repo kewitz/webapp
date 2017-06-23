@@ -6,6 +6,7 @@ import { ChevronCircleIcon, ShareIcon } from '../assets/Icons'
 import { AppleStore, GooglePlayStore } from '../assets/Sprites'
 import { css, hover, media, parent } from '../../styles/jss'
 import * as s from '../../styles/jso'
+import * as ENV from '../../../env'
 
 // -------------------------------------
 
