@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import Block from './Block'
 
 export function reloadPlayers() {
-  if (typeof window !== 'undefined' && window.embetter) {
+  if (window.embetter) {
     window.embetter.reloadPlayers()
   }
 }
@@ -30,14 +30,12 @@ class EmbedBlock extends Component {
   render() {
     const dataJS = this.props.data.toJS()
     const { service, url, thumbnailLargeUrl, id } = dataJS
-    const children = typeof window !== 'undefined' ?
-      window.embetter.utils.playerHTML(
-        window.embetter.services[service],
-        url,
-        thumbnailLargeUrl,
-        id,
-      ) :
-      null
+    const children = window.embetter.utils.playerHTML(
+      window.embetter.services[service],
+      url,
+      thumbnailLargeUrl,
+      id,
+    )
     return (
       <Block {...this.props}>
         <div

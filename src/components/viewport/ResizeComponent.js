@@ -78,7 +78,5 @@ export function removeResizeObject(obj) {
   }
 }
 
-if (typeof window !== 'undefined') {
-  resized()
-}
+resized()
 

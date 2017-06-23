@@ -49,9 +49,7 @@ export function* fetchCredentials() {
 }
 
 export function* getClientCredentials() {
-  const tokenPath = (typeof window === 'undefined') ?
-        `http://localhost:${process.env.PORT || 6660}/api/webapp-token` :
-        `${document.location.protocol}//${document.location.host}/api/webapp-token`
+  const tokenPath = `${document.location.protocol}//${document.location.host}/api/webapp-token`
 
   try {
     const response = yield call(fetch, tokenPath, { credentials: 'same-origin' })

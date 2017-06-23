@@ -166,7 +166,7 @@ export function pagePromotionals() {
 export function discoverPosts(type) {
   const params = {
     per_page: PER_PAGE,
-    ...getPagingQueryParams(typeof window !== 'undefined' ? window.location.search : ''),
+    ...getPagingQueryParams(window.location.search),
   }
   return {
     path: getAPIPath(`discover/posts/${type}`, params),
@@ -295,7 +295,7 @@ export function textToolsPath() {
 export function commentsForPost(idOrToken) {
   const params = {
     per_page: 10,
-    ...getPagingQueryParams(typeof window !== 'undefined' ? window.location.search : ''),
+    ...getPagingQueryParams(window.location.search),
   }
   return {
     path: getAPIPath(`posts/${idOrToken}/comments`, params),
@@ -331,7 +331,7 @@ export function userDetail(idOrUsername) {
 export function userFollowing(idOrUsername, priority) {
   const params = {
     per_page: 10,
-    ...getPagingQueryParams(typeof window !== 'undefined' ? window.location.search : ''),
+    ...getPagingQueryParams(window.location.search),
   }
 
   if (priority) params.priority = priority
@@ -344,7 +344,7 @@ export function userFollowing(idOrUsername, priority) {
 export function userResources(idOrUsername, resource) {
   const params = {
     per_page: 10,
-    ...getPagingQueryParams(typeof window !== 'undefined' ? window.location.search : ''),
+    ...getPagingQueryParams(window.location.search),
   }
   return {
     path: getAPIPath(`users/${idOrUsername}/${resource}`, params),

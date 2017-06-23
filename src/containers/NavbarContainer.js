@@ -110,7 +110,7 @@ class NavbarContainer extends PureComponent {
   }
 
   componentDidUpdate(prevProps) {
-    if (typeof window === 'undefined' || !prevProps.pathname || !this.props.pathname) { return }
+    if (!prevProps.pathname || !this.props.pathname) { return }
     if (prevProps.pathname !== this.props.pathname) {
       this.checkForNotifications()
     }

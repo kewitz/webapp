@@ -120,7 +120,6 @@ const launchApplication = (storage, hasLocalStorage = false) => {
 
 // this will fail in a safari private window
 function isLocalStorageSupported() {
-  if (typeof window === 'undefined') { return false }
   const testKey = 'test-localStorage'
   const storage = window.localStorage
   try {
