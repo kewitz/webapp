@@ -1,4 +1,3 @@
-// @flow
 import React from 'react'
 import { css, select } from '../../styles/jss'
 import * as i from '../assets/Icons'
@@ -70,7 +69,7 @@ export default() =>
         i.XBoxIcon,
         i.XIcon,
         i.XIconLG,
-      ].map(icon => <button key={icon.name} title={icon.name}>{icon({})}</button>) }
+      ].map(icon => <button key={icon.name} title={icon.name}>{icon()}</button>) }
     </div>
     <h2 className={h2Style}>Social icons</h2>
     <div className={groupStyle} >

@@ -15,8 +15,6 @@ import pkg from './package.json'
 // load env vars first
 require('dotenv').load()
 
-console.log('process.env server', process.env)
-
 module.exports = {
   devtool: 'source-map',
   entry: {

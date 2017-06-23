@@ -1,4 +1,3 @@
-/* eslint-disable import/no-extraneous-dependencies */
 require('isomorphic-fetch')
 
 function UploadHTMLPlugin(options) {
