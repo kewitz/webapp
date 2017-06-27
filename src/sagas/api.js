@@ -9,6 +9,7 @@ import {
   selectShouldUseRefreshToken,
 } from 'ello-brains/selectors/authentication'
 import { refreshAuthenticationToken } from '../actions/authentication'
+import { webappToken } from '../networking/api'
 
 export function getHeaders(accessToken) {
   return {
@@ -49,7 +50,7 @@ export function* fetchCredentials() {
 }
 
 export function* getClientCredentials() {
-  const tokenPath = `${document.location.protocol}//${document.location.host}/api/webapp-token`
+  const tokenPath = webappToken().path
 
   try {
     const response = yield call(fetch, tokenPath, { credentials: 'same-origin' })

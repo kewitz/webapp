@@ -72,6 +72,12 @@ export function refreshAuthToken(refreshToken) {
   }
 }
 
+export function webappToken() {
+  return {
+    path: `${basePath()}/webapp-token`,
+  }
+}
+
 export function signupPath() {
   return {
     path: `${basePath()}/v2/signup`,

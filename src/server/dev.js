@@ -5,7 +5,6 @@ import webpackDevMiddleware from 'webpack-dev-middleware'
 import webpackHotMiddleware from 'webpack-hot-middleware'
 import httpProxy from 'http-proxy'
 import config from './../../webpack.dev.config'
-import { addOauthRoute, fetchOauthToken } from './oauth'
 import { updateStrings as updateTimeAgoStrings } from './../lib/time_ago_in_words'
 
 // load env vars first
@@ -19,7 +18,6 @@ const proxy = httpProxy.createProxyServer({
 })
 
 updateTimeAgoStrings({ about: '' })
-addOauthRoute(app)
 
 // Development Middleware
 app.use(webpackDevMiddleware(compiler, {
@@ -39,7 +37,6 @@ app.use('/api/', (req, res) => {
   proxy.web(req, res, {})
 })
 
-
 // Main entry for app
 app.get('/*', (req, res) => {
   res.sendFile(path.join(__dirname, './../../public/dev.html'))
@@ -51,13 +48,12 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, './public/dev.html'))
 })
 
-fetchOauthToken(() => {
-  app.listen(6660, '0.0.0.0', (err) => {
-    if (err) {
-      console.log('Listen error', err)
-      return
-    }
-    console.log('Listening at http://localhost:6660')
-    console.log(`AUTH_DOMAIN: ${process.env.AUTH_DOMAIN}`)
-  })
+app.listen(6660, '0.0.0.0', (err) => {
+  if (err) {
+    console.log('Listen error', err)
+    return
+  }
+  console.log('Listening at http://localhost:6660')
+  console.log(`AUTH_DOMAIN: ${process.env.AUTH_DOMAIN}`)
 })
+
