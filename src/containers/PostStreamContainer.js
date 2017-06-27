@@ -57,7 +57,7 @@ const makeMapStateToProps = () => (
   })
 )
 
-class CuratedPostContainer extends Component {
+class PostStreamContainer extends Component {
   props: Props
 
   static contextTypes = {
@@ -113,5 +113,5 @@ class CuratedPostContainer extends Component {
   }
 }
 
-export default connect(makeMapStateToProps)(CuratedPostContainer)
+export default connect(makeMapStateToProps)(PostStreamContainer)
 

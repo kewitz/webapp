@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 import Slider from 'react-slick'
 import { NextPaddle, PrevPaddle } from './CarouselParts'
-import CuratedPostContainer from '../../containers/CuratedPostContainer'
+import PostStreamContainer from '../../containers/PostStreamContainer'
 import { css, media, select } from '../../styles/jss'
 import * as s from '../../styles/jso'
 
@@ -56,7 +56,7 @@ export class SlickCarousel extends PureComponent {
         >
           {postIds.map(id =>
             <div className={itemBaseStyle} key={`curatedEditorial_post_${id}`}>
-              <CuratedPostContainer
+              <PostStreamContainer
                 postId={id}
                 {...renderProps}
               />

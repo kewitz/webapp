@@ -6,7 +6,13 @@ import InvitationFormContainer from '../../containers/InvitationFormContainer'
 import StreamContainer from '../../containers/StreamContainer'
 import BackgroundImage from '../assets/BackgroundImage'
 import RegistrationRequestForm from '../forms/RegistrationRequestForm'
-import { EditorialOverlay, EditorialTitle, EditorialSubtitle, EditorialTools } from './EditorialParts'
+import {
+  EditorialOverlay,
+  EditorialTitle,
+  EditorialSubtitle,
+  EditorialTools,
+  EditorialUsernameTitle,
+} from './EditorialParts'
 import { css, media, select } from '../../styles/jss'
 import * as s from '../../styles/jso'
 import type { EditorialProps } from '../../types/flowtypes'
@@ -144,7 +150,7 @@ export const CuratedPost = (props: PostProps) => (
     }
     <header className={postHeaderStyle}>
       <EditorialTitle label={`${props.title} `} />
-      <EditorialTitle label={`@${props.username}`} />
+      <EditorialUsernameTitle label={`@${props.username}`} />
     </header>
     <div className={bodyStyle}>
       <div className={toolsStyle}>
