@@ -116,6 +116,15 @@ export const EditorialTitle = ({ label }: { label: string }) => (
   <h2 className={titleStyle}>{label}</h2>
 )
 
+const usernameTitleStyle = css(
+  { ...titleStyle },
+  s.truncate,
+)
+
+export const EditorialUsernameTitle = ({ label }: { label: string }) => (
+  <h2 className={usernameTitleStyle}>{label}</h2>
+)
+
 // -------------------------------------
 
 const subtitleStyle = css(
