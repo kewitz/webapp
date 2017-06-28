@@ -465,7 +465,7 @@ export const XIconLG = () =>
 
 // -------------------------------------
 // RSS icon
-export const RSSIcon = () =>
+export const RSSIcon = () => (
   <SVGBox className="RSSIcon" size="22">
     <g>
       <rect fill="#aaa" x="0" y="0" width="22" height="22" rx="5" />
@@ -476,6 +476,7 @@ export const RSSIcon = () =>
       </g>
     </g>
   </SVGBox>
+)
 
 // -------------------------------------
 // Social icons 60 x 60

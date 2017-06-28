@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "clean": "rm -f .yarnclean public/static/*.css public/static/*.html public/static/*.js public/static/*.map",
-    "build": "yarn run clean && node ./node_modules/webpack/bin/webpack.js -p --progress --config=webpack.prod.config.js --env.commitsha=`git rev-parse HEAD`",
+    "build": "yarn run clean && NODE_ENV=production node ./node_modules/webpack/bin/webpack.js -p --progress --config=webpack.prod.config.js --env.commitsha=`git rev-parse HEAD`",
     "dev": "DEBUG=express:* NODE_ENV=development babel-node src/server/dev.js",
     "flow": "flow",
     "lint": "yarn lint:js && yarn lint:css",
@@ -23,18 +23,15 @@
   },
   "browserlist": "> 5%, last 2 firefox versions, last 2 chrome versions, last 2 safari versions, last 2 edge versions, ie 11, not OperaMini all",
   "babel": {
-    "presets": [
-      "es2015",
-      "react",
-      "stage-0"
-    ],
-    "plugins": [
-      "lodash",
-      "transform-flow-strip-types"
-    ],
     "env": {
       "development": {
+        "presets": [
+          "es2015",
+          "react",
+          "stage-0"
+        ],
         "plugins": [
+          "lodash",
           [
             "react-transform",
             {
@@ -57,11 +54,24 @@
                 }
               ]
             }
-          ]
+          ],
+          "transform-flow-strip-types"
         ]
       },
       "production": {
+        "presets": [
+          [
+            "es2015",
+            {
+              "modules": false
+            }
+          ],
+          "react",
+          "stage-0"
+        ],
         "plugins": [
+          "lodash",
+          "transform-flow-strip-types",
           "transform-react-constant-elements",
           "transform-react-remove-prop-types"
         ]
@@ -138,7 +148,7 @@
     "transit-immutable-js": "0.7.0",
     "trunc-html": "1.1.2",
     "tween.js": "16.6.0",
-    "url-regex": "4.1.1"
+    "url-regex": "3.2.0"
   },
   "devDependencies": {
     "autoprefixer": "7.1.1",

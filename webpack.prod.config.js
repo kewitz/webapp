@@ -18,6 +18,9 @@ const webpack = require('webpack')
 const pkg = require('./package.json')
 const UploadHTMLPlugin = require('./src/server/upload_html_plugin')
 
+// load env vars first
+require('dotenv').load({ silent: true })
+
 module.exports = env => ({
   devtool: 'source-map',
   entry: {
