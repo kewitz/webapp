@@ -3,22 +3,22 @@ import PropTypes from 'prop-types'
 import classNames from 'classnames'
 
 export const SVGComponent = ({ children, ...rest }) =>
-  <svg {...rest}>
+  (<svg {...rest}>
     {children}
-  </svg>
+  </svg>)
 SVGComponent.propTypes = {
   children: PropTypes.node.isRequired,
 }
 
 export const SVGIcon = ({ children, className, onClick }) =>
-  <SVGComponent
+  (<SVGComponent
     className={classNames(className, 'SVGIcon')}
     onClick={onClick}
     width="20"
     height="20"
   >
     {children}
-  </SVGComponent>
+  </SVGComponent>)
 SVGIcon.propTypes = {
   children: PropTypes.node.isRequired,
   className: PropTypes.string.isRequired,
@@ -29,13 +29,13 @@ SVGIcon.defaultProps = {
 }
 
 export const SVGBox = ({ children, className, size }) =>
-  <SVGComponent
+  (<SVGComponent
     className={classNames(className, 'SVGBox')}
     width={size}
     height={size}
   >
     {children}
-  </SVGComponent>
+  </SVGComponent>)
 SVGBox.propTypes = {
   children: PropTypes.node.isRequired,
   className: PropTypes.string.isRequired,

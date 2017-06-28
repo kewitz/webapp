@@ -116,7 +116,7 @@ export const Footer = ({
   onClickScrollToTop,
   onClickToggleLayoutMode,
 }: FooterContextTypes) =>
-  <footer
+  (<footer
     className={classNames(`Footer ${baseStyle}`, { isPaginatoring })}
     role="contentinfo"
   >
@@ -165,7 +165,7 @@ export const Footer = ({
         }
       </div>
     </div>
-  </footer>
+  </footer>)
 
 Footer.contextTypes = {
   onClickScrollToTop: PropTypes.func.isRequired,

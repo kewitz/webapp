@@ -260,6 +260,7 @@ class ImageRegion extends Component {
         playsInline
         width={width}
       >
+        <track kind="captions" />
         <source src={this.attachment.getIn(['video', 'url'])} />
       </video>
     )

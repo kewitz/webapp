@@ -16,10 +16,10 @@ const textDialogStyle = css(
 )
 
 export const TextMarkupDialog = ({ html }) =>
-  <div className={`${baseDialogStyle} ${textDialogStyle}`}>
+  (<div className={`${baseDialogStyle} ${textDialogStyle}`}>
     <div dangerouslySetInnerHTML={{ __html: html }} />
     <DismissButton />
-  </div>
+  </div>)
 
 TextMarkupDialog.propTypes = {
   html: PropTypes.string.isRequired,
@@ -71,7 +71,7 @@ const learnMoreStyle = css(
 export const BadgeSummaryDialog = ({ badges, trackEvent }) => (
   <div className={`${baseDialogStyle} ${badgeDialogStyle}`}>
     { badges.map(badge =>
-      <div className={badgeCellStyle} key={`BadgeSummary_${badge.get('slug')}`}>
+      (<div className={badgeCellStyle} key={`BadgeSummary_${badge.get('slug')}`}>
         <div className={labelsCellStyle}>
           <ImageAsset
             className={badgeImgStyle}
@@ -97,7 +97,7 @@ export const BadgeSummaryDialog = ({ badges, trackEvent }) => (
             </a>
           </div>
         }
-      </div>,
+      </div>),
     )}
     <DismissButton />
   </div>

@@ -215,7 +215,6 @@ class RegistrationRequestForm extends Component {
           method="POST"
           noValidate="novalidate"
           onSubmit={this.onSubmit}
-          role="form"
         >
           <EmailControl
             classList="isBoxControl JoinEmailControl"

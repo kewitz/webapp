@@ -27,7 +27,7 @@ const buttonStyle = css(
 )
 
 const AdultPostsDialog = ({ onConfirm }) =>
-  <div className={`${baseDialogStyle} ${dialogStyle}`}>
+  (<div className={`${baseDialogStyle} ${dialogStyle}`}>
     <p style={s.mt0}>
       If you post adult content, you must mark your account Not Safe for Work (NSFW).
     </p>
@@ -37,7 +37,7 @@ const AdultPostsDialog = ({ onConfirm }) =>
     </p>
     <button className={buttonStyle} onClick={onConfirm}>Okay</button>
     <DismissButton />
-  </div>
+  </div>)
 
 AdultPostsDialog.propTypes = {
   onConfirm: PropTypes.func.isRequired,

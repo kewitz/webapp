@@ -46,9 +46,9 @@ type CellProps = {
 }
 
 const Cell = (props: CellProps) =>
-  <div className={`${cellStyle} ${props.className}`}>
+  (<div className={`${cellStyle} ${props.className}`}>
     {props.children}
-  </div>
+  </div>)
 
 Cell.defaultProps = {
   children: null,

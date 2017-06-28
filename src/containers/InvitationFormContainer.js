@@ -119,7 +119,6 @@ class InvitationFormContainer extends PureComponent {
           method="POST"
           noValidate="novalidate"
           onSubmit={this.onSubmit}
-          role="form"
         >
           <BatchEmailControl
             classList="isBoxControl onGrey"

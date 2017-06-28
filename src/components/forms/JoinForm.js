@@ -157,7 +157,6 @@ class JoinForm extends PureComponent {
           method="POST"
           noValidate="novalidate"
           onSubmit={this.onSubmit}
-          role="form"
         >
           <UsernameControl
             autoFocus

@@ -16,7 +16,7 @@ function getMessage({ hasShowMoreButton, messageText, totalPages, totalPagesRema
 }
 
 const PaginatorLink = ({ message, to }) =>
-  <Link
+  (<Link
     className="PaginatorLink"
     to={{
       pathname: to,
@@ -24,27 +24,27 @@ const PaginatorLink = ({ message, to }) =>
     }}
   >
     <span>{message}</span>
-  </Link>
+  </Link>)
 PaginatorLink.propTypes = {
   message: PropTypes.string.isRequired,
   to: PropTypes.string.isRequired,
 }
 
 const PaginatorButton = ({ loadNextPage, message }) =>
-  <button className="PaginatorButton" onClick={loadNextPage}>
+  (<button className="PaginatorButton" onClick={loadNextPage}>
     <ElloMark className="isSpinner" />
     <span>{message}</span>
-  </button>
+  </button>)
 PaginatorButton.propTypes = {
   loadNextPage: PropTypes.func.isRequired,
   message: PropTypes.string.isRequired,
 }
 
 const PaginatorLoader = ({ message }) =>
-  <span className="PaginatorLoader">
+  (<span className="PaginatorLoader">
     <ElloMark className="isSpinner" />
     <span className="PaginatorMessage">{message}</span>
-  </span>
+  </span>)
 PaginatorLoader.propTypes = {
   message: PropTypes.string.isRequired,
 }

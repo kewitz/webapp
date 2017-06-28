@@ -18,7 +18,7 @@ const headingStyle = css(s.fontSize18, media(s.minBreak2, s.fontSize24))
 const buttonStyle = css(s.mt20, s.fontSize14, s.colorA, s.transitionColor, hover(s.colorBlack))
 
 export const ZeroStream = ({ children, onDismiss }) =>
-  <div className={zeroStreamStyle}>
+  (<div className={zeroStreamStyle}>
     <h2 className={headingStyle}>
       {children}
     </h2>
@@ -28,7 +28,7 @@ export const ZeroStream = ({ children, onDismiss }) =>
       </button> :
       null
      }
-  </div>
+  </div>)
 
 ZeroStream.propTypes = {
   children: PropTypes.node.isRequired,
@@ -41,9 +41,9 @@ ZeroStream.defaultProps = {
 
 
 export const ZeroFollowingStream = () =>
-  <ZeroStream emoji="lollipop">
+  (<ZeroStream emoji="lollipop">
     Follow the creators and communities that inspire you.
-  </ZeroStream>
+  </ZeroStream>)
 
 
 // -------------------------------------
@@ -62,9 +62,9 @@ const titleStyle = css(s.mb20, s.fontSize18, s.colorA, media(s.minBreak2, s.font
 const usernameStyle = css(s.decorationNone)
 
 export const ZeroState = ({ children = 'Sorry, no results found.' }) =>
-  <div className={`ZeroState ${zeroStateStyle}`}>
+  (<div className={`ZeroState ${zeroStateStyle}`}>
     {children}
-  </div>
+  </div>)
 
 ZeroState.propTypes = {
   children: PropTypes.node,
@@ -72,7 +72,7 @@ ZeroState.propTypes = {
 
 
 export const ZeroStateCreateRelationship = ({ userId, username }) =>
-  <ZeroState>
+  (<ZeroState>
     <h2 className={titleStyle}>
       <span className={usernameStyle}>{`@${username}`}</span>
       <span>{' doesn\'t have any followers yet, why don\'t you be their first?'}</span>
@@ -80,7 +80,7 @@ export const ZeroStateCreateRelationship = ({ userId, username }) =>
     <RelationshipContainer
       userId={userId}
     />
-  </ZeroState>
+  </ZeroState>)
 
 ZeroStateCreateRelationship.propTypes = {
   userId: PropTypes.string.isRequired,
@@ -89,7 +89,7 @@ ZeroStateCreateRelationship.propTypes = {
 
 
 export const ZeroStateSayHello = ({ hasPosted = false, onSubmit, username }) =>
-  <ZeroState>
+  (<ZeroState>
     <h2 className={titleStyle}>
       <span>{'It doesn\'t look like '}</span>
       <span className={usernameStyle}>{`@${username}`}</span>
@@ -99,7 +99,7 @@ export const ZeroStateSayHello = ({ hasPosted = false, onSubmit, username }) =>
       <p>{`Notification to @${username} has been sent.`}</p> :
       <Editor autoPopulate={`Hi @${username} :wave:`} onSubmit={onSubmit} />
     }
-  </ZeroState>
+  </ZeroState>)
 
 ZeroStateSayHello.propTypes = {
   hasPosted: PropTypes.bool,
@@ -109,12 +109,12 @@ ZeroStateSayHello.propTypes = {
 
 
 export const ZeroStateFirstPost = () =>
-  <ZeroState>
+  (<ZeroState>
     <h2 className={titleStyle}>
       It doesn’t look like you’ve posted yet, why don’t you give it a shot.
     </h2>
     <Editor autoPopulate="Ello World! My first post on :ello:!" />
-  </ZeroState>
+  </ZeroState>)
 
 ZeroStateFirstPost.propTypes = {
   hasPosted: PropTypes.bool,

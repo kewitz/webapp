@@ -335,7 +335,7 @@ CommentOnRepostNotification.defaultProps = {
 
 // INVITATIONS
 export const InvitationAcceptedNotification = ({ createdAt, user }) =>
-  <Notification
+  (<Notification
     activityPath={getActivityPath(user)}
     className="InvitationAcceptedNotification"
     createdAt={createdAt}
@@ -345,7 +345,7 @@ export const InvitationAcceptedNotification = ({ createdAt, user }) =>
       <UserTextLink user={user} />
       {' accepted your invitation.'}
     </p>
-  </Notification>
+  </Notification>)
 InvitationAcceptedNotification.propTypes = {
   createdAt: PropTypes.string,
   user: PropTypes.object,
@@ -466,7 +466,7 @@ LoveOnRepostNotification.defaultProps = {
 
 // RELATIONSHIPS
 export const NewFollowerPost = ({ createdAt, user }) =>
-  <Notification
+  (<Notification
     activityPath={getActivityPath(user)}
     className="NewFollowerPostNotification"
     createdAt={createdAt}
@@ -476,7 +476,7 @@ export const NewFollowerPost = ({ createdAt, user }) =>
       <UserTextLink user={user} />
       {' started following you.'}
     </p>
-  </Notification>
+  </Notification>)
 NewFollowerPost.propTypes = {
   createdAt: PropTypes.string,
   user: PropTypes.object,
@@ -487,7 +487,7 @@ NewFollowerPost.defaultProps = {
 }
 
 export const NewFollowedUserPost = ({ createdAt, user }) =>
-  <Notification
+  (<Notification
     activityPath={getActivityPath(user)}
     className="NewFollowedUserPostNotification"
     createdAt={createdAt}
@@ -498,7 +498,7 @@ export const NewFollowedUserPost = ({ createdAt, user }) =>
       <UserTextLink user={user} />
       {'.'}
     </p>
-  </Notification>
+  </Notification>)
 NewFollowedUserPost.propTypes = {
   createdAt: PropTypes.string,
   user: PropTypes.object,

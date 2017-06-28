@@ -189,7 +189,6 @@ class InfoForm extends PureComponent {
         method="POST"
         noValidate="novalidate"
         onSubmit={onSubmit}
-        role="form"
       >
         <NameControl
           classList={controlClassModifiers}

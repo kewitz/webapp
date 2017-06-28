@@ -17,7 +17,7 @@ type Props = {
 }
 
 export const Viewport = (props: Props) =>
-  <div
+  (<div
     className={classNames(
       'Viewport',
       { isAuthenticationView: props.isAuthenticationView },
@@ -30,7 +30,7 @@ export const Viewport = (props: Props) =>
       `${baseStyle}`,
     )}
     role="presentation"
-  />
+  />)
 
 export default Viewport
 

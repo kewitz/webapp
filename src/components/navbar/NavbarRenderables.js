@@ -90,7 +90,7 @@ export const NavbarLoggedOut = ({
   onClickNavbarMark,
   pathname,
 }, { onClickLogin, onClickSignup }) =>
-  <nav className={`Navbar ${navbarStyle}`} role="navigation" >
+  (<nav className={`Navbar ${navbarStyle}`} >
     <div className={`NavbarMain ${mainStyle}`}>
       <NavbarMark onClick={onClickNavbarMark} />
       <NavbarLabel />
@@ -127,7 +127,7 @@ export const NavbarLoggedOut = ({
       </div>
     </div>
     {categoryTabs ? <CategoryTabBar pathname={pathname} tabs={categoryTabs} /> : null}
-  </nav>
+  </nav>)
 
 NavbarLoggedOut.propTypes = {
   categoryTabs: PropTypes.array,
@@ -169,7 +169,7 @@ export const NavbarLoggedIn = ({
   pathname,
   username,
 }) =>
-  <nav className={`Navbar ${navbarStyle}`} role="navigation" >
+  (<nav className={`Navbar ${navbarStyle}`}>
     <div className={`NavbarMain ${mainStyle}`}>
       <NavbarMark onClick={onClickNavbarMark} />
       <NavbarOmniButton
@@ -237,7 +237,7 @@ export const NavbarLoggedIn = ({
       }
     </div>
     {categoryTabs ? <CategoryTabBar pathname={pathname} tabs={categoryTabs} /> : null}
-  </nav>
+  </nav>)
 
 NavbarLoggedIn.propTypes = {
   avatar: PropTypes.object,

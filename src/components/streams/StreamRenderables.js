@@ -30,25 +30,25 @@ const categoriesStyle = css(
 )
 
 export const categoriesAsGrid = categoryIds =>
-  <div className={categoriesStyle}>
+  (<div className={categoriesStyle}>
     {categoryIds.map(id =>
-      <CategoryContainer
+      (<CategoryContainer
         categoryId={id}
         key={`categoryGrid_${id}`}
-      />,
+      />),
     )}
-  </div>
+  </div>)
 
 // COMMENTS
 export const commentsAsList = commentIds =>
-  <div className="Comments">
+  (<div className="Comments">
     {commentIds.map(id =>
-      <CommentContainer
+      (<CommentContainer
         commentId={id}
         key={`commentContainer_${id}`}
-      />,
+      />),
     )}
-  </div>
+  </div>)
 
 // EDITORIAL: chunk layouts into pages of 24 editorials
 export const editorials = editorialIds => (
@@ -69,13 +69,13 @@ export const postsAsGrid = (postIds, columnCount, isPostHeaderHidden) => {
   return (
     <div className="Posts asGrid">
       {columns.map((columnPostIds, i) =>
-        <div className="Column" key={`column_${i + 1}`}>
+        (<div className="Column" key={`column_${i + 1}`}>
           {columnPostIds.map(id =>
-            <article className="PostGrid" key={`postsAsGrid_${id}`}>
+            (<article className="PostGrid" key={`postsAsGrid_${id}`}>
               <PostContainer postId={id} isPostHeaderHidden={isPostHeaderHidden} />
-            </article>,
+            </article>),
           )}
-        </div>,
+        </div>),
       )}
     </div>
   )
@@ -87,14 +87,15 @@ const postListStyle = css(
   select('& .ImageRegion img', { height: 'auto' }),
 )
 
-export const postsAsList = (postIds, columnCount, isPostHeaderHidden) =>
+export const postsAsList = (postIds, columnCount, isPostHeaderHidden) => (
   <div className={`Posts asList ${postListStyle}`}>
-    {postIds.map(id =>
+    {postIds.map(id => (
       <article className="PostList" key={`postsAsList_${id}`}>
         <PostContainer postId={id} isPostHeaderHidden={isPostHeaderHidden} />
-      </article>,
-    )}
+      </article>
+    ))}
   </div>
+)
 
 export const postsAsRelated = (postIds, columnCount, isPostHeaderHidden) => {
   const columns = []
@@ -110,13 +111,13 @@ export const postsAsRelated = (postIds, columnCount, isPostHeaderHidden) => {
         </div>
       }
       {columns.map((columnPostIds, i) =>
-        <div className="Column" key={`column_${i + 1}`}>
+        (<div className="Column" key={`column_${i + 1}`}>
           {columnPostIds.map(id =>
-            <article className="PostGrid" key={`postsAsGrid_${id}`}>
+            (<article className="PostGrid" key={`postsAsGrid_${id}`}>
               <PostContainer postId={id} isPostHeaderHidden={isPostHeaderHidden} isRelatedPost />
-            </article>,
+            </article>),
           )}
-        </div>,
+        </div>),
       )}
     </div>
   )
@@ -125,46 +126,46 @@ export const postsAsRelated = (postIds, columnCount, isPostHeaderHidden) => {
 // USERS
 export const usersAsCompact = userIds =>
   userIds.map(id =>
-    <UserContainer
+    (<UserContainer
       key={`userCompact_${id}`}
       type="compact"
       userId={id}
-    />,
+    />),
   )
 
 export const usersAsGrid = userIds =>
-  <div className="Users asGrid">
+  (<div className="Users asGrid">
     {userIds.map(id =>
-      <UserContainer
+      (<UserContainer
         key={`userGrid_${id}`}
         type="grid"
         userId={id}
-      />,
+      />),
     )}
-  </div>
+  </div>)
 
 export const usersAsInviteeList = invitationIds =>
-  <div className="Users asInviteeList">
+  (<div className="Users asInviteeList">
     {invitationIds.map(id =>
-      <UserContainer
+      (<UserContainer
         invitationId={id}
         key={`userInviteeList_${id}`}
         type="invitee"
-      />,
+      />),
     )}
-  </div>
+  </div>)
 
 export const usersAsInviteeGrid = invitationIds =>
-  <div className="Users asInviteeGrid">
+  (<div className="Users asInviteeGrid">
     {invitationIds.map(id =>
-      <UserContainer
+      (<UserContainer
         className="UserInviteeGrid"
         invitationId={id}
         key={`userInviteeGrid_${id}`}
         type="invitee"
-      />,
+      />),
     )}
-  </div>
+  </div>)
 
 
 // notifications and settings don't have an id so they are
@@ -172,14 +173,14 @@ export const usersAsInviteeGrid = invitationIds =>
 // and the models are passed directly to these methods
 // NOTIFICATIONS
 export const notificationList = notifications =>
-  <div className="Notifications">
+  (<div className="Notifications">
     {notifications.map((notification, i) =>
-      <NotificationContainer
+      (<NotificationContainer
         key={`notificationParser_${notification.get('createdAt', Date.now())}_${i + 1}`}
         notification={notification}
-      />,
+      />),
     )}
-  </div>
+  </div>)
 
 // SETTINGS
 export const profileToggles = settings =>
@@ -189,12 +190,12 @@ export const profileToggles = settings =>
     arr.push(
       <TreePanel key={`settingItems_${setting.get('label', index)}`}>
         {setting.get('items').map(item =>
-          <Preference
+          (<Preference
             definition={{ term: item.get('label'), desc: item.get('info') }}
             id={item.get('key')}
             key={`preference_${item.get('key')}`}
             onToggleChange={preferenceToggleChanged}
-          />,
+          />),
         )}
       </TreePanel>,
     )

@@ -36,7 +36,7 @@ function onElloBuyButtonClick(e) {
 }
 
 export const ElloBuyButton = ({ to }) =>
-  <a
+  (<a
     className={`ElloBuyButton ${buttonStyle}`}
     href={to}
     onClick={onElloBuyButtonClick}
@@ -44,7 +44,7 @@ export const ElloBuyButton = ({ to }) =>
     target="_blank"
   >
     <MoneyIcon />
-  </a>
+  </a>)
 
 ElloBuyButton.propTypes = {
   to: PropTypes.string.isRequired,

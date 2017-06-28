@@ -15,7 +15,7 @@ const groupStyle = css(
 const badgeStyle = select('& .CheckShape', { stroke: '#fff' })
 
 export default() =>
-  <section className={sectionStyle}>
+  (<section className={sectionStyle}>
     <h2 className={h2Style}>Ello icons</h2>
     <div className={groupStyle}>
       <i.ElloBoxMark />
@@ -84,5 +84,5 @@ export default() =>
         i.TwitterIcon,
       ].map(icon => <button key={icon.name} title={icon.name}>{icon()}</button>) }
     </div>
-  </section>
+  </section>)
 

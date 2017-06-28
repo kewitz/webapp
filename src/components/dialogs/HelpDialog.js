@@ -31,7 +31,7 @@ const textStyle = css(
 )
 
 const HelpDialog = () =>
-  <div className={`${baseDialogStyle} ${dialogStyle}`}>
+  (<div className={`${baseDialogStyle} ${dialogStyle}`}>
     <h2 className={headingStyle}>Key Commands</h2>
     <p className={textWrapperStyle}><span className={`${textStyle} ${s.monoRegularCSS}`}>{SHORTCUT_KEYS.DISCOVER}</span> Navigate to discover</p>
     <p className={textWrapperStyle}><span className={`${textStyle} ${s.monoRegularCSS}`}>{SHORTCUT_KEYS.SEARCH}</span> Navigate to search</p>
@@ -45,7 +45,7 @@ const HelpDialog = () =>
     <p className={textWrapperStyle}><span className={`${textStyle} ${s.monoRegularCSS}`}>{SHORTCUT_KEYS.DT_GRID_CYCLE}</span> Toggle between horizontal and vertical grid</p>
     <p className={textWrapperStyle}><span className={`${textStyle} ${s.monoRegularCSS}`}>{SHORTCUT_KEYS.HELP}</span> Show this help modal</p>
     <DismissButton />
-  </div>
+  </div>)
 
 export default HelpDialog
 

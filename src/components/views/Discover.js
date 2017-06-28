@@ -7,9 +7,9 @@ export const Discover = ({
   streamAction,
   inAllCategories,
   }) =>
-    <MainView className="Discover">
+    (<MainView className="Discover">
       <StreamContainer className={inAllCategories ? 'inAllCategories' : null} action={streamAction} />
-    </MainView>
+    </MainView>)
 
 Discover.propTypes = {
   inAllCategories: PropTypes.bool.isRequired,

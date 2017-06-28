@@ -35,9 +35,9 @@ UserStatsLink.contextTypes = {
 // -----------------
 
 export const UserShareButton = ({ className, onClick }) =>
-  <button className={classNames('UserShareButton', className)} onClick={onClick} >
+  (<button className={classNames('UserShareButton', className)} onClick={onClick} >
     <ShareIcon />
-  </button>
+  </button>)
 UserShareButton.propTypes = {
   className: PropTypes.string.isRequired,
   onClick: PropTypes.func.isRequired,
@@ -46,13 +46,13 @@ UserShareButton.propTypes = {
 // -----------------
 
 export const UserNamesCell = ({ className, name, username, children }) =>
-  <div className={classNames('UserCell UserNamesCell', className, { isSingle: !name })}>
+  (<div className={classNames('UserCell UserNamesCell', className, { isSingle: !name })}>
     <h1 className="UserName">
       <Link className="truncate" to={`/${username}`} >{name || `@${username}`}</Link>
     </h1>
     {name ? <h2 className="UserUsername truncate">@{username}</h2> : null}
     { children }
-  </div>
+  </div>)
 UserNamesCell.propTypes = {
   children: PropTypes.node.isRequired,
   className: PropTypes.string.isRequired,
@@ -66,12 +66,12 @@ UserNamesCell.defaultProps = {
 // -----------------
 
 export const UserNamesCellCard = ({ className, name, username }) =>
-  <div className={classNames('UserCell UserNamesCell', className)}>
+  (<div className={classNames('UserCell UserNamesCell', className)}>
     <h2 className="UserName">
       <Link className="truncate" to={`/${username}`} >{name || `@${username}`}</Link>
     </h2>
     {name ? <h3 className="UserUsername truncate">@{username}</h3> : null}
-  </div>
+  </div>)
 UserNamesCellCard.propTypes = {
   className: PropTypes.string.isRequired,
   name: PropTypes.string,
@@ -100,7 +100,7 @@ const moreBadgesStyle = css(s.fontSize14, s.ml5, s.colorA, s.transitionColor, ho
 export const UserFiguresCell = (
   { badges, badgeCount, className, isBadgesLoaded, onClick, totalViewsCount },
 ) =>
-  <div className={classNames(`UserCell ${figuresCellStyle}`, className)}>
+  (<div className={classNames(`UserCell ${figuresCellStyle}`, className)}>
     <div className={totalsCellStyle}>
       <span className="UserFiguresCount uppercase">{totalViewsCount}</span>
       <span className="UserFiguresLabel">Views</span>
@@ -108,13 +108,13 @@ export const UserFiguresCell = (
     { !badges.isEmpty() && isBadgesLoaded &&
       <div className={badgesCellStyle}>
         { badges.map(badge =>
-          <BadgeButton
+          (<BadgeButton
             data-slug={badge.get('slug')}
             key={`BadgeButton_${badge.get('slug')}`}
             name={badge.get('name')}
             src={badge.get('image')}
             onClick={onClick}
-          />,
+          />),
         )}
         {badgeCount > 3 &&
           <button className={moreBadgesStyle} onClick={onClick}>
@@ -123,7 +123,7 @@ export const UserFiguresCell = (
         }
       </div>
     }
-  </div>
+  </div>)
 UserFiguresCell.propTypes = {
   badges: PropTypes.object.isRequired,
   badgeCount: PropTypes.number.isRequired,
@@ -141,7 +141,7 @@ UserFiguresCell.defaultProps = {
 export const UserStatsCell = ({
   className, followingCount, followersCount, lovesCount, postsCount, username,
 }) =>
-  <div className={classNames('UserCell UserStatsCell', className)}>
+  (<div className={classNames('UserCell UserStatsCell', className)}>
     <dl>
       <UserStatsLink to={`/${username}`}>
         <dt>{numberToHuman(postsCount)}</dt>
@@ -175,7 +175,7 @@ export const UserStatsCell = ({
         <dd><span className="UserStatsCountLabel">Loves</span></dd>
       </UserStatsLink>
     </dl>
-  </div>
+  </div>)
 UserStatsCell.propTypes = {
   className: PropTypes.string.isRequired,
   followingCount: PropTypes.number.isRequired,
@@ -191,7 +191,7 @@ UserStatsCell.propTypes = {
 // -----------------
 
 export const UserLocationCell = ({ className, location }) =>
-  <div className={classNames('UserCell UserLocationCell', className)}>
+  (<div className={classNames('UserCell UserLocationCell', className)}>
     { location ?
       <p className="UserLocation">
         <MarkerIcon />
@@ -199,7 +199,7 @@ export const UserLocationCell = ({ className, location }) =>
       </p>
       : null
     }
-  </div>
+  </div>)
 UserLocationCell.propTypes = {
   className: PropTypes.string.isRequired,
   location: PropTypes.string,
@@ -211,7 +211,7 @@ UserLocationCell.defaultProps = {
 // -----------------
 
 export const UserInfoCell = ({ className, onClickOpenBio, truncatedShortBio }) =>
-  <div className={classNames('UserCell UserInfoCell', className)}>
+  (<div className={classNames('UserCell UserInfoCell', className)}>
     { truncatedShortBio && truncatedShortBio.length ?
       <div className="UserShortBio" dangerouslySetInnerHTML={{ __html: truncatedShortBio }} /> : null
     }
@@ -220,7 +220,7 @@ export const UserInfoCell = ({ className, onClickOpenBio, truncatedShortBio }) =
         <span className="MoreBioButtonLabel">See More</span>
       </button> : null
     }
-  </div>
+  </div>)
 UserInfoCell.propTypes = {
   className: PropTypes.string.isRequired,
   onClickOpenBio: PropTypes.func,
@@ -292,7 +292,7 @@ UserLinksCell.defaultProps = {
 }
 
 export const UserProfileButtons = ({ children, className, onClickCollab, onClickHireMe }) =>
-  <div className={classNames('UserProfileButtons', className)}>
+  (<div className={classNames('UserProfileButtons', className)}>
     {onClickCollab ?
       <MiniPillButtonProfile onClick={onClickCollab} >Collab</MiniPillButtonProfile> : null
     }
@@ -300,7 +300,7 @@ export const UserProfileButtons = ({ children, className, onClickCollab, onClick
       <MiniPillButtonProfile onClick={onClickHireMe} >Hire</MiniPillButtonProfile> : null
     }
     {children}
-  </div>
+  </div>)
 
 UserProfileButtons.propTypes = {
   children: PropTypes.node.isRequired,

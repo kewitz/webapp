@@ -39,13 +39,13 @@ export const CategoryTabBar = (props: TabBarProps) => {
     <div className="CategoryTabBar">
       <nav className="CategoryTabs">
         {tabs.map(tab =>
-          <CategoryTab
+          (<CategoryTab
             isActive={(tab.activePattern ? tab.activePattern.test(pathname) : tab.to === pathname)}
             key={`CategoryTab_${tab.to}`}
             label={tab.label}
             source={tab.source}
             to={tab.to}
-          />,
+          />),
         )}
       </nav>
       <div className="CategoryTabBarUtility">

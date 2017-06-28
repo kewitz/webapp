@@ -44,12 +44,12 @@ const alertStyle = css(
 )
 
 export const Modal = ({ classList, component, kind, isActive, onClickModal }) =>
-  <div
+  (<div
     className={classNames(`${kind === 'Alert' ? alertStyle : modalStyle}`, classList, kind, { isActive })}
     onClick={onClickModal}
   >
     {component}
-  </div>
+  </div>)
 
 Modal.propTypes = {
   classList: PropTypes.string,

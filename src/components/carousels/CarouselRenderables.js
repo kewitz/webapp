@@ -54,14 +54,14 @@ export class SlickCarousel extends PureComponent {
           infinite
           ref={comp => (this.slider = comp)}
         >
-          {postIds.map(id =>
+          {postIds.map(id => (
             <div className={itemBaseStyle} key={`curatedEditorial_post_${id}`}>
               <PostStreamContainer
                 postId={id}
                 {...renderProps}
               />
-            </div>,
-          )}
+            </div>
+          ))}
         </Slider>
         {postIds.size > 1 &&
           <nav className={editorialNavStyle}>

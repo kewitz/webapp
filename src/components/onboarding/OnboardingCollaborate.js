@@ -23,20 +23,20 @@ type Props = {
 }
 
 const OnboardingCollaborate = (props: Props) =>
-  <MainView className="Onboarding OnboardingCollaborate">
+  (<MainView className="Onboarding OnboardingCollaborate">
     <div className={preferencesStyle}>
       {props.prefs.map(pref =>
-        <Preference
+        (<Preference
           className="OnboardingPreference"
           definition={{ term: pref.term, desc: pref.desc }}
           id={pref.id}
           key={`preference_${pref.id}`}
           onToggleChange={props.onToggleChange}
-        />,
+        />),
       )}
     </div>
     <OnboardingNavbar />
-  </MainView>
+  </MainView>)
 
 export default OnboardingCollaborate
 

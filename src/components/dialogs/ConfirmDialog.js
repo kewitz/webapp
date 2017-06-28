@@ -31,11 +31,11 @@ export const buttonStyle = css(
 )
 
 const ConfirmDialog = ({ title, onConfirm, onDismiss }) =>
-  <div className={`${baseDialogStyle} ${dialogStyle}`}>
+  (<div className={`${baseDialogStyle} ${dialogStyle}`}>
     {title ? <h2 className={headingStyle}>{title}</h2> : null}
     <button className={buttonStyle} onClick={onConfirm}>Yes</button>
     <button className={buttonStyle} onClick={onDismiss}>No</button>
-  </div>
+  </div>)
 
 ConfirmDialog.propTypes = {
   title: PropTypes.string.isRequired,

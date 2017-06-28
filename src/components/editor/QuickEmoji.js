@@ -20,9 +20,9 @@ const choiceButtonStyle = css(
 )
 
 const QuickEmojiChoiceButton = ({ name, onClick }) =>
-  <button className={choiceButtonStyle} name={name} onClick={onClick}>
+  (<button className={choiceButtonStyle} name={name} onClick={onClick}>
     <Emoji name={name} />
-  </button>
+  </button>)
 
 QuickEmojiChoiceButton.propTypes = {
   name: PropTypes.string.isRequired,

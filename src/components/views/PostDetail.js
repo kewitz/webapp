@@ -20,7 +20,7 @@ export const PostDetail = (
   { activeType, avatar, columnCount, hasEditor, hasRelatedPostsButton,
     isLoggedIn, post, streamAction, tabs },
   { onClickDetailTab }) =>
-    <MainView className="PostDetail">
+    (<MainView className="PostDetail">
       <div className="PostDetails Posts asList">
         <article className="PostList" id={`Post_${post.get('id')}`}>
           <div className="StreamContainer PostDetailStreamContainer">
@@ -60,7 +60,7 @@ export const PostDetail = (
           />
         </article>
       </div>
-    </MainView>
+    </MainView>)
 PostDetail.propTypes = {
   activeType: PropTypes.string.isRequired,
   avatar: PropTypes.object,
@@ -82,11 +82,11 @@ PostDetail.contextTypes = {
 }
 
 export const PostDetailError = ({ children }) =>
-  <MainView className="PostDetail">
+  (<MainView className="PostDetail">
     <section className="StreamContainer isError">
       {children}
     </section>
-  </MainView>
+  </MainView>)
 PostDetailError.propTypes = {
   children: PropTypes.node.isRequired,
 }

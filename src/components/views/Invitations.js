@@ -64,7 +64,7 @@ const invitedStreamStyle = css(
   s.mt40,
 )
 
-export const Invitations = ({ streamAction }) =>
+export const Invitations = ({ streamAction }) => (
   <MainView className={`${mainStyle}`}>
     <div className={columnStyle}>
       <header className={headerStyle}>
@@ -78,6 +78,7 @@ export const Invitations = ({ streamAction }) =>
       <StreamContainer className={`${invitedStreamStyle}`} action={streamAction} />
     </div>
   </MainView>
+)
 
 Invitations.propTypes = {
   streamAction: PropTypes.object.isRequired,

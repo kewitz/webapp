@@ -29,11 +29,11 @@ const arrowStyle = css(
 )
 
 const Busy = () =>
-  <div className={busyWrapperStyle}>
+  (<div className={busyWrapperStyle}>
     <div className={arrowStyle}>
       <ArrowIcon isAnimated />
     </div>
-  </div>
+  </div>)
 
 export default class ImageBlock extends Component {
 

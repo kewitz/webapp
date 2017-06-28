@@ -269,7 +269,7 @@ class SettingsContainer extends PureComponent {
     const { profile } = this.props
     return (
       profile.get('externalLinksList').toJS().map((link, i) =>
-        <a
+        (<a
           href={link.url}
           target="_blank"
           key={`settingslinks_${link.text}_${i + 1}`}
@@ -277,7 +277,7 @@ class SettingsContainer extends PureComponent {
           style={{ marginRight: `${5 / 16}rem` }}
         >
           {link.text}
-        </a>,
+        </a>),
       )
     )
   }
@@ -383,7 +383,6 @@ class SettingsContainer extends PureComponent {
               method="POST"
               noValidate="novalidate"
               onSubmit={this.onSubmit}
-              role="form"
             >
               <UsernameControl
                 classList={boxControlClassNames}

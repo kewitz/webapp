@@ -13,7 +13,7 @@ function isActive(tab, activePath) {
 }
 
 export const TabListLinks = ({ activePath, className, onTabClick, tabClasses, tabs }) =>
-  <nav className={classNames(className, 'TabListLinks')} role="tablist">
+  (<nav className={classNames(className, 'TabListLinks')}>
     {tabs.map((tab) => {
       if (tab.kind === 'divider') {
         return <span key="TabDivider" className="TabDivider" />
@@ -29,7 +29,7 @@ export const TabListLinks = ({ activePath, className, onTabClick, tabClasses, ta
         </Link>
       )
     })}
-  </nav>
+  </nav>)
 TabListLinks.propTypes = {
   activePath: PropTypes.string.isRequired,
   className: PropTypes.string.isRequired,
@@ -44,18 +44,18 @@ TabListLinks.defaultProps = {
 // -------------------------------------
 
 export const TabListButtons = ({ activeType, className, onTabClick, tabClasses, tabs }) =>
-  <nav className={classNames(className, 'TabListButtons')} role="tablist">
+  (<nav className={classNames(className, 'TabListButtons')}>
     {tabs.map(tab =>
-      <button
+      (<button
         className={classNames(tabClasses, 'TabButton', { isActive: tab.type === activeType })}
         key={`TabButton_${tab.type}`}
         onClick={() => { onTabClick({ type: tab.type }) }}
         type="button"
       >
         {tab.children}
-      </button>,
+      </button>),
     )}
-  </nav>
+  </nav>)
 TabListButtons.propTypes = {
   activeType: PropTypes.string.isRequired,
   className: PropTypes.string.isRequired,
