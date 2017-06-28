@@ -11,7 +11,7 @@ script:
 - gem install danger --no-ri --no-rdoc
 - danger
 after_success:
-- yarn build
+- test $TRAVIS_BRANCH = "master" && yarn build
 notifications:
   email: false
   slack:
