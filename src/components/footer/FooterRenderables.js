@@ -2,7 +2,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
-import { ChevronIcon, ListIcon, GridIcon } from '../assets/Icons'
+import { ChevronIcon, ListIcon, GridIcon, RSSIcon } from '../assets/Icons'
 import { FooterForm, FooterLink, FooterTool } from '../footer/FooterParts'
 import { before, css, media, modifier, parent, select } from '../../styles/jss'
 import * as s from '../../styles/jso'
@@ -62,6 +62,16 @@ const toolsStyle = css(
   media(s.minBreak4, before(s.displayNone)),
 )
 
+const rssStyle = css(
+  s.displayNone,
+  s.mx20,
+  s.px5,
+  media(
+    s.minBreak2,
+    s.inlineBlock,
+  ),
+)
+
 type LinkType = {
   label: string,
   to: string,
@@ -71,6 +81,7 @@ type FooterPropTypes = {
   formActionPath: string,
   formMessage: string,
   formStatus: string,
+  isEditorial: boolean,
   isFormDisabled: boolean,
   isGridMode: boolean,
   isLayoutToolHidden: boolean,
@@ -89,6 +100,7 @@ export const Footer = ({
   formActionPath,
   formMessage,
   formStatus,
+  isEditorial,
   isGridMode,
   isLayoutToolHidden,
   isLoggedIn,
@@ -124,6 +136,11 @@ export const Footer = ({
             isMobile,
           }}
         />
+      }
+      { isEditorial &&
+        <a className={rssStyle} href="/feeds/editorials">
+          <RSSIcon />
+        </a>
       }
       { (isLoggedIn || (!isLoggedIn && !isMobile)) && // TODO: move to FooterContainer
         <FooterTool
