@@ -10,7 +10,8 @@ const uploaderStyle = css(
   s.zIndex2,
   before(s.absolute, s.flood, s.zIndex2, s.bgcTransparent, s.transitionBgColor, { content: '""' }),
   modifier('.isAvatarUploader', s.center, before({ borderRadius: '50%' })),
-  modifier('.isCoverUploader', s.block, s.fullWidth, { height: 330 }),
+  modifier('.isCoverUploader', s.block, s.fullWidth, { height: 220 }),
+  media(s.minBreak2, modifier('.isCoverUploader', { height: 330 })),
   modifier('.isXLUploader', { width: 220, paddingTop: 240 }, before({ width: 220, height: 220 })),
   modifier('.isLGUploader',
     { width: 120, paddingTop: 140 },
@@ -25,7 +26,13 @@ const uploaderStyle = css(
     s.pt20,
     s.leftAlign,
     { paddingLeft: 140 },
-    media(s.minBreak2, s.fullWidth, s.py40, { maxWidth: 400, minHeight: 180, paddingLeft: 220 }),
+    media(
+      s.minBreak2,
+      s.fullWidth,
+      s.px10,
+      s.pt0,
+      { maxWidth: 400, minHeight: 180, paddingTop: 200 },
+    ),
   ),
   modifier('.hasDragOver', before({ backgroundColor: 'rgba(0, 0, 0, 0.4)' })),
   modifier('.isAvatarBlank', before({ backgroundColor: '#f0f0f0' })),
@@ -62,12 +69,10 @@ const messageStyle = css(
   select('& > p', s.mb0),
   select('& > p + p', s.mt0),
   parent('.SettingsAvatarPicker', { width: 160, margin: 0 }),
-  // 1160 / 16 = 72.5em
-  media('(min-width: 72.5em)', parent('.isCoverUploader',
-    s.absolute,
-    { top: -15, right: -180 },
-    s.leftAlign,
-  )),
+  media(s.minBreak2,
+    parent('.isCoverUploader', s.absolute, s.leftAlign, { bottom: -30, maxWidth: '100%', right: 0 }),
+    select('& p', s.inlineBlock, s.ml10, modifier('::after', { content: '.' })),
+  ),
 )
 
 class Uploader extends PureComponent {

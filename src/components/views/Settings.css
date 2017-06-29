@@ -9,33 +9,17 @@
 
 .SettingsCoverPicker {
   position: relative;
-  margin-bottom: 85px;
+  margin-bottom: 40px;
 }
 
 .SettingsBody {
   position: relative;
-  padding-left: 300px;
+  max-width: 1024px;
+  margin: 0 auto;
 }
 
-.SettingsLogoutButton {
-  position: absolute;
-  top: 230px;
-  right: 10px;
-  font-size: 14px;
-  line-height: 1.2;
-  color: #aaa;
-  border-bottom: 1px solid #aaa;
-  transition: color var(--speed), border-bottom var(--speed);
-}
-
-.no-touch .SettingsLogoutButton:hover {
-  color: #000;
-  border-bottom-color: #000;
-}
-
-.SettingsAvatarPicker {
-  position: absolute;
-  left: 70px;
+.SettingsRight {
+  padding-left: 0;
 }
 
 .SettingsHeader {
@@ -101,8 +85,16 @@
     padding-left: 20px;
   }
 
+  .SettingsCoverPicker {
+    margin-bottom: 85px;
+  }
+
   .SettingsAvatarPicker {
-    left: 80px;
+    position: absolute;
+  }
+
+  .SettingsRight {
+    padding-left: 240px;
   }
 }
 
@@ -110,15 +102,6 @@
   .Settings {
     padding-right: 40px;
     padding-left: 40px;
-  }
-
-  .SettingsLogoutButton {
-    top: 240px;
-    right: 40px;
-  }
-
-  .SettingsAvatarPicker {
-    left: 100px;
   }
 }
 
