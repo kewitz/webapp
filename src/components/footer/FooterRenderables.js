@@ -66,10 +66,8 @@ const rssStyle = css(
   s.displayNone,
   s.mx20,
   s.px5,
-  media(
-    s.minBreak2,
-    s.inlineBlock,
-  ),
+  media(s.minBreak2, s.inlineBlock),
+  select('.no-touch &:hover rect', { fill: '#000' }),
 )
 
 type LinkType = {
