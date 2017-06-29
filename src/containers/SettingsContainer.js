@@ -349,25 +349,26 @@ class SettingsContainer extends PureComponent {
           />
         </div>
         <button className="SettingsLogoutButton" onClick={this.onLogOut}>Logout</button>
-        <div className="SettingsBody">
-          <div className="SettingsAvatarPicker" >
-            <Uploader
-              className="isAvatarUploader isSettingsAvatarUploader isLGUploader"
-              kind="avatar"
-              line1="360 x 360"
-              line2="Animated Gifs work too"
-              line3={isMobile ? null : 'Drag & Drop'}
-              saveAction={bindActionCreators(saveAvatar, dispatch)}
-              title="Upload Avatar"
-            />
-            <Avatar
-              className="isLarge"
-              size="large"
-              sources={profile.get('avatar')}
-              useGif
-            />
-          </div>
 
+        <div className="SettingsAvatarPicker" >
+          <Uploader
+            className="isAvatarUploader isSettingsAvatarUploader isLGUploader"
+            kind="avatar"
+            line1="360 x 360"
+            line2="Animated Gifs work too"
+            line3={isMobile ? null : 'Drag & Drop'}
+            saveAction={bindActionCreators(saveAvatar, dispatch)}
+            title="Upload Avatar"
+          />
+          <Avatar
+            className="isLarge"
+            size="large"
+            sources={profile.get('avatar')}
+            useGif
+          />
+        </div>
+
+        <div className="SettingsBody">
           <header className="SettingsHeader">
             <h1 className="SettingsHeading">Profile</h1>
             <p>

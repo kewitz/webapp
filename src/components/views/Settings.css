@@ -2,18 +2,19 @@
 
 .Settings {
   position: relative;
-  max-width: 780px;
+  max-width: 1440px;
   padding: 0 10px 60px;
   margin: 0 auto;
 }
 
 .SettingsCoverPicker {
   position: relative;
-  margin-bottom: 40px;
+  margin-bottom: 85px;
 }
 
 .SettingsBody {
   position: relative;
+  padding-left: 300px;
 }
 
 .SettingsLogoutButton {
@@ -33,7 +34,8 @@
 }
 
 .SettingsAvatarPicker {
-  position: relative;
+  position: absolute;
+  left: 70px;
 }
 
 .SettingsHeader {
@@ -98,6 +100,10 @@
     padding-right: 20px;
     padding-left: 20px;
   }
+
+  .SettingsAvatarPicker {
+    left: 80px;
+  }
 }
 
 @media (--break-4) {
@@ -109,6 +115,10 @@
   .SettingsLogoutButton {
     top: 240px;
     right: 40px;
+  }
+
+  .SettingsAvatarPicker {
+    left: 100px;
   }
 }
 

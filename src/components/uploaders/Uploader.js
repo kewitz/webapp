@@ -10,7 +10,7 @@ const uploaderStyle = css(
   s.zIndex2,
   before(s.absolute, s.flood, s.zIndex2, s.bgcTransparent, s.transitionBgColor, { content: '""' }),
   modifier('.isAvatarUploader', s.center, before({ borderRadius: '50%' })),
-  modifier('.isCoverUploader', s.block, s.fullWidth, { height: 220 }),
+  modifier('.isCoverUploader', s.block, s.fullWidth, { height: 330 }),
   modifier('.isXLUploader', { width: 220, paddingTop: 240 }, before({ width: 220, height: 220 })),
   modifier('.isLGUploader',
     { width: 120, paddingTop: 140 },

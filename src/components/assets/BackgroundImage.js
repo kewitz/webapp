@@ -40,7 +40,7 @@ const baseStyle = css(
   modifier('.isRequesting', { animation: 'animateLavaLamp 3s infinite linear' }),
   modifier('.isFailing', s.bgcRed),
   modifier('.inOnboarding', { height: 220 }),
-  modifier('.inSettings', { height: 220 }),
+  modifier('.inSettings', { height: 330 }),
   modifier('.inUserProfileCard', { height: 260 }),
   before(s.absolute, s.flood, s.zIndex1, s.bgcTransparent, s.transitionBgColor, { content: '""' }),
   modifier('.hasOverlay3', before({ backgroundColor: 'rgba(0, 0, 0, 0.3)' })),
