@@ -123,11 +123,11 @@ export const Footer = ({
     <div className={wrapperStyle}>
       <div className={linksStyle}>
         { links.map(link =>
-          <FooterLink
+          (<FooterLink
             href={link.to}
             label={link.label}
             key={`FooterLink_${link.label}`}
-          />,
+          />),
         )}
       </div>
       <div className={`FooterTools ${toolsStyle}`}>
