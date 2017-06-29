@@ -23,15 +23,18 @@
   },
   "browserlist": "> 5%, last 2 firefox versions, last 2 chrome versions, last 2 safari versions, last 2 edge versions, ie 11, not OperaMini all",
   "babel": {
+    "presets": [
+      "es2015",
+      "react",
+      "stage-0"
+    ],
+    "plugins": [
+      "lodash",
+      "transform-flow-strip-types"
+    ],
     "env": {
       "development": {
-        "presets": [
-          "es2015",
-          "react",
-          "stage-0"
-        ],
         "plugins": [
-          "lodash",
           [
             "react-transform",
             {
@@ -54,24 +57,11 @@
                 }
               ]
             }
-          ],
-          "transform-flow-strip-types"
+          ]
         ]
       },
       "production": {
-        "presets": [
-          [
-            "es2015",
-            {
-              "modules": false
-            }
-          ],
-          "react",
-          "stage-0"
-        ],
         "plugins": [
-          "lodash",
-          "transform-flow-strip-types",
           "transform-react-constant-elements",
           "transform-react-remove-prop-types"
         ]
