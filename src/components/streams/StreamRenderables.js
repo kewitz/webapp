@@ -12,7 +12,7 @@ import TreeButton from '../../components/navigation/TreeButton'
 import TreePanel from '../../components/navigation/TreePanel'
 import { preferenceToggleChanged } from '../../helpers/junk_drawer'
 import { isElloAndroid } from '../../lib/jello'
-import { css, media } from '../../styles/jss'
+import { css, media, select } from '../../styles/jss'
 import * as s from '../../styles/jso'
 
 // categories/comments/posts/users all get passed an Immutable.List
@@ -81,8 +81,14 @@ export const postsAsGrid = (postIds, columnCount, isPostHeaderHidden) => {
   )
 }
 
+const postListStyle = css(
+  s.maxSiteWidth,
+  s.mxAuto,
+  select('& .ImageRegion img', { height: 'auto' }),
+)
+
 export const postsAsList = (postIds, columnCount, isPostHeaderHidden) =>
-  <div className="Posts asList">
+  <div className={`Posts asList ${postListStyle}`}>
     {postIds.map(id =>
       <article className="PostList" key={`postsAsList_${id}`}>
         <PostContainer postId={id} isPostHeaderHidden={isPostHeaderHidden} />
@@ -96,7 +102,13 @@ export const postsAsRelated = (postIds, columnCount, isPostHeaderHidden) => {
   postIds.forEach((value, index) => columns[index % columnCount].push(postIds.get(index)))
   return (
     <div className="Posts asGrid">
-      {postIds.size && <h2 className="RelatedPostsTitle">Related Posts</h2>}
+      {postIds.size &&
+        <div className="RelatedPostsTitleWrapper">
+          <h2 className="RelatedPostsTitle">
+            Related Posts
+          </h2>
+        </div>
+      }
       {columns.map((columnPostIds, i) =>
         <div className="Column" key={`column_${i + 1}`}>
           {columnPostIds.map(id =>

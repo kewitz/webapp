@@ -59,6 +59,9 @@ const navbarStyle = css(
 )
 
 const mainStyle = css(
+  s.maxSiteWidth,
+  s.mxAuto,
+  s.relative,
   { transition: 'opacity 0s' },
   parent('.isNavbarHidden ~ .Navbar', s.opacity0, { transitionDelay: '150ms' }),
   media(s.minBreak2,
@@ -69,18 +72,14 @@ const mainStyle = css(
 
 const linksStyle = css(
   s.absolute,
-  { top: 7 },
+  { top: -3 },
   s.nowrap,
-  parent('.isLoggedIn', { left: 10 }),
-  parent('.isLoggedOut', { right: 10 }),
+  parent('.isLoggedIn', { left: 0 }),
+  parent('.isLoggedOut', { right: 0 }),
   media(s.minBreak2,
-    parent('.isLoggedIn', { top: '50%', right: 80, left: 'auto', marginTop: -20 }),
-    parent('.isLoggedOut', { top: '50%', right: 20, marginTop: -20 }),
+    parent('.isLoggedIn', { top: '50%', right: 60, left: 'auto', marginTop: -20 }),
+    parent('.isLoggedOut', { top: '50%', right: 0, marginTop: -20 }),
     parent('.isOmnibarActive .Navbar >', s.absolute, { transform: 'translate3d(400px, 0, 0)' }),
-  ),
-  media(s.minBreak4,
-    parent('.isLoggedIn', { right: 100 }),
-    parent('.isLoggedOut', { right: 40 }),
   ),
 )
 

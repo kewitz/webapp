@@ -43,7 +43,7 @@ export const NavbarLabel = () => (
 
 const layoutToolStyle = css(
   s.absolute,
-  { top: 12, left: 155 },
+  { top: 2, left: 145 },
   s.colorA,
 )
 export const NavbarLayoutTool = ({ icon, onClick }) => (
@@ -287,7 +287,7 @@ NavbarMorePostsButton.propTypes = {
 
 const omniButtonStyle = css(
   s.absolute,
-  { top: 10, right: 10, borderRadius: 15 },
+  { top: 0, right: 0, borderRadius: 15 },
   s.hv30,
   s.lh30,
   { paddingRight: 15, paddingLeft: 10 },
@@ -297,11 +297,10 @@ const omniButtonStyle = css(
   { transition: 'background-color 0.2s ease' },
   hover(s.bgc6),
   media(s.minBreak2,
-    { top: 20, right: 'auto', left: 80, width: 100, borderRadius: 20 },
+    { top: 0, right: 'auto', left: 60, width: 100, borderRadius: 20 },
     s.hv40,
     s.lh40,
   ),
-  media(s.minBreak4, { left: 100 }),
 )
 
 export const NavbarOmniButton = ({ onClick, onDragOver }) =>
@@ -321,14 +320,14 @@ const threadlessLink = 'http://ello.threadless.com/'
 
 const profilePopStyle = css(
   s.absolute,
-  { top: 10, left: 10, zIndex: 4 },
+  { top: 0, left: 0, zIndex: 4 },
   s.transitionTransform,
   // wtf...?
   media(s.maxBreak2,
     select('.isProfileMenuActive ~ .Navbar .NavbarMain > *:not(.NavbarProfile)', s.displayNone),
   ),
   media(s.minBreak2,
-    { top: 20, right: 20, left: 'auto' },
+    { top: 0, left: 'auto', right: 0 },
     hover(before(
       s.absolute,
       { top: 15, left: 0, width: 100, height: 30, content: '""' },
@@ -336,7 +335,6 @@ const profilePopStyle = css(
     )),
     parent('.isOmnibarActive .Navbar >', s.absolute, { transform: 'translate3d(400px, 0, 0)' }),
   ),
-  media(s.minBreak4, { right: 40 }),
 )
 
 const profileLinksStyle = css(
