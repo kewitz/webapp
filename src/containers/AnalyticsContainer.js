@@ -6,6 +6,7 @@ import {
   selectAllowsAnalytics,
   selectAnalyticsId,
   selectCreatedAt,
+  selectCreatorTypes,
   selectIsNabaroo,
   selectProfileIsFeatured,
 } from 'ello-brains/selectors/profile'
@@ -13,7 +14,7 @@ import { isElloAndroid } from '../lib/jello'
 
 const agent = isElloAndroid() ? 'android' : 'webapp'
 
-export function addSegment({ createdAt, hasAccount, isFeatured, isNabaroo, uid }) {
+export function addSegment({ createdAt, hasAccount, isFeatured, isNabaroo, uid, creatorTypes }) {
   if (typeof window !== 'undefined') {
     /* eslint-disable */
     !function(){const analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){const e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(let t=0;t<analytics.methods.length;t++){const e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){const e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";const n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};
@@ -21,7 +22,13 @@ export function addSegment({ createdAt, hasAccount, isFeatured, isNabaroo, uid }
       analytics.SNIPPET_VERSION = '3.1.0'
       analytics.load(ENV.SEGMENT_WRITE_KEY)
       if (uid) {
-        analytics.identify(uid, { agent, createdAt, hasAccount, isFeatured, isNabaroo })
+        analytics.identify(uid, {
+          agent,
+          createdAt,
+          hasAccount,
+          isFeatured,
+          isNabaroo,
+          creatorTypes })
       }
     }
     }();
@@ -43,6 +50,7 @@ function mapStateToProps(state) {
     allowsAnalytics: selectAllowsAnalytics(state),
     analyticsId: selectAnalyticsId(state),
     createdAt: selectCreatedAt(state),
+    creatorTypes: selectCreatorTypes(state),
     isFeatured: selectProfileIsFeatured(state),
     isLoggedIn: selectIsLoggedIn(state),
     isNabaroo: selectIsNabaroo(state),
@@ -55,6 +63,7 @@ class AnalyticsContainer extends Component {
     allowsAnalytics: PropTypes.bool,
     analyticsId: PropTypes.string,
     createdAt: PropTypes.string,
+    creatorTypes: PropTypes.array.isRequired,
     isFeatured: PropTypes.bool.isRequired,
     isLoggedIn: PropTypes.bool.isRequired,
     isNabaroo: PropTypes.bool.isRequired,
@@ -72,28 +81,44 @@ class AnalyticsContainer extends Component {
 
   componentDidMount() {
     const { analyticsId, allowsAnalytics, createdAt,
-      isFeatured, isLoggedIn, isNabaroo } = this.props
+      isFeatured, isLoggedIn, creatorTypes, isNabaroo } = this.props
     if (this.hasLoadedTracking) { return }
     if (!isLoggedIn && doesAllowTracking()) {
       this.hasLoadedTracking = true
       addSegment({})
     } else if (analyticsId && allowsAnalytics) {
       this.hasLoadedTracking = true
-      addSegment({ createdAt, hasAccount: isLoggedIn, isFeatured, isNabaroo, uid: analyticsId })
+      addSegment({ createdAt,
+        hasAccount: isLoggedIn,
+        isFeatured,
+        creatorTypes,
+        isNabaroo,
+        uid: analyticsId })
     }
   }
 
   componentWillReceiveProps(nextProps) {
-    const { allowsAnalytics, analyticsId, createdAt, isFeatured, isLoggedIn, isNabaroo } = nextProps
+    const { allowsAnalytics, analyticsId, createdAt,
+      isFeatured, isLoggedIn, creatorTypes, isNabaroo } = nextProps
     if (this.hasLoadedTracking) {
       // identify the user if they didn't previously have an id to identify with
       if (!this.props.analyticsId && analyticsId) {
-        const props = { agent, createdAt, hasAccount: isLoggedIn, isFeatured, isNabaroo }
+        const props = { agent,
+          createdAt,
+          hasAccount: isLoggedIn,
+          isFeatured,
+          creatorTypes,
+          isNabaroo }
         window.analytics.identify(analyticsId, props)
       }
     } else if (this.props.analyticsId && analyticsId && allowsAnalytics) {
       this.hasLoadedTracking = true
-      addSegment({ createdAt, hasAccount: isLoggedIn, isFeatured, isNabaroo, uid: analyticsId })
+      addSegment({ createdAt,
+        hasAccount: isLoggedIn,
+        isFeatured,
+        isNabaroo,
+        creatorTypes,
+        uid: analyticsId })
     }
   }
 
