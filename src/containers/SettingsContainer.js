@@ -29,7 +29,7 @@ import {
   saveProfile,
 } from '../actions/profile'
 import Emoji from '../components/assets/Emoji'
-import { MiniPillLink } from '../components/buttons/Buttons'
+import { SettingsLink } from '../components/buttons/Buttons'
 import AdultPostsDialog from '../components/dialogs/AdultPostsDialog'
 import DeleteAccountDialog from '../components/dialogs/DeleteAccountDialog'
 import EmailControl from '../components/forms/EmailControl'
@@ -327,7 +327,7 @@ class SettingsContainer extends PureComponent {
     if (!profile) { return null }
 
     const mdash = <span>&mdash;</span>
-    const boxControlClassNames = 'isBoxControl onWhite'
+    const boxControlClassNames = 'isBoxControl onGrey'
 
     return (
       <MainView className="Settings">
@@ -440,8 +440,8 @@ class SettingsContainer extends PureComponent {
             />
 
             <p className="SettingsLinks">
-              <MiniPillLink to={`/${profile.get('username')}`}>View profile</MiniPillLink>
-              <MiniPillLink to="/invitations">Invite people</MiniPillLink>
+              <SettingsLink to={`/${profile.get('username')}`}>View profile</SettingsLink>
+              <SettingsLink to="/invitations">Invite people</SettingsLink>
             </p>
 
             <div className="SettingsPreferences">

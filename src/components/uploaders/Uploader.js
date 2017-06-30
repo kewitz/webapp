@@ -70,8 +70,13 @@ const messageStyle = css(
   select('& > p + p', s.mt0),
   parent('.SettingsAvatarPicker', { width: 160, margin: 0 }),
   media(s.minBreak2,
-    parent('.isCoverUploader', s.absolute, s.leftAlign, { bottom: -30, maxWidth: '100%', right: 0 }),
-    select('& p', s.inlineBlock, s.ml10, modifier('::after', { content: '.' })),
+    parent(
+      '.Uploader.isCoverUploader',
+      s.absolute,
+      s.leftAlign,
+      { bottom: -30, maxWidth: '100%', right: 0 },
+      select('& p', s.inlineBlock, s.ml10),
+    ),
   ),
 )
 

@@ -119,31 +119,20 @@
   padding-left: 50px !important;
 }
 
-.FormControlInput.isBoxControl.onWhite {
-  background-color: #fff;
-  border: 1px solid #ccc;
-}
-
 .FormControlInput.isBoxControl:focus {
   background-color: #fff;
   border-color: #fff;
 }
 
-.FormControlInput.isBoxControl.onWhite:focus {
-  color: #000;
-  background-color: #ccc;
-  border-color: #ccc;
-}
-
 .FormControlInput.isBoxControl.onGrey {
-  background-color: #e2e2e2;
-  border: 1px solid #e2e2e2;
+  background-color: #f2f2f2;
+  border: 1px solid #f2f2f2;
 }
 
 .FormControlInput.isBoxControl.onGrey:focus {
   color: #000;
   background-color: #fff;
-  border-color: #e2e2e2;
+  border-color: #f2f2f2;
 }
 
 .hasValue:not(.isInitialValue) > .FormControlInput {
@@ -165,22 +154,15 @@
   border-color: #fff;
 }
 
-.hasValue:not(.isInitialValue) > .FormControlInput.isBoxControl.onWhite {
-  color: #000;
-  background-color: #ccc;
-  border-color: #ccc;
-}
-
 .hasValue:not(.isInitialValue) > .FormControlInput.isBoxControl.onGrey {
   color: #000;
   background-color: #fff;
-  border-color: #e2e2e2;
+  border-color: #f2f2f2;
 }
 
 .isFailing > .FormControlInput,
 .isFailing > .FormControlInput.isBoxControl,
-.isFailing > .FormControlInput.isBoxControl.onGrey,
-.isFailing > .FormControlInput.isBoxControl.onWhite {
+.isFailing > .FormControlInput.isBoxControl.onGrey {
   border-color: var(--color-danger);
 }
 

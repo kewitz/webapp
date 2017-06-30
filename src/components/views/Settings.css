@@ -50,6 +50,8 @@
 }
 
 .SettingsLinks {
+  display: flex;
+  justify-content: flex-end;
   margin-left: -15px;
 }
 
@@ -95,6 +97,10 @@
 
   .SettingsRight {
     padding-left: 240px;
+  }
+
+  .Settings .Uploader.isCoverUploader p::after {
+    content: ".";
   }
 }
 

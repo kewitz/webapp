@@ -1,8 +1,8 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
-import { ChevronCircleIcon } from '../assets/Icons'
-import { css, hover, media } from '../../styles/jss'
+import { ChevronIcon } from '../assets/Icons'
+import { css, hover, media, modifier } from '../../styles/jss'
 import * as s from '../../styles/jso'
 
 const buttonStyle = css(
@@ -14,9 +14,10 @@ const buttonStyle = css(
   s.nowrap,
   s.alignTop,
   s.transitionColor,
-  hover(s.colorA),
+  hover(s.colorBlack),
   media(s.minBreak2, s.fontSize24),
   media(s.minBreak3, s.pl0),
+  modifier('.isCollapsed', s.colorA),
 )
 
 export default class TreeButton extends PureComponent {
@@ -59,7 +60,7 @@ export default class TreeButton extends PureComponent {
         className={classNames('TreeButton', className, `${buttonStyle}`, { isCollapsed: collapsed })}
         onClick={this.onClickTreeButton}
       >
-        <ChevronCircleIcon />
+        <ChevronIcon />
         {children}
       </button>
     )
