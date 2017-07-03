@@ -6,17 +6,17 @@ import { css, hover, media, modifier } from '../../styles/jss'
 import * as s from '../../styles/jso'
 
 const buttonStyle = css(
-  s.relative,
-  s.hv40,
-  s.pl30,
-  s.fontSize18,
-  s.colorBlack,
-  s.nowrap,
   s.alignTop,
+  s.colorBlack,
+  s.fontSize18,
+  s.hv40,
+  s.nowrap,
+  s.pl30,
+  s.relative,
+  s.sansBlack,
   s.transitionColor,
   hover(s.colorBlack),
-  media(s.minBreak2, s.fontSize24),
-  media(s.minBreak3, s.pl0),
+  media(s.minBreak2, s.fontSize24, s.pl0),
   modifier('.isCollapsed', s.colorA),
 )
 

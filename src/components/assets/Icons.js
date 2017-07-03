@@ -207,9 +207,9 @@ export const ChevronCircleIcon = () =>
   </SVGIcon>
 
 const chevronStyle = css(
-  parent('.TreeButton', s.absolute, { top: 2, left: 0 }, s.rotate90, s.transitionTransform),
+  parent('.TreeButton', s.absolute, { top: 10, left: 0 }, s.rotate90, s.transitionTransform),
   parent('.TreeButton.isCollapsed', s.transformNone),
-  media(s.minBreak3, parent('.TreeButton', { left: -30 })),
+  media(s.minBreak2, parent('.TreeButton', { top: 8, left: -30 })),
 )
 export const ChevronIcon = () =>
   <SVGIcon className={`ChevronIcon ${chevronStyle}`}>
