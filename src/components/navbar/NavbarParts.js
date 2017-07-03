@@ -290,7 +290,7 @@ NavbarMorePostsButton.propTypes = {
 
 const omniButtonStyle = css(
   s.absolute,
-  { top: 0, right: 0, borderRadius: 15 },
+  { top: 0, right: 0, borderRadius: 5 },
   s.hv30,
   s.lh30,
   { paddingRight: 15, paddingLeft: 10 },
@@ -300,7 +300,7 @@ const omniButtonStyle = css(
   { transition: 'background-color 0.2s ease' },
   hover(s.bgc6),
   media(s.minBreak2,
-    { top: 0, right: 'auto', left: 60, width: 100, borderRadius: 20 },
+    { top: 0, right: 'auto', left: 60, width: 100 },
     s.hv40,
     s.lh40,
   ),
