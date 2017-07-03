@@ -29,7 +29,7 @@ import {
   saveProfile,
 } from '../actions/profile'
 import Emoji from '../components/assets/Emoji'
-import { MiniPillLink } from '../components/buttons/Buttons'
+import { SettingsLink } from '../components/buttons/Buttons'
 import AdultPostsDialog from '../components/dialogs/AdultPostsDialog'
 import DeleteAccountDialog from '../components/dialogs/DeleteAccountDialog'
 import EmailControl from '../components/forms/EmailControl'
@@ -327,7 +327,7 @@ class SettingsContainer extends PureComponent {
     if (!profile) { return null }
 
     const mdash = <span>&mdash;</span>
-    const boxControlClassNames = 'isBoxControl onWhite'
+    const boxControlClassNames = 'isBoxControl onGrey'
 
     return (
       <MainView className="Settings">
@@ -348,7 +348,7 @@ class SettingsContainer extends PureComponent {
             useGif
           />
         </div>
-        <button className="SettingsLogoutButton" onClick={this.onLogOut}>Logout</button>
+
         <div className="SettingsBody">
           <div className="SettingsAvatarPicker" >
             <Uploader
@@ -368,206 +368,208 @@ class SettingsContainer extends PureComponent {
             />
           </div>
 
-          <header className="SettingsHeader">
-            <h1 className="SettingsHeading">Profile</h1>
-            <p>
-              Your username, name, bio and links appear on your public Ello
-              profile. Your email address remains private.
-            </p>
-          </header>
+          <div className="SettingsRight">
+            <header className="SettingsHeader">
+              <h1 className="SettingsHeading">Profile</h1>
+              <p>
+                Your username, name, bio and links appear on your public Ello
+                profile. Your email address remains private.
+              </p>
+            </header>
 
-          <form
-            action={profilePath().path}
-            className="SettingsForm"
-            method="POST"
-            noValidate="novalidate"
-            onSubmit={this.onSubmit}
-            role="form"
-          >
-            <UsernameControl
-              classList={boxControlClassNames}
-              label="Username"
-              onChange={this.onChangeUsernameControl}
-              renderStatus={renderStatus(usernameState.message)}
-              status={usernameState.status}
-              suggestions={usernameState.suggestions}
-              tabIndex="1"
-              text={profile.get('username')}
-            />
-            <EmailControl
-              classList={boxControlClassNames}
-              label="Email"
-              onChange={this.onChangeEmailControl}
-              renderStatus={renderStatus(emailState.message)}
-              status={emailState.status}
-              tabIndex="2"
-              text={profile.get('email')}
-            />
-            <PasswordControl
-              classList={boxControlClassNames}
-              label="Password"
-              onChange={this.onChangePasswordControl}
-              placeholder="Set a new password"
-              renderStatus={renderStatus(passwordState.message)}
-              ref={(comp) => { this.newPasswordControl = comp }}
-              status={passwordState.status}
-              tabIndex="3"
-            />
-            <div className={classNames('SettingsCredentialActions', { requiresSave })}>
-              <p>To save changes you must re-enter your current Ello password.</p>
+            <form
+              action={profilePath().path}
+              className="SettingsForm"
+              method="POST"
+              noValidate="novalidate"
+              onSubmit={this.onSubmit}
+              role="form"
+            >
+              <UsernameControl
+                classList={boxControlClassNames}
+                label="Username"
+                onChange={this.onChangeUsernameControl}
+                renderStatus={renderStatus(usernameState.message)}
+                status={usernameState.status}
+                suggestions={usernameState.suggestions}
+                tabIndex="1"
+                text={profile.get('username')}
+              />
+              <EmailControl
+                classList={boxControlClassNames}
+                label="Email"
+                onChange={this.onChangeEmailControl}
+                renderStatus={renderStatus(emailState.message)}
+                status={emailState.status}
+                tabIndex="2"
+                text={profile.get('email')}
+              />
               <PasswordControl
                 classList={boxControlClassNames}
-                id="current_password"
-                label="Password - Please enter your current one."
-                name="user[current_password]"
-                onChange={this.onChangeCurrentPasswordControl}
-                placeholder="Enter current password"
-                ref={(comp) => { this.currentPasswordControl = comp }}
-                status={currentPasswordState.status}
-                tabIndex={requiresSave ? '4' : '0'}
+                label="Password"
+                onChange={this.onChangePasswordControl}
+                placeholder="Set a new password"
+                renderStatus={renderStatus(passwordState.message)}
+                ref={(comp) => { this.newPasswordControl = comp }}
+                status={passwordState.status}
+                tabIndex="3"
               />
-              <FormButton className="FormButton isRounded" disabled={!requiresSave}>
-                Save
-              </FormButton>
-            </div>
-          </form>
+              <div className={classNames('SettingsCredentialActions', { requiresSave })}>
+                <p>To save changes you must re-enter your current Ello password.</p>
+                <PasswordControl
+                  classList={boxControlClassNames}
+                  id="current_password"
+                  label="Password - Please enter your current one."
+                  name="user[current_password]"
+                  onChange={this.onChangeCurrentPasswordControl}
+                  placeholder="Enter current password"
+                  ref={(comp) => { this.currentPasswordControl = comp }}
+                  status={currentPasswordState.status}
+                  tabIndex={requiresSave ? '4' : '0'}
+                />
+                <FormButton className="FormButton isRounded" disabled={!requiresSave}>
+                  Save
+                </FormButton>
+              </div>
+            </form>
 
-          <InfoForm
-            className="SettingsInfoForm"
-            controlClassModifiers={boxControlClassNames}
-            tabIndexStart={requiresSave ? 5 : 4}
-          />
-
-          <p className="SettingsLinks">
-            <MiniPillLink to={`/${profile.get('username')}`}>View profile</MiniPillLink>
-            <MiniPillLink to="/invitations">Invite people</MiniPillLink>
-          </p>
-
-          <div className="SettingsPreferences">
-            <StreamContainer
-              action={availableToggles()}
+            <InfoForm
+              className="SettingsInfoForm"
+              controlClassModifiers={boxControlClassNames}
+              tabIndexStart={requiresSave ? 5 : 4}
             />
 
-            {allowNSFWToggle ?
-              <div>
-                <TreeButton>NSFW</TreeButton>
-                <TreePanel>
-                  <Preference
-                    definition={PREFERENCES.NSFW_VIEW}
-                    id="viewsAdultContent"
-                    isChecked={profile.get('viewsAdultContent')}
-                    onToggleChange={preferenceToggleChanged}
-                  />
-                  <Preference
-                    definition={PREFERENCES.NSFW_POST}
-                    id="postsAdultContent"
-                    isChecked={profile.get('postsAdultContent')}
-                    onToggleChange={this.onTogglePostsAdultContent}
-                  />
-                  <p><em>{SETTINGS.NSFW_DISCLAIMER}</em></p>
-                </TreePanel>
-              </div> :
-              null}
+            <p className="SettingsLinks">
+              <SettingsLink to={`/${profile.get('username')}`}>View profile</SettingsLink>
+              <SettingsLink to="/invitations">Invite people</SettingsLink>
+            </p>
 
-            {blockedCount > 0 ?
-              <div>
-                <TreeButton>Blocked users</TreeButton>
-                <TreePanel>
-                  <StreamContainer
-                    action={blockedUsers()}
-                    className="BlockedUsers"
-                    paginatorText="Load More"
-                    shouldInfiniteScroll={false}
-                  />
-                </TreePanel>
-              </div> :
-              null}
+            <div className="SettingsPreferences">
+              <StreamContainer
+                action={availableToggles()}
+              />
 
-            {mutedCount > 0 ?
-              <div>
-                <TreeButton>Muted users</TreeButton>
-                <TreePanel>
-                  <StreamContainer
-                    action={mutedUsers()}
-                    className="MutedUsers"
-                    paginatorText="Load More"
-                    shouldInfiniteScroll={false}
-                  />
-                </TreePanel>
-              </div> :
-              null}
-
-            <TreeButton>Your Data</TreeButton>
-            <TreePanel>
-              <p className="SettingsDataDescription">{SETTINGS.YOUR_DATA_DESC}</p>
-              <dl className="SettingsDefinitionValues">
-                <dt>Username:</dt>
-                <dd>{`@${profile.get('username')}`}</dd>
-                <dt>Name:</dt>
-                <dd>{profile.get('name') || mdash}</dd>
-                <dt>Short Bio:</dt>
-                <dd>{profile.get('shortBio') || mdash}</dd>
-                <dt>Links:</dt>
-                <dd>
-                  {!profile.get('externalLinksList', Immutable.List()).isEmpty() ?
-                    this.getExternalLinkListAsText() :
-                    mdash}
-                </dd>
-                <dt>Avatar:</dt>
-                <dd>{getOriginalAssetUrl(profile.get('avatar'))}</dd>
-                <dt>Header:</dt>
-                <dd>{getOriginalAssetUrl(profile.get('coverImage'))}</dd>
-              </dl>
-              <div className="SettingsCell">
-                <dl className="SettingsDefinition">
-                  <dt>Export Data</dt>
-                  <dd>
-                    This includes all of the content you have posted on Ello.
-                    We will email you a link to download your data.
-                  </dd>
-                </dl>
-                {profile.get('dataExport') ?
-                  <a
-                    className="SettingsButton"
-                    href={profile.get('dataExport')}
-                    rel="noopener noreferrer"
-                    target="_blank"
-                  >
-                    Download Export
-                  </a> :
-                  <button
-                    className="SettingsButton"
-                    onClick={this.onClickRequestDataExport}
-                    ref={(comp) => { this.exportButton = comp }}
-                  >
-                      Request Export
-                    </button>
-                }
-              </div>
-            </TreePanel>
-
-            <TreeButton>Account Deletion</TreeButton>
-            <TreePanel>
-              <div className="SettingsCell">
-                <dl className="SettingsDefinition">
-                  <dt>
-                    <span>{SETTINGS.ACCOUNT_DELETION_DEFINITION.term}</span>
-                    <Emoji
-                      name="wave"
-                      title="Sad wave"
-                      style={{ marginTop: `-${5 / 16}rem`, marginLeft: `${5 / 16}rem` }}
+              {allowNSFWToggle ?
+                <div>
+                  <TreeButton>NSFW</TreeButton>
+                  <TreePanel>
+                    <Preference
+                      definition={PREFERENCES.NSFW_VIEW}
+                      id="viewsAdultContent"
+                      isChecked={profile.get('viewsAdultContent')}
+                      onToggleChange={preferenceToggleChanged}
                     />
-                  </dt>
-                  <dd>{SETTINGS.ACCOUNT_DELETION_DEFINITION.desc}</dd>
-                  <button
-                    className="SettingsButton asDangerous"
-                    onClick={this.onClickDeleteAccountModal}
-                  >
-                    Delete
-                  </button>
+                    <Preference
+                      definition={PREFERENCES.NSFW_POST}
+                      id="postsAdultContent"
+                      isChecked={profile.get('postsAdultContent')}
+                      onToggleChange={this.onTogglePostsAdultContent}
+                    />
+                    <p><em>{SETTINGS.NSFW_DISCLAIMER}</em></p>
+                  </TreePanel>
+                </div> :
+                null}
+
+              {blockedCount > 0 ?
+                <div>
+                  <TreeButton>Blocked users</TreeButton>
+                  <TreePanel>
+                    <StreamContainer
+                      action={blockedUsers()}
+                      className="BlockedUsers"
+                      paginatorText="Load More"
+                      shouldInfiniteScroll={false}
+                    />
+                  </TreePanel>
+                </div> :
+                null}
+
+              {mutedCount > 0 ?
+                <div>
+                  <TreeButton>Muted users</TreeButton>
+                  <TreePanel>
+                    <StreamContainer
+                      action={mutedUsers()}
+                      className="MutedUsers"
+                      paginatorText="Load More"
+                      shouldInfiniteScroll={false}
+                    />
+                  </TreePanel>
+                </div> :
+                null}
+
+              <TreeButton>Your Data</TreeButton>
+              <TreePanel>
+                <p className="SettingsDataDescription">{SETTINGS.YOUR_DATA_DESC}</p>
+                <dl className="SettingsDefinitionValues">
+                  <dt>Username:</dt>
+                  <dd>{`@${profile.get('username')}`}</dd>
+                  <dt>Name:</dt>
+                  <dd>{profile.get('name') || mdash}</dd>
+                  <dt>Short Bio:</dt>
+                  <dd>{profile.get('shortBio') || mdash}</dd>
+                  <dt>Links:</dt>
+                  <dd>
+                    {!profile.get('externalLinksList', Immutable.List()).isEmpty() ?
+                      this.getExternalLinkListAsText() :
+                      mdash}
+                  </dd>
+                  <dt>Avatar:</dt>
+                  <dd>{getOriginalAssetUrl(profile.get('avatar'))}</dd>
+                  <dt>Header:</dt>
+                  <dd>{getOriginalAssetUrl(profile.get('coverImage'))}</dd>
                 </dl>
-              </div>
-            </TreePanel>
+                <div className="SettingsCell">
+                  <dl className="SettingsDefinition">
+                    <dt>Export Data</dt>
+                    <dd>
+                      This includes all of the content you have posted on Ello.
+                      We will email you a link to download your data.
+                    </dd>
+                  </dl>
+                  {profile.get('dataExport') ?
+                    <a
+                      className="SettingsButton"
+                      href={profile.get('dataExport')}
+                      rel="noopener noreferrer"
+                      target="_blank"
+                    >
+                      Download Export
+                    </a> :
+                    <button
+                      className="SettingsButton"
+                      onClick={this.onClickRequestDataExport}
+                      ref={(comp) => { this.exportButton = comp }}
+                    >
+                        Request Export
+                      </button>
+                  }
+                </div>
+              </TreePanel>
+
+              <TreeButton>Account Deletion</TreeButton>
+              <TreePanel>
+                <div className="SettingsCell">
+                  <dl className="SettingsDefinition">
+                    <dt>
+                      <span>{SETTINGS.ACCOUNT_DELETION_DEFINITION.term}</span>
+                      <Emoji
+                        name="wave"
+                        title="Sad wave"
+                        style={{ marginTop: `-${5 / 16}rem`, marginLeft: `${5 / 16}rem` }}
+                      />
+                    </dt>
+                    <dd>{SETTINGS.ACCOUNT_DELETION_DEFINITION.desc}</dd>
+                    <button
+                      className="SettingsButton asDangerous"
+                      onClick={this.onClickDeleteAccountModal}
+                    >
+                      Delete
+                    </button>
+                  </dl>
+                </div>
+              </TreePanel>
+            </div>
           </div>
         </div>
       </MainView>

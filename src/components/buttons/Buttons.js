@@ -153,11 +153,24 @@ MiniPillButtonProfile.propTypes = {
 
 // -------------------------------------
 
-const miniPillLinkStyle = css(miniPillStyle, s.inlineBlock, s.alignTop)
+const settingsLinkStyle = css(
+  s.hv40,
+  s.lh40,
+  { borderRadius: 5, minWidth: 160 },
+  s.center,
+  s.px10,
+  s.fontSize14,
+  s.colorWhite,
+  s.bgcBlack,
+  s.borderBlack,
+  s.inlineBlock,
+  { transition: 'background-color 0.2s, border-color 0.2s, color 0.2s' },
+  hover(s.colorWhite, s.bgcGreen, { borderColor: '#00d100' }),
+)
 
-export const MiniPillLink = ({ children, to }) =>
-  <Link className={miniPillLinkStyle} to={to}>{children}</Link>
-MiniPillLink.propTypes = {
+export const SettingsLink = ({ children, to }) =>
+  <Link className={settingsLinkStyle} to={to}>{children}</Link>
+SettingsLink.propTypes = {
   children: PropTypes.node.isRequired,
   to: PropTypes.string.isRequired,
 }

@@ -196,13 +196,8 @@ export const CheckIconSM = () =>
     </g>
   </SVGIcon>
 
-const chevronCircleStyle = css(
-  parent('.TreeButton', s.absolute, { top: 10, left: 0 }, s.rotate90, s.transitionTransform),
-  parent('.TreeButton.isCollapsed', s.transformNone),
-  media(s.minBreak3, parent('.TreeButton', { left: -30 })),
-)
 export const ChevronCircleIcon = () =>
-  <SVGIcon className={`ChevronCircleIcon ${chevronCircleStyle}`}>
+  <SVGIcon className="ChevronCircleIcon">
     <g>
       <circle cx="10" cy="10" r="7" />
     </g>
@@ -211,8 +206,13 @@ export const ChevronCircleIcon = () =>
     </g>
   </SVGIcon>
 
+const chevronStyle = css(
+  parent('.TreeButton', s.absolute, { top: 10, left: 0 }, s.rotate90, s.transitionTransform),
+  parent('.TreeButton.isCollapsed', s.transformNone),
+  media(s.minBreak2, parent('.TreeButton', { top: 8, left: -30 })),
+)
 export const ChevronIcon = () =>
-  <SVGIcon className="ChevronIcon">
+  <SVGIcon className={`ChevronIcon ${chevronStyle}`}>
     <g>
       <polyline points="6,16 12,10 6,4" />
     </g>

@@ -2,7 +2,7 @@
 
 .Settings {
   position: relative;
-  max-width: 780px;
+  max-width: 1440px;
   padding: 0 10px 60px;
   margin: 0 auto;
 }
@@ -14,26 +14,12 @@
 
 .SettingsBody {
   position: relative;
+  max-width: 1024px;
+  margin: 0 auto;
 }
 
-.SettingsLogoutButton {
-  position: absolute;
-  top: 230px;
-  right: 10px;
-  font-size: 14px;
-  line-height: 1.2;
-  color: #aaa;
-  border-bottom: 1px solid #aaa;
-  transition: color var(--speed), border-bottom var(--speed);
-}
-
-.no-touch .SettingsLogoutButton:hover {
-  color: #000;
-  border-bottom-color: #000;
-}
-
-.SettingsAvatarPicker {
-  position: relative;
+.SettingsRight {
+  padding-left: 0;
 }
 
 .SettingsHeader {
@@ -52,6 +38,7 @@
 }
 
 .SettingsHeading {
+  @apply --sanserif-black;
   height: 40px;
   font-size: 18px;
   white-space: nowrap;
@@ -64,6 +51,8 @@
 }
 
 .SettingsLinks {
+  display: flex;
+  justify-content: flex-end;
   margin-left: -15px;
 }
 
@@ -98,17 +87,28 @@
     padding-right: 20px;
     padding-left: 20px;
   }
+
+  .SettingsCoverPicker {
+    margin-bottom: 85px;
+  }
+
+  .SettingsAvatarPicker {
+    position: absolute;
+  }
+
+  .SettingsRight {
+    padding-left: 240px;
+  }
+
+  .Settings .Uploader.isCoverUploader p::after {
+    content: ".";
+  }
 }
 
 @media (--break-4) {
   .Settings {
     padding-right: 40px;
     padding-left: 40px;
-  }
-
-  .SettingsLogoutButton {
-    top: 240px;
-    right: 40px;
   }
 }
 

@@ -49,6 +49,7 @@ const baseStyle = css(
   modifier('.hasOverlay6', before({ backgroundColor: 'rgba(0, 0, 0, 0.6)' })),
   select('.no-touch &.isLink:hover::before', { backgroundColor: 'rgba(0, 0, 0, 0.4)' }),
   media(s.maxBreak2, modifier('.inHeroProfile', { height: 220 })),
+  media(s.minBreak2, modifier('.inSettings', { minHeight: 330 })),
   media(s.minBreak2, modifier('.inUserProfileCard:not(.isMiniProfileCard)', { minHeight: 540 })),
 )
 
