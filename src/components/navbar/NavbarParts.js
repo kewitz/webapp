@@ -5,9 +5,7 @@ import classNames from 'classnames'
 import Avatar from '../assets/Avatar'
 import {
   ArrowIcon,
-  ElloMark,
-  ElloRainbowMark,
-  ElloDonutMark,
+  ElloLogoType,
   ElloNinjaSuit,
   PencilIcon,
   XIconLG,
@@ -193,15 +191,15 @@ const markStyle = css(
 
 const getLogoMark = (mark) => {
   switch (mark) {
-    case 'rainbow':
-      return <ElloRainbowMark />
-    case 'donut':
-      return <ElloDonutMark />
-    case 'none':
-      return null
-    case 'normal':
+    // case 'rainbow':
+    //   return <ElloRainbowMark />
+    // case 'donut':
+    //   return <ElloDonutMark />
+    // case 'none':
+    //   return null
+    // case 'normal':
     default:
-      return <ElloMark />
+      return <ElloLogoType />
   }
 }
 
@@ -289,8 +287,7 @@ NavbarMorePostsButton.propTypes = {
 // -------------------------------------
 
 const omniButtonStyle = css(
-  s.absolute,
-  { top: 0, right: 0, borderRadius: 5 },
+  { top: -6, right: 0, borderRadius: 5 },
   s.hv30,
   s.lh30,
   { paddingRight: 15, paddingLeft: 10 },
@@ -300,7 +297,7 @@ const omniButtonStyle = css(
   { transition: 'background-color 0.2s ease' },
   hover(s.bgc6),
   media(s.minBreak2,
-    { top: 0, right: 'auto', left: 60, width: 100 },
+    { right: 'auto', left: 60, width: 100 },
     s.hv40,
     s.lh40,
   ),

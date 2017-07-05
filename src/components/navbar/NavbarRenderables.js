@@ -172,10 +172,6 @@ export const NavbarLoggedIn = ({
   (<nav className={`Navbar ${navbarStyle}`}>
     <div className={`NavbarMain ${mainStyle}`}>
       <NavbarMark onClick={onClickNavbarMark} />
-      <NavbarOmniButton
-        onClick={onClickOmniButton}
-        onDragOver={onDragOverOmniButton}
-      />
       {hasLoadMoreButton ? <NavbarMorePostsButton onClick={onClickLoadMorePosts} /> : null}
       <div className={`NavbarLinks ${linksStyle}`}>
         { deviceSize === 'mobile' &&
@@ -232,6 +228,10 @@ export const NavbarLoggedIn = ({
           onClick={onClickToggleLayoutMode}
         /> : null
       }
+      <NavbarOmniButton
+        onClick={onClickOmniButton}
+        onDragOver={onDragOverOmniButton}
+      />
       {deviceSize !== 'mobile' && isNotificationsActive ?
         <NotificationsContainer isModal /> : null
       }
