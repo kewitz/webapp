@@ -24,14 +24,6 @@ type Props = {
 class EditorialPage extends Component {
   props: Props
 
-  static preRender = (store) => {
-    const streamAction = loadEditorials(false)
-    return Promise.all([
-      store.dispatch(streamAction),
-    ])
-  }
-
-
   shouldComponentUpdate() {
     return false
   }

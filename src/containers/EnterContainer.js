@@ -166,7 +166,6 @@ class EnterContainer extends PureComponent {
             method="POST"
             noValidate="novalidate"
             onSubmit={this.onSubmit}
-            role="form"
           >
             <TextControl
               classList="isBoxControl"

@@ -18,7 +18,7 @@ import {
 import { selectColumnCount, selectInnerHeight } from 'ello-brains/selectors/gui'
 import { selectStreamType } from 'ello-brains/selectors/stream'
 import { scrollToPosition, scrollToSelector } from '../lib/jello'
-import { loadComments, loadPostDetail, loadRelatedPosts } from '../actions/posts'
+import { loadComments, loadPostDetail } from '../actions/posts'
 import { ErrorState4xx } from '../components/errors/Errors'
 import { Paginator } from '../components/streams/Paginator'
 import { PostDetail, PostDetailError } from '../components/views/PostDetail'
@@ -76,15 +76,6 @@ class PostDetailContainer extends Component {
   static childContextTypes = {
     onClickDetailTab: PropTypes.func.isRequired,
     onClickScrollToRelatedPosts: PropTypes.func.isRequired,
-  }
-
-  static preRender = (store, routerState) => {
-    const params = routerState.params
-    const token = `~${params.token}`
-    return Promise.all([
-      store.dispatch(loadPostDetail(token, `~${params.username}`)),
-      store.dispatch(loadRelatedPosts(token, 3)),
-    ])
   }
 
   getChildContext() {

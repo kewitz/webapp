@@ -5,14 +5,14 @@ import InvitationFormContainer from '../../containers/InvitationFormContainer'
 import { Title } from './OnboardingParts'
 
 const OnboardingInvitations = () =>
-  <MainView className="Onboarding">
+  (<MainView className="Onboarding">
     <Title
       text1="Invite some cool people. "
       text2="Make Ello better."
     />
     <InvitationFormContainer />
     <OnboardingNavbar />
-  </MainView>
+  </MainView>)
 
 export default OnboardingInvitations
 

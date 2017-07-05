@@ -7,10 +7,10 @@ import FormButton from '../forms/FormButton'
 import { forgotPassword } from '../../networking/api'
 
 const SubmittedState = () =>
-  <div>
+  (<div>
     If your email address exists in our database, you will receive a
     password recovery link at your email address in a few minutes.
-  </div>
+  </div>)
 
 const ForgotPasswordForm = (props) => {
   const {
@@ -24,7 +24,6 @@ const ForgotPasswordForm = (props) => {
       method="POST"
       noValidate="novalidate"
       onSubmit={onSubmit}
-      role="form"
     >
       <EmailControl
         classList="isBoxControl"

@@ -25,7 +25,7 @@ const ZeroStates = ({
   userId,
   username,
   }) =>
-    <div className={`ZeroStates ${zeroStatesStyle}`}>
+    (<div className={`ZeroStates ${zeroStatesStyle}`}>
       {isSelf && hasZeroPosts && !isElloAndroid() && <ZeroStateFirstPost />}
       {!isSelf && hasZeroFollowers &&
         <ZeroStateCreateRelationship {...{ userId, username }} />
@@ -37,7 +37,7 @@ const ZeroStates = ({
           username={username}
         />
       }
-    </div>
+    </div>)
 ZeroStates.propTypes = {
   isLoggedIn: PropTypes.bool.isRequired,
   isSelf: PropTypes.bool.isRequired,
@@ -108,11 +108,11 @@ UserDetail.defaultProps = {
 }
 
 export const UserDetailError = ({ children }) =>
-  <MainView className="UserDetail">
+  (<MainView className="UserDetail">
     <section className="StreamContainer isError">
       {children}
     </section>
-  </MainView>
+  </MainView>)
 UserDetailError.propTypes = {
   children: PropTypes.node.isRequired,
 }

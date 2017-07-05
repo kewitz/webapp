@@ -3,9 +3,9 @@ import PropTypes from 'prop-types'
 import classNames from 'classnames'
 
 export const MainView = ({ children, className }) =>
-  <main className={classNames(className, 'MainView')} role="main">
+  (<main className={classNames(className, 'MainView')} role="main">
     {children}
-  </main>
+  </main>)
 
 MainView.propTypes = {
   children: PropTypes.node.isRequired,

@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { replace } from 'react-router-redux'
 import debounce from 'lodash/debounce'
-import get from 'lodash/get'
 import {
   selectPropsPathname,
   selectPropsQueryTerms,
@@ -57,13 +56,6 @@ class SearchContainer extends PureComponent {
 
   static defaultProps = {
     debounceWait: 666,
-  }
-
-  static preRender = (store, routerState) => {
-    const term = get(routerState, 'location.query.terms', '')
-    const type = get(routerState, 'location.query.type', 'posts')
-    const action = type === 'users' ? searchForUsers : searchForPosts
-    return store.dispatch(action(term))
   }
 
   componentWillMount() {

@@ -19,7 +19,7 @@ import {
   selectStreamFilteredResult,
   selectStreamResultPath,
 } from 'ello-brains/selectors/stream'
-import { runningFetches, runningServerFetches } from '../sagas/requester'
+import { runningFetches } from '../sagas/requester'
 import { setNotificationScrollY } from '../actions/gui'
 import { getQueryParamValue } from '../helpers/uri_helper'
 import {
@@ -96,16 +96,9 @@ class StreamContainer extends Component {
   componentWillMount() {
     const { action, dispatch, omnibar } = this.props
     this.state = { action, renderType: ACTION_TYPES.LOAD_STREAM_REQUEST }
-    if (typeof window !== 'undefined' && action) {
-      const path = get(action, 'payload.endpoint.path')
-      if (!runningServerFetches[path]) {
-        dispatch(action)
-      } else {
-        delete runningServerFetches[path]
-        this.state.renderType = ACTION_TYPES.LOAD_STREAM_SUCCESS
-      }
+    if (action) {
+      dispatch(action)
     }
-
     this.wasOmnibarActive = omnibar.isActive
     this.setScroll = debounce(this.setScroll, 333)
   }

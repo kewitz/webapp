@@ -62,7 +62,7 @@ const profileStyle = css(
 )
 
 export const HeroProfile = ({ dpi, sources, userId, useGif }) =>
-  <div className={profileStyle}>
+  (<div className={profileStyle}>
     <BackgroundImage
       className="inHeroProfile hasOverlay6"
       dpi={dpi}
@@ -72,7 +72,7 @@ export const HeroProfile = ({ dpi, sources, userId, useGif }) =>
     <UserContainer userId={userId} type="profile" />
     <HeroShareUserButton />
     <HeroScrollToContentButton />
-  </div>
+  </div>)
 
 HeroProfile.propTypes = {
   dpi: PropTypes.string.isRequired,

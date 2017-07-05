@@ -12,9 +12,9 @@ const panelStyle = css(
 )
 
 const TreePanel = ({ children }) =>
-  <div className={`TreePanel ${panelStyle}`}>
+  (<div className={`TreePanel ${panelStyle}`}>
     {children}
-  </div>
+  </div>)
 
 TreePanel.propTypes = {
   children: PropTypes.node.isRequired,

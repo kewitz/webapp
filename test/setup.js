@@ -1,7 +1,8 @@
 import 'babel-polyfill'
+import 'isomorphic-fetch'
 import fs from 'fs'
 import path from 'path'
-import jsdom from 'jsdom'
+import { JSDOM } from 'jsdom'
 import dotenv from 'dotenv'
 import chai, { expect } from 'chai'
 import chaiImmutable from 'chai-immutable'
@@ -14,7 +15,6 @@ chai.use(chaiImmutable)
 chai.use(sinonChai)
 
 dotenv.load()
-global.ENV = require('../env')
 
 global.chai = chai
 global.expect = expect
@@ -24,8 +24,8 @@ if (!global.document) {
   const html = fs.readFileSync(path.join(__dirname, '../public/template.html'), 'utf-8')
   const exposedProperties = ['document', 'navigator', 'window']
 
-  global.document = jsdom.jsdom(html)
-  global.window = document.defaultView
+  global.window = new JSDOM(html).window
+  global.document = global.window.document
   global.navigator = { userAgent: 'node.js' }
   global.URL = { createObjectURL: input => input }
 
@@ -50,5 +50,10 @@ window.matchMedia = window.matchMedia || function () {
     addListener: () => {},
     removeListener: () => {},
   }
+}
+
+// set specific env vars here
+window.webappEnv = {
+  AUTH_CLIENT_ID: 'abc123',
 }
 

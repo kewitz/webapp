@@ -1,5 +1,3 @@
-// set global ENV for testing since
-// webpack doesn't inject it here
 import React from 'react'
 import TestUtils from 'react-addons-test-utils'
 import { camelize } from 'humps'

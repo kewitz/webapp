@@ -11,14 +11,14 @@ const navStyle = css(s.flex, s.py20)
 const buttonStyle = css(s.fontSize18, s.mr10)
 
 export default() =>
-  <MainView className="StyleGuide">
+  (<MainView className="StyleGuide">
     <header className={headerStyle}>
       <h1 className={h1Style}>Ello style guide</h1>
       <nav className={navStyle}>
         <button className={buttonStyle}>Icons</button>
       </nav>
     </header>
-  </MainView>
+  </MainView>)
 
     // <StyleGuideIcons />
 

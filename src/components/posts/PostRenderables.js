@@ -12,9 +12,9 @@ import { before, css, hover, select } from '../../styles/jss'
 import * as s from '../../styles/jso'
 
 const PostHeaderTimeAgoLink = ({ to, createdAt }) =>
-  <Link className="PostHeaderTimeAgoLink" to={to}>
+  (<Link className="PostHeaderTimeAgoLink" to={to}>
     <span>{new Date(createdAt).timeAgoInWords()}</span>
-  </Link>
+  </Link>)
 PostHeaderTimeAgoLink.propTypes = {
   createdAt: PropTypes.string.isRequired,
   to: PropTypes.string.isRequired,
@@ -294,7 +294,7 @@ const launchCommentEditorButtonStyle = css(
 )
 
 export const LaunchCommentEditorButton = ({ avatar, post }, { onLaunchNativeEditor }) =>
-  <div className={launchCommentEditorStyle}>
+  (<div className={launchCommentEditorStyle}>
     <Avatar className={`${launchCommentEditorAvatarStyle}`} sources={avatar} />
     <button
       className={launchCommentEditorButtonStyle}
@@ -302,7 +302,7 @@ export const LaunchCommentEditorButton = ({ avatar, post }, { onLaunchNativeEdit
     >
       Comment...
     </button>
-  </div>
+  </div>)
 LaunchCommentEditorButton.propTypes = {
   avatar: PropTypes.object,
   post: PropTypes.object,
@@ -326,13 +326,13 @@ const relatedPostButtonStyle = css(
 )
 
 export const RelatedPostsButton = (props, { onClickScrollToRelatedPosts }) =>
-  <button
+  (<button
     className={relatedPostButtonStyle}
     onClick={onClickScrollToRelatedPosts}
   >
     <span>Related Posts</span>
     <ArrowIcon />
-  </button>
+  </button>)
 RelatedPostsButton.contextTypes = {
   onClickScrollToRelatedPosts: PropTypes.func.isRequired,
 }

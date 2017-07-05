@@ -69,21 +69,6 @@ class AppContainer extends Component {
     authPromo: null,
   }
 
-  static preRender = (store) => {
-    const state = store.getState()
-    if (state.authentication.get('isLoggedIn')) {
-      return Promise.all([
-        store.dispatch(loadProfile()),
-        store.dispatch(getCategories()),
-        store.dispatch(getPagePromotionals()),
-      ])
-    }
-    return Promise.all([
-      store.dispatch(getCategories()),
-      store.dispatch(getPagePromotionals()),
-    ])
-  }
-
   static childContextTypes = {
     onClickOpenRegistrationRequestDialog: PropTypes.func,
     onClickScrollToContent: PropTypes.func,

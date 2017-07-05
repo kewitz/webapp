@@ -17,13 +17,13 @@ const buttonStyle = css(
 
 
 const BlockMuteButton = ({ className, onClick }) =>
-  <button
+  (<button
     className={classNames(`BlockMuteButton ${buttonStyle}`, className)}
     onClick={onClick}
   >
     <DotsIcon />
     <Hint>Block, Mute or Flag</Hint>
-  </button>
+  </button>)
 
 BlockMuteButton.propTypes = {
   className: PropTypes.string.isRequired,

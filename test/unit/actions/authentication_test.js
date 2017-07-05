@@ -4,10 +4,6 @@ import * as subject from '../../../src/actions/authentication'
 describe('authentication actions', () => {
   let action = null
 
-  beforeEach(() => {
-    global.ENV.AUTH_CLIENT_ID = 'abc123'
-  })
-
   context('#signIn', () => {
     beforeEach(() => {
       action = subject.signIn('vader@ello.co', '12345666')

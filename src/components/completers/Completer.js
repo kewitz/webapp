@@ -103,14 +103,14 @@ export default class Completer extends PureComponent {
     const { selectedIndex } = this.state
     return (
       completions.get('data').map((completion, i) =>
-        <Completion
+        (<Completion
           className={i === selectedIndex ? 'isActive UserCompletion' : 'UserCompletion'}
           key={`completion_${completion.get('name')}`}
           asset={<Avatar className="isTiny" sources={Immutable.fromJS({ tmp: { url: completion.get('imageUrl') } })} />}
           label={`@${completion.get('name')}`}
           ref={(comp) => { this[`completion_${i}`] = comp }}
           onClick={onCompletion}
-        />,
+        />),
       )
     )
   }
@@ -120,14 +120,14 @@ export default class Completer extends PureComponent {
     const { selectedIndex } = this.state
     return (
       completions.get('data').map((completion, i) =>
-        <Completion
+        (<Completion
           className={i === selectedIndex ? 'isActive EmojiCompletion' : 'EmojiCompletion'}
           key={`completion_${completion.get('name')}`}
           asset={<Emoji key={completion.get('name')} src={completion.get('imageUrl')} />}
           label={`:${completion.get('name')}:`}
           ref={(comp) => { this[`completion_${i}`] = comp }}
           onClick={onCompletion}
-        />,
+        />),
       )
     )
   }
@@ -137,14 +137,14 @@ export default class Completer extends PureComponent {
     const { selectedIndex } = this.state
     return (
       completions.get('data').map((completion, i) =>
-        <Completion
+        (<Completion
           className={i === selectedIndex ? 'isActive LocationCompletion' : 'LocationCompletion'}
           key={`completion_${completion.get('location')}`}
           asset={<MarkerIcon />}
           label={`${completion.get('location')}`}
           ref={(comp) => { this[`completion_${i}`] = comp }}
           onClick={onCompletion}
-        />,
+        />),
       )
     )
   }

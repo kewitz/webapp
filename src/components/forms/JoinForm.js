@@ -15,6 +15,7 @@ import {
   getPasswordState,
 } from './Validators'
 import { signupPath } from '../../networking/api'
+import * as ENV from '../../../env'
 
 function renderStatus(state) {
   return () => {
@@ -156,7 +157,6 @@ class JoinForm extends PureComponent {
           method="POST"
           noValidate="novalidate"
           onSubmit={this.onSubmit}
-          role="form"
         >
           <UsernameControl
             autoFocus

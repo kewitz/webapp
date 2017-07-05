@@ -31,7 +31,7 @@ class UsernameControl extends PureComponent {
         <ul className="FormControlSuggestionList hasSuggestions">
           <p>Here are some available usernames &mdash;</p>
           {suggestions.map(suggestion =>
-            <li key={`suggestion_${suggestion}`}>
+            (<li key={`suggestion_${suggestion}`}>
               <button
                 className="FormControlSuggestionButton"
                 title={suggestion}
@@ -39,7 +39,7 @@ class UsernameControl extends PureComponent {
               >
                 {suggestion}
               </button>
-            </li>,
+            </li>),
             )}
         </ul>
       )

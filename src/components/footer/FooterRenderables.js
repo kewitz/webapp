@@ -116,18 +116,18 @@ export const Footer = ({
   onClickScrollToTop,
   onClickToggleLayoutMode,
 }: FooterContextTypes) =>
-  <footer
+  (<footer
     className={classNames(`Footer ${baseStyle}`, { isPaginatoring })}
     role="contentinfo"
   >
     <div className={wrapperStyle}>
       <div className={linksStyle}>
         { links.map(link =>
-          <FooterLink
+          (<FooterLink
             href={link.to}
             label={link.label}
             key={`FooterLink_${link.label}`}
-          />,
+          />),
         )}
       </div>
       <div className={`FooterTools ${toolsStyle}`}>
@@ -165,7 +165,7 @@ export const Footer = ({
         }
       </div>
     </div>
-  </footer>
+  </footer>)
 
 Footer.contextTypes = {
   onClickScrollToTop: PropTypes.func.isRequired,

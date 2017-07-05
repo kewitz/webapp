@@ -1,11 +1,5 @@
 .DS_Store
-*.log
-*.map
-*.*.map
-node_modules
-coverage
 .env
-dist/
-.tern-port
+node_modules
 public/static/emojis.json
 webpack-stats/*.json

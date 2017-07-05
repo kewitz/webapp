@@ -24,6 +24,7 @@ import {
   select,
 } from '../../styles/jss'
 import * as s from '../../styles/jso'
+import * as ENV from '../../../env'
 
 // -------------------------------------
 
@@ -276,10 +277,10 @@ const moreSpanStyle = css(
 )
 
 export const NavbarMorePostsButton = ({ onClick }) =>
-  <button className={`NavbarMorePostsButton ${moreButtonStyle}`} onClick={onClick} >
+  (<button className={`NavbarMorePostsButton ${moreButtonStyle}`} onClick={onClick} >
     <ArrowIcon />
     <span className={moreSpanStyle}>New Posts</span>
-  </button>
+  </button>)
 
 NavbarMorePostsButton.propTypes = {
   onClick: PropTypes.func,
@@ -306,10 +307,10 @@ const omniButtonStyle = css(
 )
 
 export const NavbarOmniButton = ({ onClick, onDragOver }) =>
-  <button className={`NavbarOmniButton ${omniButtonStyle}`} onClick={onClick} onDragOver={onDragOver}>
+  (<button className={`NavbarOmniButton ${omniButtonStyle}`} onClick={onClick} onDragOver={onDragOver}>
     <PencilIcon />
     <span>Post</span>
-  </button>
+  </button>)
 
 NavbarOmniButton.propTypes = {
   onClick: PropTypes.func.isRequired,

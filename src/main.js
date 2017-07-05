@@ -1,9 +1,7 @@
 /* eslint-disable import/first */
 import 'babel-polyfill'
-import 'isomorphic-fetch'
 // This needs to be imported before everything else to work properly
 import './vendor/glamor-pxtorem'
-
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
@@ -20,9 +18,10 @@ import { addFeatureDetection, isIOS } from './lib/jello'
 import MemoryStore from './lib/memory_store'
 import { updateStrings as updateTimeAgoStrings } from './lib/time_ago_in_words'
 import createRoutes from './routes'
-import Honeybadger from './vendor/honeybadger'
+import Honeybadger from 'honeybadger-js'
 import './vendor/embetter'
 import './vendor/embetter_initializer'
+import * as ENV from '../env'
 
 /* eslint-disable global-require */
 // only use fastclick if we are on iOS
@@ -43,10 +42,12 @@ function shouldScroll() {
 //   whyDidYouUpdate(React)
 // }
 
-Honeybadger.configure({
-  api_key: ENV.HONEYBADGER_API_KEY,
-  environment: ENV.HONEYBADGER_ENVIRONMENT,
-})
+if (ENV.HONEYBADGER_API_KEY && ENV.HONEYBADGER_ENVIRONMENT) {
+  Honeybadger.configure({
+    api_key: ENV.HONEYBADGER_API_KEY,
+    environment: ENV.HONEYBADGER_ENVIRONMENT,
+  })
+}
 
 updateTimeAgoStrings({ about: '' })
 
@@ -121,7 +122,6 @@ const launchApplication = (storage, hasLocalStorage = false) => {
 
 // this will fail in a safari private window
 function isLocalStorageSupported() {
-  if (typeof window === 'undefined') { return false }
   const testKey = 'test-localStorage'
   const storage = window.localStorage
   try {

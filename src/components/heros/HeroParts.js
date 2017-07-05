@@ -6,6 +6,7 @@ import { ChevronCircleIcon, ShareIcon } from '../assets/Icons'
 import { AppleStore, GooglePlayStore } from '../assets/Sprites'
 import { css, hover, media, parent } from '../../styles/jss'
 import * as s from '../../styles/jso'
+import * as ENV from '../../../env'
 
 // -------------------------------------
 
@@ -16,10 +17,10 @@ const storesStyle = css(
 )
 
 export const HeroAppStores = () =>
-  <div className={storesStyle}>
+  (<div className={storesStyle}>
     <AppleStore />
     <GooglePlayStore />
-  </div>
+  </div>)
 
 // -------------------------------------
 
@@ -67,11 +68,11 @@ const creditsByStyle = media(s.maxBreak2,
 )
 
 export const HeroPromotionCredits = ({ label, sources, username }, { onClickTrackCredits }) =>
-  <Link className={`HeroPromotionCredits ${creditsStyle}`} onClick={onClickTrackCredits} to={`/${username}`}>
+  (<Link className={`HeroPromotionCredits ${creditsStyle}`} onClick={onClickTrackCredits} to={`/${username}`}>
     <span className={creditsByStyle}>{label}</span>
     <span className={creditsAuthorStyle}>@{username}</span>
     <Avatar className="inHeroPromotionCredits" sources={sources} username={username} />
-  </Link>
+  </Link>)
 
 HeroPromotionCredits.contextTypes = {
   onClickTrackCredits: PropTypes.func.isRequired,
@@ -139,9 +140,9 @@ const scrollToContentButton = css(
 )
 
 export const HeroScrollToContentButton = (props, { onClickScrollToContent }) =>
-  <button className={`HeroScrollToContentButton ${scrollToContentButton}`} onClick={onClickScrollToContent}>
+  (<button className={`HeroScrollToContentButton ${scrollToContentButton}`} onClick={onClickScrollToContent}>
     <ChevronCircleIcon />
-  </button>
+  </button>)
 
 HeroScrollToContentButton.contextTypes = {
   onClickScrollToContent: PropTypes.func.isRequired,
@@ -160,9 +161,9 @@ const shareButtonStyle = css(
 )
 
 export const HeroShareUserButton = (props, { onClickShareProfile }) =>
-  <button className={`HeroShareUserButton ${shareButtonStyle}`} onClick={onClickShareProfile} >
+  (<button className={`HeroShareUserButton ${shareButtonStyle}`} onClick={onClickShareProfile} >
     <ShareIcon />
-  </button>
+  </button>)
 
 HeroShareUserButton.contextTypes = {
   onClickShareProfile: PropTypes.func.isRequired,

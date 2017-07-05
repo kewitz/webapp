@@ -14,9 +14,9 @@ const baseStyle = css(
 )
 
 export const AppleStore = ({ to }) =>
-  <a className={baseStyle} href={to} rel="noopener noreferrer" target="_blank">
+  (<a className={baseStyle} href={to} rel="noopener noreferrer" target="_blank">
     <span className="invisible">Apple Store</span>
-  </a>
+  </a>)
 
 AppleStore.propTypes = {
   to: PropTypes.string.isRequired,
@@ -33,9 +33,9 @@ const googleStoreStyle = css({
 })
 
 export const GooglePlayStore = ({ to }) =>
-  <a className={`${baseStyle} ${googleStoreStyle}`} href={to} rel="noopener noreferrer" target="_blank">
+  (<a className={`${baseStyle} ${googleStoreStyle}`} href={to} rel="noopener noreferrer" target="_blank">
     <span className="invisible">Google Play Store</span>
-  </a>
+  </a>)
 
 GooglePlayStore.propTypes = {
   to: PropTypes.string.isRequired,

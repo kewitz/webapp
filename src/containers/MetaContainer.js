@@ -22,6 +22,7 @@ import {
 } from 'ello-brains/selectors/user'
 import { selectPagination } from '../selectors/pagination'
 import { DefaultTags, PostDetailTags } from '../components/head/TagRenderables'
+import * as ENV from '../../env'
 
 const selectDefaultMetaRobots = createSelector(
   [selectViewNameFromRoute, selectQueryTerms], (viewName, terms) => {
@@ -61,7 +62,6 @@ function mapStateToProps(state, props) {
     pathname,
     robots: selectDefaultMetaRobots(state, props),
     title: META.TITLE,
-    // $FlowFixMe
     url: `${ENV.AUTH_DOMAIN}${pathname}`,
     viewName,
   }

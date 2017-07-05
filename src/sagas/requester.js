@@ -77,7 +77,6 @@ const runningFetchesBlacklist = [
 
 let unauthorizedActionQueue = []
 const runningFetches = {}
-const runningServerFetches = typeof window !== 'undefined' ? window.__ISO_FETCHES__ || {} : {}
 
 function updateRunningFetches(serverResponse) {
   if (!serverResponse) { return }
@@ -279,10 +278,6 @@ export function* handleRequest(requestChannel) {
     if (!runningFetches[endpoint.path]) {
       if (runningFetchesBlacklist.indexOf(action.type) === -1) {
         runningFetches[endpoint.path] = true
-        // save fetches to check against in the StreamContainer
-        if (typeof window === 'undefined') {
-          runningServerFetches[endpoint.path] = true
-        }
       }
       yield fork(performRequest, action)
     }
@@ -311,5 +306,5 @@ export default function* requester() {
   ]
 }
 
-export { runningFetches, runningServerFetches }
+export { runningFetches }
 

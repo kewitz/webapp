@@ -14,11 +14,11 @@ export const dialogStyle = css(
 const dismissStyle = css(s.absolute, { top: -10, right: -10 }, s.colorWhite, hover(s.colorA))
 
 const Dialog = ({ body, title, onClick }) =>
-  <div className={dialogStyle}>
+  (<div className={dialogStyle}>
     <h2>{title}</h2>
     <p>{body}</p>
     {onClick && <button className={dismissStyle} onClick={onClick}><XIcon /></button>}
-  </div>
+  </div>)
 
 Dialog.propTypes = {
   body: PropTypes.string,

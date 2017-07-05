@@ -89,16 +89,6 @@ class UserDetailContainer extends Component {
     streamType: null,
   }
 
-  static preRender = (store, routerState) => {
-    const { type = 'posts', username } = routerState.params
-    const profileAction = loadUserDetail(`~${username}`)
-    const streamAction = getStreamAction({ type, username })
-    return Promise.all([
-      store.dispatch(profileAction),
-      store.dispatch(streamAction),
-    ])
-  }
-
   componentWillMount() {
     const { dispatch, username } = this.props
     this.state = { renderType: USER.DETAIL_REQUEST }

@@ -2,12 +2,10 @@ import Immutable from 'immutable'
 import get from 'lodash/get'
 import { LOCATION_CHANGE } from 'react-router-redux'
 
-const previousPath = typeof document === 'undefined' ? '/' : document.location.pathname
-
 // Merge our initial state with routerReducer's initial state
 const initialState = Immutable.fromJS({
   locationBeforeTransitions: undefined,
-  previousPath,
+  previousPath: document.location.pathname,
 })
 
 export default (state = initialState, { type, payload }) => {

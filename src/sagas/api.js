@@ -1,5 +1,4 @@
 /* eslint-disable no-use-before-define */
-import 'isomorphic-fetch'
 import { push } from 'react-router-redux'
 import { call, put, select, take } from 'redux-saga/effects'
 import { AUTHENTICATION } from 'ello-brains/constants/action_types'
@@ -10,6 +9,7 @@ import {
   selectShouldUseRefreshToken,
 } from 'ello-brains/selectors/authentication'
 import { refreshAuthenticationToken } from '../actions/authentication'
+import { webappToken } from '../networking/api'
 
 export function getHeaders(accessToken) {
   return {
@@ -50,9 +50,7 @@ export function* fetchCredentials() {
 }
 
 export function* getClientCredentials() {
-  const tokenPath = (typeof window === 'undefined') ?
-        `http://localhost:${process.env.PORT || 6660}/api/webapp-token` :
-        `${document.location.protocol}//${document.location.host}/api/webapp-token`
+  const tokenPath = webappToken().path
 
   try {
     const response = yield call(fetch, tokenPath, { credentials: 'same-origin' })

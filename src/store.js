@@ -10,6 +10,7 @@ import { fromJSON } from 'transit-immutable-js'
 import { rehydrate } from 'glamor'
 import * as reducers from './reducers'
 import rootSaga from './sagas'
+import * as ENV from '../env'
 
 const reducer = combineReducers({ ...reducers })
 
@@ -17,7 +18,7 @@ const reducer = combineReducers({ ...reducers })
 // seems to be a subset of what is actually returned from the rehydrate action
 const stateReconciler = (state, inboundState, reducedState) => ({ ...reducedState })
 
-const createBrowserStore = (history, passedInitialState = {}) => {
+const createElloStore = (passedInitialState = {}) => {
   const logConfig = {
     collapsed: true,
     predicate: () => ENV.APP_DEBUG,
@@ -35,7 +36,7 @@ const createBrowserStore = (history, passedInitialState = {}) => {
     window.Pam = r => fromJSON(JSON.parse(localStorage.getItem(`reduxPersist:${r}`))).toJS()
   }
   const logger = createLogger(logConfig)
-  const reduxRouterMiddleware = routerMiddleware(history)
+  const reduxRouterMiddleware = routerMiddleware(browserHistory)
   const sagaMiddleware = createSagaMiddleware()
   const serverInitState = window.__INITIAL_STATE__
   if (serverInitState) {
@@ -64,26 +65,6 @@ const createBrowserStore = (history, passedInitialState = {}) => {
   store.sagaTask = sagaMiddleware.run(rootSaga)
   return store
 }
-
-const createServerStore = (history, initialState = {}) => {
-  const reduxRouterMiddleware = routerMiddleware(history)
-  const sagaMiddleware = createSagaMiddleware()
-  const logger = createLogger({ collapsed: true, predicate: () => ENV.APP_DEBUG, colors: false })
-  const store = compose(
-    applyMiddleware(sagaMiddleware, reduxRouterMiddleware, logger),
-  )(createStore)(reducer, initialState)
-
-  store.runSaga = sagaMiddleware.run
-  store.close = () => store.dispatch(END)
-  return store
-}
-
-const createElloStore = (history, initialState = {}) => {
-  if (typeof window !== 'undefined') return createBrowserStore(browserHistory, initialState)
-  return createServerStore(history, initialState)
-}
-
-export { createElloStore, createServerStore }
 
 export default createElloStore()
 

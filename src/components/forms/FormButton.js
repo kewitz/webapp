@@ -49,9 +49,9 @@ type Props = {
 }
 
 const FormButton = ({ children, className, ...rest }: Props) =>
-  <button className={classNames(`${buttonStyle}`, className)} {...rest}>
+  (<button className={classNames(`${buttonStyle}`, className)} {...rest}>
     {children}
-  </button>
+  </button>)
 
 FormButton.defaultProps = {
   children: null,

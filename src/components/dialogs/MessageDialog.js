@@ -82,7 +82,6 @@ export default class MessageDialog extends PureComponent {
           method="POST"
           noValidate="novalidate"
           onSubmit={this.onConfirm}
-          role="form"
         >
           <FormControl
             classList="MessageMessageControl isBoxControl"

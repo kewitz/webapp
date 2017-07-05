@@ -13,7 +13,7 @@ type DefaultTagProps = {
 }
 
 export const DefaultTags = (props: DefaultTagProps) =>
-  <Helmet>
+  (<Helmet>
     <title>{props.title}</title>,
     <meta name="apple-itunes-app" content="app-id=953614327" appArgument={props.pathname} />,
     <meta name="name" itemProp="name" content={props.title} />,
@@ -27,7 +27,7 @@ export const DefaultTags = (props: DefaultTagProps) =>
     <meta name="twitter:card" content="summary_large_image" />,
     {props.robots && <meta name="robots" content={props.robots} />}
     {props.nextPage && <link href={props.nextPage} rel="next" />}
-  </Helmet>
+  </Helmet>)
 
 DefaultTags.defaultProps = {
   nextPage: null,
@@ -58,7 +58,7 @@ type PostDetailProps = {
 }
 
 export const PostDetailTags = (props: PostDetailProps) =>
-  <Helmet>
+  (<Helmet>
     <title>{props.title}</title>
     <meta name="apple-itunes-app" content="app-id=953614327" appArgument={props.pathname} />
     <meta name="name" itemProp="name" content={props.title} />
@@ -80,7 +80,7 @@ export const PostDetailTags = (props: PostDetailProps) =>
     <meta name="twitter:card" content={props.card} />
     <meta name="robots" content={props.robots} />
     {props.canonicalUrl && <link href={props.canonicalUrl} rel="canonical" />}
-  </Helmet>
+  </Helmet>)
 
 PostDetailTags.defaultProps = {
   canonicalUrl: null,

@@ -54,7 +54,6 @@ export class FooterForm extends PureComponent {
         method="POST"
         noValidate="novalidate"
         onSubmit={onSubmit}
-        role="form"
       >
         <EmailControl
           classList="inFooter"

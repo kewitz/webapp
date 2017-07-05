@@ -5,6 +5,7 @@ import {
   forgotPassword,
   refreshAuthToken,
 } from '../networking/api'
+import * as ENV from '../../env'
 
 export function clearAuthToken() {
   return {

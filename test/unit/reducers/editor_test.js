@@ -6,7 +6,7 @@ import reducer, { editorMethods, initialState } from '../../../src/reducers/edit
 describe('editor reducer', () => {
   describe('@initialState', () => {
     it('should have the correct default properties', () => {
-      expect(initialState.completions).to.be.empty
+      expect(initialState.get('completions')).to.be.empty
     })
   })
 
