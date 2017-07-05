@@ -34,6 +34,10 @@
   padding: 20px 10px;
 }
 
+.Omnibar > .editor::before {
+  display: none;
+}
+
 .editor-region {
   min-height: 100px;
   padding: 20px;
@@ -65,7 +69,7 @@
 .editor::after {
   position: absolute;
   top: 71px;
-  left: 61px;
+  left: 51px;
   color: #999;
   pointer-events: none;
   content: attr(data-placeholder);
@@ -151,17 +155,6 @@
   margin-bottom: 10px;
 }
 
-/* // MAX-WIDTH! */
-@media (--break-2-max) {
-  .Omnibar > .editor::before {
-    display: none;
-  }
-
-  .Omnibar > .editor::after {
-    left: 51px;
-  }
-}
-
 @media (--break-2) {
   .editor.isComment {
     max-width: 640px;
@@ -188,9 +181,7 @@
   }
 
   .Omnibar > .editor {
-    padding-right: 20px;
-    padding-left: 20px;
-    margin-left: 60px;
+    margin-top: 40px;
   }
 
   /* stylelint-disable selector-max-compound-selectors, selector-max-specificity, selector-no-qualifying-type */

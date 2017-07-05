@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
-import Avatar from '../assets/Avatar'
 import Editor from '../editor/Editor'
 import { ChevronIcon } from '../assets/Icons'
 import { css, hover, media, modifier } from '../../styles/jss'
@@ -26,16 +25,15 @@ const revealButton = css(
   s.nowrap,
   s.transitionWidth,
   hover({ width: 100 }),
-  media(s.minBreak2, { top: 25, right: 10 }),
+  media(s.minBreak2, { top: -20, right: 10 }),
 )
 
-export const Omnibar = ({ avatar, classList, isActive, isFullScreen, onClickCloseOmnibar }) => {
+export const Omnibar = ({ classList, isActive, isFullScreen, onClickCloseOmnibar }) => {
   if (!isActive) {
     return <div className={classNames(`Omnibar ${omnibarStyle}`, { isActive }, classList)} />
   }
   return (
     <div className={classNames(`Omnibar ${omnibarStyle}`, { isActive, isFullScreen }, classList)} >
-      <Avatar sources={avatar} />
       <Editor shouldPersist />
       <button className={revealButton} onClick={onClickCloseOmnibar}>
         <ChevronIcon />
@@ -46,7 +44,6 @@ export const Omnibar = ({ avatar, classList, isActive, isFullScreen, onClickClos
 }
 
 Omnibar.propTypes = {
-  avatar: PropTypes.object,
   classList: PropTypes.string,
   isActive: PropTypes.bool.isRequired,
   isFullScreen: PropTypes.bool,
@@ -54,7 +51,6 @@ Omnibar.propTypes = {
 }
 
 Omnibar.defaultProps = {
-  avatar: null,
   classList: null,
   isFullScreen: false,
 }
