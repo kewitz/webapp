@@ -39,13 +39,14 @@ function mapStateToProps(state, props) {
   const categoryTabs = viewName === 'discover' && paramsType !== 'all' ? selectCategoryTabs(state) : null
   const isUnread = selectIsNotificationsUnread(state) || !selectAnnouncementHasBeenViewed(state)
   const isGridMode = selectIsGridMode(state)
+  const deviceSize = selectDeviceSize(state)
 
   if (isLoggedIn) {
     return {
       activeTabType: selectActiveNotificationsType(state),
       avatar: selectAvatar(state),
       categoryTabs,
-      deviceSize: selectDeviceSize(state),
+      deviceSize,
       hasLoadMoreButton,
       isGridMode,
       isLayoutToolHidden: selectIsLayoutToolHidden(state, props),
@@ -60,6 +61,7 @@ function mapStateToProps(state, props) {
   }
   return {
     categoryTabs,
+    deviceSize,
     hasLoadMoreButton,
     isGridMode,
     isLoggedIn,

@@ -42,7 +42,7 @@ const navbarStyle = css(
   ),
   media(s.minBreak2,
     s.p20,
-    { borderBottom: '2px solid #f2f2f2', height: 100 },
+    { borderBottom: '2px solid #f2f2f2' },
     select('.no-touch .isNavbarHidden ~ &:hover', s.bgcWhite, s.transformNone, { transitionDelay: '0s' }),
     select('.no-touch .isNavbarHidden ~ .Discover + &:hover', { transitionDelay: '1.5s' }),
     select('.no-touch .isNavbarHidden ~ &::after',
@@ -68,17 +68,18 @@ const mainStyle = css(
 
 const linksStyle = css(
   s.absolute,
-  { top: -3, left: 0 },
+  { top: 0, left: 0 },
   s.nowrap,
   media(s.minBreak2,
-    parent('.isLoggedIn', { top: 'calc(50% + 8px)', right: 180, left: 'auto', marginTop: -20 }),
-    parent('.isLoggedOut', { top: 'calc(50% + 8px)', right: 0, marginTop: -20 }),
+    parent('.isLoggedIn', { top: 'calc(50% + 5px)', right: 200, left: 'auto', marginTop: -20 }),
+    parent('.isLoggedOut', { top: 'calc(50% + 5px)', right: 175, left: 'auto', marginTop: -20 }),
     parent('.isOmnibarActive .Navbar >', s.absolute, { transform: 'translate3d(400px, 0, 0)' }),
   ),
 )
 
 export const NavbarLoggedOut = ({
   categoryTabs,
+  deviceSize,
   hasLoadMoreButton,
   onClickLoadMorePosts,
   onClickNavbarMark,
@@ -89,6 +90,14 @@ export const NavbarLoggedOut = ({
       <NavbarMark onClick={onClickNavbarMark} />
       {hasLoadMoreButton ? <NavbarMorePostsButton onClick={onClickLoadMorePosts} /> : null}
       <div className={`NavbarLinks ${linksStyle}`}>
+        { deviceSize === 'mobile' &&
+          <NavbarLink
+            className="LabelOnly"
+            label="Editorial"
+            pathname={pathname}
+            to="/"
+          />
+        }
         <NavbarLink
           className="LabelOnly"
           icon={<SparklesIcon />}
@@ -103,27 +112,28 @@ export const NavbarLoggedOut = ({
           pathname={pathname}
           to="/search"
         />
-        <NavbarLink
-          className="LabelOnly"
-          label="Login"
-          onClick={onClickLogin}
-          pathname={pathname}
-          to="/enter"
-        />
-        <NavbarLink
-          className="LabelOnly isSignUp"
-          label="Sign Up"
-          onClick={onClickSignup}
-          pathname={pathname}
-          to="/join"
-        />
       </div>
+      <NavbarLink
+        className="LabelOnly isLogin"
+        label="Login"
+        onClick={onClickLogin}
+        pathname={pathname}
+        to="/enter"
+      />
+      <NavbarLink
+        className="LabelOnly isSignUp"
+        label="Sign Up"
+        onClick={onClickSignup}
+        pathname={pathname}
+        to="/join"
+      />
     </div>
     {categoryTabs ? <CategoryTabBar pathname={pathname} tabs={categoryTabs} /> : null}
   </nav>)
 
 NavbarLoggedOut.propTypes = {
   categoryTabs: PropTypes.array,
+  deviceSize: PropTypes.string.isRequired,
   hasLoadMoreButton: PropTypes.bool.isRequired,
   onClickLoadMorePosts: PropTypes.func.isRequired,
   onClickNavbarMark: PropTypes.func.isRequired,
