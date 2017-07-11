@@ -2,7 +2,7 @@
 import React from 'react'
 import get from 'lodash/get'
 import { camelizeKeys } from 'humps'
-import { actionChannel, call, fork, put, select, take } from 'redux-saga/effects'
+import { actionChannel, all, call, fork, put, select, take } from 'redux-saga/effects'
 import * as ACTION_TYPES from 'ello-brains/constants/action_types'
 import { selectPathname } from 'ello-brains/selectors/routing'
 import { selectRefreshToken } from 'ello-brains/selectors/authentication'
@@ -300,10 +300,10 @@ export default function* requester() {
     ACTION_TYPES.AUTHENTICATION.REFRESH_SUCCESS,
     ACTION_TYPES.AUTHENTICATION.USER_SUCCESS,
   ])
-  yield [
+  yield all([
     fork(refireUnauthorizedActions, authSuccessChannel),
     fork(handleRequest, requestChannel),
-  ]
+  ])
 }
 
 export { runningFetches }

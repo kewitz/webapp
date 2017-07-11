@@ -1,5 +1,5 @@
 /* eslint-disable no-constant-condition */
-import { fork, put, select, take } from 'redux-saga/effects'
+import { all, fork, put, select, take } from 'redux-saga/effects'
 import { AUTHENTICATION, PROFILE } from 'ello-brains/constants/action_types'
 import { selectIsLoggedIn } from 'ello-brains/selectors/authentication'
 import { selectBundleId, selectIsStaff, selectRegistrationId } from 'ello-brains/selectors/profile'
@@ -39,9 +39,9 @@ export function* logoutPushUnsubscribe() {
 }
 
 export default function* pushSubscription() {
-  yield [
+  yield all([
     fork(loginPushSubscribe),
     fork(logoutPushUnsubscribe),
-  ]
+  ])
 }
 

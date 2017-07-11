@@ -1,5 +1,5 @@
 /* eslint-disable no-constant-condition */
-import { actionChannel, fork, put, select, take } from 'redux-saga/effects'
+import { actionChannel, all, fork, put, select, take } from 'redux-saga/effects'
 import { LOCATION_CHANGE } from 'react-router-redux'
 import get from 'lodash/get'
 import * as ACTION_TYPES from 'ello-brains/constants/action_types'
@@ -157,10 +157,10 @@ function* trackPage(pageTrackChannel) {
 
 export default function* analytics() {
   const pageTrackChannel = yield actionChannel(pageTrackTypes)
-  yield [
+  yield all([
     fork(trackEvent),
     fork(trackEvents),
     fork(trackPage, pageTrackChannel),
-  ]
+  ])
 }
 
