@@ -263,19 +263,19 @@ User Cards  */
 }
 
 @media (--break-5) {
-  .UserProfileCard {
+  .UserProfileCard:not(.isMiniProfileCard) {
     width: calc(20% - 40px);
   }
 }
 
 @media (--break-6) {
-  .UserProfileCard {
+  .UserProfileCard:not(.isMiniProfileCard) {
     width: calc(16.66666% - 40px);
   }
 }
 
 @media (--break-7) {
-  .UserProfileCard {
+  .UserProfileCard:not(.isMiniProfileCard) {
     width: calc(14.28571% - 40px);
   }
 }
