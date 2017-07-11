@@ -11,7 +11,6 @@ import {
   SparklesIcon,
 } from '../assets/Icons'
 import {
-  NavbarLabel,
   NavbarLayoutTool,
   NavbarLink,
   NavbarMark,
@@ -26,14 +25,12 @@ import * as s from '../../styles/jso'
 
 const navbarStyle = css(
   s.fixed,
-  { top: 0, right: 0, left: 0 },
+  { height: 80, top: 0, right: 0, left: 0 },
   s.zNavbar,
   s.p10,
   s.bgcWhite,
   // { borderBottom: '2px solid #f2f2f2' },
   { transition: 'transform 150ms ease, height 150ms ease, background-color 0s' },
-  parent('.isLoggedIn', { height: 85 }),
-  parent('.isLoggedOut', { height: 50 }),
   parent('.isOmnibarActive', s.overflowHidden, s.pointerNone, s.bgcTransparent, s.opacity0),
   select('.isOnboardingView ~ &', s.displayNone),
   select('.isNavbarHidden ~ &',
@@ -45,8 +42,7 @@ const navbarStyle = css(
   ),
   media(s.minBreak2,
     s.p20,
-    parent('.isLoggedIn', { height: 80 }),
-    parent('.isLoggedOut', { height: 80 }),
+    { borderBottom: '2px solid #f2f2f2', height: 100 },
     select('.no-touch .isNavbarHidden ~ &:hover', s.bgcWhite, s.transformNone, { transitionDelay: '0s' }),
     select('.no-touch .isNavbarHidden ~ .Discover + &:hover', { transitionDelay: '1.5s' }),
     select('.no-touch .isNavbarHidden ~ &::after',
@@ -72,13 +68,11 @@ const mainStyle = css(
 
 const linksStyle = css(
   s.absolute,
-  { top: -3 },
+  { top: -3, left: 0 },
   s.nowrap,
-  parent('.isLoggedIn', { left: 0 }),
-  parent('.isLoggedOut', { right: 0 }),
   media(s.minBreak2,
-    parent('.isLoggedIn', { top: '50%', right: 60, left: 'auto', marginTop: -20 }),
-    parent('.isLoggedOut', { top: '50%', right: 0, marginTop: -20 }),
+    parent('.isLoggedIn', { top: 'calc(50% + 8px)', right: 180, left: 'auto', marginTop: -20 }),
+    parent('.isLoggedOut', { top: 'calc(50% + 8px)', right: 0, marginTop: -20 }),
     parent('.isOmnibarActive .Navbar >', s.absolute, { transform: 'translate3d(400px, 0, 0)' }),
   ),
 )
@@ -93,7 +87,6 @@ export const NavbarLoggedOut = ({
   (<nav className={`Navbar ${navbarStyle}`} >
     <div className={`NavbarMain ${mainStyle}`}>
       <NavbarMark onClick={onClickNavbarMark} />
-      <NavbarLabel />
       {hasLoadMoreButton ? <NavbarMorePostsButton onClick={onClickLoadMorePosts} /> : null}
       <div className={`NavbarLinks ${linksStyle}`}>
         <NavbarLink
@@ -112,14 +105,14 @@ export const NavbarLoggedOut = ({
         />
         <NavbarLink
           className="LabelOnly"
-          label="Log in"
+          label="Login"
           onClick={onClickLogin}
           pathname={pathname}
           to="/enter"
         />
         <NavbarLink
           className="LabelOnly isSignUp"
-          label="Sign up"
+          label="Sign Up"
           onClick={onClickSignup}
           pathname={pathname}
           to="/join"

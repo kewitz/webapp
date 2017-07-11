@@ -23,7 +23,7 @@ const heroStyle = css(
   select('.isDiscoverView ~ &', { paddingTop: '160px !important' }),
   media(s.maxBreak2,
     parent('.isLoggedOut', { paddingTop: 50 }),
-    select('.isDiscoverView ~ &', { paddingTop: '155px !important' }),
+    select('.isDiscoverView ~ &', { paddingTop: '120px !important' }),
     select('.isLogged .isDiscoverView ~ &', { paddingTop: '120px !important' }),
     select('.isProfileMenuActive ~ &', s.displayNone),
   ),

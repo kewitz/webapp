@@ -26,20 +26,6 @@ import * as ENV from '../../../env'
 
 // -------------------------------------
 
-const labelStyle = css(
-  s.displayNone,
-  s.relative,
-  s.ml20,
-  s.fontSize14,
-  { top: 2, lineHeight: 1 },
-  media(s.minBreak2, s.inlineBlock),
-)
-export const NavbarLabel = () => (
-  <h2 className={labelStyle}>Ello</h2>
-)
-
-// -------------------------------------
-
 const layoutToolStyle = css(
   s.absolute,
   { top: 2, left: 145 },
@@ -52,8 +38,8 @@ export const NavbarLayoutTool = ({ icon, onClick }) => (
 )
 
 NavbarLayoutTool.propTypes = {
-  icon: PropTypes.node,
-  onClick: PropTypes.func,
+  icon: PropTypes.node.isRequired,
+  onClick: PropTypes.func.isRequired,
 }
 
 // -------------------------------------
@@ -102,6 +88,8 @@ const linkStyle = css(
   before(s.hitarea),
   modifier('.isSignUp',
     { width: 80, borderRadius: 5 },
+    s.hv30,
+    s.lh30,
     s.colorWhite,
     s.center,
     s.bgcGreen,
@@ -114,15 +102,21 @@ const linkStyle = css(
   select('[data-dragging-priority="noise"] &.hasDragOver[href="/following"]', { backgroundColor: '#cfc' }),
   select('[data-dragging-priority="inactive"] &.hasDragOver[href="/following"]', { backgroundColor: '#cfc' }),
   select('.NavbarLinks > & + &', s.ml30),
+  select('.NavbarAuthLinks > & + &', s.ml30),
   // Crunch spacing on logged out for smaller devices: 360 / 16 = 22.5em
   media('(max-width: 22.5em)',
     select('.isLoggedOut .NavbarLinks > & + &', { marginLeft: 18 }),
+    select('.isLoggedOut .NavbarAuthLinks > & + &', { marginLeft: 18 }),
   ),
   media(s.maxBreak2,
-    parent('.isLoggedIn', s.mt40),
+    s.mt40,
     select('.isLoggedIn &[href^="/notifications"]', s.absolute, s.m0, { top: 0, left: 55 }),
     select('.isLoggedIn &[href^="/search"]', s.absolute, s.m0, { top: 0, left: 100 }),
+    select('.isLoggedOut &[href^="/search"]', s.absolute, s.m0, { top: 0, left: 80 }),
+    select('.isLoggedOut &[href^="/join"]', s.absolute, s.m0, { top: 0, left: 'auto', right: 0 }),
+    select('.isLoggedOut &[href^="/enter"]', s.absolute, s.m0, { top: 0, left: 'auto', right: 120 }),
   ),
+  media(s.minBreak2, modifier('.isSignUp', s.hv40, s.lh40)),
 )
 
 const highlightingRules = {
@@ -165,7 +159,7 @@ export const NavbarLink = ({
 }
 
 NavbarLink.propTypes = {
-  className: PropTypes.string,
+  className: PropTypes.string.isRequired,
   icon: PropTypes.element,
   label: PropTypes.string.isRequired,
   onClick: PropTypes.func,
@@ -175,16 +169,21 @@ NavbarLink.propTypes = {
   pathname: PropTypes.string.isRequired,
   to: PropTypes.string.isRequired,
 }
+NavbarLink.defaultProps = {
+  icon: null,
+  onClick: null,
+  onDragLeave: null,
+  onDragOver: null,
+  onDrop: null,
+}
 
 // -------------------------------------
 const markStyle = css(
   s.relative,
-  { transform: 'scale(0.75)', transformOrigin: 'top left' },
+  { marginTop: 8 },
   parent('.isLoggedIn', s.displayNone),
   parent('.isLoggedOut', s.inlineBlock),
   media(s.minBreak2,
-    s.transformNone,
-    { transformOrigin: 'center center' },
     parent('.isLoggedIn', s.inlineBlock),
   ),
 )
@@ -251,12 +250,12 @@ const moreButtonStyle = css(
   s.wv30,
   s.zIndex3,
   parent('.isLoggedIn', { right: 90 }),
-  parent('.isLoggedOut', s.displayNone, { right: 50 }),
+  parent('.isLoggedOut', s.displayNone),
   hover(s.color6),
   media(s.minBreak2,
     s.wv40, s.hv40, s.lh40,
-    parent('.isLoggedIn', { right: 'auto', left: 180 }),
-    parent('.isLoggedOut', s.inlineBlock, { left: 120 }),
+    parent('.isLoggedIn', { right: 'auto', left: 60 }),
+    parent('.isLoggedOut', s.inlineBlock, { left: 80 }),
   ),
   media(s.minBreak3,
     { width: 'auto', paddingRight: 20, paddingLeft: 15, borderRadius: 20 },
@@ -287,7 +286,8 @@ NavbarMorePostsButton.propTypes = {
 // -------------------------------------
 
 const omniButtonStyle = css(
-  { top: -6, right: 0, borderRadius: 5 },
+  s.absolute,
+  { top: 0, right: 0, borderRadius: 5 },
   s.hv30,
   s.lh30,
   { paddingRight: 15, paddingLeft: 10 },
@@ -297,7 +297,7 @@ const omniButtonStyle = css(
   { transition: 'background-color 0.2s ease' },
   hover(s.bgc6),
   media(s.minBreak2,
-    { right: 'auto', left: 60, width: 100 },
+    { width: 100 },
     s.hv40,
     s.lh40,
   ),
@@ -327,7 +327,7 @@ const profilePopStyle = css(
     select('.isProfileMenuActive ~ .Navbar .NavbarMain > *:not(.NavbarProfile)', s.displayNone),
   ),
   media(s.minBreak2,
-    { top: 0, left: 'auto', right: 0 },
+    { top: 0, left: 'auto', right: 120 },
     hover(before(
       s.absolute,
       { top: 15, left: 0, width: 100, height: 30, content: '""' },
