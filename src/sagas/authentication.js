@@ -1,5 +1,5 @@
 /* eslint-disable no-constant-condition */
-import { fork, put, take } from 'redux-saga/effects'
+import { all, fork, put, take } from 'redux-saga/effects'
 import { push } from 'react-router-redux'
 import { REHYDRATE } from 'redux-persist/constants'
 import {
@@ -62,10 +62,10 @@ function* rehydrateSaga() {
 }
 
 export default function* authentication() {
-  yield [
+  yield all([
     fork(loginSaga),
     fork(logoutSaga),
     fork(rehydrateSaga),
     fork(userSuccessSaga),
-  ]
+  ])
 }

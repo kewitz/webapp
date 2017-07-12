@@ -52,7 +52,6 @@ const baseStyle = css(
   parent('.CommentHeader', s.absolute, { top: 3, left: 0 }),
   parent('.editor.isComment', s.mb10),
   parent('.Notification', { width: 30, height: 30 }),
-  parent('.Omnibar >', s.absolute, { top: 10, left: 10 }),
   parent('.RepostedBody >', s.absolute, { top: 40, left: 0 }),
   parent('.OnboardingAvatarPicker ', s.absolute, { top: 0, right: 0, left: 0 }, s.zIndex1, s.my0, s.mxAuto),
   parent('.SettingsAvatarPicker ', s.absolute, { top: 0, right: 0, left: 0 }, s.zIndex1),
@@ -72,15 +71,10 @@ const baseStyle = css(
     modifier('.inUserProfileCard:not(.isMiniProfileCard)', { width: 200, height: 200 }),
     modifier('.isLarge', { width: 180, height: 180 }),
     parent('.editor.isComment', s.absolute, { top: 0, left: 0 }, s.mb0),
-    parent('.Omnibar >', { top: 20, left: 20 }),
     parent('.RepostedBody >', { top: 30 }),
     parent('.PostHeader ', s.absolute, { top: 20 }),
     parent('.CategoryHeader ', s.absolute, { top: 20 }),
     parent('.RepostHeader ', s.absolute, { top: 20 }),
-  ),
-  media(
-    s.minBreak4,
-    parent('.Omnibar >', { left: 40 }),
   ),
 )
 

@@ -28,20 +28,24 @@ SVGIcon.defaultProps = {
   onClick: null,
 }
 
-export const SVGBox = ({ children, className, size }) =>
+export const SVGBox = ({ children, className, height, size, width }) =>
   (<SVGComponent
     className={classNames(className, 'SVGBox')}
-    width={size}
-    height={size}
+    width={width || size}
+    height={height || size}
   >
     {children}
   </SVGComponent>)
 SVGBox.propTypes = {
   children: PropTypes.node.isRequired,
   className: PropTypes.string.isRequired,
+  height: PropTypes.string,
   size: PropTypes.string,
+  width: PropTypes.string,
 }
 SVGBox.defaultProps = {
+  height: null,
   size: '40',
+  width: null,
 }
 

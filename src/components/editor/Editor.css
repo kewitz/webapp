@@ -31,7 +31,12 @@
 }
 
 .Omnibar > .editor {
-  padding: 20px 10px;
+  padding: 20px;
+  margin: 0 auto;
+}
+
+.Omnibar > .editor::before {
+  display: none;
 }
 
 .editor-region {
@@ -151,17 +156,6 @@
   margin-bottom: 10px;
 }
 
-/* // MAX-WIDTH! */
-@media (--break-2-max) {
-  .Omnibar > .editor::before {
-    display: none;
-  }
-
-  .Omnibar > .editor::after {
-    left: 51px;
-  }
-}
-
 @media (--break-2) {
   .editor.isComment {
     max-width: 640px;
@@ -188,9 +182,7 @@
   }
 
   .Omnibar > .editor {
-    padding-right: 20px;
-    padding-left: 20px;
-    margin-left: 60px;
+    margin-top: 40px;
   }
 
   /* stylelint-disable selector-max-compound-selectors, selector-max-specificity, selector-no-qualifying-type */
@@ -203,12 +195,6 @@
     min-height: calc(100vh - 100px);
   }
   /* stylelint-enable selector-max-compound-selectors, selector-max-specificity, selector-no-qualifying-type */
-}
-
-@media (--break-4) {
-  .Omnibar > .editor {
-    margin-left: 80px;
-  }
 }
 
 /* // ------------------------------------- */

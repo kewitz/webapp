@@ -5,10 +5,7 @@ import classNames from 'classnames'
 import Avatar from '../assets/Avatar'
 import {
   ArrowIcon,
-  ElloMark,
-  ElloRainbowMark,
-  ElloDonutMark,
-  ElloNinjaSuit,
+  ElloLogoType,
   PencilIcon,
   XIconLG,
 } from '../assets/Icons'
@@ -28,20 +25,6 @@ import * as ENV from '../../../env'
 
 // -------------------------------------
 
-const labelStyle = css(
-  s.displayNone,
-  s.relative,
-  s.ml20,
-  s.fontSize14,
-  { top: 2, lineHeight: 1 },
-  media(s.minBreak2, s.inlineBlock),
-)
-export const NavbarLabel = () => (
-  <h2 className={labelStyle}>Ello</h2>
-)
-
-// -------------------------------------
-
 const layoutToolStyle = css(
   s.absolute,
   { top: 2, left: 145 },
@@ -54,8 +37,8 @@ export const NavbarLayoutTool = ({ icon, onClick }) => (
 )
 
 NavbarLayoutTool.propTypes = {
-  icon: PropTypes.node,
-  onClick: PropTypes.func,
+  icon: PropTypes.node.isRequired,
+  onClick: PropTypes.func.isRequired,
 }
 
 // -------------------------------------
@@ -103,7 +86,10 @@ const linkStyle = css(
   { transition: `width 0.2s ${s.ease}, color 0.2s ease, background-color 0.2s ease` },
   before(s.hitarea),
   modifier('.isSignUp',
-    { width: 80, borderRadius: 5 },
+    { width: 80, borderRadius: 5, right: 0 },
+    s.absolute,
+    s.hv30,
+    s.lh30,
     s.colorWhite,
     s.center,
     s.bgcGreen,
@@ -115,16 +101,18 @@ const linkStyle = css(
   select('[data-dragging-priority="inactive"] &[href="/following"]', s.px10, s.bgcYellow),
   select('[data-dragging-priority="noise"] &.hasDragOver[href="/following"]', { backgroundColor: '#cfc' }),
   select('[data-dragging-priority="inactive"] &.hasDragOver[href="/following"]', { backgroundColor: '#cfc' }),
+  select('.isLoggedOut &[href^="/enter"]', s.absolute, s.m0, { top: 0, left: 'auto', right: 110 }),
   select('.NavbarLinks > & + &', s.ml30),
-  // Crunch spacing on logged out for smaller devices: 360 / 16 = 22.5em
-  media('(max-width: 22.5em)',
-    select('.isLoggedOut .NavbarLinks > & + &', { marginLeft: 18 }),
-  ),
   media(s.maxBreak2,
-    parent('.isLoggedIn', s.mt40),
-    select('.isLoggedIn &[href^="/notifications"]', s.absolute, s.m0, { top: 0, left: 55 }),
-    select('.isLoggedIn &[href^="/search"]', s.absolute, s.m0, { top: 0, left: 100 }),
+    s.mt30,
+    select('.isLoggedOut .NavbarLinks > & + &', { marginLeft: 18 }),
+    select('.isLoggedIn &[href^="/notifications"]', s.absolute, s.m0, { top: -3, left: 55 }),
+    select('.isLoggedIn &[href^="/search"]', s.absolute, s.m0, { top: -3, left: 100 }),
+    select('.isLoggedOut &[href^="/search"]', s.absolute, s.m0, { top: -5, left: 60 }),
+    select('.isLoggedOut &[href^="/join"]', s.absolute, s.m0, { top: 0, left: 'auto', right: 0 }),
+    select('.isLoggedOut &[href^="/enter"]', { top: -5, right: 100 }),
   ),
+  media(s.minBreak2, modifier('.isSignUp', s.hv40, s.lh40)),
 )
 
 const highlightingRules = {
@@ -167,7 +155,7 @@ export const NavbarLink = ({
 }
 
 NavbarLink.propTypes = {
-  className: PropTypes.string,
+  className: PropTypes.string.isRequired,
   icon: PropTypes.element,
   label: PropTypes.string.isRequired,
   onClick: PropTypes.func,
@@ -177,59 +165,36 @@ NavbarLink.propTypes = {
   pathname: PropTypes.string.isRequired,
   to: PropTypes.string.isRequired,
 }
+NavbarLink.defaultProps = {
+  icon: null,
+  onClick: null,
+  onDragLeave: null,
+  onDragOver: null,
+  onDrop: null,
+}
 
 // -------------------------------------
 const markStyle = css(
+  { marginTop: -2 },
   s.relative,
-  { transform: 'scale(0.75)', transformOrigin: 'top left' },
   parent('.isLoggedIn', s.displayNone),
   parent('.isLoggedOut', s.inlineBlock),
   media(s.minBreak2,
-    s.transformNone,
-    { transformOrigin: 'center center' },
+    { marginTop: 8 },
     parent('.isLoggedIn', s.inlineBlock),
   ),
 )
 
-const getLogoMark = (mark) => {
-  switch (mark) {
-    case 'rainbow':
-      return <ElloRainbowMark />
-    case 'donut':
-      return <ElloDonutMark />
-    case 'none':
-      return null
-    case 'normal':
-    default:
-      return <ElloMark />
-  }
-}
-
-const getLogoModifier = (mods) => {
-  switch (mods) {
-    case 'isNinja':
-      return <ElloNinjaSuit />
-    default:
-      return null
-  }
-}
-
-export const NavbarMark = ({ onClick }) => {
-  const list = ENV.LOGO_MARK ? ENV.LOGO_MARK.split('.') : ['normal']
-  const mark = list[0]
-  const mods = list.length > 1 ? list.slice(1).join(' ') : ''
-  return (
-    <Link
-      className={`NavbarMark ${markStyle}`}
-      draggable
-      onClick={onClick}
-      to="/"
-    >
-      {getLogoModifier(mods)}
-      {getLogoMark(mark)}
-    </Link>
-  )
-}
+export const NavbarMark = ({ onClick }) => (
+  <Link
+    className={`NavbarMark ${markStyle}`}
+    draggable
+    onClick={onClick}
+    to="/"
+  >
+    <ElloLogoType />
+  </Link>
+)
 
 NavbarMark.propTypes = {
   onClick: PropTypes.func.isRequired,
@@ -253,12 +218,12 @@ const moreButtonStyle = css(
   s.wv30,
   s.zIndex3,
   parent('.isLoggedIn', { right: 90 }),
-  parent('.isLoggedOut', s.displayNone, { right: 50 }),
+  parent('.isLoggedOut', s.displayNone),
   hover(s.color6),
   media(s.minBreak2,
     s.wv40, s.hv40, s.lh40,
-    parent('.isLoggedIn', { right: 'auto', left: 180 }),
-    parent('.isLoggedOut', s.inlineBlock, { left: 120 }),
+    parent('.isLoggedIn', { right: 'auto', left: 80 }),
+    parent('.isLoggedOut', s.inlineBlock, { left: 80 }),
   ),
   media(s.minBreak3,
     { width: 'auto', paddingRight: 20, paddingLeft: 15, borderRadius: 20 },
@@ -281,16 +246,15 @@ export const NavbarMorePostsButton = ({ onClick }) =>
     <ArrowIcon />
     <span className={moreSpanStyle}>New Posts</span>
   </button>)
-
 NavbarMorePostsButton.propTypes = {
-  onClick: PropTypes.func,
+  onClick: PropTypes.func.isRequired,
 }
 
 // -------------------------------------
 
 const omniButtonStyle = css(
   s.absolute,
-  { top: 0, right: 0, borderRadius: 15 },
+  { top: 0, right: 0, borderRadius: 5 },
   s.hv30,
   s.lh30,
   { paddingRight: 15, paddingLeft: 10 },
@@ -300,7 +264,7 @@ const omniButtonStyle = css(
   { transition: 'background-color 0.2s ease' },
   hover(s.bgc6),
   media(s.minBreak2,
-    { top: 0, right: 'auto', left: 60, width: 100, borderRadius: 20 },
+    { width: 100 },
     s.hv40,
     s.lh40,
   ),
@@ -323,14 +287,16 @@ const threadlessLink = 'http://ello.threadless.com/'
 
 const profilePopStyle = css(
   s.absolute,
-  { top: 0, left: 0, zIndex: 4 },
+  { top: 0, left: 0 },
+  s.zIndex4,
   s.transitionTransform,
   // wtf...?
   media(s.maxBreak2,
     select('.isProfileMenuActive ~ .Navbar .NavbarMain > *:not(.NavbarProfile)', s.displayNone),
   ),
   media(s.minBreak2,
-    { top: 0, left: 'auto', right: 0 },
+    { top: 0, left: 'auto', right: 130 },
+    s.zIndex0,
     hover(before(
       s.absolute,
       { top: 15, left: 0, width: 100, height: 30, content: '""' },
@@ -461,12 +427,15 @@ export const NavbarProfile = ({
     </span>
   )
 }
-
 NavbarProfile.propTypes = {
   avatar: PropTypes.object,
-  isProfileMenuActive: PropTypes.bool,
-  onClickAvatar: PropTypes.func,
-  onLogOut: PropTypes.func,
+  isProfileMenuActive: PropTypes.bool.isRequired,
+  onClickAvatar: PropTypes.func.isRequired,
+  onLogOut: PropTypes.func.isRequired,
   username: PropTypes.string,
+}
+NavbarProfile.defaultProps = {
+  avatar: null,
+  username: null,
 }
 
