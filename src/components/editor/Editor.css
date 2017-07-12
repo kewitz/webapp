@@ -31,7 +31,8 @@
 }
 
 .Omnibar > .editor {
-  padding: 20px 10px;
+  padding: 20px;
+  margin: 0 auto;
 }
 
 .Omnibar > .editor::before {
@@ -194,12 +195,6 @@
     min-height: calc(100vh - 100px);
   }
   /* stylelint-enable selector-max-compound-selectors, selector-max-specificity, selector-no-qualifying-type */
-}
-
-@media (--break-4) {
-  .Omnibar > .editor {
-    margin-left: 80px;
-  }
 }
 
 /* // ------------------------------------- */
