@@ -2,22 +2,20 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { push } from 'react-router-redux'
-// import { selectOnboardingCreatorTypeFiltered } from 'ello-brains/selectors/categories'
-import { ONBOARDING_VERSION } from 'ello-brains/constants/application_types'
-// import { selectUuid } from 'ello-brains/selectors/profile'
-import { getCreatorType } from '../actions/discover'
-import { followCreatorType, saveProfile } from '../actions/profile'
+import { selectCreatorTypeCategories } from 'ello-brains/selectors/categories'
+import { getCategories } from '../actions/discover'
+import { saveProfile } from '../actions/profile'
 
 function mapStateToProps(state) {
   return {
-    // categories: selectOnboardingCreatorTypeFiltered(state),
-    // uuid: selectUuid(state),
+    categories: selectCreatorTypeCategories(state),
   }
 }
 
 class OnboardingCreatorTypeContainer extends PureComponent {
 
   static propTypes = {
+    categories: PropTypes.array.isRequired,
     dispatch: PropTypes.func.isRequired,
   }
 
@@ -35,19 +33,18 @@ class OnboardingCreatorTypeContainer extends PureComponent {
 
   componentWillMount() {
     const { dispatch } = this.props
-    dispatch(getCreatorType())
-    this.state = { creatorType: null }
+    dispatch(getCategories())
+    this.state = { categoryIds: [] }
   }
 
   onNextClick = () => {
     const { dispatch } = this.props
-    const categoryIds = this.state.categoryIds
-    dispatch(saveProfile({ web_onboarding_version: ONBOARDING_VERSION }))
-    dispatch(followCreatorType(categoryIds))
+    dispatch(saveProfile({ creator_type_category_ids: this.state.categoryIds }))
     dispatch(push('/onboarding/categories'))
   }
 
   render() {
+    console.log('cats', this.props.categories)
     return (
       <div>Creator Type</div>
     )
