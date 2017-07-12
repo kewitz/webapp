@@ -296,7 +296,7 @@ const profilePopStyle = css(
   ),
   media(s.minBreak2,
     { top: 0, left: 'auto', right: 130 },
-    s.zIndex0,
+    s.zIndex3,
     hover(before(
       s.absolute,
       { top: 15, left: 0, width: 100, height: 30, content: '""' },
