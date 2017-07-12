@@ -7,9 +7,9 @@ import { ONBOARDING_VERSION } from 'ello-brains/constants/application_types'
 import { selectUuid } from 'ello-brains/selectors/profile'
 import OnboardingCategories from '../components/onboarding/OnboardingCategories'
 import { getCategories } from '../actions/discover'
-import { followCategories, saveProfile, splitFinish } from '../actions/profile'
+import { followCategories, saveProfile } from '../actions/profile'
 
-const CATEGORIES_NEEDED = 1
+const CATEGORIES_NEEDED = 0
 
 function mapStateToProps(state) {
   return {
@@ -53,8 +53,6 @@ class OnboardingCategoriesContainer extends PureComponent {
     const { dispatch, uuid } = this.props
     dispatch(getCategories())
     this.state = { categoryIds: [] }
-    // Finish the signup page split
-    dispatch(splitFinish(uuid, 'signup_page_redesign'))
   }
 
   onCategoryClick = (id) => {
