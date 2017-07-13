@@ -88,7 +88,6 @@ class OnboardingCreatorType extends PureComponent {
   }
 
   onClickArtist = () => {
-    console.log('show artist choices')
     this.setState({ artistActive: !this.state.artistActive })
   }
 
