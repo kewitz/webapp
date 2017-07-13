@@ -97,7 +97,7 @@
 .PostDetailStreamContainer {
   max-width: 1440px;
   padding: 0 10px;
-  margin: 0 auto;
+  margin: 40px auto 0;
 }
 
 .RelatedPostsTitleWrapper {
@@ -110,6 +110,7 @@
   .PostDetails .TabListStreamContainer,
   .PostDetailStreamContainer {
     padding: 0 20px;
+    margin-top: 0;
   }
 
   .MainView > .StreamContainer.isBusy {
