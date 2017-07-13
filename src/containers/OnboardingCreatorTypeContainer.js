@@ -5,6 +5,7 @@ import { push } from 'react-router-redux'
 import { selectCreatorTypeCategories } from 'ello-brains/selectors/categories'
 import { getCategories } from '../actions/discover'
 import { saveProfile } from '../actions/profile'
+import OnboardingCreatorType from '../components/onboarding/OnboardingCreatorType'
 
 function mapStateToProps(state) {
   return {
@@ -21,12 +22,14 @@ class OnboardingCreatorTypeContainer extends PureComponent {
 
   static childContextTypes = {
     nextLabel: PropTypes.string,
+    onClickFan: PropTypes.func.isRequired,
     onNextClick: PropTypes.func.isRequired,
   }
 
   getChildContext() {
     return {
       nextLabel: 'Create Account',
+      onClickFan: this.onClickFan,
       onNextClick: this.onNextClick,
     }
   }
@@ -37,6 +40,21 @@ class OnboardingCreatorTypeContainer extends PureComponent {
     this.state = { categoryIds: [] }
   }
 
+  onCategoryClick = (id) => {
+    const ids = [...this.state.categoryIds]
+    const index = ids.indexOf(id)
+    if (index === -1) {
+      ids.push(id)
+    } else {
+      ids.splice(index, 1)
+    }
+    this.setState({ categoryIds: ids })
+  }
+
+  onClickFan = () => {
+    this.setState({ categoryIds: [] }, () => this.onNextClick())
+  }
+
   onNextClick = () => {
     const { dispatch } = this.props
     dispatch(saveProfile({ creator_type_category_ids: this.state.categoryIds }))
@@ -44,9 +62,11 @@ class OnboardingCreatorTypeContainer extends PureComponent {
   }
 
   render() {
-    console.log('cats', this.props.categories)
     return (
-      <div>Creator Type</div>
+      <OnboardingCreatorType
+        categories={this.props.categories}
+        onCategoryClick={this.onCategoryClick}
+      />
     )
   }
 }
