@@ -2,16 +2,17 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import OnboardingNavbar from './OnboardingNavbar'
-import { MainView } from '../views/MainView'
-import { css, hover, modifier } from '../../styles/jss'
+import { css, hover, media, modifier, select } from '../../styles/jss'
 import * as s from '../../styles/jso'
 
 const containerStyle = css(
   s.flex,
-  s.justifyCenter,
   s.itemsCenter,
-  s.contentCenter,
-  { height: 'calc(100vh - 100px)' },
+  s.mxAuto,
+  s.p10,
+  { height: 'calc(100vh - 70px)', marginTop: 70, maxWidth: 490 },
+  media(s.minBreak2, s.mt0, { height: 'calc(100hv - 100px)' }),
+  select('> div', s.fullWidth),
 )
 
 const headerStyle = css(
@@ -26,28 +27,35 @@ const catHeaderStyle = css(
   { marginTop: 60 },
 )
 
-const buttonContainerStyle = css(
-  s.flex,
-  s.flexWrap,
-  { maxWidth: 480 },
-)
-
 const buttonStyle = css(
-  { borderRadius: 5, height: 50, width: 230 },
-  s.colorA,
-  s.center,
   s.bgcWhite,
   s.borderA,
-  s.mr10,
+  s.center,
+  s.colorA,
   s.mb10,
-  { transition: 'background-color 0.2s, border-color 0.2s, color 0.2s' },
-  modifier('.isActive', s.colorWhite, s.bgcBlack, s.borderBlack),
+  s.mr10,
+  s.px5,
+  s.truncate,
+  {
+    borderRadius: 5,
+    height: 40,
+    maxWidth: 230,
+    transition: 'background-color 0.2s, border-color 0.2s, color 0.2s',
+    width: 'calc(50% - 5px)',
+  },
   hover(s.colorWhite, s.bgcBlack, s.borderBlack),
+  modifier('.isActive', s.colorWhite, s.bgcBlack, s.borderBlack),
+  select(':nth-child(2n)', s.mr0),
 )
 
 const catButtonStyle = css(
   { ...buttonStyle },
-  { width: 150 },
+  { maxWidth: 150 },
+  media('(min-width: 26.25em)', // 420 / 16 = 26.25em
+    { width: 'calc(33% - 6px)' },
+    select(':nth-child(2n)', s.mr10),
+    select(':nth-child(3n)', s.mr0),
+  ),
 )
 
 class CategoryButton extends PureComponent {
@@ -96,11 +104,11 @@ class OnboardingCreatorType extends PureComponent {
     const { onClickFan } = this.context
     const { artistActive } = this.state
     return (
-      <MainView className="Onboarding OnboardingCreatorType">
+      <div className="Onboarding OnboardingCreatorType">
         <div className={containerStyle}>
           <div>
             <h2 className={headerStyle}>I am here as:</h2>
-            <div className={buttonContainerStyle}>
+            <div>
               <button className={`${buttonStyle} ${artistActive ? 'isActive' : ''}`} onClick={this.onClickArtist}>
                 An Artist
               </button>
@@ -111,7 +119,7 @@ class OnboardingCreatorType extends PureComponent {
             {artistActive &&
               <div>
                 <h2 className={catHeaderStyle}>I make:</h2>
-                <div className={buttonContainerStyle}>
+                <div>
                   {categories.map(cat => (
                     <CategoryButton
                       category={cat}
@@ -125,7 +133,7 @@ class OnboardingCreatorType extends PureComponent {
           </div>
         </div>
         <OnboardingNavbar />
-      </MainView>
+      </div>
     )
   }
 }
