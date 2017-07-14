@@ -1,18 +1,11 @@
 /* eslint-disable react/no-multi-comp */
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-import OnboardingNavbar from './OnboardingNavbar'
-import { css, hover, media, modifier, select } from '../../styles/jss'
+import { css, hover, media, modifier, parent, select } from '../../styles/jss'
 import * as s from '../../styles/jso'
 
 const containerStyle = css(
-  s.flex,
-  s.itemsCenter,
-  s.mxAuto,
-  s.p10,
-  { height: 'calc(100vh - 70px)', marginTop: 70, maxWidth: 490 },
-  media(s.minBreak2, s.mt0, { height: 'calc(100hv - 100px)' }),
-  select('> div', s.fullWidth),
+  { maxWidth: 490 },
 )
 
 const headerStyle = css(
@@ -25,6 +18,7 @@ const headerStyle = css(
 const catHeaderStyle = css(
   { ...headerStyle },
   { marginTop: 60 },
+  parent('.inSettings', s.mt20),
 )
 
 const buttonStyle = css(
@@ -58,7 +52,7 @@ const catButtonStyle = css(
   ),
 )
 
-class CategoryButton extends PureComponent {
+export class CategoryButton extends PureComponent {
 
   static propTypes = {
     category: PropTypes.object.isRequired,
@@ -89,7 +83,21 @@ class CategoryButton extends PureComponent {
   }
 }
 
-class OnboardingCreatorType extends PureComponent {
+export default class OnboardingCreatorType extends PureComponent {
+
+  static propTypes = {
+    categories: PropTypes.array.isRequired,
+    classModifier: PropTypes.string,
+    onCategoryClick: PropTypes.func.isRequired,
+  }
+
+  static defaultProps = {
+    classModifier: '',
+  }
+
+  static contextTypes = {
+    onClickFan: PropTypes.func.isRequired,
+  }
 
   componentWillMount() {
     this.state = { artistActive: false }
@@ -100,50 +108,36 @@ class OnboardingCreatorType extends PureComponent {
   }
 
   render() {
-    const { categories, onCategoryClick } = this.props
+    const { categories, classModifier, onCategoryClick } = this.props
     const { onClickFan } = this.context
     const { artistActive } = this.state
     return (
-      <div className="Onboarding OnboardingCreatorType">
-        <div className={containerStyle}>
-          <div>
-            <h2 className={headerStyle}>I am here as:</h2>
-            <div>
-              <button className={`${buttonStyle} ${artistActive ? 'isActive' : ''}`} onClick={this.onClickArtist}>
-                An Artist
-              </button>
-              <button className={buttonStyle} onClick={onClickFan}>
-                A Fan
-              </button>
-            </div>
-            {artistActive &&
-              <div>
-                <h2 className={catHeaderStyle}>I make:</h2>
-                <div>
-                  {categories.map(cat => (
-                    <CategoryButton
-                      category={cat}
-                      key={`category_${cat.get('id')}`}
-                      onCategoryClick={onCategoryClick}
-                    />
-                  ))}
-                </div>
-              </div>
-            }
-          </div>
+      <div className={`${classModifier} ${containerStyle}`}>
+        <h2 className={headerStyle}>I am here as:</h2>
+        <div>
+          <button className={`${buttonStyle} ${artistActive ? 'isActive' : ''}`} onClick={this.onClickArtist}>
+            An Artist
+          </button>
+          <button className={buttonStyle} onClick={onClickFan}>
+            A Fan
+          </button>
         </div>
-        <OnboardingNavbar />
+        {artistActive &&
+          <div>
+            <h2 className={catHeaderStyle}>I make:</h2>
+            <div>
+              {categories.map(cat => (
+                <CategoryButton
+                  category={cat}
+                  key={`category_${cat.get('id')}`}
+                  onCategoryClick={onCategoryClick}
+                />
+              ))}
+            </div>
+          </div>
+        }
       </div>
     )
   }
 }
-OnboardingCreatorType.propTypes = {
-  categories: PropTypes.array.isRequired,
-  onCategoryClick: PropTypes.func.isRequired,
-}
-OnboardingCreatorType.contextTypes = {
-  onClickFan: PropTypes.func.isRequired,
-}
-
-export default OnboardingCreatorType
 

@@ -6,6 +6,19 @@ import { selectCreatorTypeCategories } from 'ello-brains/selectors/categories'
 import { getCategories } from '../actions/discover'
 import { saveProfile } from '../actions/profile'
 import OnboardingCreatorType from '../components/onboarding/OnboardingCreatorType'
+import OnboardingNavbar from '../components/onboarding/OnboardingNavbar'
+import { css, media, select } from '../styles/jss'
+import * as s from '../styles/jso'
+
+const containerStyle = css(
+  s.flex,
+  s.itemsCenter,
+  s.mxAuto,
+  s.p10,
+  { height: 'calc(100vh - 70px)', marginTop: 70, maxWidth: 490 },
+  media(s.minBreak2, s.mt0, { height: 'calc(100hv - 100px)' }),
+  select('> div', s.fullWidth),
+)
 
 function mapStateToProps(state) {
   return {
@@ -63,10 +76,13 @@ class OnboardingCreatorTypeContainer extends PureComponent {
 
   render() {
     return (
-      <OnboardingCreatorType
-        categories={this.props.categories}
-        onCategoryClick={this.onCategoryClick}
-      />
+      <div className={containerStyle}>
+        <OnboardingCreatorType
+          categories={this.props.categories}
+          onCategoryClick={this.onCategoryClick}
+        />
+        <OnboardingNavbar />
+      </div>
     )
   }
 }

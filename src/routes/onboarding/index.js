@@ -7,10 +7,10 @@ import OnboardingSettingsContainer from '../../containers/OnboardingSettingsCont
 
 export default (store) => {
   function onEnter(nextState, replace) {
-    const state = store.getState()
-    if (state.profile.get('webOnboardingVersion') === ONBOARDING_VERSION) {
-      replace({ pathname: '/', state: nextState })
-    }
+    // const state = store.getState()
+    // if (state.profile.get('webOnboardingVersion') === ONBOARDING_VERSION) {
+    //   replace({ pathname: '/', state: nextState })
+    // }
   }
 
   return [
