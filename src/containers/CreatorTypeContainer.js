@@ -83,7 +83,7 @@ export class CategoryButton extends PureComponent {
   }
 }
 
-export default class OnboardingCreatorType extends PureComponent {
+export default class CreatorTypeContainer extends PureComponent {
 
   static propTypes = {
     categories: PropTypes.array.isRequired,
