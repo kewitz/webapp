@@ -7,7 +7,6 @@ import classNames from 'classnames'
 import debounce from 'lodash/debounce'
 import { PREFERENCES, SETTINGS } from 'ello-brains/constants/locales/en'
 import { FORM_CONTROL_STATUS as STATUS } from 'ello-brains/constants/status_types'
-import { selectCreatorTypeCategories } from 'ello-brains/selectors/categories'
 import { selectDPI, selectIsMobile } from 'ello-brains/selectors/gui'
 import {
   selectAvailability,
@@ -52,8 +51,8 @@ import TreeButton from '../components/navigation/TreeButton'
 import TreePanel from '../components/navigation/TreePanel'
 import StreamContainer from '../containers/StreamContainer'
 import InfoForm from '../components/forms/InfoForm'
-import OnboardingCreatorType from '../components/onboarding/OnboardingCreatorType'
 import { MainView } from '../components/views/MainView'
+import CreatorTypeContainer from '../containers/CreatorTypeContainer'
 import { isElloAndroid } from '../lib/jello'
 import { profilePath } from '../networking/api'
 import { css } from '../styles/jss'
@@ -88,7 +87,6 @@ function mapStateToProps(state) {
   return {
     availability: selectAvailability(state),
     blockedCount: selectBlockedCount(state) || 0,
-    categories: selectCreatorTypeCategories(state),
     dpi: selectDPI(state),
     isMobile: selectIsMobile(state),
     mutedCount: selectMutedCount(state) || 0,
@@ -101,7 +99,6 @@ class SettingsContainer extends PureComponent {
   static propTypes = {
     availability: PropTypes.object,
     blockedCount: PropTypes.number.isRequired,
-    categories: PropTypes.array.isRequired,
     dispatch: PropTypes.func.isRequired,
     dpi: PropTypes.string.isRequired,
     isMobile: PropTypes.bool.isRequired,
@@ -276,17 +273,6 @@ class SettingsContainer extends PureComponent {
     preferenceToggleChanged(obj)
   }
 
-  onCategoryClick = (id) => {
-    const ids = [...this.state.categoryIds]
-    const index = ids.indexOf(id)
-    if (index === -1) {
-      ids.push(id)
-    } else {
-      ids.splice(index, 1)
-    }
-    this.setState({ categoryIds: ids })
-  }
-
   getExternalLinkListAsText() {
     const { profile } = this.props
     return (
@@ -341,7 +327,7 @@ class SettingsContainer extends PureComponent {
   }
 
   render() {
-    const { blockedCount, categories, dispatch, dpi, isMobile, mutedCount, profile } = this.props
+    const { blockedCount, dispatch, dpi, isMobile, mutedCount, profile } = this.props
     const { currentPasswordState, emailState, passwordState, usernameState } = this.state
     const requiresSave = this.shouldRequireCredentialsSave()
     const allowNSFWToggle = !isElloAndroid()
@@ -470,10 +456,8 @@ class SettingsContainer extends PureComponent {
                 <TreeButton key="settingLabel_Creator Type">Creator Type</TreeButton>
                 <TreePanel key="settingItems_Creator Type">
                   <div className={creatorTypeStyle}>
-                    <OnboardingCreatorType
-                      categories={categories}
+                    <CreatorTypeContainer
                       classModifier="inSettings"
-                      onCategoryClick={this.onCategoryClick}
                     />
                   </div>
                 </TreePanel>

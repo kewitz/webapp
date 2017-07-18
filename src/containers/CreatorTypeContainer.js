@@ -1,8 +1,14 @@
 /* eslint-disable react/no-multi-comp */
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-import { css, hover, media, modifier, parent, select } from '../../styles/jss'
-import * as s from '../../styles/jso'
+import { connect } from 'react-redux'
+import debounce from 'lodash/debounce'
+import { selectCreatorTypeCategories } from 'ello-brains/selectors/categories'
+import { selectCreatorTypeCategoryIds } from 'ello-brains/selectors/profile'
+import { getCategories } from '../actions/discover'
+import { saveProfile } from '../actions/profile'
+import { css, hover, media, modifier, parent, select } from '../styles/jss'
+import * as s from '../styles/jso'
 
 const containerStyle = css(
   { maxWidth: 490 },
@@ -13,6 +19,7 @@ const headerStyle = css(
   s.sansRegular,
   s.fontSize24,
   s.mb20,
+  s.transitionHeight,
 )
 
 const catHeaderStyle = css(
@@ -45,6 +52,7 @@ const buttonStyle = css(
 const catButtonStyle = css(
   { ...buttonStyle },
   { maxWidth: 150 },
+  modifier('.isActive', hover(s.bgc6, { border: '1px solid #666' })),
   media('(min-width: 26.25em)', // 420 / 16 = 26.25em
     { width: 'calc(33% - 6px)' },
     select(':nth-child(2n)', s.mr10),
@@ -56,17 +64,18 @@ export class CategoryButton extends PureComponent {
 
   static propTypes = {
     category: PropTypes.object.isRequired,
+    isActive: PropTypes.bool.isRequired,
     onCategoryClick: PropTypes.func.isRequired,
   }
 
   componentWillMount() {
-    this.state = { isActive: false }
+    this.state = { isActive: this.props.isActive }
   }
 
   onClick = () => {
     const { category, onCategoryClick } = this.props
     this.setState({ isActive: !this.state.isActive })
-    onCategoryClick(category.get('id'))
+    onCategoryClick(Number(category.get('id')))
   }
 
   render() {
@@ -83,42 +92,81 @@ export class CategoryButton extends PureComponent {
   }
 }
 
-export default class CreatorTypeContainer extends PureComponent {
+function mapStateToProps(state) {
+  return {
+    categories: selectCreatorTypeCategories(state),
+    creatorTypeIds: selectCreatorTypeCategoryIds(state).toArray(),
+  }
+}
+
+class CreatorTypeContainer extends PureComponent {
 
   static propTypes = {
     categories: PropTypes.array.isRequired,
     classModifier: PropTypes.string,
-    onCategoryClick: PropTypes.func.isRequired,
+    creatorTypeIds: PropTypes.array,
+    dispatch: PropTypes.func.isRequired,
   }
 
   static defaultProps = {
     classModifier: '',
-  }
-
-  static contextTypes = {
-    onClickFan: PropTypes.func.isRequired,
+    creatorTypeIds: [],
   }
 
   componentWillMount() {
-    this.state = { artistActive: false }
+    const { creatorTypeIds, dispatch } = this.props
+    this.state = { artistActive: creatorTypeIds.length > 0, categoryIds: creatorTypeIds }
+    this.updateCreatorTypes = debounce(this.updateCreatorTypes, 1000)
+    dispatch(getCategories())
+  }
+
+  onCategoryClick = (id) => {
+    const ids = [...this.state.categoryIds]
+    const index = ids.indexOf(id)
+    if (index === -1) {
+      ids.push(id)
+    } else {
+      ids.splice(index, 1)
+    }
+    this.setState({ categoryIds: ids }, this.updateCreatorTypes)
   }
 
   onClickArtist = () => {
     this.setState({ artistActive: !this.state.artistActive })
   }
 
+  onClickFan = () => {
+    this.setState({
+      artistActive: !this.state.artistActive,
+      categoryIds: [],
+    }, this.updateCreatorTypes)
+  }
+
+  updateCreatorTypes = () => {
+    const { dispatch } = this.props
+    const { categoryIds } = this.state
+    dispatch(saveProfile({ creator_type_category_ids: categoryIds }))
+  }
+
   render() {
-    const { categories, classModifier, onCategoryClick } = this.props
-    const { onClickFan } = this.context
-    const { artistActive } = this.state
+    const { categories, classModifier } = this.props
+    const { artistActive, categoryIds } = this.state
     return (
       <div className={`${classModifier} ${containerStyle}`}>
         <h2 className={headerStyle}>I am here as:</h2>
         <div>
-          <button className={`${buttonStyle} ${artistActive ? 'isActive' : ''}`} onClick={this.onClickArtist}>
+          <button
+            className={`${buttonStyle} ${artistActive ? 'isActive' : ''}`}
+            disabled={artistActive}
+            onClick={this.onClickArtist}
+          >
             An Artist
           </button>
-          <button className={buttonStyle} onClick={onClickFan}>
+          <button
+            className={`${buttonStyle} ${!artistActive ? 'isActive' : ''}`}
+            disabled={!artistActive}
+            onClick={this.onClickFan}
+          >
             A Fan
           </button>
         </div>
@@ -129,8 +177,9 @@ export default class CreatorTypeContainer extends PureComponent {
               {categories.map(cat => (
                 <CategoryButton
                   category={cat}
+                  isActive={categoryIds.indexOf(Number(cat.get('id'))) > -1}
                   key={`category_${cat.get('id')}`}
-                  onCategoryClick={onCategoryClick}
+                  onCategoryClick={this.onCategoryClick}
                 />
               ))}
             </div>
@@ -140,4 +189,6 @@ export default class CreatorTypeContainer extends PureComponent {
     )
   }
 }
+
+export default connect(mapStateToProps)(CreatorTypeContainer)
 
