@@ -1,4 +1,5 @@
 /* eslint-disable react/no-multi-comp */
+import Immutable from 'immutable'
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
@@ -95,7 +96,7 @@ export class CategoryButton extends PureComponent {
 function mapStateToProps(state) {
   return {
     categories: selectCreatorTypeCategories(state),
-    creatorTypeIds: selectCreatorTypeCategoryIds(state).toArray(),
+    creatorTypeIds: (selectCreatorTypeCategoryIds(state) || Immutable.List()).toArray(),
   }
 }
 
