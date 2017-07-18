@@ -114,8 +114,12 @@ class CreatorTypeContainer extends PureComponent {
   }
 
   componentWillMount() {
-    const { creatorTypeIds, dispatch } = this.props
-    this.state = { artistActive: creatorTypeIds.length > 0, categoryIds: creatorTypeIds }
+    const { classModifier, creatorTypeIds, dispatch } = this.props
+    this.state = {
+      artistActive: creatorTypeIds.length > 0,
+      categoryIds: creatorTypeIds,
+      fanActive: creatorTypeIds.length === 0 && classModifier !== 'inOnboarding',
+    }
     this.updateCreatorTypes = debounce(this.updateCreatorTypes, 1000)
     dispatch(getCategories())
   }
@@ -132,13 +136,14 @@ class CreatorTypeContainer extends PureComponent {
   }
 
   onClickArtist = () => {
-    this.setState({ artistActive: !this.state.artistActive })
+    this.setState({ artistActive: true, fanActive: false })
   }
 
   onClickFan = () => {
     this.setState({
-      artistActive: !this.state.artistActive,
+      artistActive: false,
       categoryIds: [],
+      fanActive: true,
     }, this.updateCreatorTypes)
   }
 
@@ -150,7 +155,7 @@ class CreatorTypeContainer extends PureComponent {
 
   render() {
     const { categories, classModifier } = this.props
-    const { artistActive, categoryIds } = this.state
+    const { artistActive, categoryIds, fanActive } = this.state
     return (
       <div className={`${classModifier} ${containerStyle}`}>
         <h2 className={headerStyle}>I am here as:</h2>
@@ -163,8 +168,8 @@ class CreatorTypeContainer extends PureComponent {
             An Artist
           </button>
           <button
-            className={`${buttonStyle} ${!artistActive ? 'isActive' : ''}`}
-            disabled={!artistActive}
+            className={`${buttonStyle} ${fanActive ? 'isActive' : ''}`}
+            disabled={fanActive}
             onClick={this.onClickFan}
           >
             A Fan

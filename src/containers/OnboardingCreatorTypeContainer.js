@@ -43,7 +43,7 @@ class OnboardingCreatorTypeContainer extends PureComponent {
   render() {
     return (
       <div className={containerStyle}>
-        <CreatorTypeContainer />
+        <CreatorTypeContainer classModifier="inOnboarding" />
         <OnboardingNavbar />
       </div>
     )
