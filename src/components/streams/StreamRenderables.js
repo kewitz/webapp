@@ -189,14 +189,14 @@ export const profileToggles = settings =>
     const arr = [<TreeButton key={`settingLabel_${setting.get('label')}`}>{setting.get('label')}</TreeButton>]
     arr.push(
       <TreePanel key={`settingItems_${setting.get('label', index)}`}>
-        {setting.get('items').map(item =>
-          (<Preference
+        {setting.get('items').map(item => (
+          <Preference
             definition={{ term: item.get('label'), desc: item.get('info') }}
             id={item.get('key')}
             key={`preference_${item.get('key')}`}
             onToggleChange={preferenceToggleChanged}
-          />),
-        )}
+          />
+        ))}
       </TreePanel>,
     )
     return arr

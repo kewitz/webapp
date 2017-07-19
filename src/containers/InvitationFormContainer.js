@@ -16,10 +16,10 @@ const formStyle = css(
   parent('.Onboarding', {
     marginLeft: 'auto !important',
     marginRight: 'auto !important',
-  }, s.px10),
+  }, s.px10, s.maxSiteWidth),
   media(
-    s.minBreak4,
-    parent('.Onboarding', s.p0),
+    s.minBreak2,
+    parent('.Onboarding', s.px20),
   ),
 )
 

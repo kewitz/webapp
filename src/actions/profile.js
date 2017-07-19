@@ -44,7 +44,7 @@ export function signUpUser(email, username, password, invitationCode) {
   return {
     type: PROFILE.SIGNUP,
     meta: {
-      successAction: replace({ pathname: '/onboarding/categories' }),
+      successAction: replace({ pathname: '/onboarding/creator-type' }),
     },
     payload: {
       method: 'POST',

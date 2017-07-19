@@ -1,6 +1,7 @@
 import { ONBOARDING_VERSION } from 'ello-brains/constants/application_types'
 import OnboardingCategoriesContainer from '../../containers/OnboardingCategoriesContainer'
 import OnboardingCollaborateContainer from '../../containers/OnboardingCollaborateContainer'
+import OnboardingCreatorTypeContainer from '../../containers/OnboardingCreatorTypeContainer'
 import OnboardingInvitationsContainer from '../../containers/OnboardingInvitationsContainer'
 import OnboardingSettingsContainer from '../../containers/OnboardingSettingsContainer'
 
@@ -13,6 +14,13 @@ export default (store) => {
   }
 
   return [
+    {
+      path: 'onboarding/creator-type',
+      getComponent(location, cb) {
+        cb(null, OnboardingCreatorTypeContainer)
+      },
+      onEnter,
+    },
     {
       path: 'onboarding/categories',
       getComponent(location, cb) {
