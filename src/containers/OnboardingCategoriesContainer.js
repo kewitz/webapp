@@ -3,10 +3,9 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { push } from 'react-router-redux'
 import { selectOnboardingCategoriesFiltered } from 'ello-brains/selectors/categories'
-import { ONBOARDING_VERSION } from 'ello-brains/constants/application_types'
 import OnboardingCategories from '../components/onboarding/OnboardingCategories'
 import { getCategories } from '../actions/discover'
-import { followCategories, saveProfile } from '../actions/profile'
+import { followCategories } from '../actions/profile'
 
 const CATEGORIES_NEEDED = 1
 
@@ -66,7 +65,6 @@ class OnboardingCategoriesContainer extends PureComponent {
   onNextClick = () => {
     const { dispatch } = this.props
     const categoryIds = this.state.categoryIds
-    dispatch(saveProfile({ web_onboarding_version: ONBOARDING_VERSION }))
     dispatch(followCategories(categoryIds))
     dispatch(push('/onboarding/settings'))
   }

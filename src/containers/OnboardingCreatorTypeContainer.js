@@ -2,6 +2,8 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { push } from 'react-router-redux'
+import { ONBOARDING_VERSION } from 'ello-brains/constants/application_types'
+import { saveProfile } from '../actions/profile'
 import CreatorTypeContainer from '../containers/CreatorTypeContainer'
 import OnboardingNavbar from '../components/onboarding/OnboardingNavbar'
 import { css, media, select } from '../styles/jss'
@@ -37,6 +39,7 @@ class OnboardingCreatorTypeContainer extends PureComponent {
 
   onNextClick = () => {
     const { dispatch } = this.props
+    dispatch(saveProfile({ web_onboarding_version: ONBOARDING_VERSION }))
     dispatch(push('/onboarding/categories'))
   }
 
