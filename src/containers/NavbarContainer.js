@@ -12,6 +12,7 @@ import { push } from 'react-router-redux'
 import {
   selectActiveNotificationsType,
   selectDeviceSize,
+  selectInnerWidth,
   selectIsGridMode,
   selectIsLayoutToolHidden,
   selectIsNotificationsActive,
@@ -30,6 +31,7 @@ import * as ElloAndroidInterface from '../lib/android_interface'
 import { NavbarLoggedIn, NavbarLoggedOut } from '../components/navbar/NavbarRenderables'
 
 function mapStateToProps(state, props) {
+  const innerWidth = selectInnerWidth(state)
   const isLoggedIn = selectIsLoggedIn(state)
   const pathname = selectPathname(state)
   const pageResult = selectPage(state)
@@ -44,6 +46,7 @@ function mapStateToProps(state, props) {
   if (isLoggedIn) {
     return {
       activeTabType: selectActiveNotificationsType(state),
+      artistInvitesInProfileMenu: (innerWidth <= 700 && innerWidth >= 640) || innerWidth < 372,
       avatar: selectAvatar(state),
       categoryTabs,
       deviceSize,

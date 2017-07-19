@@ -381,6 +381,7 @@ const closeButtonStyle = css(
 )
 
 export const NavbarProfile = ({
+  artistInvitesInProfileMenu,
   avatar,
   isProfileMenuActive,
   onClickAvatar,
@@ -393,6 +394,9 @@ export const NavbarProfile = ({
         <Avatar sources={avatar} onClick={onClickAvatar} />
         <nav className={classNames(`${profileLinksStyle}`, { isActive: isProfileMenuActive })} >
           <Link className={profileLinkStyle} to={`/${username}`}>{`@${username}`}</Link>
+          { artistInvitesInProfileMenu &&
+            <Link className={profileLinkStyle} to="/artist-invites">Artist Invites</Link>
+          }
           <Link className={profileLinkStyle} to={`/${username}/loves`}>Loves</Link>
           <Link className={profileLinkStyle} to="/invitations">Invite</Link>
           <Link className={profileLinkStyle} to="/settings">Settings</Link>
@@ -428,6 +432,7 @@ export const NavbarProfile = ({
   )
 }
 NavbarProfile.propTypes = {
+  artistInvitesInProfileMenu: PropTypes.bool.isRequired,
   avatar: PropTypes.object,
   isProfileMenuActive: PropTypes.bool.isRequired,
   onClickAvatar: PropTypes.func.isRequired,

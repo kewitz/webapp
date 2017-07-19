@@ -99,6 +99,12 @@ export const NavbarLoggedOut = ({
         }
         <NavbarLink
           className="LabelOnly"
+          label="Artist Invites"
+          pathname={pathname}
+          to="/artist-invites"
+        />
+        <NavbarLink
+          className="LabelOnly"
           icon={<SparklesIcon />}
           label="Discover"
           pathname={pathname}
@@ -147,6 +153,7 @@ NavbarLoggedOut.contextTypes = {
 }
 
 export const NavbarLoggedIn = ({
+  artistInvitesInProfileMenu,
   avatar,
   categoryTabs,
   deviceSize,
@@ -184,6 +191,14 @@ export const NavbarLoggedIn = ({
             to="/"
           />
         }
+        { !artistInvitesInProfileMenu &&
+          <NavbarLink
+            className="LabelOnly"
+            label="Artist Invites"
+            pathname={pathname}
+            to="/artist-invites"
+          />
+        }
         <NavbarLink
           className="LabelOnly"
           icon={<SparklesIcon />}
@@ -218,6 +233,7 @@ export const NavbarLoggedIn = ({
         />
       </div>
       <NavbarProfile
+        artistInvitesInProfileMenu={artistInvitesInProfileMenu}
         avatar={avatar}
         isProfileMenuActive={isProfileMenuActive}
         onClickAvatar={onClickAvatar}
@@ -242,6 +258,7 @@ export const NavbarLoggedIn = ({
   </nav>)
 
 NavbarLoggedIn.propTypes = {
+  artistInvitesInProfileMenu: PropTypes.bool.isRequired,
   avatar: PropTypes.object,
   categoryTabs: PropTypes.array,
   deviceSize: PropTypes.string.isRequired,

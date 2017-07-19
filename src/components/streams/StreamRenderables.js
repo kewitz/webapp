@@ -61,6 +61,13 @@ export const postsAsPostStream = (postIds, columnCount, isPostHeaderHidden, rend
   <SlickCarousel postIds={postIds} renderProps={renderProps} />
 )
 
+// ARTIST INVITES
+export const artistInvites = artistInviteIds => (
+  <div>
+    {artistInviteIds.map(id => <div key={`artistInvite_${id}`}>{id}</div>)}
+  </div>
+)
+
 // POSTS
 export const postsAsGrid = (postIds, columnCount, isPostHeaderHidden) => {
   const columns = []

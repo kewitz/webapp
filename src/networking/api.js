@@ -22,6 +22,14 @@ export function editorials(isPreview) {
     path: getAPIPath('editorials', isPreview ? { preview: true } : {}),
   }
 }
+// Artist Invites
+export function artistInvites(isPreview) {
+  const query = { per_page: PER_PAGE }
+  if (isPreview) { query.preview = true }
+  return {
+    path: getAPIPath('artist_invites', query),
+  }
+}
 // Announcements
 export function announcements() {
   return {

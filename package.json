@@ -97,7 +97,7 @@
   "dependencies": {
     "babel-polyfill": "6.23.0",
     "classnames": "2.2.5",
-    "ello-brains": "1.0.8",
+    "ello-brains": "1.0.9",
     "exif-js": "2.2.1",
     "glamor": "3.0.0-1",
     "honeybadger-js": "0.4.9",
