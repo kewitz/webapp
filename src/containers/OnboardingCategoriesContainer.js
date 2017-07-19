@@ -8,7 +8,7 @@ import OnboardingCategories from '../components/onboarding/OnboardingCategories'
 import { getCategories } from '../actions/discover'
 import { followCategories, saveProfile } from '../actions/profile'
 
-const CATEGORIES_NEEDED = 0
+const CATEGORIES_NEEDED = 1
 
 function mapStateToProps(state) {
   return {
