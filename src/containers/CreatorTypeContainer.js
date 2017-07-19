@@ -52,10 +52,9 @@ const buttonStyle = css(
 
 const catButtonStyle = css(
   { ...buttonStyle },
-  { maxWidth: 150 },
   modifier('.isActive', hover(s.bgc6, { border: '1px solid #666' })),
   media('(min-width: 26.25em)', // 420 / 16 = 26.25em
-    { width: 'calc(33% - 6px)' },
+    { maxWidth: 150, width: 'calc(33% - 6px)' },
     select(':nth-child(2n)', s.mr10),
     select(':nth-child(3n)', s.mr0),
   ),

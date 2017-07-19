@@ -33,18 +33,21 @@ export default (store) => {
       getComponent(location, cb) {
         cb(null, OnboardingSettingsContainer)
       },
+      onEnter,
     },
     {
       path: 'onboarding/collaborate',
       getComponent(location, cb) {
         cb(null, OnboardingCollaborateContainer)
       },
+      onEnter,
     },
     {
       path: 'onboarding/invitations',
       getComponent(location, cb) {
         cb(null, OnboardingInvitationsContainer)
       },
+      onEnter,
     },
   ]
 }
