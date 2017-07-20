@@ -75,7 +75,7 @@ const routes = (store) => {
         authenticate(NotificationsRoute),
         ...InvitationsRoutes.map(route => authenticate(route)),
         ...SettingsRoutes.map(route => authenticate(route)),
-        createRedirect('onboarding', '/onboarding/categories'),
+        createRedirect('onboarding', '/onboarding/creator-type'),
         ...OnboardingRoutes(store).map(route => authenticate(route)),
         ...SearchRoutes,
         UserDetailRoute,
