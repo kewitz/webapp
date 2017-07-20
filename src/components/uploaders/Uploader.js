@@ -12,6 +12,7 @@ const uploaderStyle = css(
   modifier('.isAvatarUploader', s.center, before({ borderRadius: '50%' })),
   modifier('.isCoverUploader', s.block, s.fullWidth, { height: 220 }),
   media(s.minBreak2, modifier('.isCoverUploader', { height: 330 })),
+  parent('.Onboarding', media(s.minBreak2, modifier('.isCoverUploader', { height: 220 }))),
   modifier('.isXLUploader', { width: 220, paddingTop: 240 }, before({ width: 220, height: 220 })),
   modifier('.isLGUploader',
     { width: 120, paddingTop: 140 },
