@@ -1,5 +1,6 @@
 import Immutable from 'immutable'
 import React from 'react'
+import ArtistInviteContainer from '../../containers/ArtistInviteContainer'
 import CategoryContainer from '../../containers/CategoryContainer'
 import CommentContainer from '../../containers/CommentContainer'
 import NotificationContainer from '../../containers/NotificationContainer'
@@ -61,10 +62,19 @@ export const postsAsPostStream = (postIds, columnCount, isPostHeaderHidden, rend
   <SlickCarousel postIds={postIds} renderProps={renderProps} />
 )
 
+const artistInvitesStyle = css(
+  s.maxSiteWidth,
+)
+
 // ARTIST INVITES
 export const artistInvites = artistInviteIds => (
-  <div>
-    {artistInviteIds.map(id => <div key={`artistInvite_${id}`}>{id}</div>)}
+  <div className={artistInvitesStyle}>
+    {artistInviteIds.map(id => (
+      <ArtistInviteContainer
+        artistInviteId={id}
+        key={`artistInvite_${id}`}
+      />
+    ))}
   </div>
 )
 
