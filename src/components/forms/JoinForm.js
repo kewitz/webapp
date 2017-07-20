@@ -16,6 +16,7 @@ import {
 } from './Validators'
 import { signupPath } from '../../networking/api'
 import * as ENV from '../../../env'
+import { scrollToPosition } from '../../lib/jello'
 
 function renderStatus(state) {
   return () => {
@@ -61,6 +62,11 @@ class JoinForm extends PureComponent {
     this.checkServerForAvailability = debounce(this.checkServerForAvailability, 300)
     this.delayedShowUsernameError = debounce(this.delayedShowUsernameError, 1000)
     this.delayedShowPasswordError = debounce(this.delayedShowPasswordError, 1000)
+  }
+
+  componentDidMount() {
+    // fixes a weird bug with iOS when the keyboard is open
+    scrollToPosition(0, 0)
   }
 
   componentWillReceiveProps(nextProps) {
