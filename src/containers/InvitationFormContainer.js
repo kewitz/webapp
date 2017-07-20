@@ -10,18 +10,7 @@ import FormButton from '../components/forms/FormButton'
 import { getBatchEmailState } from '../components/forms/Validators'
 import { invite } from '../networking/api'
 import * as s from '../styles/jso'
-import { css, media, parent } from '../styles/jss'
-
-const formStyle = css(
-  parent('.Onboarding', {
-    marginLeft: 'auto !important',
-    marginRight: 'auto !important',
-  }, s.px10, s.maxSiteWidth),
-  media(
-    s.minBreak2,
-    parent('.Onboarding', s.px20),
-  ),
-)
+import { css, parent } from '../styles/jss'
 
 const suggestionStyle = css(
   s.colorA,
@@ -115,7 +104,6 @@ class InvitationFormContainer extends PureComponent {
       <div className="InvitationsForm">
         <form
           action={invite().path}
-          className={formStyle}
           method="POST"
           noValidate="novalidate"
           onSubmit={this.onSubmit}

@@ -39,14 +39,12 @@ class OnboardingCollaborateContainer extends Component {
 
   static childContextTypes = {
     nextLabel: PropTypes.string,
-    onDoneClick: PropTypes.func,
     onNextClick: PropTypes.func.isRequired,
   }
 
   getChildContext() {
     return {
-      nextLabel: 'Invite Cool People',
-      onDoneClick: this.onDoneClick,
+      nextLabel: 'Get To The Goods',
       onNextClick: this.onNextClick,
     }
   }
@@ -55,17 +53,10 @@ class OnboardingCollaborateContainer extends Component {
     return false
   }
 
-  onDoneClick = () => {
-    const { dispatch } = this.props
-    dispatch(trackEvent('Onboarding.Collaborate.Done.Clicked'))
-    this.trackOnboardingEvents()
-    dispatch(push('/following'))
-  }
-
   onNextClick = () => {
     const { dispatch } = this.props
     this.trackOnboardingEvents()
-    dispatch(push('/onboarding/invitations'))
+    dispatch(push('/following'))
   }
 
   trackOnboardingEvents = () => {
