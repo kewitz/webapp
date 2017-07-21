@@ -34,7 +34,7 @@ const imageContainerStyle = css(
   s.relative,
   { height: 235 },
   media(s.minBreak2, { height: 220 }),
-  parent('a:hover', select('> .BackgroundImage::before', { backgroundColor: 'rgba(0, 0, 0, 0.5)' })),
+  parent('a:hover', select('> .BackgroundImage::before', { backgroundColor: 'rgba(0, 0, 0, 0.25)' })),
 )
 
 const contentContainerStyle = css(
@@ -107,8 +107,8 @@ export const ArtistInviteGrid = ({
   <Link to={`/artist-invites/${slug}`} className={containerStyle}>
     <article>
       <div className={imageContainerStyle}>
-        <BackgroundImage dpi={dpi} sources={logoImage} />
         <BackgroundImage dpi={dpi} sources={headerImage} />
+        <BackgroundImage dpi={dpi} sources={logoImage} />
       </div>
       <div className={contentContainerStyle}>
         <h2 className={titleStyle}>{`${title} - Plus Additional Text`}</h2>
