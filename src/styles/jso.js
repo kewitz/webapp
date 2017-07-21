@@ -334,6 +334,7 @@ export const bgc9 = { backgroundColor: '#999' }
 export const bgcA = { backgroundColor: '#aaa' }
 export const bgcEA = { backgroundColor: '#eaeaea' }
 export const bgcE5 = { backgroundColor: '#e5e5e5' }
+export const bgcF2 = { backgroundColor: '#f2f2f2' }
 export const bgcWhite = { backgroundColor: '#fff' }
 export const bgcGreen = { backgroundColor: '#00d100' }
 export const bgcRed = { backgroundColor: '#f00' }

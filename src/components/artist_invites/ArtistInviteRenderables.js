@@ -3,15 +3,17 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import moment from 'moment'
 import { Link } from 'react-router'
-import { before, css, media, modifier, select } from '../../styles/jss'
+import { before, css, hover, media, modifier, parent, select } from '../../styles/jss'
 import * as s from '../../styles/jso'
 import BackgroundImage from '../assets/BackgroundImage'
 
 const containerStyle = css(
-  s.sansRegular,
+  s.bgcF2,
   s.fontSize14,
   s.fullWidth,
   s.mb10,
+  s.sansRegular,
+  s.transitionBgColor,
   media(
     s.minBreak2,
     s.mr20,
@@ -25,16 +27,18 @@ const containerStyle = css(
     s.mb40,
     { width: 'calc(50% - 20px)' },
   ),
+  hover(s.bgcE5),
 )
 
 const imageContainerStyle = css(
   s.relative,
   { height: 235 },
   media(s.minBreak2, { height: 220 }),
+  parent('a:hover', select('> .BackgroundImage::before', { backgroundColor: 'rgba(0, 0, 0, 0.5)' })),
 )
 
 const contentContainerStyle = css(
-  { backgroundColor: '#f2f2f2', height: 250 },
+  { height: 250 },
   s.p10,
   s.relative,
   media(s.minBreak3, s.py30, s.px20),
