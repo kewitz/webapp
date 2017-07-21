@@ -67,6 +67,7 @@ const artistInvitesStyle = css(
   s.mxAuto,
   s.px10,
   media(s.minBreak2, s.px0),
+  media(s.minBreak4, s.mt20),
 )
 
 // ARTIST INVITES

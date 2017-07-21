@@ -11,7 +11,20 @@ const containerStyle = css(
   s.sansRegular,
   s.fontSize14,
   s.fullWidth,
-  media(s.minBreak2, { width: 'calc(50% - 10px)' }),
+  s.mb10,
+  media(
+    s.minBreak2,
+    s.mr20,
+    s.mb20,
+    { width: 'calc(50% - 10px)' },
+    select(':nth-child(2n)', s.mr0),
+  ),
+  media(
+    s.minBreak4,
+    s.mr40,
+    s.mb40,
+    { width: 'calc(50% - 20px)' },
+  ),
 )
 
 const imageContainerStyle = css(
