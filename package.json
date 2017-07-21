@@ -105,6 +105,7 @@
     "immutable": "3.8.1",
     "jwt-decode": "2.2.0",
     "lodash": "4.17.4",
+    "moment": "2.18.1",
     "mousetrap": "1.6.1",
     "postcss": "6.0.8",
     "postcss-apply": "0.8.0",

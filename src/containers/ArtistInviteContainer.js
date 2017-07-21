@@ -1,9 +1,7 @@
-/* eslint-disable react/no-danger */
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { selectDPI } from 'ello-brains/selectors/gui'
-import BackgroundImage from '../components/assets/BackgroundImage'
 import {
   selectClosedAt,
   selectDescription,
@@ -19,31 +17,7 @@ import {
   selectSubmissionBodyBlock,
   selectTitle,
 } from '../selectors/artist_invites'
-import { css, media, select } from '../styles/jss'
-import * as s from '../styles/jso'
-
-const containerStyle = css(
-  s.sansRegular,
-  s.fontSize14,
-  media(s.minBreak3, { width: 'calc(50% - 10px)' }),
-)
-
-const imageContainerStyle = css(
-  s.relative,
-  { height: 235 },
-  media(s.minBreak2, { height: 220 }),
-)
-
-const contentContainerStyle = css(
-  { backgroundColor: '#f2f2f2', height: 250 },
-  s.py30,
-  s.px20,
-)
-
-const titleStyle = css(
-  s.sansBlack,
-  s.fontSize24,
-)
+import { ArtistInviteGrid } from '../components/artist_invites/ArtistInviteRenderables'
 
 function mapStateToProps(state, props) {
   return {
@@ -74,6 +48,7 @@ class ArtistInviteContainer extends PureComponent {
     guide: PropTypes.object.isRequired,
     headerImage: PropTypes.object.isRequired,
     inviteType: PropTypes.string.isRequired,
+    kind: PropTypes.string.isRequired,
     links: PropTypes.object.isRequired,
     logoImage: PropTypes.object.isRequired,
     openedAt: PropTypes.string.isRequired,
@@ -92,6 +67,7 @@ class ArtistInviteContainer extends PureComponent {
       guide,
       headerImage,
       inviteType,
+      kind,
       links,
       logoImage,
       openedAt,
@@ -101,23 +77,25 @@ class ArtistInviteContainer extends PureComponent {
       submissionBodyBlock,
       title,
     } = this.props
-    return (
-      <article className={containerStyle}>
-        <div className={imageContainerStyle}>
-          <BackgroundImage dpi={dpi} sources={logoImage} />
-          <BackgroundImage dpi={dpi} sources={headerImage} />
-        </div>
-        <div className={contentContainerStyle}>
-          <h2 className={titleStyle}>{title}</h2>
-          <p>{inviteType}</p>
-          <p>{status}</p>
-          <p>{`${openedAt} — ${closedAt}`}</p>
-          <div>
-            <p dangerouslySetInnerHTML={{ __html: shortDescription }} />
-          </div>
-        </div>
-      </article>
-    )
+    switch (kind) {
+      case 'grid':
+        return (
+          <ArtistInviteGrid
+            closedAt={closedAt}
+            dpi={dpi}
+            headerImage={headerImage}
+            inviteType={inviteType}
+            logoImage={logoImage}
+            openedAt={openedAt}
+            shortDescription={shortDescription}
+            slug={slug}
+            status={status}
+            title={title}
+          />
+        )
+      default:
+        return null
+    }
   }
 }
 

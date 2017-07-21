@@ -64,6 +64,9 @@ export const postsAsPostStream = (postIds, columnCount, isPostHeaderHidden, rend
 
 const artistInvitesStyle = css(
   s.maxSiteWidth,
+  s.mxAuto,
+  s.px10,
+  media(s.minBreak2, s.px0),
 )
 
 // ARTIST INVITES
@@ -73,6 +76,7 @@ export const artistInvites = artistInviteIds => (
       <ArtistInviteContainer
         artistInviteId={id}
         key={`artistInvite_${id}`}
+        kind="grid"
       />
     ))}
   </div>
