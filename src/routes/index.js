@@ -1,7 +1,7 @@
 import AppContainer from '../containers/AppContainer'
 import PostDetailRoute from './post_detail'
 import WTFRoute from './wtf'
-import ArtistInvitesRoute from './artist_invites'
+import ArtistInvitesRoutes from './artist_invites'
 import authenticationRoutes from './authentication'
 import EditorialRoute, { getComponents as getEditorialComponents } from './editorial'
 import {
@@ -66,7 +66,7 @@ const routes = (store) => {
       // order matters, so less specific routes should go at the bottom
       childRoutes: [
         WTFRoute,
-        ArtistInvitesRoute,
+        ...ArtistInvitesRoutes,
         EditorialRoute,
         PostDetailRoute,
         ...authenticationRoutes(store),

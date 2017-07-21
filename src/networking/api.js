@@ -30,6 +30,11 @@ export function artistInvites(isPreview) {
     path: getAPIPath('artist_invites', query),
   }
 }
+export function artistInviteDetail(slug) {
+  return {
+    path: getAPIPath(`artist_invites/${slug}`),
+  }
+}
 // Announcements
 export function announcements() {
   return {

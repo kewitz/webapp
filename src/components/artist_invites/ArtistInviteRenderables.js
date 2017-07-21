@@ -60,15 +60,17 @@ const inviteTypeStyle = css(
 const statusStyle = css(
   s.mt20,
   modifier('.open', { color: '#00d100' }),
+  modifier('.selecting', { color: '#ffb100' }),
   before({ borderRadius: 5, content: '""', height: 10, width: 10 }, s.inlineBlock, s.mr20),
   before(modifier('.open'), s.bgcGreen),
-  media(s.minBreak3, s.absolute, s.mt0, { right: 20, top: 85 }),
+  before(modifier('.selecting'), { backgroundColor: '#ffb100' }),
+  media(s.minBreak3, s.absolute, s.mt0, { left: '53%', top: 85 }),
 )
 
 const dateRangeStyle = css(
   s.colorA,
   s.truncate,
-  media(s.minBreak3, s.absolute, { right: 20, top: 105 }),
+  media(s.minBreak3, s.absolute, { left: 'calc(53% + 30px)', top: 105 }),
 )
 
 const shortDescriptionStyle = css(
@@ -81,14 +83,17 @@ const renderStatus = (status) => {
     case 'open':
       statusText = 'Open For Submissions'
       break
+    case 'selecting':
+      statusText = 'Selections In Progress'
+      break
     default:
       statusText = 'Preview'
       break
   }
   return (
-    <div className={`${statusStyle} ${status}`}>
+    <p className={`${statusStyle} ${status}`}>
       {statusText}
-    </div>
+    </p>
   )
 }
 
@@ -113,7 +118,7 @@ export const ArtistInviteGrid = ({
       <div className={contentContainerStyle}>
         <h2 className={titleStyle}>{`${title} - Plus Additional Text`}</h2>
         <p className={inviteTypeStyle}>{inviteType}</p>
-        <p>{renderStatus(status)}</p>
+        {renderStatus(status)}
         <p className={dateRangeStyle}>{`${moment(openedAt).format('MMMM D')} — ${moment(closedAt).format('MMMM D, YYYY')}`}</p>
         <div className={shortDescriptionStyle}>
           <p dangerouslySetInnerHTML={{ __html: shortDescription }} />

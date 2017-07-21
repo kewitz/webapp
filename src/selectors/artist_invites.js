@@ -10,11 +10,19 @@ const selectPropsArtistInviteId = (state, props) =>
 const selectArtistInvites = state =>
   state.json.get(camelize(ARTIST_INVITES), Immutable.Map())
 
+const selectParamsSlug = (state, props) => get(props, 'params.slug')
+
 // Memoized selectors
 // Requires `artistInviteId` or `artistInvite` to be found in props
-const selectArtistInvite = createSelector(
-  [selectPropsArtistInviteId, selectArtistInvites], (id, artistInvites) =>
-    artistInvites.get(id, Immutable.Map()) || Immutable.Map(),
+export const selectArtistInvite = createSelector(
+  [selectPropsArtistInviteId, selectParamsSlug, selectArtistInvites], (id, slug, artistInvites) => {
+    if (id) {
+      return artistInvites.get(id, Immutable.Map())
+    } else if (slug) {
+      return (artistInvites.find(ai => ai.get('slug') === slug)) || Immutable.Map()
+    }
+    return Immutable.Map()
+  },
 )
 
 export const selectClosedAt = createSelector([selectArtistInvite], ai => ai.get('closedAt'))

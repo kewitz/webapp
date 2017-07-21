@@ -1,6 +1,6 @@
 import { LOAD_STREAM } from 'ello-brains/constants/action_types'
 import { ARTIST_INVITES } from 'ello-brains/constants/mapping_types'
-import { artistInvites as artistInvitesApi } from '../networking/api'
+import { artistInvites as artistInvitesApi, artistInviteDetail } from '../networking/api'
 import { artistInvites as artistInvitesRenderable } from '../components/streams/StreamRenderables'
 
 export const loadArtistInvites = isPreview => (
@@ -13,6 +13,16 @@ export const loadArtistInvites = isPreview => (
         asList: artistInvitesRenderable,
         asGrid: artistInvitesRenderable,
       },
+    },
+  }
+)
+
+export const loadArtistInviteDetail = slug => (
+  {
+    type: LOAD_STREAM,
+    payload: { endpoint: artistInviteDetail(slug) },
+    meta: {
+      mappingType: ARTIST_INVITES,
     },
   }
 )

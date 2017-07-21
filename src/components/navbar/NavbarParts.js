@@ -118,6 +118,7 @@ const linkStyle = css(
 const highlightingRules = {
   '/': /^\/$|^\/discover\/trending$|^\/discover\/recent$/,
   '/following': /^\/following/,
+  '/artist-invites': /^\/artist-invites$/,
 }
 
 export const NavbarLink = ({
