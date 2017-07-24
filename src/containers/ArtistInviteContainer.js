@@ -96,6 +96,7 @@ class ArtistInviteContainer extends PureComponent {
         },
       })
     })
+    scrollToPosition(0, 0)
   }
 
   render() {
