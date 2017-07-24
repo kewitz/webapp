@@ -271,9 +271,11 @@ export const ArtistInviteDetail = ({
           </div>
         </div>
         <div className={contentColumnStyle}>
-          <RoundedRect className="SubmitButton Green isXL" onClick={onClickSubmit}>
-            SUBMIT
-          </RoundedRect>
+          {status === 'open' &&
+            <RoundedRect className="SubmitButton Green isXL" onClick={onClickSubmit}>
+              SUBMIT
+            </RoundedRect>
+          }
           {guide.map(g => (
             <div className={guideStyle} key={`guide_${g.get('title')}`}>
               <h3 className="GuideHeader">{g.get('title')}</h3>
