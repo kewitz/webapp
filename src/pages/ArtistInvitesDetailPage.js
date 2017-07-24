@@ -30,15 +30,13 @@ class ArtistInvitesDetailPage extends Component {
   }
 
   render() {
-    console.log('DETAIL PAGE MOTHER FUCKER')
-    console.log('slug', this.props.slug)
     const { artistInvite } = this.props
     return (
       <MainView className="ArtistInvitesDetail">
         { artistInvite && artistInvite.get('id') ?
           <ArtistInviteContainer
             artistInviteId={artistInvite.get('id')}
-            kind="grid"
+            kind="detail"
           /> :
           <section className="StreamContainer">
             <Paginator className="isBusy" />

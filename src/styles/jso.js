@@ -232,6 +232,14 @@ export const ml40 = { marginLeft: 40 }
 export const mx40 = { ...mr40, ...ml40 }
 export const my40 = { ...mt40, ...mb40 }
 
+export const m60 = { margin: 60 }
+export const mt60 = { marginTop: 60 }
+export const mr60 = { marginRight: 60 }
+export const mb60 = { marginBottom: 60 }
+export const ml60 = { marginLeft: 60 }
+export const mx60 = { ...mr60, ...ml60 }
+export const my60 = { ...mt60, ...mb60 }
+
 export const mAuto = { margin: 'auto' }
 export const mtAuto = { marginTop: 'auto' }
 export const mrAuto = { marginRight: 'auto' }
@@ -301,6 +309,7 @@ export const fontSize18 = { fontSize: 18 }
 export const fontSize24 = { fontSize: 24 }
 export const fontSize28 = { fontSize: 28 }
 export const fontSize32 = { fontSize: 32 }
+export const fontSize38 = { fontSize: 38 }
 export const fontSize48 = { fontSize: 48 }
 
 export const leftAlign = { textAlign: 'left' }
@@ -324,6 +333,7 @@ export const color9 = { color: '#999' }
 export const colorA = { color: '#aaa' }
 export const colorC = { color: '#ccc' }
 export const colorWhite = { color: '#fff' }
+export const colorGreen = { color: '#00d100' }
 
 export const bgcCurrentColor = { backgroundColor: 'currentColor' }
 export const bgcTransparent = { backgroundColor: 'transparent' }

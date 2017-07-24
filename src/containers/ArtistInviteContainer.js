@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { selectDPI } from 'ello-brains/selectors/gui'
+import { scrollToPosition } from '../lib/jello'
 import {
   selectClosedAt,
   selectDescription,
@@ -17,7 +18,10 @@ import {
   selectSubmissionBodyBlock,
   selectTitle,
 } from '../selectors/artist_invites'
-import { ArtistInviteGrid } from '../components/artist_invites/ArtistInviteRenderables'
+import {
+  ArtistInviteDetail,
+  ArtistInviteGrid,
+} from '../components/artist_invites/ArtistInviteRenderables'
 
 function mapStateToProps(state, props) {
   return {
@@ -48,7 +52,7 @@ class ArtistInviteContainer extends PureComponent {
     guide: PropTypes.object.isRequired,
     headerImage: PropTypes.object.isRequired,
     inviteType: PropTypes.string.isRequired,
-    kind: PropTypes.string.isRequired,
+    kind: PropTypes.oneOf(['detail', 'grid']).isRequired,
     links: PropTypes.object.isRequired,
     logoImage: PropTypes.object.isRequired,
     openedAt: PropTypes.string.isRequired,
@@ -57,6 +61,27 @@ class ArtistInviteContainer extends PureComponent {
     status: PropTypes.string.isRequired,
     submissionBodyBlock: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
+  }
+
+  static childContextTypes = {
+    onClickScrollToContent: PropTypes.func,
+    onClickSubmit: PropTypes.func,
+  }
+
+  getChildContext() {
+    return {
+      onClickScrollToContent: this.onClickScrollToContent,
+      onClickSubmit: this.onClickSubmit,
+    }
+  }
+
+  onClickScrollToContent = () => {
+    console.log('onClickScrollToContent')
+    scrollToPosition(0, window.innerHeight)
+  }
+
+  onClickSubmit = () => {
+    console.log('onClickSubmit', this.props.submissionBodyBlock)
   }
 
   render() {
@@ -78,6 +103,23 @@ class ArtistInviteContainer extends PureComponent {
       title,
     } = this.props
     switch (kind) {
+      case 'detail':
+        return (
+          <ArtistInviteDetail
+            closedAt={closedAt}
+            description={description}
+            dpi={dpi}
+            guide={guide}
+            headerImage={headerImage}
+            inviteType={inviteType}
+            links={links}
+            logoImage={logoImage}
+            openedAt={openedAt}
+            status={status}
+            submissionBodyBlock={submissionBodyBlock}
+            title={title}
+          />
+        )
       case 'grid':
         return (
           <ArtistInviteGrid
