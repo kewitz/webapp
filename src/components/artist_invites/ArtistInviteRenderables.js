@@ -282,7 +282,7 @@ export const ArtistInviteDetail = ({
           ))}
         </div>
       </div>
-      <h2 className={titleStyle}>Submissions</h2>
+      <h2 className={`Submissions ${titleStyle}`}>Submissions</h2>
     </article>
     They go here
   </div>

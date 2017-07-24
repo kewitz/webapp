@@ -76,8 +76,7 @@ class ArtistInviteContainer extends PureComponent {
   }
 
   onClickScrollToContent = () => {
-    console.log('onClickScrollToContent')
-    scrollToPosition(0, window.innerHeight)
+    scrollToPosition(0, document.querySelector('.Submissions').offsetTop)
   }
 
   onClickSubmit = () => {
