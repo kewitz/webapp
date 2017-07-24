@@ -262,7 +262,7 @@ export const ArtistInviteDetail = ({
           <p className={inviteTypeStyle}>{inviteType}</p>
           {renderTextStatus(status)}
           <p className={dateRangeStyle}>{`${moment(openedAt).format('MMMM D')} — ${moment(closedAt).format('MMMM D, YYYY')}`}</p>
-          <RoundedRect className="ScrollButton WhiteGreenBorder" onClick={onClickScrollToContent}>
+          <RoundedRect className="ScrollButton GreenBorder" onClick={onClickScrollToContent}>
             <ArrowIcon />
             See Submissions
           </RoundedRect>
@@ -271,7 +271,7 @@ export const ArtistInviteDetail = ({
           </div>
         </div>
         <div className={contentColumnStyle}>
-          <RoundedRect className="SubmitButton GreenGreenBorder isXL" onClick={onClickSubmit}>
+          <RoundedRect className="SubmitButton Green isXL" onClick={onClickSubmit}>
             SUBMIT
           </RoundedRect>
           {guide.map(g => (
