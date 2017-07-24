@@ -28,6 +28,10 @@ User Cells  */
   border: 0;
 }
 
+.UserCell.isMiniProfileCard .UserName {
+  padding-right: 0;
+}
+
 @media (--break-2-max) {
   .UserCell.inUserProfileCard + .UserCell.inUserProfileCard {
     border: 0;
