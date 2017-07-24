@@ -1,7 +1,9 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import { EDITOR } from 'ello-brains/constants/action_types'
 import { selectDPI } from 'ello-brains/selectors/gui'
+import { openOmnibar } from '../actions/omnibar'
 import { scrollToPosition } from '../lib/jello'
 import {
   selectClosedAt,
@@ -22,6 +24,7 @@ import {
   ArtistInviteDetail,
   ArtistInviteGrid,
 } from '../components/artist_invites/ArtistInviteRenderables'
+import { getEditorId } from '../components/editor/Editor'
 
 function mapStateToProps(state, props) {
   return {
@@ -48,6 +51,7 @@ class ArtistInviteContainer extends PureComponent {
   static propTypes = {
     closedAt: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
+    dispatch: PropTypes.func.isRequired,
     dpi: PropTypes.string.isRequired,
     guide: PropTypes.object.isRequired,
     headerImage: PropTypes.object.isRequired,
@@ -80,7 +84,18 @@ class ArtistInviteContainer extends PureComponent {
   }
 
   onClickSubmit = () => {
-    console.log('onClickSubmit', this.props.submissionBodyBlock)
+    const { dispatch, submissionBodyBlock } = this.props
+    dispatch(openOmnibar())
+    // do this in a rAF to allow the editor to initialize first if it needs to
+    requestAnimationFrame(() => {
+      dispatch({
+        type: EDITOR.APPEND_TEXT,
+        payload: {
+          editorId: getEditorId(),
+          text: submissionBodyBlock,
+        },
+      })
+    })
   }
 
   render() {
