@@ -9,6 +9,7 @@ import BackgroundImage from '../assets/BackgroundImage'
 import ImageAsset from '../assets/ImageAsset'
 import { ArrowIcon } from '../assets/Icons'
 import { RoundedRect } from '../buttons/Buttons'
+import ArtistInviteSubmissionContainer from '../../containers/ArtistInviteSubmissionContainer'
 
 const gridContainerStyle = css(
   s.alignTop,
@@ -235,6 +236,12 @@ const contentColumnStyle = css(
     { width: 'calc(50% - 10px)' },
     select(':nth-child(2n)', s.mr0),
   ),
+  media(
+    s.minBreak4,
+    s.mr40,
+    s.mb40,
+    { width: 'calc(50% - 20px)' },
+  ),
 )
 
 const guideStyle = css(
@@ -295,9 +302,8 @@ export const ArtistInviteDetail = ({
           ))}
         </div>
       </div>
-      <h2 className={`Submissions ${titleStyle}`}>Submissions</h2>
     </article>
-    They go here
+    <ArtistInviteSubmissionContainer links={links} />
   </div>
 )
 ArtistInviteDetail.propTypes = {
