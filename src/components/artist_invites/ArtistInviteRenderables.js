@@ -6,6 +6,7 @@ import { Link } from 'react-router'
 import { before, css, hover, media, modifier, parent, select } from '../../styles/jss'
 import * as s from '../../styles/jso'
 import BackgroundImage from '../assets/BackgroundImage'
+import ImageAsset from '../assets/ImageAsset'
 import { ArrowIcon } from '../assets/Icons'
 import { RoundedRect } from '../buttons/Buttons'
 
@@ -34,11 +35,21 @@ const gridContainerStyle = css(
 )
 
 const imageContainerStyle = css(
+  s.flex,
+  s.justifyCenter,
+  s.itemsCenter,
   s.relative,
   { height: 235 },
   media(s.minBreak2, { height: 220 }, parent('.ArtistInvitesDetail', s.mb40, { height: 555 })),
-  parent('a:hover', select('> .BackgroundImage::before', { backgroundColor: 'rgba(0, 0, 0, 0.25)' })),
+  parent('a:hover', select('> .BackgroundImage::before', { backgroundColor: 'rgba(0, 0, 0, 0.4)' })),
   parent('.ArtistInvitesDetail', s.mb20),
+)
+
+const logoImageStyle = css(
+  { maxHeight: 155 },
+  s.px20,
+  s.zIndex1,
+  media(s.minBreak2, { maxHeight: 140 }, parent('.ArtistInvitesDetail', { maxHeight: 190 })),
 )
 
 const contentContainerStyle = css(
@@ -164,7 +175,7 @@ export const ArtistInviteGrid = ({
     <article>
       <div className={imageContainerStyle}>
         <BackgroundImage dpi={dpi} sources={headerImage} />
-        <BackgroundImage dpi={dpi} sources={logoImage} />
+        <ImageAsset className={logoImageStyle} src={logoImage.getIn(['optimized', 'url'])} />
       </div>
       <div className={contentContainerStyle}>
         <h2 className={titleStyle}>{title}</h2>
@@ -254,7 +265,7 @@ export const ArtistInviteDetail = ({
     <article className={detailContainerStyle}>
       <div className={imageContainerStyle}>
         <BackgroundImage dpi={dpi} sources={headerImage} />
-        <BackgroundImage dpi={dpi} sources={logoImage} />
+        <ImageAsset className={logoImageStyle} src={logoImage.getIn(['optimized', 'url'])} />
       </div>
       <div>
         <div className={contentColumnStyle}>
