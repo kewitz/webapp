@@ -3,7 +3,7 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { loadArtistInviteSubmissions } from '../actions/artist_invites'
-import { css, media, modifier, parent } from '../styles/jss'
+import { css, hover, media, modifier, parent } from '../styles/jss'
 import * as s from '../styles/jso'
 import StreamContainer from './StreamContainer'
 
@@ -41,6 +41,10 @@ const buttonStyle = css(
   { ...titleStyle },
   s.borderBottom,
   s.ml20,
+  s.transitionColor,
+  modifier('.approvedSubmissions', hover({ color: '#00d100' })),
+  modifier('.selectedSubmissions', hover({ color: '#ffc600' })),
+  modifier('.unapprovedSubmissions', hover(s.colorBlack)),
   modifier('.approvedSubmissions.isActive', { color: '#00d100' }),
   modifier('.selectedSubmissions.isActive', { color: '#ffc600' }),
   modifier('.unapprovedSubmissions.isActive', s.colorBlack),

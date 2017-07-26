@@ -42,6 +42,7 @@ function mapStateToProps(state, props) {
     buyLink = firstBlock.get('linkUrl')
   }
   return {
+    artistInviteId: editor.get('artistInviteId'),
     buyLink,
     avatar: selectAvatar(state),
     collection,
@@ -65,6 +66,7 @@ function mapStateToProps(state, props) {
 class BlockCollection extends PureComponent {
 
   static propTypes = {
+    artistInviteId: PropTypes.string,
     avatar: PropTypes.object,
     blocks: PropTypes.object,
     buyLink: PropTypes.string,
@@ -96,6 +98,7 @@ class BlockCollection extends PureComponent {
   }
 
   static defaultProps = {
+    artistInviteId: null,
     avatar: null,
     buyLink: null,
     blocks: Immutable.List(),
@@ -363,8 +366,8 @@ class BlockCollection extends PureComponent {
   }
 
   submit = () => {
-    const { submitAction } = this.props
-    submitAction(this.serialize())
+    const { artistInviteId, submitAction } = this.props
+    submitAction(this.serialize(), artistInviteId)
   }
 
   serialize() {

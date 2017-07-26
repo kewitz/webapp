@@ -107,7 +107,7 @@ class Editor extends Component {
     return getEditorId(post, comment, isComment, autoPopulate && !shouldPersist)
   }
 
-  submit = (data) => {
+  submit = (data, artistInviteId) => {
     const {
       allowsAutoWatch,
       comment,
@@ -127,7 +127,7 @@ class Editor extends Component {
       }
     } else if (isPostEmpty) {
       dispatch(closeOmnibar())
-      dispatch(createPost(data, this.getEditorIdentifier()))
+      dispatch(createPost(data, this.getEditorIdentifier(), null, null, artistInviteId))
     } else if (post.get('isEditing')) {
       dispatch(toggleEditing(post, false))
       dispatch(updatePost(post, data, this.getEditorIdentifier()))

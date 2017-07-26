@@ -10,6 +10,7 @@ import {
   selectDescription,
   selectGuide,
   selectHeaderImage,
+  selectId,
   selectInviteType,
   selectLinks,
   selectLogoImage,
@@ -33,6 +34,7 @@ function mapStateToProps(state, props) {
     description: selectDescription(state, props),
     guide: selectGuide(state, props),
     headerImage: selectHeaderImage(state, props),
+    id: selectId(state, props),
     inviteType: selectInviteType(state, props),
     links: selectLinks(state, props),
     logoImage: selectLogoImage(state, props),
@@ -55,6 +57,7 @@ class ArtistInviteContainer extends PureComponent {
     dpi: PropTypes.string.isRequired,
     guide: PropTypes.object.isRequired,
     headerImage: PropTypes.object.isRequired,
+    id: PropTypes.string.isRequired,
     inviteType: PropTypes.string.isRequired,
     kind: PropTypes.oneOf(['detail', 'grid']).isRequired,
     links: PropTypes.object.isRequired,
@@ -84,15 +87,23 @@ class ArtistInviteContainer extends PureComponent {
   }
 
   onClickSubmit = () => {
-    const { dispatch, submissionBodyBlock } = this.props
+    const { dispatch, id, submissionBodyBlock } = this.props
+    const editorId = getEditorId()
     dispatch(openOmnibar())
     // do this in a rAF to allow the editor to initialize first if it needs to
     requestAnimationFrame(() => {
       dispatch({
         type: EDITOR.APPEND_TEXT,
         payload: {
-          editorId: getEditorId(),
+          editorId,
           text: submissionBodyBlock,
+        },
+      })
+      dispatch({
+        type: 'EDITOR.ADD_ARTIST_INVITE_ID',
+        payload: {
+          editorId,
+          artistInviteId: id,
         },
       })
     })
