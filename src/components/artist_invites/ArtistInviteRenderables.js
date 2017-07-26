@@ -58,7 +58,6 @@ const contentContainerStyle = css(
   s.p10,
   s.relative,
   media(s.minBreak3, s.py30, s.px20),
-  select('> p', s.my0),
 )
 
 const titleStyle = css(
@@ -70,11 +69,11 @@ const titleStyle = css(
 
 const inviteTypeStyle = css(
   s.colorA,
+  s.my0,
   s.truncate,
   parent(
     '.ArtistInvitesDetail',
     s.fontSize24,
-    s.my0,
     media(s.minBreak3, s.fontSize38),
   ),
 )
@@ -95,6 +94,7 @@ const textStatusStyle = css(
 const bulletStatusStyle = css(
   { ...textStatusStyle },
   s.fontSize14,
+  s.mt10,
   before(
     {
       borderRadius: 5,
@@ -110,17 +110,17 @@ const bulletStatusStyle = css(
   modifier('.preview', before({ backgroundColor: '#0409fe' })),
   modifier('.selecting', before({ backgroundColor: '#ffb100' })),
   modifier('.upcoming', before({ backgroundColor: '#c000ff' })),
-  media(s.minBreak3, s.absolute, s.mt0, { left: '53%', top: 85 }),
+  media(s.minBreak3, s.absolute, s.mt0, { left: 'calc(100% - 230px)', top: 85 }),
 )
 
 const dateRangeStyle = css(
   s.colorA,
+  s.my0,
   s.truncate,
-  media(s.minBreak3, s.absolute, { left: 'calc(53% + 30px)', top: 105 }),
+  media(s.minBreak3, s.absolute, { left: 'calc(100% - 200px)', top: 105 }),
   parent(
     '.ArtistInvitesDetail',
     s.fontSize24,
-    s.my0,
     { left: 'auto', position: 'inherit', top: 'auto' },
     media(s.minBreak3, s.fontSize38),
   ),
@@ -247,7 +247,7 @@ const contentColumnStyle = css(
 const guideStyle = css(
   s.colorA,
   s.fontSize14,
-  select('& .GuideHeader', s.fontSize24, s.mb20, s.sansBlack, s.truncate),
+  select('& .GuideHeader', s.fontSize24, s.mb20, s.sansBlack, s.truncate, media(s.minBreak3, s.fontSize38)),
   select('& .GuideContent', s.mb30),
 )
 
