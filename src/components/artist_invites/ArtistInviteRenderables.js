@@ -207,7 +207,6 @@ const detailContainerStyle = css(
   s.maxSiteWidth,
   s.px10,
   s.mxAuto,
-  { paddingBottom: 50 },
   media(s.minBreak2, s.px20),
   media(s.minBreak4, s.px0),
   select('& .ArrowIcon', { transform: 'rotate(90deg)' }),
@@ -303,7 +302,7 @@ export const ArtistInviteDetail = ({
         </div>
       </div>
     </article>
-    <ArtistInviteSubmissionContainer links={links} />
+    <ArtistInviteSubmissionContainer links={links} status={status} />
   </div>
 )
 ArtistInviteDetail.propTypes = {
