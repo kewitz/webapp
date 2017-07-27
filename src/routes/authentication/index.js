@@ -1,6 +1,7 @@
 import EnterContainer from '../../containers/EnterContainer'
 import SignupContainer from '../../containers/SignupContainer'
 import ForgotPasswordContainer from '../../containers/ForgotPasswordContainer'
+import ResetPasswordContainer from '../../containers/ResetPasswordContainer'
 
 export default (store) => {
   function onEnter(nextState, replace) {
@@ -24,6 +25,13 @@ export default (store) => {
       path: 'forgot-password',
       getComponents(location, cb) {
         cb(null, ForgotPasswordContainer)
+      },
+      onEnter,
+    },
+    {
+      path: 'reset-password/:resetPasswordToken',
+      getComponents(location, cb) {
+        cb(null, ResetPasswordContainer)
       },
       onEnter,
     },

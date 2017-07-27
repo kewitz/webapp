@@ -64,6 +64,12 @@ export function forgotPassword() {
   }
 }
 
+export function resetPassword() {
+  return {
+    path: getAPIPath('reset_password'),
+  }
+}
+
 export function refreshAuthToken(refreshToken) {
   const params = { refresh_token: refreshToken }
   return {

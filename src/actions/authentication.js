@@ -1,8 +1,10 @@
 import { AUTHENTICATION } from 'ello-brains/constants/action_types'
+import { replace } from 'react-router-redux'
 import {
   loginToken,
   logout as logoutEndpoint,
   forgotPassword,
+  resetPassword,
   refreshAuthToken,
 } from '../networking/api'
 import * as ENV from '../../env'
@@ -64,6 +66,23 @@ export function sendForgotPasswordRequest(email) {
       body: {
         email,
       },
+    },
+  }
+}
+
+export function sendResetPasswordRequest(password, resetPasswordToken) {
+  return {
+    type: AUTHENTICATION.RESET_PASSWORD,
+    payload: {
+      endpoint: resetPassword(),
+      method: 'PUT',
+      body: {
+        password,
+        reset_password_token: resetPasswordToken,
+      },
+    },
+    meta: {
+      successAction: replace({ pathname: '/enter' }),
     },
   }
 }
