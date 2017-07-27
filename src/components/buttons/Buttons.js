@@ -202,7 +202,7 @@ const roundedRectStyle = css(
     s.fontSize24,
     { height: 95, lineHeight: 95 },
     media(s.minBreak2, s.fit),
-    media(s.minBreak3, { height: 125, lineHeight: 125 }),
+    media(s.minBreak3, s.fontSize38, { height: 125, lineHeight: 125 }),
   ),
   select('& .SVGIcon', s.mr5),
 )

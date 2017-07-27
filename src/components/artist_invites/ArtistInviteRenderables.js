@@ -41,7 +41,7 @@ const imageContainerStyle = css(
   s.itemsCenter,
   s.relative,
   { height: 235 },
-  media(s.minBreak2, { height: 220 }, parent('.ArtistInvitesDetail', s.mb40, { height: 555 })),
+  media(s.minBreak2, { height: 220 }, parent('.ArtistInvitesDetail', s.mb40, { height: 555 }, media(s.minBreak3, s.mb60))),
   parent('a:hover', select('> .BackgroundImage::before', { backgroundColor: 'rgba(0, 0, 0, 0.4)' })),
   parent('.ArtistInvitesDetail', s.mb20),
 )
@@ -64,7 +64,8 @@ const titleStyle = css(
   s.sansBlack,
   s.fontSize24,
   s.truncate,
-  media(s.minBreak3, s.mb20, parent('.ArtistInvitesDetail', s.mb0, s.fontSize38)),
+  media(s.minBreak3, s.mb20),
+  parent('.ArtistInvitesDetail', media(s.minBreak2, { marginTop: -5 }), media(s.minBreak3, s.mb0, s.fontSize38, { marginTop: -10 })),
 )
 
 const inviteTypeStyle = css(
@@ -216,11 +217,12 @@ const detailContainerStyle = css(
     media(
       s.minBreak2,
       modifier('.ScrollButton', s.my40),
-      modifier('.SubmitButton', s.mt0),
+      modifier('.SubmitButton', s.mt0, s.mb30),
     ),
     media(
       s.minBreak3,
       modifier('.ScrollButton', s.my60),
+      modifier('.SubmitButton', { marginBottom: 50 }),
     ),
   ),
 )
@@ -236,7 +238,7 @@ const contentColumnStyle = css(
     select(':nth-child(2n)', s.mr0),
   ),
   media(
-    s.minBreak4,
+    s.minBreak3,
     s.mr40,
     s.mb40,
     { width: 'calc(50% - 20px)' },
@@ -247,7 +249,7 @@ const guideStyle = css(
   s.colorA,
   s.fontSize14,
   select('& .GuideHeader', s.fontSize24, s.mb20, s.sansBlack, s.truncate, media(s.minBreak3, s.fontSize38)),
-  select('& .GuideContent', s.mb30),
+  select('& .GuideContent', media(s.minBreak2, s.mb30), media(s.minBreak3, s.mb60)),
 )
 
 export const ArtistInviteDetail = ({
