@@ -4,6 +4,7 @@ import ArtistInviteContainer from '../../containers/ArtistInviteContainer'
 import CategoryContainer from '../../containers/CategoryContainer'
 import CommentContainer from '../../containers/CommentContainer'
 import NotificationContainer from '../../containers/NotificationContainer'
+import ArtistInviteSubmissionContainer from '../../containers/ArtistInviteSubmissionContainer'
 import PostContainer from '../../containers/PostContainer'
 import UserContainer from '../../containers/UserContainer'
 import { SlickCarousel } from '../../components/carousels/CarouselRenderables'
@@ -82,6 +83,28 @@ export const artistInvites = artistInviteIds => (
     ))}
   </div>
 )
+
+export const artistInviteSubmissionsAsGrid = (submissionIds, columnCount) => {
+  console.log('submissionIds', submissionIds)
+  const columns = []
+  for (let i = 0; i < columnCount; i += 1) { columns.push([]) }
+  submissionIds.forEach((value, index) =>
+    columns[index % columnCount].push(submissionIds.get(index)),
+  )
+  return (
+    <div className="Posts asGrid">
+      {columns.map((columnSubmissionIds, i) =>
+        (<div className="Column" key={`column_${i + 1}`}>
+          {columnSubmissionIds.map(id => (
+            <article className="PostGrid" key={`postsAsGrid_${id}`}>
+              <ArtistInviteSubmissionContainer submissionId={id} />
+            </article>
+          ))}
+        </div>),
+      )}
+    </div>
+  )
+}
 
 // POSTS
 export const postsAsGrid = (postIds, columnCount, isPostHeaderHidden) => {

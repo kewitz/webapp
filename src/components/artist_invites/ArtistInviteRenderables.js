@@ -9,7 +9,7 @@ import BackgroundImage from '../assets/BackgroundImage'
 import ImageAsset from '../assets/ImageAsset'
 import { ArrowIcon } from '../assets/Icons'
 import { RoundedRect } from '../buttons/Buttons'
-import ArtistInviteSubmissionContainer from '../../containers/ArtistInviteSubmissionContainer'
+import ArtistInviteSubmissionsContainer from '../../containers/ArtistInviteSubmissionsContainer'
 
 const gridContainerStyle = css(
   s.alignTop,
@@ -260,6 +260,7 @@ export const ArtistInviteDetail = ({
   guide,
   headerImage,
   inviteType,
+  isLoggedIn,
   links,
   logoImage,
   openedAt,
@@ -291,7 +292,7 @@ export const ArtistInviteDetail = ({
           </div>
         </div>
         <div className={contentColumnStyle}>
-          {status === 'open' &&
+          {status === 'open' && isLoggedIn &&
             <RoundedRect className="SubmitButton Green isXL" onClick={onClickSubmit}>
               SUBMIT
             </RoundedRect>
@@ -305,7 +306,7 @@ export const ArtistInviteDetail = ({
         </div>
       </div>
     </article>
-    <ArtistInviteSubmissionContainer links={links} status={status} />
+    <ArtistInviteSubmissionsContainer links={links} status={status} />
   </div>
 )
 ArtistInviteDetail.propTypes = {
@@ -315,6 +316,7 @@ ArtistInviteDetail.propTypes = {
   guide: PropTypes.object.isRequired,
   headerImage: PropTypes.object.isRequired,
   inviteType: PropTypes.string.isRequired,
+  isLoggedIn: PropTypes.bool.isRequired,
   links: PropTypes.object.isRequired,
   logoImage: PropTypes.object.isRequired,
   openedAt: PropTypes.string.isRequired,

@@ -10,14 +10,6 @@ export function postsFromLoves(loves) {
   return result
 }
 
-export function postsFromSubmissions(submissions) {
-  const result = { type: MAPPING_TYPES.POSTS, ids: [] }
-  submissions.forEach((sub) => {
-    result.ids.push(`${sub.links.post.id}`)
-  })
-  return result
-}
-
 export function notificationsFromActivities(activities) {
   return { type: MAPPING_TYPES.NOTIFICATIONS, ids: activities }
 }

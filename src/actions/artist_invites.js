@@ -1,8 +1,7 @@
 import { LOAD_STREAM } from 'ello-brains/constants/action_types'
 import { ARTIST_INVITES } from 'ello-brains/constants/mapping_types'
 import { artistInvites as artistInvitesApi, artistInviteDetail } from '../networking/api'
-import { artistInvites as artistInvitesRenderable, postsAsGrid } from '../components/streams/StreamRenderables'
-import * as StreamFilters from '../components/streams/StreamFilters'
+import { artistInvites as artistInvitesRenderable, artistInviteSubmissionsAsGrid } from '../components/streams/StreamRenderables'
 
 export const loadArtistInvites = isPreview => (
   {
@@ -33,13 +32,27 @@ export const loadArtistInviteSubmissions = (path, key) => (
     type: LOAD_STREAM,
     payload: { endpoint: { path } },
     meta: {
-      mappingType: 'artistInviteSubmissions',
-      resultFilter: StreamFilters.postsFromSubmissions,
+      mappingType: 'artist_invite_submissions',
       renderStream: {
-        asList: postsAsGrid,
-        asGrid: postsAsGrid,
+        asList: artistInviteSubmissionsAsGrid,
+        asGrid: artistInviteSubmissionsAsGrid,
       },
       resultKey: key,
+    },
+  }
+)
+
+export const sendAdminAction = action => (
+  {
+    type: LOAD_STREAM,
+    meta: {
+      mappingType: 'artist_invite_submissions',
+      updateResult: false,
+    },
+    payload: {
+      body: action.get('body').toJS(),
+      endpoint: { path: action.get('href') },
+      method: action.get('method'),
     },
   }
 )

@@ -24,7 +24,6 @@ export const selectArtistInvite = createSelector(
     return Immutable.Map()
   },
 )
-
 export const selectClosedAt = createSelector([selectArtistInvite], ai => ai.get('closedAt'))
 export const selectDescription = createSelector([selectArtistInvite], ai => ai.get('description'))
 export const selectGuide = createSelector([selectArtistInvite], ai => ai.get('guide', Immutable.List()))
@@ -39,4 +38,20 @@ export const selectSlug = createSelector([selectArtistInvite], ai => ai.get('slu
 export const selectStatus = createSelector([selectArtistInvite], ai => ai.get('status'))
 export const selectSubmissionBodyBlock = createSelector([selectArtistInvite], ai => ai.get('submissionBodyBlock'))
 export const selectTitle = createSelector([selectArtistInvite], ai => ai.get('title'))
+
+// Artist Invite Submissions
+const selectPropsSubmissionId = (state, props) =>
+  get(props, 'submissionId') || get(props, 'submission', Immutable.Map()).get('id')
+
+const selectArtistInviteSubmissions = state =>
+  state.json.get(camelize('artist_invite_submissions'), Immutable.Map())
+
+// Requires `submissionId` or `submission` to be found in props
+export const selectArtistInviteSubmission = createSelector(
+  [selectPropsSubmissionId, selectArtistInviteSubmissions], (id, submissions) =>
+    submissions.get(id, Immutable.Map()),
+)
+export const selectSubmissionActions = createSelector([selectArtistInviteSubmission], ais => ais.get('actions'))
+export const selectSubmissionPostId = createSelector([selectArtistInviteSubmission], ais => ais.getIn(['links', 'post', 'id']))
+export const selectSubmissionStatus = createSelector([selectArtistInviteSubmission], ais => ais.get('status'))
 

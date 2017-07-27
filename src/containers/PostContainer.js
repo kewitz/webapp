@@ -72,6 +72,7 @@ import Editor from '../components/editor/Editor'
 import {
   CategoryHeader,
   LaunchCommentEditorButton,
+  PostAdminActions,
   PostBody,
   PostHeader,
   RepostHeader,
@@ -130,6 +131,7 @@ export function makeMapStateToProps() {
 class PostContainer extends Component {
 
   static propTypes = {
+    adminActions: PropTypes.object,
     author: PropTypes.object.isRequired,
     avatar: PropTypes.object,
     categoryName: PropTypes.string,
@@ -173,10 +175,12 @@ class PostContainer extends Component {
     repostContent: PropTypes.object,
     showCommentEditor: PropTypes.bool.isRequired,
     showEditor: PropTypes.bool.isRequired,
+    submissionStatus: PropTypes.string,
     summary: PropTypes.object,
   }
 
   static defaultProps = {
+    adminActions: null,
     avatar: null,
     categoryName: null,
     categoryPath: null,
@@ -195,6 +199,7 @@ class PostContainer extends Component {
     previousPath: null,
     repostAuthor: null,
     repostContent: null,
+    submissionStatus: null,
     summary: null,
   }
 
@@ -243,7 +248,8 @@ class PostContainer extends Component {
   shouldComponentUpdate(nextProps) {
     if (nextProps.isPostEmpty) { return false }
     return !Immutable.is(nextProps.post, this.props.post) ||
-      ['columnWidth', 'contentWidth', 'innerHeight', 'isGridMode', 'isLoggedIn', 'isMobile'].some(prop =>
+      !Immutable.is(nextProps.adminActions, this.props.adminActions) ||
+      ['columnWidth', 'contentWidth', 'innerHeight', 'isGridMode', 'isLoggedIn', 'isMobile', 'submissionStatus'].some(prop =>
         nextProps[prop] !== this.props[prop],
       )
   }
@@ -391,6 +397,7 @@ class PostContainer extends Component {
 
   render() {
     const {
+      adminActions,
       author,
       avatar,
       categoryName,
@@ -430,6 +437,7 @@ class PostContainer extends Component {
       repostContent,
       showCommentEditor,
       showEditor,
+      submissionStatus,
       summary,
     } = this.props
     const { onLaunchNativeEditor } = this.context
@@ -493,6 +501,12 @@ class PostContainer extends Component {
             postId={postId}
             repostContent={repostContent}
             summary={summary}
+          />
+        }
+        {adminActions &&
+          <PostAdminActions
+            actions={adminActions}
+            status={submissionStatus}
           />
         }
         <PostTools

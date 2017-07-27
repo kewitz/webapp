@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { EDITOR } from 'ello-brains/constants/action_types'
+import { selectIsLoggedIn } from 'ello-brains/selectors/authentication'
 import { selectDPI } from 'ello-brains/selectors/gui'
 import { openOmnibar } from '../actions/omnibar'
 import { scrollToPosition } from '../lib/jello'
@@ -46,6 +47,7 @@ function mapStateToProps(state, props) {
     title: selectTitle(state, props),
     // other
     dpi: selectDPI(state),
+    isLoggedIn: selectIsLoggedIn(state),
   }
 }
 
@@ -59,6 +61,7 @@ class ArtistInviteContainer extends PureComponent {
     headerImage: PropTypes.object.isRequired,
     id: PropTypes.string.isRequired,
     inviteType: PropTypes.string.isRequired,
+    isLoggedIn: PropTypes.bool.isRequired,
     kind: PropTypes.oneOf(['detail', 'grid']).isRequired,
     links: PropTypes.object.isRequired,
     logoImage: PropTypes.object.isRequired,
@@ -118,6 +121,7 @@ class ArtistInviteContainer extends PureComponent {
       guide,
       headerImage,
       inviteType,
+      isLoggedIn,
       kind,
       links,
       logoImage,
@@ -138,6 +142,7 @@ class ArtistInviteContainer extends PureComponent {
             guide={guide}
             headerImage={headerImage}
             inviteType={inviteType}
+            isLoggedIn={isLoggedIn}
             links={links}
             logoImage={logoImage}
             openedAt={openedAt}

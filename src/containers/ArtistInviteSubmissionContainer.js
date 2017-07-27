@@ -1,169 +1,53 @@
-import Immutable from 'immutable'
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { loadArtistInviteSubmissions } from '../actions/artist_invites'
-import { css, hover, media, modifier, parent } from '../styles/jss'
-import * as s from '../styles/jso'
-import StreamContainer from './StreamContainer'
+import { sendAdminAction } from '../actions/artist_invites'
+import {
+  selectSubmissionActions,
+  selectSubmissionPostId,
+  selectSubmissionStatus,
+} from '../selectors/artist_invites'
+import PostContainer from './PostContainer'
 
-const KEYS = ['unapprovedSubmissions', 'approvedSubmissions', 'selectedSubmissions']
-
-const containerStyle = css(
-  { paddingBottom: 50 },
-)
-
-const titleWrapperStyle = css(
-  s.flex,
-  s.itemsCenter,
-  s.maxSiteWidth,
-  s.px10,
-  s.mxAuto,
-  media(s.minBreak2, s.px20),
-  media(s.minBreak4, s.px0),
-)
-
-const titleStyle = css(
-  s.colorA,
-  s.fontSize24,
-  s.inlineBlock,
-  s.sansBlack,
-  s.truncate,
-  media(s.minBreak3, s.mb20, parent('.ArtistInvitesDetail', s.mb0, s.fontSize38)),
-)
-
-const blackTitleStyle = css(
-  { ...titleStyle },
-  s.colorBlack,
-)
-
-const buttonStyle = css(
-  { ...titleStyle },
-  s.borderBottom,
-  s.ml20,
-  s.transitionColor,
-  modifier('.approvedSubmissions', hover({ color: '#00d100' })),
-  modifier('.selectedSubmissions', hover({ color: '#ffc600' })),
-  modifier('.unapprovedSubmissions', hover(s.colorBlack)),
-  modifier('.approvedSubmissions.isActive', { color: '#00d100' }),
-  modifier('.selectedSubmissions.isActive', { color: '#ffc600' }),
-  modifier('.unapprovedSubmissions.isActive', s.colorBlack),
-)
-
-const mapStateToProps = (state, props) => {
-  const links = (props.links || Immutable.Map([])).filter(l => l.get('type') === 'artist_invite_submission_stream')
+function mapStateToProps(state, props) {
   return {
-    links,
-    streamAction: links.size > 0 ? loadArtistInviteSubmissions(links.getIn([KEYS[0], 'href']), KEYS[0]) : null,
+    actions: selectSubmissionActions(state, props),
+    postId: selectSubmissionPostId(state, props),
+    status: selectSubmissionStatus(state, props),
   }
 }
 
 class ArtistInviteSubmissionContainer extends PureComponent {
   static propTypes = {
-    links: PropTypes.object.isRequired,
-    status: PropTypes.string,
-    streamAction: PropTypes.object,
+    actions: PropTypes.object.isRequired,
+    dispatch: PropTypes.func.isRequired,
+    postId: PropTypes.string.isRequired,
+    status: PropTypes.string.isRequired,
   }
 
-  static defaultProps = {
-    status: '',
-    streamAction: null,
+  static childContextTypes = {
+    onClickAction: PropTypes.func,
   }
 
-  componentWillMount() {
-    this.state = { selectedKey: KEYS[0], streamAction: this.props.streamAction }
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (!this.props.streamAction && nextProps.streamAction) {
-      this.setState({ streamAction: nextProps.streamAction })
+  getChildContext() {
+    return {
+      onClickAction: this.onClickAction,
     }
   }
 
-  onClickSubmissionType = (e) => {
-    const key = e.target.dataset.key
-    const { links } = this.props
-    this.setState({ selectedKey: key, streamAction: loadArtistInviteSubmissions(links.getIn([`${key}`, 'href']), key) })
-  }
-
-  renderAdmin() {
-    const { links } = this.props
-    const { selectedKey, streamAction } = this.state
-    return (
-      <div>
-        <div className={titleWrapperStyle}>
-          <h2 className={titleStyle}>Submissions:</h2>
-          {KEYS.map((key) => {
-            const submissionStream = links.get(key)
-            return (
-              <button
-                className={`${buttonStyle} ${key} ${selectedKey === key ? 'isActive' : ''}`}
-                data-key={key}
-                key={key}
-                onClick={this.onClickSubmissionType}
-              >
-                {submissionStream.get('label')}
-              </button>
-            )
-          })}
-        </div>
-        {streamAction &&
-          <StreamContainer
-            action={streamAction}
-            key={`submissionStream_${selectedKey}`}
-          />
-        }
-      </div>
-    )
-  }
-
-  renderNormal() {
-    const { links, status } = this.props
-    switch (status) {
-      case 'closed':
-        return (
-          <div>
-            <div className={titleWrapperStyle}>
-              <h2 className={blackTitleStyle}>Selections</h2>
-            </div>
-            <StreamContainer
-              action={loadArtistInviteSubmissions(links.getIn([KEYS[2], 'href']), KEYS[2])}
-              key={`submissionStream_${KEYS[2]}`}
-            />
-            <div className={titleWrapperStyle}>
-              <h2 className={blackTitleStyle}>Submissions</h2>
-            </div>
-            <StreamContainer
-              action={loadArtistInviteSubmissions(links.getIn([KEYS[1], 'href']), KEYS[1])}
-              key={`submissionStream_${KEYS[1]}`}
-            />
-          </div>
-        )
-      case 'open':
-        return (
-          <div>
-            <div className={titleWrapperStyle}>
-              <h2 className={blackTitleStyle}>Submissions</h2>
-            </div>
-            <StreamContainer
-              action={loadArtistInviteSubmissions(links.getIn([KEYS[1], 'href']), KEYS[1])}
-              key={`submissionStream_${KEYS[1]}`}
-            />
-          </div>
-        )
-      default:
-        return null
-    }
+  onClickAction = (action) => {
+    const { dispatch } = this.props
+    dispatch(sendAdminAction(action))
   }
 
   render() {
-    const { links } = this.props
-    if (links.size === 0) { return null }
+    const {
+      actions,
+      postId,
+      status,
+    } = this.props
     return (
-      <section className={`Submissions ${containerStyle}`}>
-        {links.size === 3 && this.renderAdmin()}
-        {links.size > 0 && links.size < 3 && this.renderNormal()}
-      </section>
+      <PostContainer postId={postId} adminActions={actions} submissionStatus={status} />
     )
   }
 }

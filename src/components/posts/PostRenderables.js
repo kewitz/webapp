@@ -4,12 +4,74 @@ import PropTypes from 'prop-types'
 import { Link } from 'react-router'
 import classNames from 'classnames'
 import Avatar from '../assets/Avatar'
-import { ArrowIcon, RepostIcon } from '../assets/Icons'
+import {
+  ArrowIcon,
+  CheckCircleIcon,
+  RepostIcon,
+  StarIcon,
+  XBoxIcon,
+} from '../assets/Icons'
 import ContentWarningButton from '../posts/ContentWarningButton'
 import RelationshipContainer from '../../containers/RelationshipContainer'
 import { RegionItems } from '../regions/RegionRenderables'
-import { before, css, hover, select } from '../../styles/jss'
+import { before, css, hover, modifier, select } from '../../styles/jss'
 import * as s from '../../styles/jso'
+
+
+const adminActionsStyle = css(
+  s.absolute,
+  s.bgcWhite,
+  s.colorA,
+  s.flex,
+  s.fontSize14,
+  s.itemsCenter,
+  { top: 30, right: 0 },
+)
+
+const actionButtonStyle = css(
+  s.ml10,
+  s.transitionColor,
+  select('> .SVGIcon', s.mr5),
+  modifier('.approve', hover(s.colorGreen), select('> .SVGIcon', { marginTop: -2 })),
+  modifier('.select', hover(s.colorYellow), select('> .SVGIcon', { paddingTop: 2, paddingLeft: 4 })),
+  modifier('.unapprove', s.colorGreen, hover({ color: '#f00' })),
+  modifier('.unselect', s.colorYellow, hover({ color: '#f00' })),
+)
+
+const getActionIcon = (type) => {
+  switch (type) {
+    case 'approve':
+      return <CheckCircleIcon />
+    case 'select':
+      return <StarIcon />
+    case 'unapprove':
+    case 'unselect':
+      return <XBoxIcon />
+    default:
+      return null
+  }
+}
+
+export const PostAdminActions = ({ actions, status }, { onClickAction }) => (
+  <div className={`${adminActionsStyle} ${status}`}>
+    {actions.map((action, type) => (
+      <button
+        className={`${actionButtonStyle} ${type}`}
+        onClick={() => onClickAction(action)}
+      >
+        {getActionIcon(type)}
+        {action.get('label')}
+      </button>
+    ))}
+  </div>
+)
+PostAdminActions.propTypes = {
+  actions: PropTypes.object.isRequired,
+  status: PropTypes.string.isRequired,
+}
+PostAdminActions.contextTypes = {
+  onClickAction: PropTypes.func.isRequired,
+}
 
 const PostHeaderTimeAgoLink = ({ to, createdAt }) =>
   (<Link className="PostHeaderTimeAgoLink" to={to}>
