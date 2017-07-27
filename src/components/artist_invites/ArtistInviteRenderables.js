@@ -229,6 +229,7 @@ const detailContainerStyle = css(
 
 const contentColumnStyle = css(
   s.alignTop,
+  s.fit,
   s.inlineBlock,
   media(
     s.minBreak2,
