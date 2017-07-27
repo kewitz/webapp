@@ -26,6 +26,7 @@ export default (state = initialState, action) => {
     case AUTHENTICATION.LOGOUT_SUCCESS:
     case AUTHENTICATION.LOGOUT_FAILURE:
     case AUTHENTICATION.REFRESH_FAILURE:
+    case AUTHENTICATION.RESET_PASSWORD_SUCCESS:
     case PROFILE.DELETE_SUCCESS:
       return initialState
     case AUTHENTICATION.USER_SUCCESS:

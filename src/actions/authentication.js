@@ -1,5 +1,4 @@
 import { AUTHENTICATION } from 'ello-brains/constants/action_types'
-import { replace } from 'react-router-redux'
 import {
   loginToken,
   logout as logoutEndpoint,
@@ -80,9 +79,6 @@ export function sendResetPasswordRequest(password, resetPasswordToken) {
         password,
         reset_password_token: resetPasswordToken,
       },
-    },
-    meta: {
-      successAction: replace({ pathname: '/enter' }),
     },
   }
 }

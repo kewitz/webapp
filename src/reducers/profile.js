@@ -54,6 +54,7 @@ export default (state = initialState, action) => {
         return state.set('dataExport', action.payload.response.exportUrl)
       }
       return state.set('dataExport', null)
+    case AUTHENTICATION.RESET_PASSWORD_SUCCESS:
     case PROFILE.LOAD_SUCCESS:
       return state.merge({
         ...action.payload.response.users,

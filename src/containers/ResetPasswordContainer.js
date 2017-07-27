@@ -28,13 +28,11 @@ class ResetPasswordContainer extends PureComponent {
     const currentStatus = passwordState.status
     const newState = getPasswordState({ value: this.passwordValue, currentStatus })
     if (newState.status === STATUS.SUCCESS) {
-      console.log('SUCCESS')
       dispatch(sendResetPasswordRequest(this.passwordValue, resetPasswordToken))
       this.setState({ formStatus: STATUS.SUBMITTED })
     } else if (newState.status !== currentStatus) {
       this.setState({ passwordState: newState })
     }
-    console.log('SUBMITTED PASSWORD')
   }
 
   onChangeControl = ({ password }) => {
@@ -45,7 +43,6 @@ class ResetPasswordContainer extends PureComponent {
     if (newState.status !== currentStatus) {
       this.setState({ passwordState: newState })
     }
-    console.log(this.passwordValue)
   }
 
   render() {

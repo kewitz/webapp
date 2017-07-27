@@ -36,9 +36,7 @@ const ResetPasswordForm = (props) => {
 ResetPasswordForm.propTypes = {
   passwordState: PropTypes.object.isRequired,
   isFormValid: PropTypes.bool.isRequired,
-  // onBlurControl: PropTypes.func,
   onChangeControl: PropTypes.func.isRequired,
-  // onFocusControl: PropTypes.func,
   onSubmit: PropTypes.func.isRequired,
 }
 
@@ -53,9 +51,7 @@ export const ResetPassword = (props) => {
         <ResetPasswordForm
           passwordState={passwordState}
           isFormValid={isFormValid}
-          // onBlurControl={onBlurControl}
           onChangeControl={onChangeControl}
-          // onFocusControl={onFocusControl}
           onSubmit={onSubmit}
         />
       </div>
@@ -65,11 +61,8 @@ export const ResetPassword = (props) => {
 
 ResetPassword.propTypes = {
   passwordState: PropTypes.object.isRequired,
-  // isSubmitted: PropTypes.bool.isRequired,
   isFormValid: PropTypes.bool.isRequired,
-  // onBlurControl: PropTypes.func,
   onChangeControl: PropTypes.func.isRequired,
-  // onFocusControl: PropTypes.func,
   onSubmit: PropTypes.func.isRequired,
 }
 

@@ -1,11 +1,12 @@
 /* eslint-disable no-constant-condition */
-import { all, fork, put, take } from 'redux-saga/effects'
-import { push } from 'react-router-redux'
+import { all, fork, put, take, select } from 'redux-saga/effects'
+import { push, replace } from 'react-router-redux'
 import { REHYDRATE } from 'redux-persist/constants'
 import {
   AUTHENTICATION,
   PROFILE,
 } from 'ello-brains/constants/action_types'
+import { selectUsername } from 'ello-brains/selectors/profile'
 import { getUserCredentials, refreshAuthenticationToken } from '../actions/authentication'
 
 const toMilliseconds = seconds => seconds * 1000
@@ -15,6 +16,15 @@ export function* loginSaga() {
     const { meta, payload } = yield take(AUTHENTICATION.SIGN_IN)
     const { email, password } = payload
     yield put(getUserCredentials(email, password, meta))
+  }
+}
+
+export function* resetPasswordSaga() {
+  while (true) {
+    const { payload } = yield take(AUTHENTICATION.RESET_PASSWORD_SUCCESS)
+    const { body } = payload
+    const username = yield select(selectUsername)
+    yield put(getUserCredentials(username, body.password, { successAction: replace({ pathname: '/' }) }))
   }
 }
 
@@ -67,5 +77,6 @@ export default function* authentication() {
     fork(logoutSaga),
     fork(rehydrateSaga),
     fork(userSuccessSaga),
+    fork(resetPasswordSaga),
   ])
 }
