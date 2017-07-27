@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { FORM_CONTROL_STATUS as STATUS } from 'ello-brains/constants/status_types'
 import { ResetPassword } from '../components/views/ResetPassword'
-import { getPasswordState } from '../components/forms/Validators'
+import { isFormValid, getPasswordState } from '../components/forms/Validators'
 import { sendResetPasswordRequest } from '../actions/authentication'
 
 class ResetPasswordContainer extends PureComponent {
@@ -49,9 +49,11 @@ class ResetPasswordContainer extends PureComponent {
   }
 
   render() {
-    // const { emailState, formStatus } = this.state
+    const { passwordState } = this.state
     return (
       <ResetPassword
+        passwordState={passwordState}
+        isFormValid={isFormValid([passwordState])}
         onSubmit={this.onSubmit}
         onChangeControl={this.onChangeControl}
       />

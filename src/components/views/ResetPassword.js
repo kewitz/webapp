@@ -6,7 +6,7 @@ import FormButton from '../forms/FormButton'
 import { resetPassword } from '../../networking/api'
 
 const ResetPasswordForm = (props) => {
-  const { onSubmit, onChangeControl } = props
+  const { passwordState, isFormValid, onSubmit, onChangeControl } = props
   return (
     <form
       action={resetPassword().path}
@@ -22,7 +22,11 @@ const ResetPasswordForm = (props) => {
         label="Password"
         onChange={onChangeControl}
       />
-      <FormButton className="FormButton isRounded" tabIndex="2">
+      {passwordState.message ?
+        <p className="HoppyStatusMessage hasContent">{passwordState.message}</p> :
+        <p className="HoppyStatusMessage"><span /></p>
+      }
+      <FormButton className="FormButton isRounded" disabled={!isFormValid} tabIndex="2">
         Change password
       </FormButton>
     </form>
@@ -30,8 +34,8 @@ const ResetPasswordForm = (props) => {
 }
 
 ResetPasswordForm.propTypes = {
-  // passwordState: PropTypes.object.isRequired,
-  // isFormValid: PropTypes.bool.isRequired,
+  passwordState: PropTypes.object.isRequired,
+  isFormValid: PropTypes.bool.isRequired,
   // onBlurControl: PropTypes.func,
   onChangeControl: PropTypes.func.isRequired,
   // onFocusControl: PropTypes.func,
@@ -39,7 +43,7 @@ ResetPasswordForm.propTypes = {
 }
 
 export const ResetPassword = (props) => {
-  const { onSubmit, onChangeControl } = props
+  const { passwordState, isFormValid, onSubmit, onChangeControl } = props
   return (
     <MainView className="Authentication isForgotPassword">
       <div className="AuthenticationFormDialog">
@@ -47,8 +51,8 @@ export const ResetPassword = (props) => {
           Set new password
         </h1>
         <ResetPasswordForm
-          // emailState={emailState}
-          // isFormValid={isFormValid}
+          passwordState={passwordState}
+          isFormValid={isFormValid}
           // onBlurControl={onBlurControl}
           onChangeControl={onChangeControl}
           // onFocusControl={onFocusControl}
@@ -60,9 +64,9 @@ export const ResetPassword = (props) => {
 }
 
 ResetPassword.propTypes = {
-  // emailState: PropTypes.object.isRequired,
+  passwordState: PropTypes.object.isRequired,
   // isSubmitted: PropTypes.bool.isRequired,
-  // isFormValid: PropTypes.bool.isRequired,
+  isFormValid: PropTypes.bool.isRequired,
   // onBlurControl: PropTypes.func,
   onChangeControl: PropTypes.func.isRequired,
   // onFocusControl: PropTypes.func,
