@@ -54,19 +54,20 @@ const mapStateToProps = (state, props) => {
   const links = (props.links || Immutable.Map([])).filter(l => l.get('type') === 'artist_invite_submission_stream')
   return {
     links,
-    streamAction: links.size > 0 ? loadArtistInviteSubmissions(links.getIn([KEYS[0], 'href']), KEYS[0]) : null,
+    streamAction: links.size > 0 ? loadArtistInviteSubmissions(links.getIn([KEYS[0], 'href']), KEYS[0], props.slug) : null,
   }
 }
 
 class ArtistInviteSubmissionsContainer extends PureComponent {
   static propTypes = {
     links: PropTypes.object.isRequired,
+    slug: PropTypes.string.isRequired,
     status: PropTypes.string,
     streamAction: PropTypes.object,
   }
 
   static defaultProps = {
-    status: '',
+    status: null,
     streamAction: null,
   }
 
@@ -82,8 +83,8 @@ class ArtistInviteSubmissionsContainer extends PureComponent {
 
   onClickSubmissionType = (e) => {
     const key = e.target.dataset.key
-    const { links } = this.props
-    this.setState({ selectedKey: key, streamAction: loadArtistInviteSubmissions(links.getIn([`${key}`, 'href']), key) })
+    const { links, slug } = this.props
+    this.setState({ selectedKey: key, streamAction: loadArtistInviteSubmissions(links.getIn([`${key}`, 'href']), key, slug) })
   }
 
   renderAdmin() {
@@ -122,7 +123,7 @@ class ArtistInviteSubmissionsContainer extends PureComponent {
   }
 
   renderNormal() {
-    const { links, status } = this.props
+    const { links, slug, status } = this.props
     switch (status) {
       case 'closed':
         return (
@@ -131,7 +132,7 @@ class ArtistInviteSubmissionsContainer extends PureComponent {
               <h2 className={blackTitleStyle}>Selections</h2>
             </div>
             <StreamContainer
-              action={loadArtistInviteSubmissions(links.getIn([KEYS[2], 'href']), KEYS[2])}
+              action={loadArtistInviteSubmissions(links.getIn([KEYS[2], 'href']), KEYS[2], slug)}
               hasShowMoreButton
               key={`submissionStream_${KEYS[2]}`}
               paginatorText="Load More"
@@ -142,7 +143,7 @@ class ArtistInviteSubmissionsContainer extends PureComponent {
               <h2 className={blackTitleStyle}>Submissions</h2>
             </div>
             <StreamContainer
-              action={loadArtistInviteSubmissions(links.getIn([KEYS[1], 'href']), KEYS[1])}
+              action={loadArtistInviteSubmissions(links.getIn([KEYS[1], 'href']), KEYS[1], slug)}
               hasShowMoreButton
               key={`submissionStream_${KEYS[1]}`}
               paginatorText="Load More"
@@ -158,7 +159,7 @@ class ArtistInviteSubmissionsContainer extends PureComponent {
               <h2 className={blackTitleStyle}>Submissions</h2>
             </div>
             <StreamContainer
-              action={loadArtistInviteSubmissions(links.getIn([KEYS[1], 'href']), KEYS[1])}
+              action={loadArtistInviteSubmissions(links.getIn([KEYS[1], 'href']), KEYS[1], slug)}
               hasShowMoreButton
               key={`submissionStream_${KEYS[1]}`}
               paginatorText="Load More"

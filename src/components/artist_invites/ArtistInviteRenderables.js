@@ -273,6 +273,7 @@ export const ArtistInviteDetail = ({
   links,
   logoImage,
   openedAt,
+  slug,
   status,
   submissionBodyBlock,
   title,
@@ -292,10 +293,12 @@ export const ArtistInviteDetail = ({
           <p className={inviteTypeStyle}>{inviteType}</p>
           {renderTextStatus(status)}
           <p className={dateRangeStyle}>{`${moment(openedAt).format('MMMM D')} — ${moment(closedAt).format('MMMM D, YYYY')}`}</p>
-          <RoundedRect className="ScrollButton GreenBorder" onClick={onClickScrollToContent}>
-            <ArrowIcon />
-            See Submissions
-          </RoundedRect>
+          {links.size !== 0 &&
+            <RoundedRect className="ScrollButton GreenBorder" onClick={onClickScrollToContent}>
+              <ArrowIcon />
+              See Submissions
+            </RoundedRect>
+          }
           <div>
             <p dangerouslySetInnerHTML={{ __html: description }} />
           </div>
@@ -315,7 +318,7 @@ export const ArtistInviteDetail = ({
         </div>
       </div>
     </article>
-    <ArtistInviteSubmissionsContainer links={links} status={status} />
+    <ArtistInviteSubmissionsContainer links={links} slug={slug} status={status} />
   </div>
 )
 ArtistInviteDetail.propTypes = {
@@ -329,6 +332,7 @@ ArtistInviteDetail.propTypes = {
   links: PropTypes.object.isRequired,
   logoImage: PropTypes.object.isRequired,
   openedAt: PropTypes.string.isRequired,
+  slug: PropTypes.string.isRequired,
   status: PropTypes.string.isRequired,
   submissionBodyBlock: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,

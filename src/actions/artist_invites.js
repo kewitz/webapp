@@ -27,7 +27,7 @@ export const loadArtistInviteDetail = slug => (
   }
 )
 
-export const loadArtistInviteSubmissions = (path, key) => (
+export const loadArtistInviteSubmissions = (path, key, slug) => (
   {
     type: LOAD_STREAM,
     payload: { endpoint: { path } },
@@ -37,7 +37,7 @@ export const loadArtistInviteSubmissions = (path, key) => (
         asList: artistInviteSubmissionsAsGrid,
         asGrid: artistInviteSubmissionsAsGrid,
       },
-      resultKey: key,
+      resultKey: `/artist-invites/${slug}/${key}`,
     },
   }
 )

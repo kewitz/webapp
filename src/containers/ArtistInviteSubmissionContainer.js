@@ -19,10 +19,15 @@ function mapStateToProps(state, props) {
 
 class ArtistInviteSubmissionContainer extends PureComponent {
   static propTypes = {
-    actions: PropTypes.object.isRequired,
+    actions: PropTypes.object,
     dispatch: PropTypes.func.isRequired,
     postId: PropTypes.string.isRequired,
-    status: PropTypes.string.isRequired,
+    status: PropTypes.string,
+  }
+
+  static defaultProps = {
+    actions: null,
+    status: null,
   }
 
   static childContextTypes = {

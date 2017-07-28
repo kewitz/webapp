@@ -154,6 +154,7 @@ class ArtistInviteContainer extends PureComponent {
             links={links}
             logoImage={logoImage}
             openedAt={openedAt}
+            slug={slug}
             status={status}
             submissionBodyBlock={submissionBodyBlock}
             title={title}
