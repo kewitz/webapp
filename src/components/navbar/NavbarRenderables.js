@@ -83,7 +83,7 @@ export const NavbarLoggedOut = ({
   onClickLoadMorePosts,
   onClickNavbarMark,
   pathname,
-}, { onClickLogin, onClickSignup }) =>
+}, { onClickArtistInvites, onClickLogin, onClickSignup }) =>
   (<nav className={`Navbar ${navbarStyle}`} >
     <div className={`NavbarMain ${mainStyle}`}>
       <NavbarMark onClick={onClickNavbarMark} />
@@ -100,6 +100,7 @@ export const NavbarLoggedOut = ({
         <NavbarLink
           className="LabelOnly"
           label="Artist Invites"
+          onClick={onClickArtistInvites}
           pathname={pathname}
           to="/artist-invites"
         />
@@ -148,6 +149,7 @@ NavbarLoggedOut.defaultProps = {
   categoryTabs: null,
 }
 NavbarLoggedOut.contextTypes = {
+  onClickArtistInvites: PropTypes.func.isRequired,
   onClickLogin: PropTypes.func.isRequired,
   onClickSignup: PropTypes.func.isRequired,
 }
@@ -177,7 +179,7 @@ export const NavbarLoggedIn = ({
   onLogOut,
   pathname,
   username,
-}) =>
+}, { onClickArtistInvites }) =>
   (<nav className={`Navbar ${navbarStyle}`}>
     <div className={`NavbarMain ${mainStyle}`}>
       <NavbarMark onClick={onClickNavbarMark} />
@@ -195,6 +197,7 @@ export const NavbarLoggedIn = ({
           <NavbarLink
             className="LabelOnly"
             label="Artist Invites"
+            onClick={onClickArtistInvites}
             pathname={pathname}
             to="/artist-invites"
           />
@@ -288,5 +291,8 @@ NavbarLoggedIn.defaultProps = {
   categoryTabs: null,
   isGridMode: false,
   username: null,
+}
+NavbarLoggedIn.contextTypes = {
+  onClickArtistInvites: PropTypes.func.isRequired,
 }
 

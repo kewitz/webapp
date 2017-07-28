@@ -178,8 +178,8 @@ export const ArtistInviteGrid = ({
   slug,
   status,
   title,
-}) => (
-  <Link to={`/artist-invites/${slug}`} className={gridContainerStyle}>
+}, { onClickArtistInviteDetail }) => (
+  <Link to={`/artist-invites/${slug}`} onClick={onClickArtistInviteDetail} className={gridContainerStyle}>
     <article>
       <div className={imageContainerStyle}>
         <BackgroundImage dpi={dpi} sources={headerImage} />
@@ -208,6 +208,9 @@ ArtistInviteGrid.propTypes = {
   slug: PropTypes.string.isRequired,
   status: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
+}
+ArtistInviteGrid.contextTypes = {
+  onClickArtistInviteDetail: PropTypes.func.isRequired,
 }
 
 const detailContainerStyle = css(

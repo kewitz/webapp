@@ -388,7 +388,7 @@ export const NavbarProfile = ({
   onClickAvatar,
   onLogOut,
   username,
-}) => {
+}, { onClickArtistInvites }) => {
   if (avatar && username) {
     return (
       <span className={`NavbarProfile ${profilePopStyle}`}>
@@ -396,7 +396,7 @@ export const NavbarProfile = ({
         <nav className={classNames(`${profileLinksStyle}`, { isActive: isProfileMenuActive })} >
           <Link className={profileLinkStyle} to={`/${username}`}>{`@${username}`}</Link>
           { artistInvitesInProfileMenu &&
-            <Link className={profileLinkStyle} to="/artist-invites">Artist Invites</Link>
+            <Link className={profileLinkStyle} onClick={onClickArtistInvites} to="/artist-invites">Artist Invites</Link>
           }
           <Link className={profileLinkStyle} to={`/${username}/loves`}>Loves</Link>
           <Link className={profileLinkStyle} to="/invitations">Invite</Link>
@@ -443,5 +443,8 @@ NavbarProfile.propTypes = {
 NavbarProfile.defaultProps = {
   avatar: null,
   username: null,
+}
+NavbarProfile.contextTypes = {
+  onClickArtistInvites: PropTypes.func.isRequired,
 }
 

@@ -7,7 +7,7 @@ import { ARTIST_INVITES, ARTIST_INVITE_SUBMISSIONS } from 'ello-brains/constants
 const selectPropsArtistInviteId = (state, props) =>
   get(props, 'artistInviteId') || get(props, 'artistInvite', Immutable.Map()).get('id')
 
-const selectArtistInvites = state =>
+export const selectArtistInvites = state =>
   state.json.get(camelize(ARTIST_INVITES), Immutable.Map())
 
 const selectParamsSlug = (state, props) => get(props, 'params.slug')
@@ -43,7 +43,7 @@ export const selectTitle = createSelector([selectArtistInvite], ai => ai.get('ti
 const selectPropsSubmissionId = (state, props) =>
   get(props, 'submissionId') || get(props, 'submission', Immutable.Map()).get('id')
 
-const selectArtistInviteSubmissions = state =>
+export const selectArtistInviteSubmissions = state =>
   state.json.get(camelize(ARTIST_INVITE_SUBMISSIONS), Immutable.Map())
 
 // Requires `submissionId` or `submission` to be found in props

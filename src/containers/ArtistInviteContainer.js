@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { EDITOR } from 'ello-brains/constants/action_types'
 import { selectIsLoggedIn } from 'ello-brains/selectors/authentication'
 import { selectDPI } from 'ello-brains/selectors/gui'
+import { trackEvent } from '../actions/analytics'
 import { openOmnibar } from '../actions/omnibar'
 import { scrollToPosition } from '../lib/jello'
 import {
@@ -74,15 +75,22 @@ class ArtistInviteContainer extends PureComponent {
   }
 
   static childContextTypes = {
+    onClickArtistInviteDetail: PropTypes.func,
     onClickScrollToContent: PropTypes.func,
     onClickSubmit: PropTypes.func,
   }
 
   getChildContext() {
     return {
+      onClickArtistInviteDetail: this.onClickArtistInviteDetail,
       onClickScrollToContent: this.onClickScrollToContent,
       onClickSubmit: this.onClickSubmit,
     }
+  }
+
+  onClickArtistInviteDetail = () => {
+    const { dispatch, slug } = this.props
+    dispatch(trackEvent('clicked_artist_invite_detail', { slug }))
   }
 
   onClickScrollToContent = () => {

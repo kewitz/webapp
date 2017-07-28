@@ -99,12 +99,14 @@ class NavbarContainer extends PureComponent {
   }
 
   static childContextTypes = {
+    onClickArtistInvites: PropTypes.func.isRequired,
     onClickLogin: PropTypes.func.isRequired,
     onClickSignup: PropTypes.func.isRequired,
   }
 
   getChildContext() {
     return {
+      onClickArtistInvites: this.onClickArtistInvites,
       onClickLogin: this.onClickLogin,
       onClickSignup: this.onClickSignup,
     }
@@ -169,6 +171,11 @@ class NavbarContainer extends PureComponent {
       dispatch(openOmnibar())
       scrollToPosition(0, 0)
     }
+  }
+
+  onClickArtistInvites = () => {
+    const { dispatch } = this.props
+    dispatch(trackEvent('clicked_nav_artist_invites'))
   }
 
   onClickLogin = () => {

@@ -136,7 +136,7 @@ class Editor extends Component {
       const repostId = post.get('repostId') || post.get('id')
       const repostedFromId = post.get('repostId') ? post.get('id') : null
       dispatch(createPost(data, this.getEditorIdentifier(),
-        repostId, repostedFromId),
+        repostId, repostedFromId, artistInviteId),
       )
     }
     if (onSubmit) { onSubmit() }

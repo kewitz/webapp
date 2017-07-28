@@ -42,7 +42,7 @@ function mapStateToProps(state, props) {
     buyLink = firstBlock.get('linkUrl')
   }
   return {
-    artistInviteId: editor.get('artistInviteId'),
+    artistInviteId: editor.get('artistInviteId') || props.post.get('artistInviteId'),
     buyLink,
     avatar: selectAvatar(state),
     collection,

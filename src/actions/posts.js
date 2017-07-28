@@ -18,6 +18,7 @@ export function createPost(body, editorId, repostId, repostedFromId, artistInvit
       method: 'POST',
     },
     meta: {
+      artistInviteId,
       mappingType: MAPPING_TYPES.POSTS,
       repostId,
       repostedFromId,
