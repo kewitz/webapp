@@ -1,5 +1,7 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
+import set from 'lodash/set'
+import { Link } from 'react-router'
 import { connect } from 'react-redux'
 import { FORM_CONTROL_STATUS as STATUS } from 'ello-brains/constants/status_types'
 import { ResetPassword } from '../components/views/ResetPassword'
@@ -16,6 +18,7 @@ class ResetPasswordContainer extends PureComponent {
     this.state = {
       passwordState: { status: STATUS.INDETERMINATE, message: '' },
       formStatus: STATUS.INDETERMINATE,
+      failureMessage: '',
     }
     this.passwordValue = ''
   }
@@ -27,9 +30,15 @@ class ResetPasswordContainer extends PureComponent {
     const { passwordState } = this.state
     const currentStatus = passwordState.status
     const newState = getPasswordState({ value: this.passwordValue, currentStatus })
+    const action = dispatch(sendResetPasswordRequest(this.passwordValue, resetPasswordToken))
+
+    set(action, 'meta.failureAction', () => this.setState({
+      failureMessage: <span>Your password link has expired. <Link to="/forgot-password">Click here to request another link.</Link></span>,
+    }))
+
     if (newState.status === STATUS.SUCCESS) {
-      dispatch(sendResetPasswordRequest(this.passwordValue, resetPasswordToken))
       this.setState({ formStatus: STATUS.SUBMITTED })
+      dispatch(action)
     } else if (newState.status !== currentStatus) {
       this.setState({ passwordState: newState })
     }
@@ -46,10 +55,11 @@ class ResetPasswordContainer extends PureComponent {
   }
 
   render() {
-    const { passwordState } = this.state
+    const { passwordState, failureMessage } = this.state
     return (
       <ResetPassword
         passwordState={passwordState}
+        failureMessage={failureMessage}
         isFormValid={isFormValid([passwordState])}
         onSubmit={this.onSubmit}
         onChangeControl={this.onChangeControl}

@@ -6,7 +6,7 @@ import FormButton from '../forms/FormButton'
 import { resetPassword } from '../../networking/api'
 
 const ResetPasswordForm = (props) => {
-  const { passwordState, isFormValid, onSubmit, onChangeControl } = props
+  const { passwordState, failureMessage, isFormValid, onSubmit, onChangeControl } = props
   return (
     <form
       action={resetPassword().path}
@@ -16,6 +16,7 @@ const ResetPasswordForm = (props) => {
       noValidate="novalidate"
       onSubmit={onSubmit}
     >
+      {failureMessage ? <p>{failureMessage}</p> : null}
       <PasswordControl
         classList="isBoxControl"
         placeholder="Enter new password"
@@ -35,13 +36,14 @@ const ResetPasswordForm = (props) => {
 
 ResetPasswordForm.propTypes = {
   passwordState: PropTypes.object.isRequired,
+  failureMessage: PropTypes.object.isRequired,
   isFormValid: PropTypes.bool.isRequired,
   onChangeControl: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
 }
 
 export const ResetPassword = (props) => {
-  const { passwordState, isFormValid, onSubmit, onChangeControl } = props
+  const { passwordState, failureMessage, isFormValid, onSubmit, onChangeControl } = props
   return (
     <MainView className="Authentication isForgotPassword">
       <div className="AuthenticationFormDialog">
@@ -50,6 +52,7 @@ export const ResetPassword = (props) => {
         </h1>
         <ResetPasswordForm
           passwordState={passwordState}
+          failureMessage={failureMessage}
           isFormValid={isFormValid}
           onChangeControl={onChangeControl}
           onSubmit={onSubmit}
@@ -61,6 +64,7 @@ export const ResetPassword = (props) => {
 
 ResetPassword.propTypes = {
   passwordState: PropTypes.object.isRequired,
+  failureMessage: PropTypes.object.isRequired,
   isFormValid: PropTypes.bool.isRequired,
   onChangeControl: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
