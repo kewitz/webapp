@@ -200,6 +200,7 @@ const roundedRectStyle = css(
   modifier(
     '.isXL',
     s.fontSize24,
+    s.sansLight,
     { height: 95, lineHeight: 95 },
     media(s.minBreak2, s.fit),
     media(s.minBreak3, s.fontSize38, { height: 125, lineHeight: 125 }),

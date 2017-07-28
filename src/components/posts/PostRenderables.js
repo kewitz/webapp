@@ -54,10 +54,11 @@ const getActionIcon = (type) => {
 
 export const PostAdminActions = ({ actions, status }, { onClickAction }) => (
   <div className={`${adminActionsStyle} ${status}`}>
-    {actions.map((action, type) => (
+    {actions.entrySeq().map(([type, action]) => (
       <button
         className={`${actionButtonStyle} ${type}`}
         onClick={() => onClickAction(action)}
+        key={type}
       >
         {getActionIcon(type)}
         {action.get('label')}

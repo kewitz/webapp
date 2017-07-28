@@ -41,20 +41,20 @@
     url("//fonts.ello.co/AtlasGrotesk-Black-Web.eot?#iefix") format("embedded-opentype"),
     url("//fonts.ello.co/AtlasGrotesk-Black-Web.woff") format("woff"),
     url("//fonts.ello.co/AtlasGrotesk-Black-Web.ttf") format("truetype"),
-    url("//fonts.ello.co/AtlasGrotesk-Black-Web.svg#AtlasGroteskBold") format("svg");
+    url("//fonts.ello.co/AtlasGrotesk-Black-Web.svg#AtlasGroteskBlack") format("svg");
 }
 
 @font-face {
-  font-family: AtlasGroteskBlackItalic;
+  font-family: AtlasGroteskLight;
   font-style: normal;
   font-weight: 400;
   font-stretch: normal;
   src:
-    local("AtlasGrotesk-BlackItalic"),
-    url("//fonts.ello.co/AtlasGrotesk-BlackItalic-Web.eot?#iefix") format("embedded-opentype"),
-    url("//fonts.ello.co/AtlasGrotesk-BlackItalic-Web.woff") format("woff"),
-    url("//fonts.ello.co/AtlasGrotesk-BlackItalic-Web.ttf") format("truetype"),
-    url("//fonts.ello.co/AtlasGrotesk-BlackItalic-Web.svg#AtlasGroteskBold") format("svg");
+    local("AtlasGrotesk-Light"),
+    url("//fonts.ello.co/AtlasGrotesk-Light-Web.eot?#iefix") format("embedded-opentype"),
+    url("//fonts.ello.co/AtlasGrotesk-Light-Web.woff") format("woff"),
+    url("//fonts.ello.co/AtlasGrotesk-Light-Web.ttf") format("truetype"),
+    url("//fonts.ello.co/AtlasGrotesk-Light-Web.svg#AtlasGroteskLight") format("svg");
 }
 
 @font-face {

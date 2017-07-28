@@ -85,7 +85,6 @@ export const artistInvites = artistInviteIds => (
 )
 
 export const artistInviteSubmissionsAsGrid = (submissionIds, columnCount) => {
-  console.log('submissionIds', submissionIds)
   const columns = []
   for (let i = 0; i < columnCount; i += 1) { columns.push([]) }
   submissionIds.forEach((value, index) =>

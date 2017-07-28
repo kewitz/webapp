@@ -10,7 +10,7 @@ import { css, media } from './jss'
 export const sansRegularFontStack = '"AtlasGroteskRegular", "AtlasGrotesk-Regular", "Helvetica Neue", "HelveticaNeue", "Helvetica", sans-serif'
 export const sansBoldFontStack = '"AtlasGroteskBold", "AtlasGrotesk-Bold", "Helvetica Neue", "HelveticaNeue", "Helvetica", sans-serif'
 export const sansBlackFontStack = '"AtlasGroteskBlack", "AtlasGrotesk-Black", "Helvetica Neue", "HelveticaNeue", "Helvetica", sans-serif'
-export const sansBlackItalicFontStack = '"AtlasGroteskBlackItalic", "AtlasGrotesk-Black", "Helvetica Neue", "HelveticaNeue", "Helvetica", sans-serif'
+export const sansLightFontStack = '"AtlasGroteskLight", "AtlasGrotesk-Light", "Helvetica Neue", "HelveticaNeue", "Helvetica", sans-serif'
 export const monoRegularFontStack = '"AtlasTypewriterRegular", "AtlasTypewriter-Regular", "Andale Mono", "Consolas", "Lucida Console", "Menlo", "Luxi Mono", monospace'
 
 // Web specific
@@ -284,9 +284,9 @@ export const sansBlack = {
   fontStyle: 'normal',
   fontWeight: 400,
 }
-export const sansBlackItalic = {
-  fontFamily: sansBlackItalicFontStack,
-  fontStyle: 'italic',
+export const sansLight = {
+  fontFamily: sansLightFontStack,
+  fontStyle: 'normal',
   fontWeight: 400,
 }
 export const monoRegular = {

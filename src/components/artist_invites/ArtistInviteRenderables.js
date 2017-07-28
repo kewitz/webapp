@@ -65,7 +65,11 @@ const titleStyle = css(
   s.fontSize24,
   s.truncate,
   media(s.minBreak3, s.mb20),
-  parent('.ArtistInvitesDetail', media(s.minBreak2, { marginTop: -5 }), media(s.minBreak3, s.mb0, s.fontSize38, { marginTop: -10 })),
+  parent(
+    '.ArtistInvitesDetail',
+    media(s.minBreak2, { marginTop: -5 }),
+    media(s.minBreak3, s.mb0, s.fontSize38, { marginTop: -10 }),
+  ),
 )
 
 const inviteTypeStyle = css(
@@ -75,6 +79,7 @@ const inviteTypeStyle = css(
   parent(
     '.ArtistInvitesDetail',
     s.fontSize24,
+    s.sansLight,
     media(s.minBreak3, s.fontSize38),
   ),
 )
@@ -89,7 +94,7 @@ const textStatusStyle = css(
   modifier('.preview', { color: '#0409fe' }),
   modifier('.selecting', { color: '#ffb100' }),
   modifier('.upcoming', { color: '#c000ff' }),
-  parent('.ArtistInvitesDetail', media(s.minBreak3, s.fontSize38)),
+  parent('.ArtistInvitesDetail', s.sansLight, media(s.minBreak3, s.fontSize38)),
 )
 
 const bulletStatusStyle = css(
@@ -122,6 +127,7 @@ const dateRangeStyle = css(
   parent(
     '.ArtistInvitesDetail',
     s.fontSize24,
+    s.sansLight,
     { left: 'auto', position: 'inherit', top: 'auto' },
     media(s.minBreak3, s.fontSize38),
   ),

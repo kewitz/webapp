@@ -2,7 +2,7 @@ import Immutable from 'immutable'
 import { createSelector } from 'reselect'
 import { camelize } from 'humps'
 import get from 'lodash/get'
-import { ARTIST_INVITES } from 'ello-brains/constants/mapping_types'
+import { ARTIST_INVITES, ARTIST_INVITE_SUBMISSIONS } from 'ello-brains/constants/mapping_types'
 
 const selectPropsArtistInviteId = (state, props) =>
   get(props, 'artistInviteId') || get(props, 'artistInvite', Immutable.Map()).get('id')
@@ -44,7 +44,7 @@ const selectPropsSubmissionId = (state, props) =>
   get(props, 'submissionId') || get(props, 'submission', Immutable.Map()).get('id')
 
 const selectArtistInviteSubmissions = state =>
-  state.json.get(camelize('artist_invite_submissions'), Immutable.Map())
+  state.json.get(camelize(ARTIST_INVITE_SUBMISSIONS), Immutable.Map())
 
 // Requires `submissionId` or `submission` to be found in props
 export const selectArtistInviteSubmission = createSelector(

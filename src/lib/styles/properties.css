@@ -28,7 +28,7 @@
   --fontstack-sanserif-regular: "AtlasGroteskRegular", "AtlasGrotesk-Regular", "Helvetica Neue", "HelveticaNeue", "Helvetica", sans-serif;
   --fontstack-sanserif-bold: "AtlasGroteskBold", "AtlasGrotesk-Bold", "Helvetica Neue", "HelveticaNeue", "Helvetica", sans-serif;
   --fontstack-sanserif-black: "AtlasGroteskBlack", "AtlasGrotesk-Black", "Helvetica Neue", "HelveticaNeue", "Helvetica", sans-serif;
-  --fontstack-sanserif-black-italic: "AtlasGroteskBlackItalic", "AtlasGrotesk-BlackItalic", "Helvetica Neue", "HelveticaNeue", "Helvetica", sans-serif;
+  --fontstack-sanserif-light: "AtlasGroteskLight", "AtlasGrotesk-Light", "Helvetica Neue", "HelveticaNeue", "Helvetica", sans-serif;
   --fontstack-monospace-regular: "AtlasTypewriterRegular", "AtlasTypewriter-Regular", "Andale Mono", "Consolas", "Lucida Console", "Menlo", "Luxi Mono", monospace;
 
   --sanserif-regular {
@@ -61,9 +61,9 @@
     font-weight: 400;
   }
 
-  --sanserif-black-italic {
-    font-family: var(--fontstack-sanserif-black-italic);
-    font-style: italic;
+  --sanserif-light {
+    font-family: var(--fontstack-sanserif-light);
+    font-style: normal;
     font-weight: 400;
   }
 
