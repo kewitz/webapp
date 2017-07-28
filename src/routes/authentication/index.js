@@ -29,7 +29,7 @@ export default (store) => {
       onEnter,
     },
     {
-      path: 'reset-password/:resetPasswordToken',
+      path: 'auth/reset-my-password',
       getComponents(location, cb) {
         cb(null, ResetPasswordContainer)
       },

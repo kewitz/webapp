@@ -9,7 +9,7 @@ import { sendResetPasswordRequest } from '../actions/authentication'
 class ResetPasswordContainer extends PureComponent {
   static propTypes = {
     dispatch: PropTypes.func.isRequired,
-    params: PropTypes.object.isRequired,
+    location: PropTypes.object.isRequired,
   }
 
   componentWillMount() {
@@ -22,8 +22,8 @@ class ResetPasswordContainer extends PureComponent {
 
   onSubmit = (e) => {
     e.preventDefault()
-    const { dispatch, params } = this.props
-    const resetPasswordToken = params.resetPasswordToken
+    const { dispatch, location } = this.props
+    const resetPasswordToken = location.query.reset_password_token
     const { passwordState } = this.state
     const currentStatus = passwordState.status
     const newState = getPasswordState({ value: this.passwordValue, currentStatus })
