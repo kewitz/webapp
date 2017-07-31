@@ -3,6 +3,7 @@ import {
   loginToken,
   logout as logoutEndpoint,
   forgotPassword,
+  resetPassword,
   refreshAuthToken,
 } from '../networking/api'
 import * as ENV from '../../env'
@@ -63,6 +64,20 @@ export function sendForgotPasswordRequest(email) {
       method: 'POST',
       body: {
         email,
+      },
+    },
+  }
+}
+
+export function sendResetPasswordRequest(password, resetPasswordToken) {
+  return {
+    type: AUTHENTICATION.RESET_PASSWORD,
+    payload: {
+      endpoint: resetPassword(),
+      method: 'PUT',
+      body: {
+        password,
+        reset_password_token: resetPasswordToken,
       },
     },
   }
