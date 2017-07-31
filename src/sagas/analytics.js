@@ -75,6 +75,7 @@ function* trackEvents() {
           options = { artistInviteId }
         } else if (artistInviteSlug) {
           options = { artistInviteSlug }
+          yield put(trackEventAction('published_artist_invite_post', options))
         }
         yield put(trackEventAction(repostId ? 'published_repost' : 'published_post', options))
         break
