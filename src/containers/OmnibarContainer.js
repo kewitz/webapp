@@ -3,10 +3,10 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import Mousetrap from 'mousetrap'
-import { SHORTCUT_KEYS } from 'ello-brains/constants/application_types'
-import { selectAvatar } from 'ello-brains/selectors/profile'
 import { closeOmnibar } from '../actions/omnibar'
 import { Omnibar } from '../components/omnibar/Omnibar'
+import { SHORTCUT_KEYS } from '../constants/application_types'
+import { selectAvatar } from '../selectors/profile'
 
 export function mapStateToProps(state) {
   return {

@@ -1,11 +1,14 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { EDITOR } from 'ello-brains/constants/action_types'
-import { selectIsLoggedIn } from 'ello-brains/selectors/authentication'
-import { selectDPI } from 'ello-brains/selectors/gui'
+import { EDITOR } from '../constants/action_types'
 import { trackEvent } from '../actions/analytics'
 import { openOmnibar } from '../actions/omnibar'
+import {
+  ArtistInviteDetail,
+  ArtistInviteGrid,
+} from '../components/artist_invites/ArtistInviteRenderables'
+import { getEditorId } from '../components/editor/Editor'
 import { scrollToPosition } from '../lib/jello'
 import {
   selectClosedAt,
@@ -23,11 +26,8 @@ import {
   selectSubmissionBodyBlock,
   selectTitle,
 } from '../selectors/artist_invites'
-import {
-  ArtistInviteDetail,
-  ArtistInviteGrid,
-} from '../components/artist_invites/ArtistInviteRenderables'
-import { getEditorId } from '../components/editor/Editor'
+import { selectIsLoggedIn } from '../selectors/authentication'
+import { selectDPI } from '../selectors/gui'
 
 function mapStateToProps(state, props) {
   return {

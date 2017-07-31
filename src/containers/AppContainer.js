@@ -3,15 +3,6 @@ import PropTypes from 'prop-types'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import classNames from 'classnames'
-import {
-  selectCategoryData,
-  selectIsCategoryPromotion,
-  selectIsPagePromotion,
-  selectRandomAuthPromotion,
-} from 'ello-brains/selectors/promotions'
-import { selectIsAuthenticationView } from 'ello-brains/selectors/routing'
-import { selectIsLoggedIn } from 'ello-brains/selectors/authentication'
-import { selectIsStaff } from 'ello-brains/selectors/profile'
 import { trackEvent, trackInitialPage } from '../actions/analytics'
 import { loadBadges } from '../actions/badges'
 import { getCategories, getPagePromotionals } from '../actions/discover'
@@ -21,8 +12,9 @@ import { loadAnnouncements, loadNotifications } from '../actions/notifications'
 import { lovePost, unlovePost } from '../actions/posts'
 import { loadProfile } from '../actions/profile'
 import { fetchAuthenticationPromos } from '../actions/promotions'
-import RegistrationRequestDialog from '../components/dialogs/RegistrationRequestDialog'
 import DevTools from '../components/devtools/DevTools'
+import RegistrationRequestDialog from '../components/dialogs/RegistrationRequestDialog'
+import ShareDialog from '../components/dialogs/ShareDialog'
 import { addGlobalDrag, removeGlobalDrag } from '../components/viewport/GlobalDragComponent'
 import AnalyticsContainer from '../containers/AnalyticsContainer'
 import FooterContainer from '../containers/FooterContainer'
@@ -36,7 +28,15 @@ import OmnibarContainer from '../containers/OmnibarContainer'
 import ViewportContainer from '../containers/ViewportContainer'
 import { scrollToPosition } from '../lib/jello'
 import * as ElloAndroidInterface from '../lib/android_interface'
-import ShareDialog from '../components/dialogs/ShareDialog'
+import { selectIsLoggedIn } from '../selectors/authentication'
+import { selectIsStaff } from '../selectors/profile'
+import {
+  selectCategoryData,
+  selectIsCategoryPromotion,
+  selectIsPagePromotion,
+  selectRandomAuthPromotion,
+} from '../selectors/promotions'
+import { selectIsAuthenticationView } from '../selectors/routing'
 
 function mapStateToProps(state) {
   return {

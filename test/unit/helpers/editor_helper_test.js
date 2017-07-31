@@ -1,5 +1,5 @@
 import Immutable from 'immutable'
-import { COMMENT, EDITOR, POST } from 'ello-brains/constants/action_types'
+import { COMMENT, EDITOR, POST } from '../../../src/constants/action_types'
 import * as subject from '../../../src/helpers/editor_helper'
 
 describe('editor helper', () => {

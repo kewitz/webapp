@@ -1,5 +1,5 @@
 import Immutable from 'immutable'
-import { PROMOTIONS } from 'ello-brains/constants/action_types'
+import { PROMOTIONS } from '../constants/action_types'
 
 const initialState = Immutable.Map({
   authentication: Immutable.List(),

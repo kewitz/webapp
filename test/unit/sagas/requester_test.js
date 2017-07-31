@@ -1,13 +1,13 @@
 import { channel } from 'redux-saga'
-import { selectRefreshToken } from 'ello-brains/selectors/authentication'
-import { loadDiscoverPosts } from '../../../src/actions/discover'
 import { clearAuthToken, refreshAuthenticationToken } from '../../../src/actions/authentication'
+import { loadDiscoverPosts } from '../../../src/actions/discover'
 import {
   handleRequest,
   handleRequestError,
   performRequest,
 } from '../../../src/sagas/requester'
 import { fetchCredentials, sagaFetch } from '../../../src/sagas/api'
+import { selectRefreshToken } from '../../../src/selectors/authentication'
 
 describe('requester saga', function () {
   it('generates requests to the api', function () {

@@ -1,5 +1,5 @@
 import Immutable from 'immutable'
-import { AUTHENTICATION, OMNIBAR, PROFILE } from 'ello-brains/constants/action_types'
+import { AUTHENTICATION, OMNIBAR, PROFILE } from '../../../src/constants/action_types'
 import reducer from '../../../src/reducers/omnibar'
 
 describe('omnibar reducer', () => {

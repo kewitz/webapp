@@ -1,6 +1,6 @@
 import React from 'react'
-import { LOAD_STREAM } from 'ello-brains/constants/action_types'
-import { POSTS } from 'ello-brains/constants/mapping_types'
+import { LOAD_STREAM } from '../constants/action_types'
+import { POSTS } from '../constants/mapping_types'
 import { followingStream } from '../networking/api'
 import { postsAsGrid, postsAsList } from '../components/streams/StreamRenderables'
 import { ZeroFollowingStream } from '../components/zeros/Zeros'

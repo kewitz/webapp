@@ -1,5 +1,5 @@
 import Immutable from 'immutable'
-import { AUTHENTICATION, OMNIBAR, PROFILE } from 'ello-brains/constants/action_types'
+import { AUTHENTICATION, OMNIBAR, PROFILE } from '../constants/action_types'
 
 const initialState = Immutable.Map({
   classList: null,

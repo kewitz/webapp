@@ -1,6 +1,6 @@
 import React from 'react'
-import { LOAD_STREAM } from 'ello-brains/constants/action_types'
-import { EDITORIALS, POSTS } from 'ello-brains/constants/mapping_types'
+import { LOAD_STREAM } from '../constants/action_types'
+import { EDITORIALS, POSTS } from '../constants/mapping_types'
 import { editorials as editorialsApi } from '../networking/api'
 import { editorials as editorialRenderable, postsAsPostStream } from '../components/streams/StreamRenderables'
 import { ErrorStateEditorial } from '../components/errors/Errors'

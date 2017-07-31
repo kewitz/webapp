@@ -10,7 +10,7 @@ import {
   PROFILE,
   SET_LAYOUT_MODE,
   ZEROS,
-} from 'ello-brains/constants/action_types'
+} from '../../../src/constants/action_types'
 import reducer, { convertStateToImmutable, setLocation, findLayoutMode } from '../../../src/reducers/gui'
 
 describe('gui reducer', () => {

@@ -1,8 +1,6 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { selectParamsType } from 'ello-brains/selectors/params'
-import { selectPropsPathname } from 'ello-brains/selectors/routing'
 import {
   bindDiscoverKey,
   getCategories,
@@ -12,6 +10,8 @@ import {
   // loadFeaturedUsers,
 } from '../actions/discover'
 import { Discover } from '../components/views/Discover'
+import { selectParamsType } from '../selectors/params'
+import { selectPropsPathname } from '../selectors/routing'
 
 // TODO: Move to a selector
 export function getStreamAction(type) {

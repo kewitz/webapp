@@ -5,13 +5,43 @@ import { connect } from 'react-redux'
 import { push, replace } from 'react-router-redux'
 import classNames from 'classnames'
 import set from 'lodash/set'
+import { trackEvent } from '../actions/analytics'
+import { openModal, closeModal } from '../actions/modals'
 import {
-  selectIsDiscoverRoot,
-  selectIsPostDetail,
-  selectPathname,
-  selectPreviousPath,
-} from 'ello-brains/selectors/routing'
-import { selectIsLoggedIn } from 'ello-brains/selectors/authentication'
+  deletePost,
+  flagPost,
+  loadComments,
+  loadEditablePost,
+  toggleComments,
+  toggleEditing,
+  toggleReposting,
+  unwatchPost,
+  watchPost,
+} from '../actions/posts'
+import ConfirmDialog from '../components/dialogs/ConfirmDialog'
+import FlagDialog from '../components/dialogs/FlagDialog'
+import Editor from '../components/editor/Editor'
+import {
+  CategoryHeader,
+  LaunchCommentEditorButton,
+  PostAdminActions,
+  PostBody,
+  PostHeader,
+  RepostHeader,
+} from '../components/posts/PostRenderables'
+import { PostTools, WatchTool } from '../components/posts/PostTools'
+import StreamContainer from '../containers/StreamContainer'
+import { isElloAndroid, isLink } from '../lib/jello'
+import * as ElloAndroidInterface from '../lib/android_interface'
+import { selectIsLoggedIn } from '../selectors/authentication'
+import {
+  selectColumnWidth,
+  selectCommentOffset,
+  selectContentWidth,
+  selectDeviceSize,
+  selectInnerHeight,
+  selectIsMobile,
+} from '../selectors/gui'
 import {
   selectPost,
   selectPostAuthor,
@@ -42,44 +72,14 @@ import {
   selectPostSummary,
   selectPostViewsCountRounded,
   selectPropsPostId,
-} from 'ello-brains/selectors/post'
-import { selectAvatar } from 'ello-brains/selectors/profile'
+} from '../selectors/post'
+import { selectAvatar } from '../selectors/profile'
 import {
-  selectColumnWidth,
-  selectCommentOffset,
-  selectContentWidth,
-  selectDeviceSize,
-  selectInnerHeight,
-  selectIsMobile,
-} from 'ello-brains/selectors/gui'
-import { trackEvent } from '../actions/analytics'
-import { openModal, closeModal } from '../actions/modals'
-import {
-  deletePost,
-  flagPost,
-  loadComments,
-  loadEditablePost,
-  toggleComments,
-  toggleEditing,
-  toggleReposting,
-  unwatchPost,
-  watchPost,
-} from '../actions/posts'
-import StreamContainer from '../containers/StreamContainer'
-import ConfirmDialog from '../components/dialogs/ConfirmDialog'
-import FlagDialog from '../components/dialogs/FlagDialog'
-import Editor from '../components/editor/Editor'
-import {
-  CategoryHeader,
-  LaunchCommentEditorButton,
-  PostAdminActions,
-  PostBody,
-  PostHeader,
-  RepostHeader,
-} from '../components/posts/PostRenderables'
-import { PostTools, WatchTool } from '../components/posts/PostTools'
-import { isElloAndroid, isLink } from '../lib/jello'
-import * as ElloAndroidInterface from '../lib/android_interface'
+  selectIsDiscoverRoot,
+  selectIsPostDetail,
+  selectPathname,
+  selectPreviousPath,
+} from '../selectors/routing'
 
 export function makeMapStateToProps() {
   return (state, props) =>

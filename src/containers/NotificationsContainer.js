@@ -2,24 +2,6 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import get from 'lodash/get'
 import { connect } from 'react-redux'
-import { ADD_NEW_IDS_TO_RESULT, CLEAR_PAGE_RESULT, GUI, LOAD_STREAM_SUCCESS } from 'ello-brains/constants/action_types'
-import { selectPropsPathname } from 'ello-brains/selectors/routing'
-import {
-    selectAnnouncementBody,
-    selectAnnouncementCTACaption,
-    selectAnnouncementCTAHref,
-    selectAnnouncementId,
-    selectAnnouncementImage,
-    selectAnnouncementIsEmpty,
-    selectAnnouncementIsStaffPreview,
-    selectAnnouncementTitle,
-} from 'ello-brains/selectors/notifications'
-import {
-  selectActiveNotificationScrollPosition,
-  selectActiveNotificationsType,
-  selectIsNotificationsUnread,
-} from 'ello-brains/selectors/gui'
-import { selectStreamType } from 'ello-brains/selectors/stream'
 import { trackEvent } from '../actions/analytics'
 import { setLastAnnouncementSeen, setNotificationScrollY, toggleNotifications } from '../actions/gui'
 import { loadNotifications, markAnnouncementRead } from '../actions/notifications'
@@ -33,8 +15,26 @@ import { AnnouncementNotification } from '../components/notifications/Notificati
 import { Paginator } from '../components/streams/Paginator'
 import { TabListButtons, TabListLinks } from '../components/tabs/TabList'
 import { MainView } from '../components/views/MainView'
+import { ADD_NEW_IDS_TO_RESULT, CLEAR_PAGE_RESULT, GUI, LOAD_STREAM_SUCCESS } from '../constants/action_types'
 import StreamContainer from '../containers/StreamContainer'
 import { scrollToPosition } from '../lib/jello'
+import {
+  selectActiveNotificationScrollPosition,
+  selectActiveNotificationsType,
+  selectIsNotificationsUnread,
+} from '../selectors/gui'
+import {
+  selectAnnouncementBody,
+  selectAnnouncementCTACaption,
+  selectAnnouncementCTAHref,
+  selectAnnouncementId,
+  selectAnnouncementImage,
+  selectAnnouncementIsEmpty,
+  selectAnnouncementIsStaffPreview,
+  selectAnnouncementTitle,
+} from '../selectors/notifications'
+import { selectPropsPathname } from '../selectors/routing'
+import { selectStreamType } from '../selectors/stream'
 
 const TABS = [
   { to: '/notifications', type: 'all', children: 'All' },

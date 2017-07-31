@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import { connect } from 'react-redux'
-import { selectDeviceSize } from 'ello-brains/selectors/gui'
 import {
   ArrowIcon,
   BrowseIcon,
@@ -15,7 +14,7 @@ import {
 import { openModal, closeModal } from '../../actions/modals'
 import { updateBuyLink } from '../../actions/editor'
 import BuyLinkDialog from '../dialogs/BuyLinkDialog'
-
+import { selectDeviceSize } from '../../selectors/gui'
 import { css, disabled, hover, media, modifier, parent, select } from '../../styles/jss'
 import * as s from '../../styles/jso'
 

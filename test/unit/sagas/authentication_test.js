@@ -1,5 +1,5 @@
 import { push } from 'react-router-redux'
-import { AUTHENTICATION } from 'ello-brains/constants/action_types'
+import { AUTHENTICATION } from '../../../src/constants/action_types'
 import { logoutSaga } from '../../../src/sagas/authentication'
 
 describe('authentication saga', function () {

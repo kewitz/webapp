@@ -1,12 +1,12 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import { CategoryLink } from '../components/buttons/Buttons'
 import {
   selectCategoryName,
   selectCategorySlug,
   selectCategoryTileImageUrl,
-} from 'ello-brains/selectors/categories'
-import { CategoryLink } from '../components/buttons/Buttons'
+} from '../selectors/categories'
 
 function mapStateToProps(state, props) {
   return {

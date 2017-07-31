@@ -6,7 +6,7 @@ import {
   POST,
   PROFILE,
   USER,
-} from 'ello-brains/constants/action_types'
+} from '../constants/action_types'
 
 let should404 = false
 

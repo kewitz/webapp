@@ -2,15 +2,6 @@ import Immutable from 'immutable'
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { selectIsLoggedIn } from 'ello-brains/selectors/authentication'
-import { selectHasAutoWatchEnabled, selectIsOwnPage } from 'ello-brains/selectors/profile'
-import {
-  selectPost,
-  selectPostIsEditing,
-  selectPostIsEmpty,
-  selectPostIsOwn,
-  selectPostIsReposting,
-} from 'ello-brains/selectors/post'
 import { openModal, closeModal } from '../../actions/modals'
 import {
   createComment,
@@ -27,6 +18,15 @@ import { resetEditor, initializeEditor } from '../../actions/editor'
 import { closeOmnibar } from '../../actions/omnibar'
 import BlockCollection from './BlockCollection'
 import ConfirmDialog from '../dialogs/ConfirmDialog'
+import { selectIsLoggedIn } from '../../selectors/authentication'
+import {
+  selectPost,
+  selectPostIsEditing,
+  selectPostIsEmpty,
+  selectPostIsOwn,
+  selectPostIsReposting,
+} from '../../selectors/post'
+import { selectHasAutoWatchEnabled, selectIsOwnPage } from '../../selectors/profile'
 
 const editorUniqueIdentifiers = {}
 export function getEditorId(post, comment, isComment, isZero) {

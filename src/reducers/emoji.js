@@ -1,5 +1,5 @@
 import Immutable from 'immutable'
-import { EDITOR } from 'ello-brains/constants/action_types'
+import { EDITOR } from '../constants/action_types'
 
 export const initialState = Immutable.Map()
 

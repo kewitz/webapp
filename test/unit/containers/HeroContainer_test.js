@@ -1,5 +1,5 @@
 import Immutable from 'immutable'
-import { DISCOVER, FOLLOWING } from 'ello-brains/constants/locales/en'
+import { DISCOVER, FOLLOWING } from '../../../src/constants/locales/en'
 import {
   selectBroadcast,
   selectIsAuthentication,

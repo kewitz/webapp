@@ -1,5 +1,5 @@
-import { LOAD_STREAM } from 'ello-brains/constants/action_types'
-import { ARTIST_INVITES, ARTIST_INVITE_SUBMISSIONS } from 'ello-brains/constants/mapping_types'
+import { LOAD_STREAM } from '../constants/action_types'
+import { ARTIST_INVITES, ARTIST_INVITE_SUBMISSIONS } from '../constants/mapping_types'
 import { artistInvites as artistInvitesApi, artistInviteDetail } from '../networking/api'
 import { artistInvites as artistInvitesRenderable, artistInviteSubmissionsAsGrid } from '../components/streams/StreamRenderables'
 

@@ -1,14 +1,19 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { selectCategoryTabs } from 'ello-brains/selectors/categories'
-import { selectPage } from 'ello-brains/selectors/pages'
-import { selectPathname, selectViewNameFromRoute } from 'ello-brains/selectors/routing'
-import { ADD_NEW_IDS_TO_RESULT, SET_LAYOUT_MODE } from 'ello-brains/constants/action_types'
-import { selectIsLoggedIn } from 'ello-brains/selectors/authentication'
-import { selectAvatar, selectUsername } from 'ello-brains/selectors/profile'
-import { selectAnnouncementHasBeenViewed } from 'ello-brains/selectors/notifications'
 import { push } from 'react-router-redux'
+import { trackEvent } from '../actions/analytics'
+import { logout } from '../actions/authentication'
+import { setIsProfileMenuActive, toggleNotifications } from '../actions/gui'
+import { checkForNewNotifications, loadAnnouncements } from '../actions/notifications'
+import { openOmnibar } from '../actions/omnibar'
+import { updateRelationship } from '../actions/relationships'
+import { NavbarLoggedIn, NavbarLoggedOut } from '../components/navbar/NavbarRenderables'
+import { ADD_NEW_IDS_TO_RESULT, SET_LAYOUT_MODE } from '../constants/action_types'
+import { scrollToPosition } from '../lib/jello'
+import * as ElloAndroidInterface from '../lib/android_interface'
+import { selectCategoryTabs } from '../selectors/categories'
+import { selectIsLoggedIn } from '../selectors/authentication'
 import {
   selectActiveNotificationsType,
   selectDeviceSize,
@@ -18,17 +23,12 @@ import {
   selectIsNotificationsActive,
   selectIsNotificationsUnread,
   selectIsProfileMenuActive,
-} from 'ello-brains/selectors/gui'
-import { selectParamsType } from 'ello-brains/selectors/params'
-import { trackEvent } from '../actions/analytics'
-import { logout } from '../actions/authentication'
-import { setIsProfileMenuActive, toggleNotifications } from '../actions/gui'
-import { checkForNewNotifications, loadAnnouncements } from '../actions/notifications'
-import { openOmnibar } from '../actions/omnibar'
-import { updateRelationship } from '../actions/relationships'
-import { scrollToPosition } from '../lib/jello'
-import * as ElloAndroidInterface from '../lib/android_interface'
-import { NavbarLoggedIn, NavbarLoggedOut } from '../components/navbar/NavbarRenderables'
+} from '../selectors/gui'
+import { selectAnnouncementHasBeenViewed } from '../selectors/notifications'
+import { selectPage } from '../selectors/pages'
+import { selectParamsType } from '../selectors/params'
+import { selectAvatar, selectUsername } from '../selectors/profile'
+import { selectPathname, selectViewNameFromRoute } from '../selectors/routing'
 
 function mapStateToProps(state, props) {
   const innerWidth = selectInnerWidth(state)

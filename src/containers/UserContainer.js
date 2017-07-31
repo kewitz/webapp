@@ -4,9 +4,28 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import get from 'lodash/get'
-import { selectIsPostDetail } from 'ello-brains/selectors/routing'
-import { selectIsLoggedIn } from 'ello-brains/selectors/authentication'
-import { selectViewsAdultContent } from 'ello-brains/selectors/profile'
+import { trackEvent } from '../actions/analytics'
+import { inviteUsers } from '../actions/invitations'
+import { closeModal, openModal } from '../actions/modals'
+import { collabWithUser, hireUser } from '../actions/user'
+import { BadgeSummaryDialog, TextMarkupDialog } from '../components/dialogs/DialogRenderables'
+import MessageDialog from '../components/dialogs/MessageDialog'
+import ShareDialog from '../components/dialogs/ShareDialog'
+import {
+  UserCompact,
+  UserInvitee,
+  UserProfileCard,
+  UserProfile,
+} from '../components/users/UserRenderables'
+import { selectIsLoggedIn } from '../selectors/authentication'
+import { selectBadgesHasLoaded } from '../selectors/badges'
+import { selectIsMobile } from '../selectors/gui'
+import {
+  selectInvitationAcceptedAt,
+  selectInvitationEmail,
+} from '../selectors/invitations'
+import { selectViewsAdultContent } from '../selectors/profile'
+import { selectIsPostDetail } from '../selectors/routing'
 import {
   selectUser,
   selectUserAvatar,
@@ -33,26 +52,7 @@ import {
   selectUserTotalViewsCount,
   selectUserTruncatedShortBio,
   selectUserUsername,
-} from 'ello-brains/selectors/user'
-import { selectBadgesHasLoaded } from 'ello-brains/selectors/badges'
-import {
-  selectInvitationAcceptedAt,
-  selectInvitationEmail,
-} from 'ello-brains/selectors/invitations'
-import { selectIsMobile } from 'ello-brains/selectors/gui'
-import {
-  UserCompact,
-  UserInvitee,
-  UserProfileCard,
-  UserProfile,
-} from '../components/users/UserRenderables'
-import MessageDialog from '../components/dialogs/MessageDialog'
-import ShareDialog from '../components/dialogs/ShareDialog'
-import { BadgeSummaryDialog, TextMarkupDialog } from '../components/dialogs/DialogRenderables'
-import { closeModal, openModal } from '../actions/modals'
-import { trackEvent } from '../actions/analytics'
-import { inviteUsers } from '../actions/invitations'
-import { collabWithUser, hireUser } from '../actions/user'
+} from '../selectors/user'
 
 export function makeMapStateToProps() {
   return (state, props) => {

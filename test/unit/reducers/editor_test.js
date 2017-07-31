@@ -1,6 +1,6 @@
 import Immutable from 'immutable'
 import { REHYDRATE } from 'redux-persist/constants'
-import { AUTHENTICATION, EDITOR, PROFILE } from 'ello-brains/constants/action_types'
+import { AUTHENTICATION, EDITOR, PROFILE } from '../../../src/constants/action_types'
 import reducer, { editorMethods, initialState } from '../../../src/reducers/editor'
 
 describe('editor reducer', () => {

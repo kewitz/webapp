@@ -7,7 +7,7 @@ import {
   EDITOR,
   PROFILE,
   UPDATE_STATE_FROM_NATIVE,
-} from 'ello-brains/constants/action_types'
+} from '../constants/action_types'
 import editorMethods from '../helpers/editor_helper'
 
 export const initialState = Immutable.Map({ completions: Immutable.Map() })

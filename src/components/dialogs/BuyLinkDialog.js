@@ -1,11 +1,11 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-import { FORM_CONTROL_STATUS as STATUS } from 'ello-brains/constants/status_types'
+import { dialogStyle as baseDialogStyle } from './Dialog'
 import TextControl from '../forms/TextControl'
 import { isValidURL } from '../forms/Validators'
+import { FORM_CONTROL_STATUS as STATUS } from '../../constants/status_types'
 import { css, disabled, focus, hover, select } from '../../styles/jss'
 import * as s from '../../styles/jso'
-import { dialogStyle as baseDialogStyle } from './Dialog'
 
 const dialogStyle = css(s.fullWidth, { maxWidth: 440 })
 const headingStyle = css(s.mb30, s.fontSize24)

@@ -2,10 +2,10 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { push } from 'react-router-redux'
-import { selectOnboardingCategoriesFiltered } from 'ello-brains/selectors/categories'
-import OnboardingCategories from '../components/onboarding/OnboardingCategories'
 import { getCategories } from '../actions/discover'
 import { followCategories } from '../actions/profile'
+import OnboardingCategories from '../components/onboarding/OnboardingCategories'
+import { selectOnboardingCategoriesFiltered } from '../selectors/categories'
 
 const CATEGORIES_NEEDED = 1
 

@@ -2,6 +2,7 @@
 import { all, fork, put, take, select } from 'redux-saga/effects'
 import { push, replace } from 'react-router-redux'
 import { REHYDRATE } from 'redux-persist/constants'
+import { getUserCredentials, refreshAuthenticationToken } from '../actions/authentication'
 import {
   AUTHENTICATION,
   PROFILE,

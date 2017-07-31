@@ -2,9 +2,17 @@ import Immutable from 'immutable'
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { selectIsPostDetail } from 'ello-brains/selectors/routing'
-import { EDITOR } from 'ello-brains/constants/action_types'
-import { selectIsLoggedIn } from 'ello-brains/selectors/authentication'
+import { EDITOR } from '../constants/action_types'
+import { deleteComment, flagComment, loadEditableComment, toggleEditing } from '../actions/comments'
+import { openModal, closeModal } from '../actions/modals'
+import Editor, { getEditorId } from '../components/editor/Editor'
+import { CommentBody, CommentHeader } from '../components/comments/CommentRenderables'
+import CommentTools from '../components/comments/CommentTools'
+import ConfirmDialog from '../components/dialogs/ConfirmDialog'
+import FlagDialog from '../components/dialogs/FlagDialog'
+import { isElloAndroid, scrollToLastTextBlock } from '../lib/jello'
+import * as ElloAndroidInterface from '../lib/android_interface'
+import { selectIsLoggedIn } from '../selectors/authentication'
 import {
   selectComment,
   selectCommentAuthor,
@@ -17,7 +25,7 @@ import {
   selectCommentPost,
   selectCommentPostDetailPath,
   selectPropsCommentId,
-} from 'ello-brains/selectors/comment'
+} from '../selectors/comment'
 import {
   selectColumnWidth,
   selectCommentOffset,
@@ -26,16 +34,8 @@ import {
   selectInnerHeight,
   selectIsGridMode,
   selectIsNavbarHidden,
-} from 'ello-brains/selectors/gui'
-import { deleteComment, flagComment, loadEditableComment, toggleEditing } from '../actions/comments'
-import { openModal, closeModal } from '../actions/modals'
-import Editor, { getEditorId } from '../components/editor/Editor'
-import { CommentBody, CommentHeader } from '../components/comments/CommentRenderables'
-import CommentTools from '../components/comments/CommentTools'
-import ConfirmDialog from '../components/dialogs/ConfirmDialog'
-import FlagDialog from '../components/dialogs/FlagDialog'
-import { isElloAndroid, scrollToLastTextBlock } from '../lib/jello'
-import * as ElloAndroidInterface from '../lib/android_interface'
+} from '../selectors/gui'
+import { selectIsPostDetail } from '../selectors/routing'
 
 export function makeMapStateToProps() {
   return (state, props) => {

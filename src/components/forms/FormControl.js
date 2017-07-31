@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import trim from 'lodash/trim'
 import classNames from 'classnames'
-import { FORM_CONTROL_STATUS as STATUS } from 'ello-brains/constants/status_types'
 import { CheckIconLG, CircleIconLG, XIconLG } from '../assets/Icons'
+import { FORM_CONTROL_STATUS as STATUS } from '../../constants/status_types'
 
 class FormControl extends Component {
 

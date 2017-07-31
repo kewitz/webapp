@@ -10,13 +10,7 @@ import {
   select,
   take,
 } from 'redux-saga/effects'
-
-import { AUTHENTICATION, EDITOR, PROFILE } from 'ello-brains/constants/action_types'
-
 import { fetchCredentials, getHeaders, sagaFetch } from './api'
-import { s3CredentialsPath } from '../networking/api'
-import DialogContainer from '../containers/DialogContainer'
-
 import { openAlert } from '../actions/modals'
 import { temporaryEditorAssetCreated } from '../actions/editor'
 import { temporaryAssetCreated } from '../actions/profile'
@@ -26,6 +20,9 @@ import {
   processImage,
   SUPPORTED_IMAGE_TYPES,
 } from '../helpers/file_helper'
+import { s3CredentialsPath } from '../networking/api'
+import { AUTHENTICATION, EDITOR, PROFILE } from '../constants/action_types'
+import DialogContainer from '../containers/DialogContainer'
 
 const uploadTypes = [
   PROFILE.SAVE_AVATAR,

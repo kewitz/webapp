@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
 import Mousetrap from 'mousetrap'
-import { SHORTCUT_KEYS } from 'ello-brains/constants/application_types'
+import { SHORTCUT_KEYS } from '../../constants/application_types'
 import { css } from '../../styles/jss'
 import * as s from '../../styles/jso'
 

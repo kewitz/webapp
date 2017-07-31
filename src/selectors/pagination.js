@@ -1,11 +1,11 @@
 /* eslint-disable import/prefer-default-export */
 import { createSelector } from 'reselect'
-import { findModel } from 'ello-brains/helpers/json_helper'
-import { selectPages, selectPagesResult } from 'ello-brains/selectors/pages'
-import { selectParamsToken } from 'ello-brains/selectors/params'
-import { selectJson } from 'ello-brains/selectors/store'
-import { selectPropsPathname } from 'ello-brains/selectors/routing'
-import * as MAPPING_TYPES from 'ello-brains/constants/mapping_types'
+import * as MAPPING_TYPES from '../constants/mapping_types'
+import { findModel } from '../helpers/json_helper'
+import { selectPages, selectPagesResult } from '../selectors/pages'
+import { selectParamsToken } from '../selectors/params'
+import { selectPropsPathname } from '../selectors/routing'
+import { selectJson } from '../selectors/store'
 
 const PAGING_BLACKLIST = [
   /^\/enter\b/,

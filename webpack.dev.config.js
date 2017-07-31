@@ -47,8 +47,6 @@ module.exports = {
         exclude: /node_modules/,
         include: [
           path.join(__dirname, 'src'),
-          // this is so we can compile brains when working locally
-          path.join(__dirname, 'node_modules/ello-brains'),
         ],
         use: {
           loader: 'babel-loader',

@@ -3,9 +3,17 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { createSelector } from 'reselect'
-import { selectParamsType, selectParamsUsername } from 'ello-brains/selectors/params'
-import { USER } from 'ello-brains/constants/action_types'
-import { selectIsLoggedIn } from 'ello-brains/selectors/authentication'
+import {
+  loadUserDetail, loadUserLoves, loadUserPosts, loadUserUsers, loadUserFollowing,
+} from '../actions/user'
+import { sayHello } from '../actions/zeros'
+import { ErrorState4xx } from '../components/errors/Errors'
+import { UserDetail, UserDetailError } from '../components/views/UserDetail'
+import { USER } from '../constants/action_types'
+import { selectIsLoggedIn } from '../selectors/authentication'
+import { selectHasSaidHelloTo } from '../selectors/gui'
+import { selectParamsType, selectParamsUsername } from '../selectors/params'
+import { selectStreamType } from '../selectors/stream'
 import {
   selectUserFollowersCount,
   selectUserId,
@@ -13,15 +21,7 @@ import {
   selectUserIsSelf,
   selectUserPostsCount,
   selectIsSystemUser,
-} from 'ello-brains/selectors/user'
-import { selectHasSaidHelloTo } from 'ello-brains/selectors/gui'
-import { selectStreamType } from 'ello-brains/selectors/stream'
-import { sayHello } from '../actions/zeros'
-import {
-  loadUserDetail, loadUserLoves, loadUserPosts, loadUserUsers, loadUserFollowing,
-} from '../actions/user'
-import { ErrorState4xx } from '../components/errors/Errors'
-import { UserDetail, UserDetailError } from '../components/views/UserDetail'
+} from '../selectors/user'
 
 // TODO: move this to a selector and test it
 export function getStreamAction({ type = 'posts', username }) {
