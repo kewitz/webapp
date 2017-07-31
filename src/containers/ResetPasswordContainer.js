@@ -3,10 +3,10 @@ import PropTypes from 'prop-types'
 import set from 'lodash/set'
 import { Link } from 'react-router'
 import { connect } from 'react-redux'
-import { FORM_CONTROL_STATUS as STATUS } from 'ello-brains/constants/status_types'
-import { ResetPassword } from '../components/views/ResetPassword'
-import { isFormValid, getPasswordState } from '../components/forms/Validators'
 import { sendResetPasswordRequest } from '../actions/authentication'
+import { isFormValid, getPasswordState } from '../components/forms/Validators'
+import { ResetPassword } from '../components/views/ResetPassword'
+import { FORM_CONTROL_STATUS as STATUS } from '../constants/status_types'
 
 class ResetPasswordContainer extends PureComponent {
   static propTypes = {
