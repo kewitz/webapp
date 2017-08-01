@@ -42,7 +42,7 @@ const imageContainerStyle = css(
   s.relative,
   { height: 235 },
   media(s.minBreak2, { height: 220 }, parent('.ArtistInvitesDetail', s.mb40, { height: 555 }, media(s.minBreak3, s.mb60))),
-  parent('a:hover', select('> .BackgroundImage::before', { backgroundColor: 'rgba(0, 0, 0, 0.4)' })),
+  parent('a:hover', select('> .BackgroundImage::before', { backgroundColor: 'rgba(0, 0, 0, 0.5)' })),
   parent('.ArtistInvitesDetail', s.mb20),
 )
 
@@ -182,7 +182,7 @@ export const ArtistInviteGrid = ({
   <Link to={`/artist-invites/${slug}`} onClick={onClickArtistInviteDetail} className={gridContainerStyle}>
     <article>
       <div className={imageContainerStyle}>
-        <BackgroundImage dpi={dpi} sources={headerImage} />
+        <BackgroundImage className="hasOverlay3" dpi={dpi} sources={headerImage} />
         <ImageAsset className={logoImageStyle} src={logoImage.getIn(['optimized', 'url'])} />
       </div>
       <div className={contentContainerStyle}>
@@ -284,7 +284,7 @@ export const ArtistInviteDetail = ({
   <div>
     <article className={detailContainerStyle}>
       <div className={imageContainerStyle}>
-        <BackgroundImage dpi={dpi} sources={headerImage} />
+        <BackgroundImage className="hasOverlay3" dpi={dpi} sources={headerImage} />
         <ImageAsset className={logoImageStyle} src={logoImage.getIn(['optimized', 'url'])} />
       </div>
       <div>
