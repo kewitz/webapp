@@ -153,6 +153,7 @@ class ArtistInviteSubmissionsContainer extends PureComponent {
           </div>
         )
       case 'open':
+      case 'selecting':
         return (
           <div>
             <div className={titleWrapperStyle}>
