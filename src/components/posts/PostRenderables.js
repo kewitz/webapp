@@ -35,36 +35,39 @@ const actionButtonStyle = css(
   s.mx5,
   s.transitionColor,
   after(s.inlineBlock, { content: 'attr(data-label)' }),
+  hover(
+    s.colorBlack,
+    after({ content: 'attr(data-label)' }),
+    select('> .XBoxIcon', s.inlineBlock),
+  ),
   select('> .SVGIcon', s.mr5),
-  modifier('.approve', hover(s.colorBlack), select('> .CheckCircleIcon', { marginTop: -2 })),
-  modifier('.select', hover(s.colorYellow, select('> .StarIcon > g', { fill: '#ffc600' })), select('> .StarIcon', { paddingTop: 2, paddingLeft: 4 })),
+  select('> .SVGIcon.CheckCircleIcon', { marginTop: -2, marginRight: 7 }),
+  select('> .StarIcon', { paddingTop: 2, paddingLeft: 2 }),
+  select('> .XBoxIcon', s.displayNone),
+  modifier(
+    '.select',
+    hover(
+      s.colorYellow,
+      select('> .StarIcon > g', { fill: '#ffc600' }),
+    ),
+  ),
   modifier(
     '.unapprove',
     s.colorGreen,
-    select('> .CheckCircleIcon', { marginTop: -2 }),
     after({ content: '"Approved"' }),
     hover(
-      s.colorBlack,
-      after({ content: 'attr(data-label)' }),
       select('> .CheckCircleIcon', s.displayNone),
-      select('> .XBoxIcon', s.inlineBlock),
     ),
     select('> .CheckCircleIcon', s.inlineBlock),
-    select('> .XBoxIcon', s.displayNone),
   ),
   modifier(
     '.unselect',
     s.colorYellow,
-    select('> .StarIcon', { paddingTop: 2, paddingLeft: 4 }),
     after({ content: '"Selected"' }),
     hover(
-      s.colorBlack,
-      after({ content: 'attr(data-label)' }),
       select('> .StarIcon', s.displayNone),
-      select('> .XBoxIcon', s.inlineBlock),
     ),
     select('> .StarIcon', s.inlineBlock, select('> g', { fill: '#ffc600' })),
-    select('> .XBoxIcon', s.displayNone),
   ),
 )
 
