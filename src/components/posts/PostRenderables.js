@@ -14,7 +14,7 @@ import {
 import ContentWarningButton from '../posts/ContentWarningButton'
 import RelationshipContainer from '../../containers/RelationshipContainer'
 import { RegionItems } from '../regions/RegionRenderables'
-import { before, css, hover, modifier, select } from '../../styles/jss'
+import { after, before, css, hover, modifier, select } from '../../styles/jss'
 import * as s from '../../styles/jso'
 
 
@@ -27,16 +27,45 @@ const adminActionsStyle = css(
   s.hv40,
   s.itemsCenter,
   s.justifyCenter,
+  s.mb10,
+  { marginTop: -10 },
 )
 
 const actionButtonStyle = css(
   s.mx5,
   s.transitionColor,
+  after(s.inlineBlock, { content: 'attr(data-label)' }),
   select('> .SVGIcon', s.mr5),
-  modifier('.approve', hover(s.colorGreen), select('> .SVGIcon', { marginTop: -2 })),
-  modifier('.select', hover(s.colorYellow), select('> .SVGIcon', { paddingTop: 2, paddingLeft: 4 })),
-  modifier('.unapprove', s.colorGreen, hover({ color: '#f00' })),
-  modifier('.unselect', s.colorYellow, hover({ color: '#f00' })),
+  modifier('.approve', hover(s.colorBlack), select('> .CheckCircleIcon', { marginTop: -2 })),
+  modifier('.select', hover(s.colorYellow, select('> .StarIcon > g', { fill: '#ffc600' })), select('> .StarIcon', { paddingTop: 2, paddingLeft: 4 })),
+  modifier(
+    '.unapprove',
+    s.colorGreen,
+    select('> .CheckCircleIcon', { marginTop: -2 }),
+    after({ content: '"Approved"' }),
+    hover(
+      s.colorBlack,
+      after({ content: 'attr(data-label)' }),
+      select('> .CheckCircleIcon', s.displayNone),
+      select('> .XBoxIcon', s.inlineBlock),
+    ),
+    select('> .CheckCircleIcon', s.inlineBlock),
+    select('> .XBoxIcon', s.displayNone),
+  ),
+  modifier(
+    '.unselect',
+    s.colorYellow,
+    select('> .StarIcon', { paddingTop: 2, paddingLeft: 4 }),
+    after({ content: '"Selected"' }),
+    hover(
+      s.colorBlack,
+      after({ content: 'attr(data-label)' }),
+      select('> .StarIcon', s.displayNone),
+      select('> .XBoxIcon', s.inlineBlock),
+    ),
+    select('> .StarIcon', s.inlineBlock, select('> g', { fill: '#ffc600' })),
+    select('> .XBoxIcon', s.displayNone),
+  ),
 )
 
 const getActionIcon = (type) => {
@@ -46,8 +75,9 @@ const getActionIcon = (type) => {
     case 'select':
       return <StarIcon />
     case 'unapprove':
+      return [<CheckCircleIcon key="normal" />, <XBoxIcon key="hover" />]
     case 'unselect':
-      return <XBoxIcon />
+      return [<StarIcon key="normal" />, <XBoxIcon key="hover" />]
     default:
       return null
   }
@@ -59,10 +89,10 @@ export const PostAdminActions = ({ actions, status }, { onClickAction }) => (
       <button
         className={`${actionButtonStyle} ${type}`}
         onClick={() => onClickAction(action)}
+        data-label={action.get('label')}
         key={type}
       >
         {getActionIcon(type)}
-        {action.get('label')}
       </button>
     ))}
   </div>
