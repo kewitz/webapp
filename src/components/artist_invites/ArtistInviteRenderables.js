@@ -189,7 +189,7 @@ export const ArtistInviteGrid = ({
         <h2 className={titleStyle}>{title}</h2>
         <p className={inviteTypeStyle}>{inviteType}</p>
         {renderBulletStatus(status)}
-        <p className={dateRangeStyle}>{`${moment(openedAt).format('MMMM D')} — ${moment(closedAt).format('MMMM D, YYYY')}`}</p>
+        <p className={dateRangeStyle}>{`${moment(openedAt).format('MMM D')} — ${moment(closedAt).format('MMM D, YYYY')}`}</p>
         <div className={shortDescriptionStyle}>
           <p dangerouslySetInnerHTML={{ __html: shortDescription }} />
         </div>
@@ -292,7 +292,7 @@ export const ArtistInviteDetail = ({
           <h1 className={titleStyle}>{title}</h1>
           <p className={inviteTypeStyle}>{inviteType}</p>
           {renderTextStatus(status)}
-          <p className={dateRangeStyle}>{`${moment(openedAt).format('MMMM D')} — ${moment(closedAt).format('MMMM D, YYYY')}`}</p>
+          <p className={dateRangeStyle}>{`${moment(openedAt).format('MMM D')} — ${moment(closedAt).format('MMM D, YYYY')}`}</p>
           {links.size !== 0 &&
             <RoundedRect className="ScrollButton GreenBorder" onClick={onClickScrollToContent}>
               <ArrowIcon />
