@@ -484,6 +484,12 @@ class PostContainer extends Component {
     return (
       <div className={classNames('Post', { isPostHeaderHidden: isPostHeaderHidden && !isRepost })}>
         {postHeader}
+        {adminActions &&
+          <PostAdminActions
+            actions={adminActions}
+            status={submissionStatus}
+          />
+        }
         {showEditor && !supportsNativeEditor ?
           <Editor post={post} /> :
           <PostBody
@@ -501,12 +507,6 @@ class PostContainer extends Component {
             postId={postId}
             repostContent={repostContent}
             summary={summary}
-          />
-        }
-        {adminActions &&
-          <PostAdminActions
-            actions={adminActions}
-            status={submissionStatus}
           />
         }
         <PostTools

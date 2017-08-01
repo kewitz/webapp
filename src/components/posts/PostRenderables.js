@@ -19,17 +19,18 @@ import * as s from '../../styles/jso'
 
 
 const adminActionsStyle = css(
-  s.absolute,
-  s.bgcWhite,
+  s.bgcF2,
   s.colorA,
   s.flex,
   s.fontSize14,
+  s.fullWidth,
+  s.hv40,
   s.itemsCenter,
-  { top: 30, right: 0 },
+  s.justifyCenter,
 )
 
 const actionButtonStyle = css(
-  s.ml10,
+  s.mx5,
   s.transitionColor,
   select('> .SVGIcon', s.mr5),
   modifier('.approve', hover(s.colorGreen), select('> .SVGIcon', { marginTop: -2 })),
