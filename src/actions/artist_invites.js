@@ -30,7 +30,7 @@ export const loadArtistInviteDetail = slug => (
 export const loadArtistInviteSubmissions = (path, key, slug) => (
   {
     type: LOAD_STREAM,
-    payload: { endpoint: { path } },
+    payload: { endpoint: { path: `${path}&per_page=25` } },
     meta: {
       mappingType: ARTIST_INVITE_SUBMISSIONS,
       renderStream: {
