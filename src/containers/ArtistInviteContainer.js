@@ -35,6 +35,7 @@ function mapStateToProps(state, props) {
     closedAt: selectClosedAt(state, props),
     description: selectDescription(state, props),
     guide: selectGuide(state, props),
+    hasSubmissions: document.querySelectorAll('.ArtistInviteSubmission').length > 0,
     headerImage: selectHeaderImage(state, props),
     id: selectId(state, props),
     inviteType: selectInviteType(state, props),
@@ -59,6 +60,7 @@ class ArtistInviteContainer extends PureComponent {
     dispatch: PropTypes.func.isRequired,
     dpi: PropTypes.string.isRequired,
     guide: PropTypes.object.isRequired,
+    hasSubmissions: PropTypes.bool,
     headerImage: PropTypes.object.isRequired,
     id: PropTypes.string.isRequired,
     inviteType: PropTypes.string.isRequired,
@@ -72,6 +74,10 @@ class ArtistInviteContainer extends PureComponent {
     status: PropTypes.string.isRequired,
     submissionBodyBlock: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
+  }
+
+  static defaultProps = {
+    hasSubmissions: false,
   }
 
   static childContextTypes = {
@@ -127,6 +133,7 @@ class ArtistInviteContainer extends PureComponent {
       description,
       dpi,
       guide,
+      hasSubmissions,
       headerImage,
       inviteType,
       isLoggedIn,
@@ -148,6 +155,7 @@ class ArtistInviteContainer extends PureComponent {
             description={description}
             dpi={dpi}
             guide={guide}
+            hasSubmissions={hasSubmissions}
             headerImage={headerImage}
             inviteType={inviteType}
             isLoggedIn={isLoggedIn}

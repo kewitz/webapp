@@ -267,6 +267,7 @@ export const ArtistInviteDetail = ({
   description,
   dpi,
   guide,
+  hasSubmissions,
   headerImage,
   inviteType,
   isLoggedIn,
@@ -293,7 +294,7 @@ export const ArtistInviteDetail = ({
           <p className={inviteTypeStyle}>{inviteType}</p>
           {renderTextStatus(status)}
           <p className={dateRangeStyle}>{`${moment(openedAt).format('MMM D')} — ${moment(closedAt).format('MMM D, YYYY')}`}</p>
-          {links.size !== 0 &&
+          {links.size !== 0 && hasSubmissions &&
             <RoundedRect className="ScrollButton GreenBorder" onClick={onClickScrollToContent}>
               <ArrowIcon />
               See Submissions
@@ -326,6 +327,7 @@ ArtistInviteDetail.propTypes = {
   description: PropTypes.string.isRequired,
   dpi: PropTypes.string.isRequired,
   guide: PropTypes.object.isRequired,
+  hasSubmissions: PropTypes.bool.isRequired,
   headerImage: PropTypes.object.isRequired,
   inviteType: PropTypes.string.isRequired,
   isLoggedIn: PropTypes.bool.isRequired,

@@ -32,11 +32,6 @@ const titleStyle = css(
   media(s.minBreak3, s.mb20, parent('.ArtistInvitesDetail', s.mb0, s.fontSize38)),
 )
 
-const blackTitleStyle = css(
-  { ...titleStyle },
-  s.colorBlack,
-)
-
 const buttonStyle = css(
   { ...titleStyle },
   s.borderBottom,
@@ -128,22 +123,16 @@ class ArtistInviteSubmissionsContainer extends PureComponent {
       case 'closed':
         return (
           <div>
-            <div className={titleWrapperStyle}>
-              <h2 className={blackTitleStyle}>Selections</h2>
-            </div>
             <StreamContainer
-              action={loadArtistInviteSubmissions(links.getIn([KEYS[2], 'href']), KEYS[2], slug)}
+              action={loadArtistInviteSubmissions(links.getIn([KEYS[2], 'href']), KEYS[2], slug, 'Selections')}
               hasShowMoreButton
               key={`submissionStream_${KEYS[2]}`}
               paginatorText="Load More"
               paginatorCentered
               shouldInfiniteScroll={false}
             />
-            <div className={titleWrapperStyle}>
-              <h2 className={blackTitleStyle}>Submissions</h2>
-            </div>
             <StreamContainer
-              action={loadArtistInviteSubmissions(links.getIn([KEYS[1], 'href']), KEYS[1], slug)}
+              action={loadArtistInviteSubmissions(links.getIn([KEYS[1], 'href']), KEYS[1], slug, 'Submissions')}
               hasShowMoreButton
               key={`submissionStream_${KEYS[1]}`}
               paginatorText="Load More"
@@ -156,11 +145,8 @@ class ArtistInviteSubmissionsContainer extends PureComponent {
       case 'selecting':
         return (
           <div>
-            <div className={titleWrapperStyle}>
-              <h2 className={blackTitleStyle}>Submissions</h2>
-            </div>
             <StreamContainer
-              action={loadArtistInviteSubmissions(links.getIn([KEYS[1], 'href']), KEYS[1], slug)}
+              action={loadArtistInviteSubmissions(links.getIn([KEYS[1], 'href']), KEYS[1], slug, 'Submissions')}
               hasShowMoreButton
               key={`submissionStream_${KEYS[1]}`}
               paginatorText="Load More"

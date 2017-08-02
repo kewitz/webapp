@@ -14,7 +14,7 @@ import TreeButton from '../../components/navigation/TreeButton'
 import TreePanel from '../../components/navigation/TreePanel'
 import { preferenceToggleChanged } from '../../helpers/junk_drawer'
 import { isElloAndroid } from '../../lib/jello'
-import { css, media, select } from '../../styles/jss'
+import { css, media, parent, select } from '../../styles/jss'
 import * as s from '../../styles/jso'
 
 // categories/comments/posts/users all get passed an Immutable.List
@@ -84,7 +84,32 @@ export const artistInvites = artistInviteIds => (
   </div>
 )
 
-export const artistInviteSubmissionsAsGrid = (submissionIds, columnCount) => {
+const titleWrapperStyle = css(
+  s.flex,
+  s.itemsCenter,
+  s.maxSiteWidth,
+  s.px10,
+  s.mxAuto,
+  media(s.minBreak2, s.px20),
+  media(s.minBreak4, s.px0),
+)
+
+const titleStyle = css(
+  s.colorA,
+  s.fontSize24,
+  s.inlineBlock,
+  s.sansBlack,
+  s.truncate,
+  media(s.minBreak3, s.mb20, parent('.ArtistInvitesDetail', s.mb0, s.fontSize38)),
+)
+
+const blackTitleStyle = css(
+  { ...titleStyle },
+  s.colorBlack,
+)
+
+export const artistInviteSubmissionsAsGrid = (submissionIds, columnCount, headerText) => {
+  if (!submissionIds || submissionIds.size === 0) { return null }
   const columns = []
   for (let i = 0; i < columnCount; i += 1) { columns.push([]) }
   submissionIds.forEach((value, index) =>
@@ -92,10 +117,15 @@ export const artistInviteSubmissionsAsGrid = (submissionIds, columnCount) => {
   )
   return (
     <div className="Posts asGrid">
+      {headerText &&
+        <div className={titleWrapperStyle}>
+          <h2 className={blackTitleStyle}>{headerText}</h2>
+        </div>
+      }
       {columns.map((columnSubmissionIds, i) =>
         (<div className="Column" key={`column_${i + 1}`}>
           {columnSubmissionIds.map(id => (
-            <article className="PostGrid" key={`postsAsGrid_${id}`}>
+            <article className="PostGrid ArtistInviteSubmission" key={`postsAsGrid_${id}`}>
               <ArtistInviteSubmissionContainer submissionId={id} />
             </article>
           ))}

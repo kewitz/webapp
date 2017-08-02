@@ -27,15 +27,15 @@ export const loadArtistInviteDetail = slug => (
   }
 )
 
-export const loadArtistInviteSubmissions = (path, key, slug) => (
+export const loadArtistInviteSubmissions = (path, key, slug, headerText) => (
   {
     type: LOAD_STREAM,
     payload: { endpoint: { path: `${path}&per_page=25` } },
     meta: {
       mappingType: ARTIST_INVITE_SUBMISSIONS,
       renderStream: {
-        asList: artistInviteSubmissionsAsGrid,
-        asGrid: artistInviteSubmissionsAsGrid,
+        asList: (ids, colCount) => artistInviteSubmissionsAsGrid(ids, colCount, headerText),
+        asGrid: (ids, colCount) => artistInviteSubmissionsAsGrid(ids, colCount, headerText),
       },
       resultKey: `/artist-invites/${slug}/${key}`,
     },
