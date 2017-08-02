@@ -1,4 +1,5 @@
 /* eslint-disable no-use-before-define */
+import 'isomorphic-fetch'
 import { push } from 'react-router-redux'
 import { call, put, select, take } from 'redux-saga/effects'
 import { refreshAuthenticationToken } from '../actions/authentication'

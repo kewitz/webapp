@@ -179,7 +179,6 @@ export function* performRequest(action) {
     payload: { endpoint, method, body },
   } = action
   let { payload } = action
-
   const pathname = yield select(selectPathname)
   payload = {
     ...payload,
@@ -245,7 +244,6 @@ export function* performRequest(action) {
     response = yield call(sagaFetch, endpointPath, options)
   } catch (error) {
     updateRunningFetches(error.response)
-
     yield fork(handleRequestError, error, action)
     return false
   }
