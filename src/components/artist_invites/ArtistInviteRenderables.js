@@ -54,10 +54,11 @@ const logoImageStyle = css(
 )
 
 const contentContainerStyle = css(
-  { height: 250 },
+  { height: 305 },
   s.p10,
   s.relative,
   media(s.minBreak3, s.py30, s.px20),
+  media(s.minBreak4, { height: 250 }),
 )
 
 const titleStyle = css(
@@ -76,11 +77,12 @@ const inviteTypeStyle = css(
   s.colorA,
   s.my0,
   s.truncate,
+  media(s.minBreak3, { maxWidth: 'calc(100% - 220px)' }),
   parent(
     '.ArtistInvitesDetail',
     s.fontSize24,
     s.sansLight,
-    media(s.minBreak3, s.fontSize38),
+    media(s.minBreak3, s.fontSize38, s.fit),
   ),
 )
 
