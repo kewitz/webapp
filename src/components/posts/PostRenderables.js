@@ -37,7 +37,6 @@ const actionButtonStyle = css(
   after(s.inlineBlock, { content: 'attr(data-label)' }),
   hover(
     s.colorBlack,
-    after({ content: 'attr(data-label)' }),
     select('> .XBoxIcon', s.inlineBlock),
   ),
   select('> .SVGIcon', s.mr5),
@@ -54,18 +53,18 @@ const actionButtonStyle = css(
   modifier(
     '.unapprove',
     s.colorGreen,
-    after({ content: '"Approved"' }),
     hover(
       select('> .CheckCircleIcon', s.displayNone),
+      after({ content: '"Unapprove"' }),
     ),
     select('> .CheckCircleIcon', s.inlineBlock),
   ),
   modifier(
     '.unselect',
     s.colorYellow,
-    after({ content: '"Selected"' }),
     hover(
       select('> .StarIcon', s.displayNone),
+      after({ content: '"Unselect"' }),
     ),
     select('> .StarIcon', s.inlineBlock, select('> g', { fill: '#ffc600' })),
   ),
