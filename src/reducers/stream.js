@@ -1,14 +1,10 @@
 import Immutable from 'immutable'
-import get from 'lodash/get'
 import {
   AUTHENTICATION,
-  LOAD_STREAM_FAILURE,
   POST,
   PROFILE,
   USER,
-} from 'ello-brains/constants/action_types'
-
-let should404 = false
+} from '../constants/action_types'
 
 const initialState = Immutable.Map()
 
@@ -27,26 +23,7 @@ export default (state = initialState, action = { type: '' }) => {
              action.type.includes('USER.DETAIL_') ||
              action.type.includes('LOAD_STREAM_') ||
              action.type.includes('LOAD_NEXT_CONTENT_')) {
-    switch (action.type) {
-      case POST.DETAIL_FAILURE:
-      case USER.DETAIL_FAILURE:
-        if (get(action, 'error.response.status') === 404) {
-          should404 = true
-        }
-        break
-      case LOAD_STREAM_FAILURE: {
-        const path = get(action, 'payload.endpoint.path')
-        if (/\/categories/.test(path)) {
-          if (get(action, 'error.response.status') === 404) {
-            should404 = true
-          }
-        }
-        break
-      }
-      default:
-        break
-    }
-    return state.merge(action).set('should404', should404)
+    return state.merge(action)
   }
   return state
 }

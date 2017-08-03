@@ -2,15 +2,6 @@ import Immutable from 'immutable'
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { selectIsLoggedIn } from 'ello-brains/selectors/authentication'
-import { selectHasAutoWatchEnabled, selectIsOwnPage } from 'ello-brains/selectors/profile'
-import {
-  selectPost,
-  selectPostIsEditing,
-  selectPostIsEmpty,
-  selectPostIsOwn,
-  selectPostIsReposting,
-} from 'ello-brains/selectors/post'
 import { openModal, closeModal } from '../../actions/modals'
 import {
   createComment,
@@ -27,6 +18,15 @@ import { resetEditor, initializeEditor } from '../../actions/editor'
 import { closeOmnibar } from '../../actions/omnibar'
 import BlockCollection from './BlockCollection'
 import ConfirmDialog from '../dialogs/ConfirmDialog'
+import { selectIsLoggedIn } from '../../selectors/authentication'
+import {
+  selectPost,
+  selectPostIsEditing,
+  selectPostIsEmpty,
+  selectPostIsOwn,
+  selectPostIsReposting,
+} from '../../selectors/post'
+import { selectHasAutoWatchEnabled, selectIsOwnPage } from '../../selectors/profile'
 
 const editorUniqueIdentifiers = {}
 export function getEditorId(post, comment, isComment, isZero) {
@@ -107,7 +107,7 @@ class Editor extends Component {
     return getEditorId(post, comment, isComment, autoPopulate && !shouldPersist)
   }
 
-  submit = (data) => {
+  submit = (data, artistInviteId) => {
     const {
       allowsAutoWatch,
       comment,
@@ -127,7 +127,7 @@ class Editor extends Component {
       }
     } else if (isPostEmpty) {
       dispatch(closeOmnibar())
-      dispatch(createPost(data, this.getEditorIdentifier()))
+      dispatch(createPost(data, this.getEditorIdentifier(), null, null, artistInviteId))
     } else if (post.get('isEditing')) {
       dispatch(toggleEditing(post, false))
       dispatch(updatePost(post, data, this.getEditorIdentifier()))
@@ -136,7 +136,7 @@ class Editor extends Component {
       const repostId = post.get('repostId') || post.get('id')
       const repostedFromId = post.get('repostId') ? post.get('id') : null
       dispatch(createPost(data, this.getEditorIdentifier(),
-        repostId, repostedFromId),
+        repostId, repostedFromId, artistInviteId),
       )
     }
     if (onSubmit) { onSubmit() }

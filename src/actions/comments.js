@@ -1,5 +1,5 @@
-import { COMMENT } from 'ello-brains/constants/action_types'
-import * as MAPPING_TYPES from 'ello-brains/constants/mapping_types'
+import { COMMENT } from '../constants/action_types'
+import * as MAPPING_TYPES from '../constants/mapping_types'
 import * as api from '../networking/api'
 import { resetEditor } from '../actions/editor'
 

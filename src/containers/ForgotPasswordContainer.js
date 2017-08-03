@@ -1,11 +1,11 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { FORM_CONTROL_STATUS as STATUS } from 'ello-brains/constants/status_types'
-import { isAndroid } from '../lib/jello'
 import { sendForgotPasswordRequest } from '../actions/authentication'
 import { isFormValid, getEmailStateFromClient } from '../components/forms/Validators'
 import { ForgotPassword } from '../components/views/ForgotPassword'
+import { FORM_CONTROL_STATUS as STATUS } from '../constants/status_types'
+import { isAndroid } from '../lib/jello'
 
 class ForgotPasswordContainer extends PureComponent {
   static propTypes = {

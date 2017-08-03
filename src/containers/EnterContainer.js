@@ -5,27 +5,27 @@ import { Link } from 'react-router'
 import { replace } from 'react-router-redux'
 import debounce from 'lodash/debounce'
 import set from 'lodash/set'
-import { FORM_CONTROL_STATUS as STATUS } from 'ello-brains/constants/status_types'
-import {
-  selectBuildVersion,
-  selectBundleId,
-  selectMarketingVersion,
-  selectRegistrationId,
-  selectWebOnboardingVersion,
-} from 'ello-brains/selectors/profile'
-import { isAndroid, isElloAndroid } from '../lib/jello'
-import { loadProfile, requestPushSubscription } from '../actions/profile'
 import { signIn } from '../actions/authentication'
-import TextControl from '../components/forms/TextControl'
-import PasswordControl from '../components/forms/PasswordControl'
+import { loadProfile, requestPushSubscription } from '../actions/profile'
 import FormButton from '../components/forms/FormButton'
+import PasswordControl from '../components/forms/PasswordControl'
+import TextControl from '../components/forms/TextControl'
 import {
   isFormValid,
   getUserStateFromClient,
   getPasswordState,
 } from '../components/forms/Validators'
 import { MainView } from '../components/views/MainView'
+import { FORM_CONTROL_STATUS as STATUS } from '../constants/status_types'
+import { isAndroid, isElloAndroid } from '../lib/jello'
 import { loginToken } from '../networking/api'
+import {
+  selectBuildVersion,
+  selectBundleId,
+  selectMarketingVersion,
+  selectRegistrationId,
+  selectWebOnboardingVersion,
+} from '../selectors/profile'
 import { css } from '../styles/jss'
 import * as s from '../styles/jso'
 

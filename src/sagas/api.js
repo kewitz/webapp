@@ -1,15 +1,16 @@
 /* eslint-disable no-use-before-define */
+import 'isomorphic-fetch'
 import { push } from 'react-router-redux'
 import { call, put, select, take } from 'redux-saga/effects'
-import { AUTHENTICATION } from 'ello-brains/constants/action_types'
+import { refreshAuthenticationToken } from '../actions/authentication'
+import { AUTHENTICATION } from '../constants/action_types'
+import { webappToken } from '../networking/api'
 import {
   selectAccessToken,
   selectRefreshToken,
   selectShouldUseAccessToken,
   selectShouldUseRefreshToken,
-} from 'ello-brains/selectors/authentication'
-import { refreshAuthenticationToken } from '../actions/authentication'
-import { webappToken } from '../networking/api'
+} from '../selectors/authentication'
 
 export function getHeaders(accessToken) {
   return {

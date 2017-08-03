@@ -3,17 +3,17 @@ import PropTypes from 'prop-types'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { push } from 'react-router-redux'
+import { trackEvent } from '../actions/analytics'
+import { saveAvatar, saveCover } from '../actions/profile'
+import OnboardingSettings from '../components/onboarding/OnboardingSettings'
+import { selectDPI, selectIsMobile } from '../selectors/gui'
 import {
   selectAvatar,
   selectCoverImage,
   selectIsAvatarBlank,
   selectIsCoverImageBlank,
   selectIsInfoFormBlank,
-} from 'ello-brains/selectors/profile'
-import { selectDPI, selectIsMobile } from 'ello-brains/selectors/gui'
-import { trackEvent } from '../actions/analytics'
-import { saveAvatar, saveCover } from '../actions/profile'
-import OnboardingSettings from '../components/onboarding/OnboardingSettings'
+} from '../selectors/profile'
 
 
 function mapStateToProps(state) {

@@ -1,8 +1,10 @@
 import Immutable from 'immutable'
 import React from 'react'
+import ArtistInviteContainer from '../../containers/ArtistInviteContainer'
 import CategoryContainer from '../../containers/CategoryContainer'
 import CommentContainer from '../../containers/CommentContainer'
 import NotificationContainer from '../../containers/NotificationContainer'
+import ArtistInviteSubmissionContainer from '../../containers/ArtistInviteSubmissionContainer'
 import PostContainer from '../../containers/PostContainer'
 import UserContainer from '../../containers/UserContainer'
 import { SlickCarousel } from '../../components/carousels/CarouselRenderables'
@@ -12,7 +14,7 @@ import TreeButton from '../../components/navigation/TreeButton'
 import TreePanel from '../../components/navigation/TreePanel'
 import { preferenceToggleChanged } from '../../helpers/junk_drawer'
 import { isElloAndroid } from '../../lib/jello'
-import { css, media, select } from '../../styles/jss'
+import { css, media, parent, select } from '../../styles/jss'
 import * as s from '../../styles/jso'
 
 // categories/comments/posts/users all get passed an Immutable.List
@@ -60,6 +62,78 @@ export const editorials = editorialIds => (
 export const postsAsPostStream = (postIds, columnCount, isPostHeaderHidden, renderProps) => (
   <SlickCarousel postIds={postIds} renderProps={renderProps} />
 )
+
+const artistInvitesStyle = css(
+  s.maxSiteWidth,
+  s.mxAuto,
+  s.px10,
+  media(s.minBreak2, s.px0),
+  media(s.minBreak4, s.mt20),
+)
+
+// ARTIST INVITES
+export const artistInvites = artistInviteIds => (
+  <div className={artistInvitesStyle}>
+    {artistInviteIds.map(id => (
+      <ArtistInviteContainer
+        artistInviteId={id}
+        key={`artistInvite_${id}`}
+        kind="grid"
+      />
+    ))}
+  </div>
+)
+
+const titleWrapperStyle = css(
+  s.flex,
+  s.itemsCenter,
+  s.maxSiteWidth,
+  s.px10,
+  s.mxAuto,
+  media(s.minBreak2, s.px20),
+  media(s.minBreak4, s.px20),
+)
+
+const titleStyle = css(
+  s.colorA,
+  s.fontSize24,
+  s.inlineBlock,
+  s.sansBlack,
+  s.truncate,
+  media(s.minBreak3, s.mb20, parent('.ArtistInvitesDetail', s.mb0, s.fontSize38)),
+)
+
+const blackTitleStyle = css(
+  { ...titleStyle },
+  s.colorBlack,
+)
+
+export const artistInviteSubmissionsAsGrid = (submissionIds, columnCount, headerText) => {
+  if (!submissionIds || submissionIds.size === 0) { return null }
+  const columns = []
+  for (let i = 0; i < columnCount; i += 1) { columns.push([]) }
+  submissionIds.forEach((value, index) =>
+    columns[index % columnCount].push(submissionIds.get(index)),
+  )
+  return (
+    <div className="Posts asGrid">
+      {headerText &&
+        <div className={titleWrapperStyle}>
+          <h2 className={blackTitleStyle}>{headerText}</h2>
+        </div>
+      }
+      {columns.map((columnSubmissionIds, i) =>
+        (<div className="Column" key={`column_${i + 1}`}>
+          {columnSubmissionIds.map(id => (
+            <article className="PostGrid ArtistInviteSubmission" key={`postsAsGrid_${id}`}>
+              <ArtistInviteSubmissionContainer submissionId={id} />
+            </article>
+          ))}
+        </div>),
+      )}
+    </div>
+  )
+}
 
 // POSTS
 export const postsAsGrid = (postIds, columnCount, isPostHeaderHidden) => {

@@ -3,13 +3,13 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { push } from 'react-router-redux'
 import Mousetrap from 'mousetrap'
-import { SET_LAYOUT_MODE } from 'ello-brains/constants/action_types'
-import { selectIsLoggedIn } from 'ello-brains/selectors/authentication'
-import { SHORTCUT_KEYS } from 'ello-brains/constants/application_types'
-import { selectDiscoverKeyType, selectIsGridMode } from 'ello-brains/selectors/gui'
-import { selectIsModalActive } from '../selectors/modal'
 import { openModal, closeModal } from '../actions/modals'
 import HelpDialog from '../components/dialogs/HelpDialog'
+import { SET_LAYOUT_MODE } from '../constants/action_types'
+import { SHORTCUT_KEYS } from '../constants/application_types'
+import { selectIsLoggedIn } from '../selectors/authentication'
+import { selectDiscoverKeyType, selectIsGridMode } from '../selectors/gui'
+import { selectIsModalActive } from '../selectors/modal'
 
 function mapStateToProps(state) {
   return {

@@ -5,14 +5,6 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import classNames from 'classnames'
 import debounce from 'lodash/debounce'
-import { PREFERENCES, SETTINGS } from 'ello-brains/constants/locales/en'
-import { FORM_CONTROL_STATUS as STATUS } from 'ello-brains/constants/status_types'
-import { selectDPI, selectIsMobile } from 'ello-brains/selectors/gui'
-import {
-  selectAvailability,
-  selectBlockedCount,
-  selectMutedCount,
-} from 'ello-brains/selectors/profile'
 import { preferenceToggleChanged } from '../helpers/junk_drawer'
 import { openModal, closeModal } from '../actions/modals'
 import { logout } from '../actions/authentication'
@@ -52,9 +44,17 @@ import TreePanel from '../components/navigation/TreePanel'
 import StreamContainer from '../containers/StreamContainer'
 import InfoForm from '../components/forms/InfoForm'
 import { MainView } from '../components/views/MainView'
+import { PREFERENCES, SETTINGS } from '../constants/locales/en'
+import { FORM_CONTROL_STATUS as STATUS } from '../constants/status_types'
 import CreatorTypeContainer from '../containers/CreatorTypeContainer'
 import { isElloAndroid } from '../lib/jello'
 import { profilePath } from '../networking/api'
+import { selectDPI, selectIsMobile } from '../selectors/gui'
+import {
+  selectAvailability,
+  selectBlockedCount,
+  selectMutedCount,
+} from '../selectors/profile'
 import { css } from '../styles/jss'
 import * as s from '../styles/jso'
 

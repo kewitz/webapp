@@ -43,6 +43,8 @@
 
 /* // Position to the bottom for post detail */
 .TabListStreamContainer .Paginator,
+.ArtistInvites .Paginator,
+.ArtistInvitesDetail .Paginator,
 .Editorial .Paginator,
 .BlockedUsers .Paginator,
 .MutedUsers .Paginator {
@@ -59,6 +61,8 @@
 }
 
 .no-touch .TabListStreamContainer .Paginator:hover,
+.no-touch .ArtistInvites .Paginator:hover,
+.no-touch .ArtistInvitesDetail .Paginator:hover,
 .no-touch .Editorial .Paginator:hover,
 .no-touch .BlockedUsers .Paginator:hover,
 .no-touch .MutedUsers .Paginator:hover {
@@ -74,6 +78,8 @@
   max-width: 580px;
 }
 
+.ArtistInvites .Paginator,
+.ArtistInvitesDetail .Paginator,
 .Editorial .Paginator {
   width: calc(100% - 20px);
   max-width: 420px;
@@ -86,6 +92,8 @@
   margin-bottom: 0;
 }
 
+.ArtistInvites .Paginator button,
+.ArtistInvitesDetail .Paginator button,
 .Editorial .Paginator button {
   width: 100%;
 }
@@ -95,6 +103,8 @@
 }
 
 .TabListStreamContainer .Paginator:not(.isBusy) .ElloMark,
+.ArtistInvites .Paginator:not(.isBusy) .ElloMark,
+.ArtistInvitesDetail .Paginator:not(.isBusy) .ElloMark,
 .Editorial .Paginator:not(.isBusy) .ElloMark,
 .BlockedUsers .Paginator:not(.isBusy) .ElloMark,
 .MutedUsers .Paginator:not(.isBusy) .ElloMark {

@@ -3,20 +3,15 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import classNames from 'classnames'
-import { selectIsPostDetail, selectPathname } from 'ello-brains/selectors/routing'
-import * as ACTION_TYPES from 'ello-brains/constants/action_types'
-import { addDragObject, removeDragObject } from 'ello-brains/interactions/Drag'
-import { selectPropsPostId } from 'ello-brains/selectors/post'
-import { selectAvatar } from 'ello-brains/selectors/profile'
-import { selectIsMobileGridStream, selectIsNavbarHidden } from 'ello-brains/selectors/gui'
-import Avatar from '../assets/Avatar'
 import Block from './Block'
 import EmbedBlock from './EmbedBlock'
 import ImageBlock from './ImageBlock'
+import { addInputObject, removeInputObject } from './InputComponent'
 import QuickEmoji from './QuickEmoji'
+import PostActionBar from './PostActionBar'
 import RepostBlock from './RepostBlock'
 import TextBlock from './TextBlock'
-import PostActionBar from './PostActionBar'
+import Avatar from '../assets/Avatar'
 import {
   addBlock,
   addDragBlock,
@@ -29,8 +24,13 @@ import {
   updateBlock,
 } from '../../actions/editor'
 import { closeOmnibar } from '../../actions/omnibar'
+import * as ACTION_TYPES from '../../constants/action_types'
+import { addDragObject, removeDragObject } from '../../interactions/Drag'
 import { scrollToLastTextBlock } from '../../lib/jello'
-import { addInputObject, removeInputObject } from './InputComponent'
+import { selectIsMobileGridStream, selectIsNavbarHidden } from '../../selectors/gui'
+import { selectPropsPostId } from '../../selectors/post'
+import { selectAvatar } from '../../selectors/profile'
+import { selectIsPostDetail, selectPathname } from '../../selectors/routing'
 
 function mapStateToProps(state, props) {
   const editor = state.editor.get(props.editorId, Immutable.Map())
@@ -42,6 +42,7 @@ function mapStateToProps(state, props) {
     buyLink = firstBlock.get('linkUrl')
   }
   return {
+    artistInviteId: editor.get('artistInviteId') || props.post.get('artistInviteId'),
     buyLink,
     avatar: selectAvatar(state),
     collection,
@@ -65,6 +66,7 @@ function mapStateToProps(state, props) {
 class BlockCollection extends PureComponent {
 
   static propTypes = {
+    artistInviteId: PropTypes.string,
     avatar: PropTypes.object,
     blocks: PropTypes.object,
     buyLink: PropTypes.string,
@@ -96,6 +98,7 @@ class BlockCollection extends PureComponent {
   }
 
   static defaultProps = {
+    artistInviteId: null,
     avatar: null,
     buyLink: null,
     blocks: Immutable.List(),
@@ -363,8 +366,8 @@ class BlockCollection extends PureComponent {
   }
 
   submit = () => {
-    const { submitAction } = this.props
-    submitAction(this.serialize())
+    const { artistInviteId, submitAction } = this.props
+    submitAction(this.serialize(), artistInviteId)
   }
 
   serialize() {

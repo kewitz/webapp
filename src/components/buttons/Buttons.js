@@ -175,3 +175,50 @@ SettingsLink.propTypes = {
   to: PropTypes.string.isRequired,
 }
 
+const roundedRectStyle = css(
+  s.fontSize12,
+  s.fullWidth,
+  s.hv40,
+  s.lh40,
+  {
+    borderRadius: 5,
+    transition: `background-color 0.2s ${s.ease}, border-color 0.2s ${s.ease}, color 0.2s ${s.ease}, width 0.2s ${s.ease}`,
+  },
+  media(s.minBreak2, { maxWidth: 235 }),
+  modifier('.Green',
+    s.bgcGreen,
+    s.borderGreen,
+    s.colorWhite,
+    hover(s.colorWhite, s.bgcBlack, s.borderBlack),
+  ),
+  modifier('.GreenBorder',
+    s.bgcWhite,
+    s.borderGreen,
+    s.colorGreen,
+    hover(s.colorBlack, s.borderBlack),
+  ),
+  modifier(
+    '.isXL',
+    s.fontSize24,
+    s.sansLight,
+    { height: 95, lineHeight: 95 },
+    media(s.minBreak2, s.fit),
+    media(s.minBreak3, s.fontSize38, { height: 125, lineHeight: 125 }),
+  ),
+  select('& .SVGIcon', s.mr5),
+)
+
+export const RoundedRect = ({ children, className, onClick, ...rest }) => (
+  <button className={`RoundedRect ${roundedRectStyle} ${className}`} onClick={onClick} {...rest}>
+    {children}
+  </button>
+)
+RoundedRect.propTypes = {
+  children: PropTypes.node.isRequired,
+  className: PropTypes.string,
+  onClick: PropTypes.func,
+}
+RoundedRect.defaultProps = {
+  className: null,
+}
+

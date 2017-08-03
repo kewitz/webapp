@@ -118,6 +118,7 @@ const linkStyle = css(
 const highlightingRules = {
   '/': /^\/$|^\/discover\/trending$|^\/discover\/recent$/,
   '/following': /^\/following/,
+  '/artist-invites': /^\/artist-invites$/,
 }
 
 export const NavbarLink = ({
@@ -381,18 +382,22 @@ const closeButtonStyle = css(
 )
 
 export const NavbarProfile = ({
+  artistInvitesInProfileMenu,
   avatar,
   isProfileMenuActive,
   onClickAvatar,
   onLogOut,
   username,
-}) => {
+}, { onClickArtistInvites }) => {
   if (avatar && username) {
     return (
       <span className={`NavbarProfile ${profilePopStyle}`}>
         <Avatar sources={avatar} onClick={onClickAvatar} />
         <nav className={classNames(`${profileLinksStyle}`, { isActive: isProfileMenuActive })} >
           <Link className={profileLinkStyle} to={`/${username}`}>{`@${username}`}</Link>
+          { artistInvitesInProfileMenu &&
+            <Link className={profileLinkStyle} onClick={onClickArtistInvites} to="/artist-invites">Artist Invites</Link>
+          }
           <Link className={profileLinkStyle} to={`/${username}/loves`}>Loves</Link>
           <Link className={profileLinkStyle} to="/invitations">Invite</Link>
           <Link className={profileLinkStyle} to="/settings">Settings</Link>
@@ -428,6 +433,7 @@ export const NavbarProfile = ({
   )
 }
 NavbarProfile.propTypes = {
+  artistInvitesInProfileMenu: PropTypes.bool.isRequired,
   avatar: PropTypes.object,
   isProfileMenuActive: PropTypes.bool.isRequired,
   onClickAvatar: PropTypes.func.isRequired,
@@ -437,5 +443,8 @@ NavbarProfile.propTypes = {
 NavbarProfile.defaultProps = {
   avatar: null,
   username: null,
+}
+NavbarProfile.contextTypes = {
+  onClickArtistInvites: PropTypes.func.isRequired,
 }
 

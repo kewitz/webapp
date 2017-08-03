@@ -9,7 +9,7 @@ import {
   INVITATIONS,
   PROFILE,
   UPDATE_STATE_FROM_NATIVE,
-} from 'ello-brains/constants/action_types'
+} from '../constants/action_types'
 import { imageGuid } from '../helpers/file_helper'
 
 function parseJWT(token) {

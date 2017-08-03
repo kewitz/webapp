@@ -1,6 +1,6 @@
 import urlRegex from 'url-regex'
-import { ERROR_MESSAGES as ERROR } from 'ello-brains/constants/locales/en'
-import { FORM_CONTROL_STATUS as STATUS } from 'ello-brains/constants/status_types'
+import { ERROR_MESSAGES as ERROR } from '../../constants/locales/en'
+import { FORM_CONTROL_STATUS as STATUS } from '../../constants/status_types'
 
 export function isFormValid(states) {
   return states.every(state => state.status === STATUS.SUCCESS)

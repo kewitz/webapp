@@ -2,12 +2,13 @@
 import Immutable from 'immutable'
 import get from 'lodash/get'
 import reduce from 'lodash/reduce'
-import { COMMENT, EDITOR, POST } from 'ello-brains/constants/action_types'
+import { COMMENT, EDITOR, POST } from '../constants/action_types'
 import { suggestEmoji } from '../components/completers/EmojiSuggester'
 import { userRegex } from '../components/completers/Completer'
 
 const methods = {}
 const initialState = Immutable.Map({
+  artistInviteId: null,
   collection: Immutable.Map(),
   hasContent: false,
   hasMedia: false,
@@ -210,6 +211,8 @@ methods.updateBuyLink = (state, action) => {
 
 methods.getEditorObject = (state = initialState, action) => {
   switch (action.type) {
+    case 'EDITOR.ADD_ARTIST_INVITE_ID':
+      return state.set('artistInviteId', action.payload.artistInviteId)
     case EDITOR.ADD_BLOCK:
       return methods.add({
         block: action.payload.block,

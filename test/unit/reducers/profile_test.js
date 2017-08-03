@@ -1,6 +1,6 @@
 import Immutable from 'immutable'
-import { AUTHENTICATION, INVITATIONS, PROFILE } from 'ello-brains/constants/action_types'
 import { stubAvatar, stubCoverImage, stubUser } from '../../support/stubs'
+import { AUTHENTICATION, INVITATIONS, PROFILE } from '../../../src/constants/action_types'
 import reducer from '../../../src/reducers/profile'
 
 

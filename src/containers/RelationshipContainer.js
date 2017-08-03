@@ -3,15 +3,6 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { replace } from 'react-router-redux'
 import { createSelector } from 'reselect'
-import { RELATIONSHIP_PRIORITY } from 'ello-brains/constants/relationship_types'
-import { selectPathname, selectPreviousPath } from 'ello-brains/selectors/routing'
-import { selectIsLoggedIn } from 'ello-brains/selectors/authentication'
-import {
-  selectUserId,
-  selectUserRelationshipPriority,
-  selectUserUsername,
-} from 'ello-brains/selectors/user'
-import { selectDeviceSize } from 'ello-brains/selectors/gui'
 import { openModal, closeModal } from '../actions/modals'
 import { updateRelationship } from '../actions/relationships'
 import { flagUser } from '../actions/user'
@@ -20,6 +11,15 @@ import FlagDialog from '../components/dialogs/FlagDialog'
 import BlockMuteButton from '../components/relationships/BlockMuteButton'
 import Relationship from '../components/relationships/Relationship'
 import FollowButton from '../components/relationships/FollowButton'
+import { RELATIONSHIP_PRIORITY } from '../constants/relationship_types'
+import { selectIsLoggedIn } from '../selectors/authentication'
+import { selectDeviceSize } from '../selectors/gui'
+import { selectPathname, selectPreviousPath } from '../selectors/routing'
+import {
+  selectUserId,
+  selectUserRelationshipPriority,
+  selectUserUsername,
+} from '../selectors/user'
 
 const selectRelationshipPriority = (state, props) => props.relationshipPriority
 const selectHasBlockMuteButton = (state, props) => props.hasBlockMuteButton

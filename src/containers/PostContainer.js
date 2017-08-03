@@ -5,13 +5,43 @@ import { connect } from 'react-redux'
 import { push, replace } from 'react-router-redux'
 import classNames from 'classnames'
 import set from 'lodash/set'
+import { trackEvent } from '../actions/analytics'
+import { openModal, closeModal } from '../actions/modals'
 import {
-  selectIsDiscoverRoot,
-  selectIsPostDetail,
-  selectPathname,
-  selectPreviousPath,
-} from 'ello-brains/selectors/routing'
-import { selectIsLoggedIn } from 'ello-brains/selectors/authentication'
+  deletePost,
+  flagPost,
+  loadComments,
+  loadEditablePost,
+  toggleComments,
+  toggleEditing,
+  toggleReposting,
+  unwatchPost,
+  watchPost,
+} from '../actions/posts'
+import ConfirmDialog from '../components/dialogs/ConfirmDialog'
+import FlagDialog from '../components/dialogs/FlagDialog'
+import Editor from '../components/editor/Editor'
+import {
+  CategoryHeader,
+  LaunchCommentEditorButton,
+  PostAdminActions,
+  PostBody,
+  PostHeader,
+  RepostHeader,
+} from '../components/posts/PostRenderables'
+import { PostTools, WatchTool } from '../components/posts/PostTools'
+import StreamContainer from '../containers/StreamContainer'
+import { isElloAndroid, isLink } from '../lib/jello'
+import * as ElloAndroidInterface from '../lib/android_interface'
+import { selectIsLoggedIn } from '../selectors/authentication'
+import {
+  selectColumnWidth,
+  selectCommentOffset,
+  selectContentWidth,
+  selectDeviceSize,
+  selectInnerHeight,
+  selectIsMobile,
+} from '../selectors/gui'
 import {
   selectPost,
   selectPostAuthor,
@@ -42,43 +72,14 @@ import {
   selectPostSummary,
   selectPostViewsCountRounded,
   selectPropsPostId,
-} from 'ello-brains/selectors/post'
-import { selectAvatar } from 'ello-brains/selectors/profile'
+} from '../selectors/post'
+import { selectAvatar } from '../selectors/profile'
 import {
-  selectColumnWidth,
-  selectCommentOffset,
-  selectContentWidth,
-  selectDeviceSize,
-  selectInnerHeight,
-  selectIsMobile,
-} from 'ello-brains/selectors/gui'
-import { trackEvent } from '../actions/analytics'
-import { openModal, closeModal } from '../actions/modals'
-import {
-  deletePost,
-  flagPost,
-  loadComments,
-  loadEditablePost,
-  toggleComments,
-  toggleEditing,
-  toggleReposting,
-  unwatchPost,
-  watchPost,
-} from '../actions/posts'
-import StreamContainer from '../containers/StreamContainer'
-import ConfirmDialog from '../components/dialogs/ConfirmDialog'
-import FlagDialog from '../components/dialogs/FlagDialog'
-import Editor from '../components/editor/Editor'
-import {
-  CategoryHeader,
-  LaunchCommentEditorButton,
-  PostBody,
-  PostHeader,
-  RepostHeader,
-} from '../components/posts/PostRenderables'
-import { PostTools, WatchTool } from '../components/posts/PostTools'
-import { isElloAndroid, isLink } from '../lib/jello'
-import * as ElloAndroidInterface from '../lib/android_interface'
+  selectIsDiscoverRoot,
+  selectIsPostDetail,
+  selectPathname,
+  selectPreviousPath,
+} from '../selectors/routing'
 
 export function makeMapStateToProps() {
   return (state, props) =>
@@ -130,6 +131,7 @@ export function makeMapStateToProps() {
 class PostContainer extends Component {
 
   static propTypes = {
+    adminActions: PropTypes.object,
     author: PropTypes.object.isRequired,
     avatar: PropTypes.object,
     categoryName: PropTypes.string,
@@ -173,10 +175,12 @@ class PostContainer extends Component {
     repostContent: PropTypes.object,
     showCommentEditor: PropTypes.bool.isRequired,
     showEditor: PropTypes.bool.isRequired,
+    submissionStatus: PropTypes.string,
     summary: PropTypes.object,
   }
 
   static defaultProps = {
+    adminActions: null,
     avatar: null,
     categoryName: null,
     categoryPath: null,
@@ -195,6 +199,7 @@ class PostContainer extends Component {
     previousPath: null,
     repostAuthor: null,
     repostContent: null,
+    submissionStatus: null,
     summary: null,
   }
 
@@ -243,7 +248,8 @@ class PostContainer extends Component {
   shouldComponentUpdate(nextProps) {
     if (nextProps.isPostEmpty) { return false }
     return !Immutable.is(nextProps.post, this.props.post) ||
-      ['columnWidth', 'contentWidth', 'innerHeight', 'isGridMode', 'isLoggedIn', 'isMobile'].some(prop =>
+      !Immutable.is(nextProps.adminActions, this.props.adminActions) ||
+      ['columnWidth', 'contentWidth', 'innerHeight', 'isGridMode', 'isLoggedIn', 'isMobile', 'submissionStatus'].some(prop =>
         nextProps[prop] !== this.props[prop],
       )
   }
@@ -391,6 +397,7 @@ class PostContainer extends Component {
 
   render() {
     const {
+      adminActions,
       author,
       avatar,
       categoryName,
@@ -430,6 +437,7 @@ class PostContainer extends Component {
       repostContent,
       showCommentEditor,
       showEditor,
+      submissionStatus,
       summary,
     } = this.props
     const { onLaunchNativeEditor } = this.context
@@ -476,6 +484,12 @@ class PostContainer extends Component {
     return (
       <div className={classNames('Post', { isPostHeaderHidden: isPostHeaderHidden && !isRepost })}>
         {postHeader}
+        {adminActions &&
+          <PostAdminActions
+            actions={adminActions}
+            status={submissionStatus}
+          />
+        }
         {showEditor && !supportsNativeEditor ?
           <Editor post={post} /> :
           <PostBody

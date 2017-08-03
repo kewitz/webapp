@@ -4,12 +4,108 @@ import PropTypes from 'prop-types'
 import { Link } from 'react-router'
 import classNames from 'classnames'
 import Avatar from '../assets/Avatar'
-import { ArrowIcon, RepostIcon } from '../assets/Icons'
+import {
+  ArrowIcon,
+  CheckCircleIcon,
+  RepostIcon,
+  StarIcon,
+  XBoxIcon,
+} from '../assets/Icons'
 import ContentWarningButton from '../posts/ContentWarningButton'
 import RelationshipContainer from '../../containers/RelationshipContainer'
 import { RegionItems } from '../regions/RegionRenderables'
-import { before, css, hover, select } from '../../styles/jss'
+import { after, before, css, hover, modifier, select } from '../../styles/jss'
 import * as s from '../../styles/jso'
+
+
+const adminActionsStyle = css(
+  s.bgcF2,
+  s.colorA,
+  s.flex,
+  s.fontSize14,
+  s.fullWidth,
+  s.hv40,
+  s.itemsCenter,
+  s.justifyCenter,
+  s.mb10,
+  { marginTop: -10 },
+)
+
+const actionButtonStyle = css(
+  s.mx5,
+  s.transitionColor,
+  after(s.inlineBlock, { content: 'attr(data-label)' }),
+  hover(
+    s.colorBlack,
+    select('> .XBoxIcon', s.inlineBlock),
+  ),
+  select('> .SVGIcon', s.mr5),
+  select('> .SVGIcon.CheckCircleIcon', { marginTop: -2, marginRight: 7 }),
+  select('> .StarIcon', { paddingTop: 2, paddingLeft: 2 }),
+  select('> .XBoxIcon', s.displayNone),
+  modifier(
+    '.select',
+    hover(
+      s.colorYellow,
+      select('> .StarIcon > g', { fill: '#ffc600' }),
+    ),
+  ),
+  modifier(
+    '.unapprove',
+    s.colorGreen,
+    hover(
+      select('> .CheckCircleIcon', s.displayNone),
+      after({ content: '"Unapprove"' }),
+    ),
+    select('> .CheckCircleIcon', s.inlineBlock),
+  ),
+  modifier(
+    '.unselect',
+    s.colorYellow,
+    hover(
+      select('> .StarIcon', s.displayNone),
+      after({ content: '"Unselect"' }),
+    ),
+    select('> .StarIcon', s.inlineBlock, select('> g', { fill: '#ffc600' })),
+  ),
+)
+
+const getActionIcon = (type) => {
+  switch (type) {
+    case 'approve':
+      return <CheckCircleIcon />
+    case 'select':
+      return <StarIcon />
+    case 'unapprove':
+      return [<CheckCircleIcon key="normal" />, <XBoxIcon key="hover" />]
+    case 'unselect':
+      return [<StarIcon key="normal" />, <XBoxIcon key="hover" />]
+    default:
+      return null
+  }
+}
+
+export const PostAdminActions = ({ actions, status }, { onClickAction }) => (
+  <div className={`${adminActionsStyle} ${status}`}>
+    {actions.entrySeq().map(([type, action]) => (
+      <button
+        className={`${actionButtonStyle} ${type}`}
+        onClick={() => onClickAction(action)}
+        data-label={action.get('label')}
+        key={type}
+      >
+        {getActionIcon(type)}
+      </button>
+    ))}
+  </div>
+)
+PostAdminActions.propTypes = {
+  actions: PropTypes.object.isRequired,
+  status: PropTypes.string.isRequired,
+}
+PostAdminActions.contextTypes = {
+  onClickAction: PropTypes.func.isRequired,
+}
 
 const PostHeaderTimeAgoLink = ({ to, createdAt }) =>
   (<Link className="PostHeaderTimeAgoLink" to={to}>

@@ -473,6 +473,17 @@ export const XIconLG = () =>
     </g>
   </SVGIcon>)
 
+
+export const StarIcon = () => (
+  <SVGIcon className="StarIcon">
+    <g transform="translate(1.000000, -1.000000)">
+      <g transform="translate(0.000000, 3.000000)">
+        <polygon points="6.309 8.95 10.208 11 9.463 6.658 12.618 3.583 8.259 2.95 6.309 -1 4.359 2.95 0 3.583 3.155 6.658 2.41 11" />
+      </g>
+    </g>
+  </SVGIcon>
+)
+
 // -------------------------------------
 // RSS icon
 export const RSSIcon = () => (

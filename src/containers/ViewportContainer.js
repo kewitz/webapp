@@ -2,13 +2,15 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { createSelector } from 'reselect'
+import { setIsNavbarHidden, setViewportSizeAttributes } from '../actions/gui'
 import {
-  selectIsAuthenticationView,
-  selectIsOnboardingView,
-  selectPathname,
-  selectViewNameFromRoute,
-} from 'ello-brains/selectors/routing'
-import { selectIsLoggedIn } from 'ello-brains/selectors/authentication'
+  addPageVisibilityObserver,
+  removePageVisibilityObserver,
+} from '../components/viewport/PageVisibilityComponent'
+import { addResizeObject, removeResizeObject } from '../components/viewport/ResizeComponent'
+import { addScrollObject, removeScrollObject } from '../components/viewport/ScrollComponent'
+import { Viewport } from '../components/viewport/Viewport'
+import { selectIsLoggedIn } from '../selectors/authentication'
 import {
   selectHasLaunchedSignupModal,
   selectInnerHeight,
@@ -17,17 +19,15 @@ import {
   selectIsNotificationsActive,
   selectIsProfileMenuActive,
   selectScrollOffset,
-} from 'ello-brains/selectors/gui'
-import { selectParamsType } from 'ello-brains/selectors/params'
+} from '../selectors/gui'
 import { selectModalType } from '../selectors/modal'
-import { setIsNavbarHidden, setViewportSizeAttributes } from '../actions/gui'
-import { addScrollObject, removeScrollObject } from '../components/viewport/ScrollComponent'
+import { selectParamsType } from '../selectors/params'
 import {
-  addPageVisibilityObserver,
-  removePageVisibilityObserver,
-} from '../components/viewport/PageVisibilityComponent'
-import { addResizeObject, removeResizeObject } from '../components/viewport/ResizeComponent'
-import { Viewport } from '../components/viewport/Viewport'
+  selectIsAuthenticationView,
+  selectIsOnboardingView,
+  selectPathname,
+  selectViewNameFromRoute,
+} from '../selectors/routing'
 
 export const selectUserDetailPathClassName = createSelector(
   [selectViewNameFromRoute, selectPathname], (viewName, pathname) => {

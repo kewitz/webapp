@@ -1,4 +1,4 @@
-import * as MAPPING_TYPES from 'ello-brains/constants/mapping_types'
+import * as MAPPING_TYPES from '../../constants/mapping_types'
 
 // the export methods need to return an object like:
 // { type: posts, ids: [1, 2, 3] }

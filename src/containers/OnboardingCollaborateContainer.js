@@ -2,13 +2,13 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { push } from 'react-router-redux'
+import { trackEvent } from '../actions/analytics'
+import OnboardingCollaborate from '../components/onboarding/OnboardingCollaborate'
+import { preferenceToggleChanged } from '../helpers/junk_drawer'
 import {
   selectProfileIsCollaborateable,
   selectProfileIsHireable,
-} from 'ello-brains/selectors/profile'
-import { trackEvent } from '../actions/analytics'
-import { preferenceToggleChanged } from '../helpers/junk_drawer'
-import OnboardingCollaborate from '../components/onboarding/OnboardingCollaborate'
+} from '../selectors/profile'
 
 const prefs = [
   {

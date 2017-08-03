@@ -2,15 +2,7 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import debounce from 'lodash/debounce'
-import { EDITOR } from 'ello-brains/constants/action_types'
-import { selectEmojis } from 'ello-brains/selectors/emoji'
-import {
-  selectDeviceSize,
-  selectIsCompleterActive,
-  selectIsTextToolsActive,
-  selectTextToolsCoordinates,
-  selectTextToolsStates,
-} from 'ello-brains/selectors/gui'
+import { EDITOR } from '../constants/action_types'
 import { selectCompletions } from '../selectors/editor'
 import {
   autoCompleteUsers,
@@ -25,6 +17,14 @@ import Completer from '../components/completers/Completer'
 import TextTools from '../components/editor/TextTools'
 import { addInputObject, removeInputObject } from '../components/editor/InputComponent'
 import { replaceWordFromSelection } from '../components/editor/SelectionUtil'
+import { selectEmojis } from '../selectors/emoji'
+import {
+  selectDeviceSize,
+  selectIsCompleterActive,
+  selectIsTextToolsActive,
+  selectTextToolsCoordinates,
+  selectTextToolsStates,
+} from '../selectors/gui'
 import { css } from '../styles/jss'
 import * as s from '../styles/jso'
 

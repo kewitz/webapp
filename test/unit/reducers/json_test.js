@@ -1,9 +1,8 @@
 /* eslint-disable max-len */
-
 import Immutable from 'immutable'
-import * as subject from 'ello-brains/reducers/json'
-import * as ACTION_TYPES from 'ello-brains/constants/action_types'
-import * as MAPPING_TYPES from 'ello-brains/constants/mapping_types'
+import * as ACTION_TYPES from '../../../src/constants/action_types'
+import * as MAPPING_TYPES from '../../../src/constants/mapping_types'
+import * as subject from '../../../src/reducers/json'
 import { isValidResult } from '../../support/test_helpers'
 import { clearJSON, stubJS, stubJSONStore } from '../../support/stubs'
 

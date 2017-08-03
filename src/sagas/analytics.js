@@ -1,14 +1,17 @@
 /* eslint-disable no-constant-condition */
+import Immutable from 'immutable'
 import { actionChannel, all, fork, put, select, take } from 'redux-saga/effects'
 import { LOCATION_CHANGE } from 'react-router-redux'
 import get from 'lodash/get'
-import * as ACTION_TYPES from 'ello-brains/constants/action_types'
-import { RELATIONSHIP_PRIORITY } from 'ello-brains/constants/relationship_types'
-import { selectPathname } from 'ello-brains/selectors/routing'
-import { selectIsLoggedIn } from 'ello-brains/selectors/authentication'
-import { selectActiveNotificationsType } from 'ello-brains/selectors/gui'
-import { isElloAndroid } from '../lib/jello'
 import { trackEvent as trackEventAction } from '../actions/analytics'
+import * as ACTION_TYPES from '../constants/action_types'
+import { RELATIONSHIP_PRIORITY } from '../constants/relationship_types'
+import { isElloAndroid } from '../lib/jello'
+import { selectArtistInvites } from '../selectors/artist_invites'
+import { selectIsLoggedIn } from '../selectors/authentication'
+import { selectActiveNotificationsType } from '../selectors/gui'
+import { selectPosts } from '../selectors/post'
+import { selectPathname } from '../selectors/routing'
 
 let shouldCallInitialTrackPage = false
 const agent = isElloAndroid() ? 'android' : 'webapp'
@@ -44,28 +47,51 @@ function* trackEvents() {
       case ACTION_TYPES.AUTHENTICATION.USER_SUCCESS:
         yield put(trackEventAction('login_success'))
         break
-      case ACTION_TYPES.COMMENT.CREATE_REQUEST:
-        yield put(trackEventAction('published_comment'))
+      case ACTION_TYPES.COMMENT.CREATE_REQUEST: {
+        const posts = yield select(selectPosts)
+        const artistInviteId = posts.get(get(action, 'payload.postId'), Immutable.Map()).get('artistInviteId')
+        yield put(trackEventAction('published_comment', artistInviteId ? { artistInviteId } : {}))
         break
+      }
       case ACTION_TYPES.COMMENT.DELETE_REQUEST:
         yield put(trackEventAction('deleted_comment'))
         break
       case ACTION_TYPES.OMNIBAR.OPEN:
         yield put(trackEventAction('opened_omnibar'))
         break
-      case ACTION_TYPES.POST.CREATE_REQUEST:
+      case ACTION_TYPES.POST.CREATE_REQUEST: {
         if (get(action, 'payload.body.body[0].link_url', '').length) {
           yield put(trackEventAction('added_buy_button'))
         }
-        yield put(trackEventAction(get(action, 'meta.repostId') ? 'published_repost' : 'published_post'))
+        const repostId = get(action, 'meta.repostId')
+        const artistInviteId = get(action, 'meta.artistInviteId')
+        let artistInviteSlug
+        if (artistInviteId) {
+          const artistInvites = yield select(selectArtistInvites)
+          artistInviteSlug = artistInvites.getIn([artistInviteId, 'slug'])
+        }
+        let options = {}
+        if (repostId && artistInviteId) {
+          options = { artistInviteId }
+        } else if (artistInviteSlug) {
+          options = { artistInviteSlug }
+          yield put(trackEventAction('published_artist_invite_post', options))
+        }
+        yield put(trackEventAction(repostId ? 'published_repost' : 'published_post', options))
         break
+      }
       case ACTION_TYPES.POST.DELETE_REQUEST:
         yield put(trackEventAction('deleted_post'))
         break
       case ACTION_TYPES.POST.LOVE_REQUEST: {
         const method = get(action, 'payload.method')
         if (method === 'POST') {
-          yield put(trackEventAction(get(action, 'payload.trackLabel'), get(action, 'payload.trackOptions')))
+          const trackOptions = get(action, 'payload.trackOptions', {})
+          const model = get(action, 'payload.model')
+          if (model && model.get('artistInviteId')) {
+            trackOptions.artistInviteId = model.get('artistInviteId')
+          }
+          yield put(trackEventAction(get(action, 'payload.trackLabel'), trackOptions))
         }
         break
       }
@@ -75,7 +101,12 @@ function* trackEvents() {
           yield put(trackEventAction('unwatched-post'))
           break
         }
-        yield put(trackEventAction('watched-post'))
+        const trackOptions = {}
+        const model = get(action, 'payload.model')
+        if (model && model.get('artistInviteId')) {
+          trackOptions.artistInviteId = model.get('artistInviteId')
+        }
+        yield put(trackEventAction('watched-post', trackOptions))
         break
       }
       case ACTION_TYPES.POST.UPDATE_REQUEST:

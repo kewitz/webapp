@@ -1,4 +1,4 @@
-import { RELATIONSHIP_PRIORITY as PRIORITY } from 'ello-brains/constants/relationship_types'
+import { RELATIONSHIP_PRIORITY as PRIORITY } from '../../../src/constants/relationship_types'
 import { getNextBlockMutePriority } from '../../../src/containers/RelationshipContainer'
 
 describe('RelationshipContainer', () => {

@@ -3,24 +3,24 @@ import PropTypes from 'prop-types'
 import { is } from 'immutable'
 import { connect } from 'react-redux'
 import get from 'lodash/get'
-import { LOAD_NEXT_CONTENT_REQUEST, SET_LAYOUT_MODE } from 'ello-brains/constants/action_types'
-import { FOOTER_LINKS as links } from 'ello-brains/constants/locales/en'
-import { FORM_CONTROL_STATUS as STATUS } from 'ello-brains/constants/status_types'
-import { selectIsLoggedIn } from 'ello-brains/selectors/authentication'
-import {
-  selectIsGridMode,
-  selectIsLayoutToolHidden,
-  selectIsMobile,
-} from 'ello-brains/selectors/gui'
-import { selectAvailability } from 'ello-brains/selectors/profile'
-import { selectPathname, selectViewNameFromRoute } from 'ello-brains/selectors/routing'
-import { selectStreamType } from 'ello-brains/selectors/stream'
-import { isIOS, scrollToPosition } from '../lib/jello'
-import { selectIsModalActive } from '../selectors/modal'
 import { trackEvent } from '../actions/analytics'
 import { checkAvailability, resetAvailability } from '../actions/profile'
 import { getEmailStateFromClient, getEmailStateFromServer } from '../components/forms/Validators'
 import { Footer } from '../components/footer/FooterRenderables'
+import { LOAD_NEXT_CONTENT_REQUEST, SET_LAYOUT_MODE } from '../constants/action_types'
+import { FOOTER_LINKS as links } from '../constants/locales/en'
+import { FORM_CONTROL_STATUS as STATUS } from '../constants/status_types'
+import { isIOS, scrollToPosition } from '../lib/jello'
+import { selectIsLoggedIn } from '../selectors/authentication'
+import {
+  selectIsGridMode,
+  selectIsLayoutToolHidden,
+  selectIsMobile,
+} from '../selectors/gui'
+import { selectIsModalActive } from '../selectors/modal'
+import { selectAvailability } from '../selectors/profile'
+import { selectPathname, selectViewNameFromRoute } from '../selectors/routing'
+import { selectStreamType } from '../selectors/stream'
 import type { Availability } from '../types/flowtypes'
 
 let emailValue = ''

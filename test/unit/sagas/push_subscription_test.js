@@ -1,12 +1,12 @@
-import { AUTHENTICATION, PROFILE } from 'ello-brains/constants/action_types'
-import { selectIsLoggedIn } from 'ello-brains/selectors/authentication'
-import { selectBundleId, selectRegistrationId } from 'ello-brains/selectors/profile'
-import { loginPushSubscribe, logoutPushUnsubscribe } from '../../../src/sagas/push_subscription'
 import {
   registerForGCM,
   requestPushSubscription,
   unregisterForGCM,
 } from '../../../src/actions/profile'
+import { AUTHENTICATION, PROFILE } from '../../../src/constants/action_types'
+import { loginPushSubscribe, logoutPushUnsubscribe } from '../../../src/sagas/push_subscription'
+import { selectIsLoggedIn } from '../../../src/selectors/authentication'
+import { selectBundleId, selectRegistrationId } from '../../../src/selectors/profile'
 
 describe('push subscription saga', function () {
   const regId = 'my awesome registration id'

@@ -1,35 +1,37 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { selectCategoryTabs } from 'ello-brains/selectors/categories'
-import { selectPage } from 'ello-brains/selectors/pages'
-import { selectPathname, selectViewNameFromRoute } from 'ello-brains/selectors/routing'
-import { ADD_NEW_IDS_TO_RESULT, SET_LAYOUT_MODE } from 'ello-brains/constants/action_types'
-import { selectIsLoggedIn } from 'ello-brains/selectors/authentication'
-import { selectAvatar, selectUsername } from 'ello-brains/selectors/profile'
-import { selectAnnouncementHasBeenViewed } from 'ello-brains/selectors/notifications'
 import { push } from 'react-router-redux'
-import {
-  selectActiveNotificationsType,
-  selectDeviceSize,
-  selectIsGridMode,
-  selectIsLayoutToolHidden,
-  selectIsNotificationsActive,
-  selectIsNotificationsUnread,
-  selectIsProfileMenuActive,
-} from 'ello-brains/selectors/gui'
-import { selectParamsType } from 'ello-brains/selectors/params'
 import { trackEvent } from '../actions/analytics'
 import { logout } from '../actions/authentication'
 import { setIsProfileMenuActive, toggleNotifications } from '../actions/gui'
 import { checkForNewNotifications, loadAnnouncements } from '../actions/notifications'
 import { openOmnibar } from '../actions/omnibar'
 import { updateRelationship } from '../actions/relationships'
+import { NavbarLoggedIn, NavbarLoggedOut } from '../components/navbar/NavbarRenderables'
+import { ADD_NEW_IDS_TO_RESULT, SET_LAYOUT_MODE } from '../constants/action_types'
 import { scrollToPosition } from '../lib/jello'
 import * as ElloAndroidInterface from '../lib/android_interface'
-import { NavbarLoggedIn, NavbarLoggedOut } from '../components/navbar/NavbarRenderables'
+import { selectCategoryTabs } from '../selectors/categories'
+import { selectIsLoggedIn } from '../selectors/authentication'
+import {
+  selectActiveNotificationsType,
+  selectDeviceSize,
+  selectInnerWidth,
+  selectIsGridMode,
+  selectIsLayoutToolHidden,
+  selectIsNotificationsActive,
+  selectIsNotificationsUnread,
+  selectIsProfileMenuActive,
+} from '../selectors/gui'
+import { selectAnnouncementHasBeenViewed } from '../selectors/notifications'
+import { selectPage } from '../selectors/pages'
+import { selectParamsType } from '../selectors/params'
+import { selectAvatar, selectUsername } from '../selectors/profile'
+import { selectPathname, selectViewNameFromRoute } from '../selectors/routing'
 
 function mapStateToProps(state, props) {
+  const innerWidth = selectInnerWidth(state)
   const isLoggedIn = selectIsLoggedIn(state)
   const pathname = selectPathname(state)
   const pageResult = selectPage(state)
@@ -44,6 +46,7 @@ function mapStateToProps(state, props) {
   if (isLoggedIn) {
     return {
       activeTabType: selectActiveNotificationsType(state),
+      artistInvitesInProfileMenu: (innerWidth <= 700 && innerWidth >= 640) || innerWidth < 372,
       avatar: selectAvatar(state),
       categoryTabs,
       deviceSize,
@@ -96,12 +99,14 @@ class NavbarContainer extends PureComponent {
   }
 
   static childContextTypes = {
+    onClickArtistInvites: PropTypes.func.isRequired,
     onClickLogin: PropTypes.func.isRequired,
     onClickSignup: PropTypes.func.isRequired,
   }
 
   getChildContext() {
     return {
+      onClickArtistInvites: this.onClickArtistInvites,
       onClickLogin: this.onClickLogin,
       onClickSignup: this.onClickSignup,
     }
@@ -166,6 +171,11 @@ class NavbarContainer extends PureComponent {
       dispatch(openOmnibar())
       scrollToPosition(0, 0)
     }
+  }
+
+  onClickArtistInvites = () => {
+    const { dispatch } = this.props
+    dispatch(trackEvent('clicked_nav_artist_invites'))
   }
 
   onClickLogin = () => {

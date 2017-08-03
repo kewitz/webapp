@@ -1,7 +1,7 @@
-import { RELATIONSHIP_PRIORITY } from 'ello-brains/constants/relationship_types'
 import { getRenderedComponent } from '../../../support/test_helpers'
 import subject, { getNextPriority } from '../../../../src/components/relationships/FollowButton'
 import { CheckIconSM, PlusIconSM } from '../../../../src/components/assets/Icons'
+import { RELATIONSHIP_PRIORITY } from '../../../../src/constants/relationship_types'
 
 describe('FollowButton', () => {
   context('::RELATIONSHIP_PRIORITY', () => {

@@ -5,33 +5,33 @@ import { connect } from 'react-redux'
 import debounce from 'lodash/debounce'
 import get from 'lodash/get'
 import classNames from 'classnames'
-import { selectOmnibar, selectStream } from 'ello-brains/selectors/store'
-import * as ACTION_TYPES from 'ello-brains/constants/action_types'
-import { selectIsLoggedIn } from 'ello-brains/selectors/authentication'
-import {
-  selectColumnCount,
-  selectHasLaunchedSignupModal,
-  selectInnerHeight,
-  selectInnerWidth,
-  selectIsGridMode,
-} from 'ello-brains/selectors/gui'
-import {
-  selectStreamFilteredResult,
-  selectStreamResultPath,
-} from 'ello-brains/selectors/stream'
-import { runningFetches } from '../sagas/requester'
 import { setNotificationScrollY } from '../actions/gui'
 import { getQueryParamValue } from '../helpers/uri_helper'
+import { ElloMark } from '../components/assets/Icons'
+import { reloadPlayers } from '../components/editor/EmbedBlock'
+import { ErrorState4xx } from '../components/errors/Errors'
+import { Paginator } from '../components/streams/Paginator'
 import {
   addScrollObject,
   addScrollTarget,
   removeScrollObject,
   removeScrollTarget,
 } from '../components/viewport/ScrollComponent'
-import { ElloMark } from '../components/assets/Icons'
-import { Paginator } from '../components/streams/Paginator'
-import { ErrorState4xx } from '../components/errors/Errors'
-import { reloadPlayers } from '../components/editor/EmbedBlock'
+import * as ACTION_TYPES from '../constants/action_types'
+import { runningFetches } from '../sagas/requester'
+import { selectIsLoggedIn } from '../selectors/authentication'
+import {
+  selectColumnCount,
+  selectHasLaunchedSignupModal,
+  selectInnerHeight,
+  selectInnerWidth,
+  selectIsGridMode,
+} from '../selectors/gui'
+import { selectOmnibar, selectStream } from '../selectors/store'
+import {
+  selectStreamFilteredResult,
+  selectStreamResultPath,
+} from '../selectors/stream'
 
 const selectActionPath = props =>
   get(props, ['action', 'payload', 'endpoint', 'path'])

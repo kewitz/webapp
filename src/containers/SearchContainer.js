@@ -3,12 +3,6 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { replace } from 'react-router-redux'
 import debounce from 'lodash/debounce'
-import {
-  selectPropsPathname,
-  selectPropsQueryTerms,
-  selectPropsQueryType,
-} from 'ello-brains/selectors/routing'
-import { selectIsLoggedIn } from 'ello-brains/selectors/authentication'
 import { updateQueryParams } from '../helpers/uri_helper'
 import { searchForPosts, searchForUsers } from '../actions/search'
 import { trackEvent } from '../actions/analytics'
@@ -16,6 +10,12 @@ import { hideSoftKeyboard } from '../lib/jello'
 import SearchControl from '../components/forms/SearchControl'
 import StreamContainer from './StreamContainer'
 import { MainView } from '../components/views/MainView'
+import { selectIsLoggedIn } from '../selectors/authentication'
+import {
+  selectPropsPathname,
+  selectPropsQueryTerms,
+  selectPropsQueryType,
+} from '../selectors/routing'
 import { css } from '../styles/jss'
 
 const TABS = [

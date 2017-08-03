@@ -83,7 +83,7 @@ export const NavbarLoggedOut = ({
   onClickLoadMorePosts,
   onClickNavbarMark,
   pathname,
-}, { onClickLogin, onClickSignup }) =>
+}, { onClickArtistInvites, onClickLogin, onClickSignup }) =>
   (<nav className={`Navbar ${navbarStyle}`} >
     <div className={`NavbarMain ${mainStyle}`}>
       <NavbarMark onClick={onClickNavbarMark} />
@@ -97,6 +97,13 @@ export const NavbarLoggedOut = ({
             to="/"
           />
         }
+        <NavbarLink
+          className="LabelOnly"
+          label="Artist Invites"
+          onClick={onClickArtistInvites}
+          pathname={pathname}
+          to="/artist-invites"
+        />
         <NavbarLink
           className="LabelOnly"
           icon={<SparklesIcon />}
@@ -142,11 +149,13 @@ NavbarLoggedOut.defaultProps = {
   categoryTabs: null,
 }
 NavbarLoggedOut.contextTypes = {
+  onClickArtistInvites: PropTypes.func.isRequired,
   onClickLogin: PropTypes.func.isRequired,
   onClickSignup: PropTypes.func.isRequired,
 }
 
 export const NavbarLoggedIn = ({
+  artistInvitesInProfileMenu,
   avatar,
   categoryTabs,
   deviceSize,
@@ -170,7 +179,7 @@ export const NavbarLoggedIn = ({
   onLogOut,
   pathname,
   username,
-}) =>
+}, { onClickArtistInvites }) =>
   (<nav className={`Navbar ${navbarStyle}`}>
     <div className={`NavbarMain ${mainStyle}`}>
       <NavbarMark onClick={onClickNavbarMark} />
@@ -182,6 +191,15 @@ export const NavbarLoggedIn = ({
             label="Editorial"
             pathname={pathname}
             to="/"
+          />
+        }
+        { !artistInvitesInProfileMenu &&
+          <NavbarLink
+            className="LabelOnly"
+            label="Artist Invites"
+            onClick={onClickArtistInvites}
+            pathname={pathname}
+            to="/artist-invites"
           />
         }
         <NavbarLink
@@ -218,6 +236,7 @@ export const NavbarLoggedIn = ({
         />
       </div>
       <NavbarProfile
+        artistInvitesInProfileMenu={artistInvitesInProfileMenu}
         avatar={avatar}
         isProfileMenuActive={isProfileMenuActive}
         onClickAvatar={onClickAvatar}
@@ -242,6 +261,7 @@ export const NavbarLoggedIn = ({
   </nav>)
 
 NavbarLoggedIn.propTypes = {
+  artistInvitesInProfileMenu: PropTypes.bool.isRequired,
   avatar: PropTypes.object,
   categoryTabs: PropTypes.array,
   deviceSize: PropTypes.string.isRequired,
@@ -271,5 +291,8 @@ NavbarLoggedIn.defaultProps = {
   categoryTabs: null,
   isGridMode: false,
   username: null,
+}
+NavbarLoggedIn.contextTypes = {
+  onClickArtistInvites: PropTypes.func.isRequired,
 }
 

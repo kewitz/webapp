@@ -13,7 +13,7 @@ import {
   PROFILE,
   SET_LAYOUT_MODE,
   ZEROS,
-} from 'ello-brains/constants/action_types'
+} from '../constants/action_types'
 
 let location = {}
 const oldDate = new Date()

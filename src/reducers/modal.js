@@ -1,6 +1,6 @@
 import Immutable from 'immutable'
 import { LOCATION_CHANGE } from 'react-router-redux'
-import { ALERT, AUTHENTICATION, MODAL, PROFILE } from 'ello-brains/constants/action_types'
+import { ALERT, AUTHENTICATION, MODAL, PROFILE } from '../constants/action_types'
 
 const initialState = Immutable.Map({
   classList: null,

@@ -10,7 +10,7 @@ import { css, media } from './jss'
 export const sansRegularFontStack = '"AtlasGroteskRegular", "AtlasGrotesk-Regular", "Helvetica Neue", "HelveticaNeue", "Helvetica", sans-serif'
 export const sansBoldFontStack = '"AtlasGroteskBold", "AtlasGrotesk-Bold", "Helvetica Neue", "HelveticaNeue", "Helvetica", sans-serif'
 export const sansBlackFontStack = '"AtlasGroteskBlack", "AtlasGrotesk-Black", "Helvetica Neue", "HelveticaNeue", "Helvetica", sans-serif'
-export const sansBlackItalicFontStack = '"AtlasGroteskBlackItalic", "AtlasGrotesk-Black", "Helvetica Neue", "HelveticaNeue", "Helvetica", sans-serif'
+export const sansLightFontStack = '"AtlasGroteskLight", "AtlasGrotesk-Light", "Helvetica Neue", "HelveticaNeue", "Helvetica", sans-serif'
 export const monoRegularFontStack = '"AtlasTypewriterRegular", "AtlasTypewriter-Regular", "Andale Mono", "Consolas", "Lucida Console", "Menlo", "Luxi Mono", monospace'
 
 // Web specific
@@ -232,6 +232,14 @@ export const ml40 = { marginLeft: 40 }
 export const mx40 = { ...mr40, ...ml40 }
 export const my40 = { ...mt40, ...mb40 }
 
+export const m60 = { margin: 60 }
+export const mt60 = { marginTop: 60 }
+export const mr60 = { marginRight: 60 }
+export const mb60 = { marginBottom: 60 }
+export const ml60 = { marginLeft: 60 }
+export const mx60 = { ...mr60, ...ml60 }
+export const my60 = { ...mt60, ...mb60 }
+
 export const mAuto = { margin: 'auto' }
 export const mtAuto = { marginTop: 'auto' }
 export const mrAuto = { marginRight: 'auto' }
@@ -276,9 +284,9 @@ export const sansBlack = {
   fontStyle: 'normal',
   fontWeight: 400,
 }
-export const sansBlackItalic = {
-  fontFamily: sansBlackItalicFontStack,
-  fontStyle: 'italic',
+export const sansLight = {
+  fontFamily: sansLightFontStack,
+  fontStyle: 'normal',
   fontWeight: 400,
 }
 export const monoRegular = {
@@ -301,6 +309,7 @@ export const fontSize18 = { fontSize: 18 }
 export const fontSize24 = { fontSize: 24 }
 export const fontSize28 = { fontSize: 28 }
 export const fontSize32 = { fontSize: 32 }
+export const fontSize38 = { fontSize: 38 }
 export const fontSize48 = { fontSize: 48 }
 
 export const leftAlign = { textAlign: 'left' }
@@ -324,6 +333,8 @@ export const color9 = { color: '#999' }
 export const colorA = { color: '#aaa' }
 export const colorC = { color: '#ccc' }
 export const colorWhite = { color: '#fff' }
+export const colorGreen = { color: '#00d100' }
+export const colorYellow = { color: '#ffc600' }
 
 export const bgcCurrentColor = { backgroundColor: 'currentColor' }
 export const bgcTransparent = { backgroundColor: 'transparent' }
@@ -334,6 +345,7 @@ export const bgc9 = { backgroundColor: '#999' }
 export const bgcA = { backgroundColor: '#aaa' }
 export const bgcEA = { backgroundColor: '#eaeaea' }
 export const bgcE5 = { backgroundColor: '#e5e5e5' }
+export const bgcF2 = { backgroundColor: '#f2f2f2' }
 export const bgcWhite = { backgroundColor: '#fff' }
 export const bgcGreen = { backgroundColor: '#00d100' }
 export const bgcRed = { backgroundColor: '#f00' }

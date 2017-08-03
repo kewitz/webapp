@@ -4,8 +4,9 @@ import { createSelector } from 'reselect'
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { selectIsLoggedIn } from 'ello-brains/selectors/authentication'
-import { selectDPI } from 'ello-brains/selectors/gui'
+import { CuratedPost } from '../components/editorials/EditorialRenderables'
+import { selectIsLoggedIn } from '../selectors/authentication'
+import { selectDPI } from '../selectors/gui'
 import {
   selectPost,
   selectPostAuthor,
@@ -15,8 +16,7 @@ import {
   selectPostId,
   selectPostIsEmpty,
   selectPostLoved,
-} from 'ello-brains/selectors/post'
-import { CuratedPost } from '../components/editorials/EditorialRenderables'
+} from '../selectors/post'
 
 type Props = {
   dpi: string,

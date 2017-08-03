@@ -3,14 +3,14 @@ import React from 'react'
 import get from 'lodash/get'
 import { camelizeKeys } from 'humps'
 import { actionChannel, all, call, fork, put, select, take } from 'redux-saga/effects'
-import * as ACTION_TYPES from 'ello-brains/constants/action_types'
-import { selectPathname } from 'ello-brains/selectors/routing'
-import { selectRefreshToken } from 'ello-brains/selectors/authentication'
-import { selectLastNotificationCheck } from 'ello-brains/selectors/gui'
-import { clearAuthToken, refreshAuthenticationToken } from '../actions/authentication'
 import { extractJSON, fetchCredentials, getHeaders, getHeadHeader, sagaFetch } from './api'
+import { clearAuthToken, refreshAuthenticationToken } from '../actions/authentication'
 import { openAlert } from '../actions/modals'
 import Dialog from '../components/dialogs/Dialog'
+import * as ACTION_TYPES from '../constants/action_types'
+import { selectRefreshToken } from '../selectors/authentication'
+import { selectLastNotificationCheck } from '../selectors/gui'
+import { selectPathname } from '../selectors/routing'
 
 export const requestTypes = [
   ACTION_TYPES.AUTHENTICATION.FORGOT_PASSWORD,
@@ -179,7 +179,6 @@ export function* performRequest(action) {
     payload: { endpoint, method, body },
   } = action
   let { payload } = action
-
   const pathname = yield select(selectPathname)
   payload = {
     ...payload,
@@ -245,7 +244,6 @@ export function* performRequest(action) {
     response = yield call(sagaFetch, endpointPath, options)
   } catch (error) {
     updateRunningFetches(error.response)
-
     yield fork(handleRequestError, error, action)
     return false
   }

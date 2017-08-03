@@ -1,7 +1,7 @@
 /* eslint-disable max-len */
 import React from 'react'
-import { SHORTCUT_KEYS } from 'ello-brains/constants/application_types'
 import { DismissButton } from '../../components/buttons/Buttons'
+import { SHORTCUT_KEYS } from '../../constants/application_types'
 import { css, media } from '../../styles/jss'
 import * as s from '../../styles/jso'
 import { dialogStyle as baseDialogStyle } from './Dialog'
