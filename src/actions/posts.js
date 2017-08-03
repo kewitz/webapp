@@ -6,7 +6,7 @@ import { resetEditor } from '../actions/editor'
 
 export function createPost(body, editorId, repostId, repostedFromId, artistInviteId) {
   const data = body.length ? { body } : null
-  if (data && artistInviteId) {
+  if (data && !repostId && !repostedFromId && artistInviteId) {
     data.artist_invite_id = artistInviteId
   }
   return {
