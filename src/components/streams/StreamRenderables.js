@@ -91,7 +91,7 @@ const titleWrapperStyle = css(
   s.px10,
   s.mxAuto,
   media(s.minBreak2, s.px20),
-  media(s.minBreak4, s.px0),
+  media(s.minBreak4, s.px20),
 )
 
 const titleStyle = css(
