@@ -23,14 +23,15 @@ const gridContainerStyle = css(
     s.minBreak2,
     s.mr20,
     s.mb20,
-    { width: 'calc(50% - 10px)' },
+    // .1 is MS Edge not calc-ing rems correctly
+    { width: 'calc(50% - 10.1px)' },
     select(':nth-child(2n)', s.mr0),
   ),
   media(
     s.minBreak4,
     s.mr40,
     s.mb40,
-    { width: 'calc(50% - 20px)' },
+    { width: 'calc(50% - 20.2px)' },
   ),
   hover(s.bgcE5),
 )
