@@ -226,7 +226,7 @@ methods.getEditorObject = (state = initialState, action) => {
     case EDITOR.APPEND_TEXT:
       return methods.appendText(state, action.payload.text)
     case EDITOR.INITIALIZE:
-      if (state.get('shouldPersist')) {
+      if (state.get('shouldPersist') || get(action, 'payload.shouldPersist')) {
         return state
       }
       return initialState
