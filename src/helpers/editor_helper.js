@@ -8,7 +8,7 @@ import { userRegex } from '../components/completers/Completer'
 
 const methods = {}
 const initialState = Immutable.Map({
-  artistInviteId: null,
+  artistInvite: null,
   collection: Immutable.Map(),
   hasContent: false,
   hasMedia: false,
@@ -211,8 +211,8 @@ methods.updateBuyLink = (state, action) => {
 
 methods.getEditorObject = (state = initialState, action) => {
   switch (action.type) {
-    case 'EDITOR.ADD_ARTIST_INVITE_ID':
-      return state.set('artistInviteId', action.payload.artistInviteId)
+    case EDITOR.ADD_ARTIST_INVITE:
+      return state.set('artistInvite', action.payload.artistInvite)
     case EDITOR.ADD_BLOCK:
       return methods.add({
         block: action.payload.block,

@@ -5,9 +5,12 @@
   user-select: none;
 }
 
+.editorWrapper {
+  max-width: 840px;
+}
+
 .editor {
   position: relative;
-  max-width: 840px;
   font-size: 14px;
   color: #000;
 }
@@ -30,7 +33,7 @@
   border-right-color: #000;
 }
 
-.Omnibar > .editor {
+.Omnibar > .editorWrapper {
   padding: 20px;
   margin: 0 auto;
 }
@@ -69,8 +72,8 @@
 /* // "Say Ello" placeholder text */
 .editor::after {
   position: absolute;
-  top: 71px;
-  left: 61px;
+  top: 51px;
+  left: 41px;
   color: #999;
   pointer-events: none;
   content: attr(data-placeholder);
@@ -181,7 +184,7 @@
     left: 80px;
   }
 
-  .Omnibar > .editor {
+  .Omnibar > .editorWrapper {
     margin-top: 40px;
   }
 

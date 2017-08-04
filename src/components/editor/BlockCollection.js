@@ -31,6 +31,18 @@ import { selectIsMobileGridStream, selectIsNavbarHidden } from '../../selectors/
 import { selectPropsPostId } from '../../selectors/post'
 import { selectAvatar } from '../../selectors/profile'
 import { selectIsPostDetail, selectPathname } from '../../selectors/routing'
+import { css, media, select } from '../../styles/jss'
+import * as s from '../../styles/jso'
+
+const inviteTitleStyle = css(
+  s.colorBlack,
+  s.fontSize24,
+  s.my5,
+  s.sansBlack,
+  s.truncate,
+  media(s.minBreak3, s.fontSize38, s.my10),
+  select('& span', s.colorA),
+)
 
 function mapStateToProps(state, props) {
   const editor = state.editor.get(props.editorId, Immutable.Map())
@@ -41,8 +53,10 @@ function mapStateToProps(state, props) {
   if (firstBlock) {
     buyLink = firstBlock.get('linkUrl')
   }
+  const artistInvite = editor.get('artistInvite')
   return {
-    artistInviteId: editor.get('artistInviteId') || props.post.get('artistInviteId'),
+    artistInvite,
+    artistInviteId: artistInvite ? artistInvite.get('id') : props.post.get('artistInviteId'),
     buyLink,
     avatar: selectAvatar(state),
     collection,
@@ -66,6 +80,7 @@ function mapStateToProps(state, props) {
 class BlockCollection extends PureComponent {
 
   static propTypes = {
+    artistInvite: PropTypes.object,
     artistInviteId: PropTypes.string,
     avatar: PropTypes.object,
     blocks: PropTypes.object,
@@ -98,6 +113,7 @@ class BlockCollection extends PureComponent {
   }
 
   static defaultProps = {
+    artistInvite: null,
     artistInviteId: null,
     avatar: null,
     buyLink: null,
@@ -417,7 +433,7 @@ class BlockCollection extends PureComponent {
 
   render() {
     const {
-      buyLink, avatar, cancelAction, collection, dragBlock, editorId, firstBlock,
+      artistInvite, avatar, buyLink, cancelAction, collection, dragBlock, editorId, firstBlock,
       hasContent, hasMedia, hasMention, isComment, isLoading, isMobileGridStream,
       isOwnPost, isPosting, order, orderLength, submitText,
     } = this.props
@@ -435,38 +451,42 @@ class BlockCollection extends PureComponent {
       isPosting,
     })
     return (
-      <div
-        className={editorClassNames}
-        data-placeholder={isComment ? 'Comment...' : 'Add images, embeds, text & links.'}
-        onDragLeave={this.onDragLeave}
-        onDragOver={this.onDragOver}
-        onDrop={this.onDrop}
-      >
-        {isComment ? <Avatar sources={avatar} /> : null}
+      <div className="editorWrapper">
+        {artistInvite &&
+          <h2 className={inviteTitleStyle}><span>Submit to:</span>{` ${artistInvite.get('title')}`}</h2>
+        }
         <div
-          className="editor-region"
-          data-num-blocks={orderLength}
+          className={editorClassNames}
+          data-placeholder={isComment ? 'Comment...' : 'Add images, embeds, text & links.'}
+          onDragLeave={this.onDragLeave}
+          onDragOver={this.onDragOver}
+          onDrop={this.onDrop}
         >
-          {order ? order.map(uid => this.getBlockElement(collection.get(`${uid}`))) : null}
-          {dragBlock ?
-            <div className="DragBlock" style={{ top: dragBlockTop }}>
-              {this.getBlockElement(dragBlock)}
-            </div> :
-            null
-          }
+          {isComment && <Avatar sources={avatar} />}
+          <div
+            className="editor-region"
+            data-num-blocks={orderLength}
+          >
+            {order && order.map(uid => this.getBlockElement(collection.get(`${uid}`)))}
+            {dragBlock &&
+              <div className="DragBlock" style={{ top: dragBlockTop }}>
+                {this.getBlockElement(dragBlock)}
+              </div>
+            }
+          </div>
+          {showQuickEmoji && <QuickEmoji onAddEmoji={this.onInsertEmoji} />}
+          <PostActionBar
+            buyLink={buyLink}
+            cancelAction={cancelAction}
+            disableSubmitAction={isPosting || isLoading || !hasContent}
+            editorId={editorId}
+            handleFileAction={this.handleFiles}
+            hasMedia={hasMedia}
+            replyAllAction={isComment && isOwnPost && !isMobileGridStream ? this.replyAll : null}
+            submitAction={this.submit}
+            submitText={submitText}
+          />
         </div>
-        {showQuickEmoji ? <QuickEmoji onAddEmoji={this.onInsertEmoji} /> : null}
-        <PostActionBar
-          buyLink={buyLink}
-          cancelAction={cancelAction}
-          disableSubmitAction={isPosting || isLoading || !hasContent}
-          editorId={editorId}
-          handleFileAction={this.handleFiles}
-          hasMedia={hasMedia}
-          replyAllAction={isComment && isOwnPost && !isMobileGridStream ? this.replyAll : null}
-          submitAction={this.submit}
-          submitText={submitText}
-        />
       </div>
     )
   }

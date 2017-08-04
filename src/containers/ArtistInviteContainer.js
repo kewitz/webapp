@@ -1,7 +1,6 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { EDITOR } from '../constants/action_types'
 import { trackEvent } from '../actions/analytics'
 import { openOmnibar } from '../actions/omnibar'
 import {
@@ -9,8 +8,10 @@ import {
   ArtistInviteGrid,
 } from '../components/artist_invites/ArtistInviteRenderables'
 import { getEditorId } from '../components/editor/Editor'
+import { EDITOR } from '../constants/action_types'
 import { scrollToPosition } from '../lib/jello'
 import {
+  selectArtistInvite,
   selectClosedAt,
   selectDescription,
   selectGuide,
@@ -32,6 +33,7 @@ import { selectDPI } from '../selectors/gui'
 function mapStateToProps(state, props) {
   return {
     // artistInvite fields
+    artistInvite: selectArtistInvite(state, props),
     closedAt: selectClosedAt(state, props),
     description: selectDescription(state, props),
     guide: selectGuide(state, props),
@@ -55,6 +57,7 @@ function mapStateToProps(state, props) {
 
 class ArtistInviteContainer extends PureComponent {
   static propTypes = {
+    artistInvite: PropTypes.object.isRequired,
     closedAt: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
     dispatch: PropTypes.func.isRequired,
@@ -62,7 +65,6 @@ class ArtistInviteContainer extends PureComponent {
     guide: PropTypes.object.isRequired,
     hasSubmissions: PropTypes.bool,
     headerImage: PropTypes.object.isRequired,
-    id: PropTypes.string.isRequired,
     inviteType: PropTypes.string.isRequired,
     isLoggedIn: PropTypes.bool.isRequired,
     kind: PropTypes.oneOf(['detail', 'grid']).isRequired,
@@ -104,26 +106,16 @@ class ArtistInviteContainer extends PureComponent {
   }
 
   onClickSubmit = () => {
-    const { dispatch, id, submissionBodyBlock } = this.props
+    const { artistInvite, dispatch } = this.props
     const editorId = getEditorId()
-    dispatch(openOmnibar())
-    // do this in a rAF to allow the editor to initialize first if it needs to
-    requestAnimationFrame(() => {
-      dispatch({
-        type: EDITOR.APPEND_TEXT,
-        payload: {
-          editorId,
-          text: submissionBodyBlock,
-        },
-      })
-      dispatch({
-        type: 'EDITOR.ADD_ARTIST_INVITE_ID',
-        payload: {
-          editorId,
-          artistInviteId: id,
-        },
-      })
+    dispatch({
+      type: EDITOR.ADD_ARTIST_INVITE,
+      payload: {
+        editorId,
+        artistInvite,
+      },
     })
+    dispatch(openOmnibar())
     scrollToPosition(0, 0)
   }
 
