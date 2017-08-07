@@ -33,9 +33,11 @@ class KeyboardContainer extends Component {
   static defaultProps = {
     discoverKeyType: null,
     shortcuts: {
-      [SHORTCUT_KEYS.SEARCH]: '/search',
+      [SHORTCUT_KEYS.ARTIST_INVITES]: '/artist-invites',
       [SHORTCUT_KEYS.DISCOVER]: '/discover',
+      [SHORTCUT_KEYS.EDITORIAL]: '/',
       [SHORTCUT_KEYS.FOLLOWING]: '/following',
+      [SHORTCUT_KEYS.SEARCH]: '/search',
       [SHORTCUT_KEYS.NOTIFICATIONS]: '/notifications',
     },
   }

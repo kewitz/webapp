@@ -33,6 +33,8 @@ const textStyle = css(
 const HelpDialog = () =>
   (<div className={`${baseDialogStyle} ${dialogStyle}`}>
     <h2 className={headingStyle}>Key Commands</h2>
+    <p className={textWrapperStyle}><span className={`${textStyle} ${s.monoRegularCSS}`}>{SHORTCUT_KEYS.EDITORIAL}</span> Navigate to editorial</p>
+    <p className={textWrapperStyle}><span className={`${textStyle} ${s.monoRegularCSS}`}>{SHORTCUT_KEYS.ARTIST_INVITES}</span> Navigate to artist invites</p>
     <p className={textWrapperStyle}><span className={`${textStyle} ${s.monoRegularCSS}`}>{SHORTCUT_KEYS.DISCOVER}</span> Navigate to discover</p>
     <p className={textWrapperStyle}><span className={`${textStyle} ${s.monoRegularCSS}`}>{SHORTCUT_KEYS.SEARCH}</span> Navigate to search</p>
     <p className={textWrapperStyle}><span className={`${textStyle} ${s.monoRegularCSS}`}>{SHORTCUT_KEYS.FOLLOWING}</span> Navigate to following</p>

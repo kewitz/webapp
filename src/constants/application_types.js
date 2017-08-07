@@ -1,10 +1,12 @@
 export const ONBOARDING_VERSION = '2'
 
 export const SHORTCUT_KEYS = {
+  ARTIST_INVITES: 'a',
   DISCOVER: 'd',
   DT_CONTAINER_TOGGLE: 'g |',
   DT_GRID_CYCLE: 'g ~',
   DT_GRID_TOGGLE: 'g `',
+  EDITORIAL: 'e',
   ESC: 'esc',
   FOLLOWING: 'f',
   FULLSCREEN: 'g m',
