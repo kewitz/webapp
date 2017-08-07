@@ -33,6 +33,11 @@
   .isProfileMenuActive ~ .MainView {
     display: none;
   }
+
+  .isLoggedOut .ArtistInvites.MainView,
+  .isLoggedOut .Editorial.MainView {
+    margin-top: 20px;
+  }
 }
 
 @media (--break-2) {
