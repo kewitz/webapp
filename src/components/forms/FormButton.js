@@ -39,7 +39,7 @@ const buttonStyle = css(
   ),
   modifier('.inFooter[disabled]', s.bgcBlack, s.borderBlack),
   select('& .ArrowIcon', { marginTop: -2 }),
-  parent('.SettingsCredentialActions', s.mb20, { width: 120 }),
+  parent('.SettingsCredentialActions', s.mb20, s.lh40, s.hv40, { width: 160 }),
   parent('.InvitationsForm', { float: 'right', marginTop: -60 }),
 )
 
