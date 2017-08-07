@@ -106,10 +106,10 @@ export const selectCreatorTypeCategories = createSelector(
 
 export const selectCategoryTabs = createSelector(
   [selectCategories], (categories) => {
-    const { meta, primary, secondary, tertiary } = categories
+    const { meta, primary, secondary } = categories
     const tabs = []
     if (!primary) { return tabs }
-    [meta, primary, secondary, tertiary].filter(arr => arr).forEach((level) => {
+    [meta, primary, secondary].filter(arr => arr).forEach((level) => {
       level.forEach((category) => {
         const tab = {
           label: category.get('name'),
