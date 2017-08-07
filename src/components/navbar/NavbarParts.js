@@ -284,8 +284,6 @@ NavbarOmniButton.propTypes = {
 
 // -------------------------------------
 
-const threadlessLink = 'http://ello.threadless.com/'
-
 const profilePopStyle = css(
   s.absolute,
   { top: 0, left: 0 },
@@ -409,14 +407,6 @@ export const NavbarProfile = ({
             target="_blank"
           >
             Help
-          </a>
-          <a
-            className={profileLinkSmallStyle}
-            href={threadlessLink}
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            Store
           </a>
           <button className={profileLinkSmallStyle} onClick={onLogOut}>Logout</button>
           <button className={closeButtonStyle}>
