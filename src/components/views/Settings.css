@@ -76,6 +76,10 @@
   text-align: left;
 }
 
+.SettingsAvatarPicker {
+  margin-bottom: 40px;
+}
+
 /* // ------------------------------------- */
 
 @media (--break-2) {
