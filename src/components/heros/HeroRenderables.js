@@ -141,7 +141,7 @@ const categoryCaptionStyle = css(
 )
 
 const categoryHeadingStyle = css(
-  s.fontSize18, { lineHeight: 1.5 }, s.center,
+  s.sansBlack, s.fontSize18, { lineHeight: 1.5 }, s.center,
   media(s.minBreak2, s.fontSize24),
 )
 const categoryHeadingTextStyle = css(s.inlineBlock, s.borderBottom)
@@ -212,7 +212,7 @@ HeroPromotionCategory.defaultProps = {
 
 // -------------------------------------
 
-const promotionHeadingStyle = css(s.fontSize18, media(s.minBreak2, s.fontSize48))
+const promotionHeadingStyle = css(s.sansBlack, s.fontSize18, media(s.minBreak2, s.fontSize48))
 const promotionSubheadingStyle = css(s.fontSize14, media(s.minBreak2, s.fontSize28))
 
 export const HeroPromotionPage = (props) => {
