@@ -22,17 +22,17 @@ const heroStyle = css(
   select('.isAuthenticationView ~ &', { paddingTop: '0 !important' }),
   select('.isDiscoverView ~ &', { paddingTop: '160px !important' }),
   media(s.maxBreak2,
-    parent('.isLoggedOut', { paddingTop: 50 }),
+    parent('.isLoggedOut', { paddingTop: 80 }),
     select('.isDiscoverView ~ &', { paddingTop: '120px !important' }),
     select('.isLogged .isDiscoverView ~ &', { paddingTop: '120px !important' }),
     select('.isProfileMenuActive ~ &', s.displayNone),
   ),
   media('(max-width: 23.375em)',
-    select('.isDiscoverView ~ &', { paddingTop: '135px !important' }),
+    select('.isDiscoverView ~ &', { paddingTop: '130px !important' }),
     select('.isLogged .isDiscoverView ~ &', { paddingTop: '100px !important' }),
   ),
   media(s.minBreak2,
-  { paddingTop: 80 },
+    { paddingTop: 80 },
   ),
 )
 
@@ -141,7 +141,7 @@ const categoryCaptionStyle = css(
 )
 
 const categoryHeadingStyle = css(
-  s.fontSize18, { lineHeight: 1.5 }, s.center,
+  s.sansBlack, s.fontSize18, { lineHeight: 1.5 }, s.center,
   media(s.minBreak2, s.fontSize24),
 )
 const categoryHeadingTextStyle = css(s.inlineBlock, s.borderBottom)
@@ -212,7 +212,7 @@ HeroPromotionCategory.defaultProps = {
 
 // -------------------------------------
 
-const promotionHeadingStyle = css(s.fontSize18, media(s.minBreak2, s.fontSize48))
+const promotionHeadingStyle = css(s.sansBlack, s.fontSize18, media(s.minBreak2, s.fontSize48))
 const promotionSubheadingStyle = css(s.fontSize14, media(s.minBreak2, s.fontSize28))
 
 export const HeroPromotionPage = (props) => {

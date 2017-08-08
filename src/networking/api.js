@@ -18,13 +18,16 @@ function getAPIPath(relPath, queryParams = {}) {
 }
 // Editorials
 export function editorials(isPreview) {
+  const params = isPreview ?
+    { preview: true, ...getPagingQueryParams(window.location.search) } :
+    { ...getPagingQueryParams(window.location.search) }
   return {
-    path: getAPIPath('editorials', isPreview ? { preview: true } : {}),
+    path: getAPIPath('editorials', params),
   }
 }
 // Artist Invites
 export function artistInvites(isPreview) {
-  const query = { per_page: PER_PAGE }
+  const query = { per_page: PER_PAGE, ...getPagingQueryParams(window.location.search) }
   if (isPreview) { query.preview = true }
   return {
     path: getAPIPath('artist_invites', query),
@@ -394,15 +397,23 @@ export function hireUser(id) {
 }
 // Search
 export function searchPosts(params) {
+  const newParams = {
+    ...getPagingQueryParams(window.location.search),
+    ...params,
+  }
   return {
-    path: getAPIPath('posts', params),
-    params,
+    path: getAPIPath('posts', newParams),
+    params: newParams,
   }
 }
 export function searchUsers(params) {
+  const newParams = {
+    ...getPagingQueryParams(window.location.search),
+    ...params,
+  }
   return {
-    path: getAPIPath('users', params),
-    params,
+    path: getAPIPath('users', newParams),
+    params: newParams,
   }
 }
 // Notifications

@@ -89,7 +89,7 @@ export function orientImage(img, maxW, maxH, orientation) {
   canvas.width = width
   canvas.height = height
   const ctx = canvas.getContext('2d')
-  ctx.fillStyle = 'white'
+  ctx.fillStyle = 'transparent'
   ctx.fillRect(0, 0, canvas.width, canvas.height)
 
   switch (transform) {

@@ -36,7 +36,7 @@ export const FOOTER_LINKS = [
   { label: 'Help', to: '/wtf' },
   { label: 'Blog', to: '/elloblog' },
   { label: 'Magazine', to: 'https://notforprint.co/' },
-  { label: 'Shop', to: '/discover/shop' },
+  { label: 'Store', to: 'http://ello.threadless.com' },
   { label: 'Apps', to: '/wtf/resources/apps/' },
   { label: 'Terms', to: '/wtf/policies/terms/' },
   { label: 'Privacy', to: '/wtf/policies/privacy/' },

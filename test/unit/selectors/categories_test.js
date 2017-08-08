@@ -156,10 +156,7 @@ describe('categories selectors', () => {
       expect(tabs[6]).to.have.property('label', 'Interviews')
       expect(tabs[6]).to.have.property('to', '/discover/interviews')
       // tertiary
-      expect(tabs[7]).to.have.property('label', 'Music')
-      expect(tabs[7]).to.have.property('to', '/discover/music')
-      expect(tabs[8]).to.have.property('label', 'Development')
-      expect(tabs[8]).to.have.property('to', '/discover/development')
+      expect(tabs[7]).to.be.undefined
     })
   })
 
