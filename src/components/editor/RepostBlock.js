@@ -30,7 +30,7 @@ function getBlockElement(block, uid) {
   }
 }
 
-const toolsStyle = css(s.absolute, { top: 5, right: 5 }, s.zIndex2, s.colorA)
+const toolsStyle = css(s.absolute, { top: 15, right: 35 }, s.zIndex2, s.colorA)
 
 class RepostBlock extends Component {
 

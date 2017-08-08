@@ -100,10 +100,10 @@
 }
 
 .editor-block.readonly {
-  padding: 20px;
+  padding: 40px;
   white-space: pre-wrap;
   word-break: break-word; /* stylelint-disable-line */
-  border: 1px solid #aaa;
+  background: #e5e5e5;
 }
 
 .DragBlock {
