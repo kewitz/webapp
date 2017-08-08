@@ -12,6 +12,7 @@ import PostActionBar from './PostActionBar'
 import RepostBlock from './RepostBlock'
 import TextBlock from './TextBlock'
 import Avatar from '../assets/Avatar'
+import { XIcon } from '../assets/Icons'
 import {
   addBlock,
   addDragBlock,
@@ -31,7 +32,7 @@ import { selectIsMobileGridStream, selectIsNavbarHidden } from '../../selectors/
 import { selectPropsPostId } from '../../selectors/post'
 import { selectAvatar } from '../../selectors/profile'
 import { selectIsPostDetail, selectPathname } from '../../selectors/routing'
-import { css, media, select } from '../../styles/jss'
+import { css, hover, media, select } from '../../styles/jss'
 import * as s from '../../styles/jso'
 
 const inviteTitleStyle = css(
@@ -43,6 +44,28 @@ const inviteTitleStyle = css(
   media(s.minBreak3, s.fontSize38, s.my10),
   select('& span', s.colorA),
 )
+
+const successWrapperStyle = css(
+  s.mxAuto,
+  s.relative,
+  { maxWidth: 450 },
+)
+
+const successTitleStyle = css(
+  s.colorGreen,
+  s.fontSize24,
+  s.mb10,
+  s.sansBlack,
+  s.truncate,
+)
+
+const successBodyStyle = css(
+  s.colorA,
+  s.fontSize24,
+  s.sansLight,
+)
+
+const dismissStyle = css(s.absolute, { top: -3, right: -20 }, s.colorA, hover(s.colorBlack))
 
 function mapStateToProps(state, props) {
   const editor = state.editor.get(props.editorId, Immutable.Map())
@@ -108,6 +131,7 @@ class BlockCollection extends PureComponent {
     pathname: PropTypes.string.isRequired,
     postId: PropTypes.string,
     repostContent: PropTypes.object,
+    showArtistInviteSuccess: PropTypes.bool.isRequired,
     submitAction: PropTypes.func.isRequired,
     submitText: PropTypes.string,
   }
@@ -132,6 +156,10 @@ class BlockCollection extends PureComponent {
     postId: null,
     repostContent: Immutable.List(),
     submitText: 'Post',
+  }
+
+  static contextTypes = {
+    onClickDismissAISuccess: PropTypes.func.isRequired,
   }
 
   componentWillMount() {
@@ -435,7 +463,7 @@ class BlockCollection extends PureComponent {
     const {
       artistInvite, avatar, buyLink, cancelAction, collection, dragBlock, editorId, firstBlock,
       hasContent, hasMedia, hasMention, isComment, isLoading, isMobileGridStream,
-      isOwnPost, isPosting, order, orderLength, submitText,
+      isOwnPost, isPosting, order, orderLength, showArtistInviteSuccess, submitText,
     } = this.props
     const { dragBlockTop, hasDragOver } = this.state
     const firstBlockIsText = firstBlock ? /text/.test(firstBlock.get('kind')) : true
@@ -450,6 +478,22 @@ class BlockCollection extends PureComponent {
       isLoading,
       isPosting,
     })
+    if (showArtistInviteSuccess) {
+      return (
+        <div className="editorWrapper">
+          <div className={successWrapperStyle}>
+            <h2 className={successTitleStyle}>Submission received!</h2>
+            <div className={successBodyStyle}>
+              Nice moves. Our curatorial team will review your submission.
+              You’ll receive a notification when it’s approved.
+            </div>
+            <button className={dismissStyle} onClick={this.context.onClickDismissAISuccess}>
+              <XIcon />
+            </button>
+          </div>
+        </div>
+      )
+    }
     return (
       <div className="editorWrapper">
         {artistInvite &&
