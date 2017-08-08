@@ -35,7 +35,7 @@ const wrapperStyle = css(
   s.color9,
   s.nowrap,
   // TODO: Set this from a prop
-  parent('.editor.isComment', { top: 92, right: 30 }, media(s.minBreak2, { top: 52 })),
+  parent('.editor.isComment', { top: 82, right: 40 }, media(s.minBreak2, { top: 42 })),
 )
 const wrapperActiveStyle = css(wrapperStyle, s.color5)
 
@@ -43,7 +43,7 @@ const listStyle = css(
   s.absolute,
   { top: 0, left: -150 },
   s.pl10,
-  s.bgcE5,
+  s.bgcF2,
   s.opacity0,
   s.transitionOpacity,
 )

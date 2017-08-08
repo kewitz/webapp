@@ -9,7 +9,7 @@ import * as s from '../../styles/jso'
 
 const toolsStyle = css(
   s.absolute,
-  { top: 5, right: 5 },
+  { top: 15, right: 35 },
   s.zIndex2,
   s.colorA,
   parent('.BlockPlaceholder >', s.displayNone),

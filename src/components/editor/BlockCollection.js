@@ -501,7 +501,7 @@ class BlockCollection extends PureComponent {
         }
         <div
           className={editorClassNames}
-          data-placeholder={isComment ? 'Comment...' : 'Add images, embeds, text & links.'}
+          data-placeholder={isComment ? 'Comment...' : 'Drag & drop images, paste embeds, enter text and links.'}
           onDragLeave={this.onDragLeave}
           onDragOver={this.onDragOver}
           onDrop={this.onDrop}
