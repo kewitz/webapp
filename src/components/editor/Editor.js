@@ -97,9 +97,27 @@ class Editor extends Component {
     onClickScrollToContent: PropTypes.func,
   }
 
+  static childContextTypes = {
+    onClickDismissAISuccess: PropTypes.func,
+  }
+
+  getChildContext() {
+    return {
+      onClickDismissAISuccess: this.onClickDismissAISuccess,
+    }
+  }
+
   componentWillMount() {
     const { dispatch, shouldPersist } = this.props
     dispatch(initializeEditor(this.getEditorIdentifier(), shouldPersist))
+    this.state = { showArtistInviteSuccess: false }
+  }
+
+  onClickDismissAISuccess = () => {
+    const { dispatch } = this.props
+    clearTimeout(this.timeout)
+    this.setState({ showArtistInviteSuccess: false })
+    dispatch(closeOmnibar())
   }
 
   getEditorIdentifier() {
@@ -126,7 +144,12 @@ class Editor extends Component {
         dispatch(createComment(allowsAutoWatch, data, this.getEditorIdentifier(), post.get('id')))
       }
     } else if (isPostEmpty) {
-      dispatch(closeOmnibar())
+      if (artistInviteId) {
+        this.setState({ showArtistInviteSuccess: true })
+        this.timeout = setTimeout(this.onClickDismissAISuccess, 6660)
+      } else {
+        dispatch(closeOmnibar())
+      }
       dispatch(createPost(data, this.getEditorIdentifier(), null, null, artistInviteId))
     } else if (post.get('isEditing')) {
       dispatch(toggleEditing(post, false))
@@ -252,6 +275,7 @@ class Editor extends Component {
         key={key}
         post={post}
         repostContent={repostContent}
+        showArtistInviteSuccess={this.state.showArtistInviteSuccess}
         submitAction={this.submit}
         submitText={submitText}
       />
