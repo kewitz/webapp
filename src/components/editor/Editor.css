@@ -5,19 +5,10 @@
   user-select: none;
 }
 
-.editorWrapper {
-  max-width: 1440px;
-}
-
 .editor {
   position: relative;
   font-size: 14px;
   color: #000;
-}
-
-.Omnibar > .editorWrapper {
-  padding: 20px;
-  margin: 0 auto;
 }
 
 .editor-region {
@@ -52,7 +43,7 @@
 .editor::after {
   position: absolute;
   top: 41px;
-  left: 41px;
+  left: 21px;
   color: #999;
   pointer-events: none;
   content: attr(data-placeholder);
@@ -64,12 +55,7 @@
 
 .editor.isComment::after {
   top: 81px;
-  left: 41px;
-}
-
-/* // editor has a mention - turn background yellow */
-.editor.hasMention .editor-region {
-  background-color: #ffc;
+  left: 21px;
 }
 
 /* // editor is dragged over with a droppable element - turn background green */
@@ -88,8 +74,8 @@
 .editable {
   position: relative;
   min-height: 60px;
-  padding: 40px 0;
-  margin: 0 40px;
+  padding: 40px 0 20px;
+  margin: 0 20px;
   white-space: pre-wrap;
   word-break: break-word; /* stylelint-disable-line */
   outline: 0; /* stylelint-disable-line */
@@ -120,9 +106,18 @@
 }
 
 @media (--break-2) {
+  .editable {
+    padding: 40px 0;
+    margin: 0 40px;
+  }
+
   .editor.isComment {
     max-width: 640px;
     padding-left: 60px;
+  }
+
+  .editor::after {
+    left: 41px;
   }
 
   .editor.hasContent::after {
@@ -138,10 +133,6 @@
     left: 80px;
   }
 
-  .Omnibar > .editorWrapper {
-    margin-top: 40px;
-  }
-
   /* stylelint-disable selector-max-compound-selectors, selector-max-specificity, selector-no-qualifying-type */
   body.isOmnibarActive .Omnibar.isFullScreen > .editor {
     max-width: none;
@@ -154,22 +145,12 @@
   /* stylelint-enable selector-max-compound-selectors, selector-max-specificity, selector-no-qualifying-type */
 }
 
-@media (--break-4) {
-  .Omnibar > .editorWrapper {
-    padding: 40px;
-  }
-}
-
 /* // ------------------------------------- */
 /* // This should become a `ZeroStateEditor` at some point, */
 /* // but waiting for the editor API to settle a little more */
 
 .ZeroState .editor {
   color: #666;
-}
-
-.ZeroState .editor::before {
-  display: none;
 }
 
 .ZeroState .editor-region {
@@ -180,10 +161,6 @@
   min-height: 0;
   padding: 0;
   border: 0;
-}
-
-.ZeroState .editor.hasMention .editor-region {
-  background-color: #f2f2f2;
 }
 
 .ZeroState .PostActionButton {

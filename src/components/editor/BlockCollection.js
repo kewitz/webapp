@@ -32,8 +32,18 @@ import { selectIsMobileGridStream, selectIsNavbarHidden } from '../../selectors/
 import { selectPropsPostId } from '../../selectors/post'
 import { selectAvatar } from '../../selectors/profile'
 import { selectIsPostDetail, selectPathname } from '../../selectors/routing'
-import { css, hover, media, select } from '../../styles/jss'
+import { css, hover, media, parent, select } from '../../styles/jss'
 import * as s from '../../styles/jso'
+
+const editorWrapperStyle = css(
+  { maxWidth: 1440 },
+  parent('.Omnibar',
+    s.p10,
+    s.mxAuto,
+    media(s.minBreak2, s.p20, s.mt40),
+    media(s.minBreak4, s.p40),
+  ),
+)
 
 const inviteTitleStyle = css(
   s.colorBlack,
@@ -480,7 +490,7 @@ class BlockCollection extends PureComponent {
     })
     if (showArtistInviteSuccess) {
       return (
-        <div className="editorWrapper">
+        <div className={editorWrapperStyle}>
           <div className={successWrapperStyle}>
             <h2 className={successTitleStyle}>Submission received!</h2>
             <div className={successBodyStyle}>
@@ -495,7 +505,7 @@ class BlockCollection extends PureComponent {
       )
     }
     return (
-      <div className="editorWrapper">
+      <div className={editorWrapperStyle}>
         {artistInvite &&
           <h2 className={inviteTitleStyle}><span>Submit to:</span>{` ${artistInvite.get('title')}`}</h2>
         }
