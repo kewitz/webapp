@@ -235,7 +235,7 @@ class Editor extends Component {
     let submitText
     if (autoPopulate && !shouldPersist) {
       blocks = Immutable.fromJS([{ kind: 'text', data: autoPopulate }])
-      submitText = 'Post'
+      submitText = 'Publish'
     } else if (isComment) {
       if (comment && comment.get('isEditing')) {
         submitText = 'Update'
