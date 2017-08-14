@@ -440,45 +440,22 @@
   fill: #fff;
 }
 
-.ElloBuyButton > .SVGIcon.MoneyIcon > g {
-  fill: #fff;
-  stroke: #fff;
-  stroke-width: 0.5;
+.PostActionButton > .BrowseIcon > g {
+  fill: transparent;
 }
 
-.PostActionButton.forMoney > .SVGIcon.MoneyIcon > g {
-  fill: #aaa;
+.PostActionButton > .XIconLG {
+  margin-top: -2px;
+  margin-left: -2px;
+}
+
+.SVGIcon.MoneyIcon path {
+  fill: #fff;
   stroke: none;
 }
 
-.PostActionButton.isBuyLinked > .SVGIcon.MoneyIcon > g {
-  fill: #000;
-}
-
-.PostActionButton > .SVGIcon {
-  margin-top: -2px;
-  margin-left: -5px;
-}
-
 .PostActionButton > .SVGIcon > g {
-  stroke: #aaa;
-}
-
-.PostActionButton .CheckMark {
-  position: absolute;
-  top: 7px;
-  right: 0;
-  display: none;
-  transform: scale(0.6);
-}
-
-.PostActionButton .CheckMark g {
-  stroke: #00d100;
-  stroke-width: 2;
-}
-
-.PostActionButton.isBuyLinked .CheckMark {
-  display: block;
+  stroke: #fff;
 }
 
 .TextToolButton.forLink > .SVGIcon {
@@ -487,14 +464,6 @@
 }
 
 @media (--break-2) {
-  .no-touch .PostActionButton:hover > .SVGIcon > g {
-    stroke: #fff;
-  }
-
-  .no-touch .PostActionButton:hover > .BrowseIcon > g {
-    fill: #000;
-  }
-
   .no-touch .BlockRemove > .XIcon {
     transition-duration: var(--speed), var(--speed), var(--speed2);
     transform-origin: center center;
@@ -503,27 +472,6 @@
   .no-touch .BlockRemove:hover > .XIcon {
     transition-delay: 0.5s, 0.5s, 0.7s;
     transform: rotate(360deg);
-  }
-
-  /* Cancel animation */
-  .no-touch .PostActionButton > .XIcon {
-    transition-duration: var(--speed), var(--speed), var(--speed2);
-    transform-origin: center center;
-  }
-
-  .no-touch .PostActionButton:hover > .XIcon {
-    transition-delay: 0.5s, 0.5s, 0.7s;
-    transform: rotate(360deg);
-  }
-
-  .no-touch .ElloBuyButton:hover > .SVGIcon.MoneyIcon > g {
-    fill: #000;
-    stroke: transparent;
-  }
-
-  .no-touch .PostActionButton.forMoney:hover > .SVGIcon.MoneyIcon > g {
-    fill: #fff;
-    stroke: none;
   }
 }
 

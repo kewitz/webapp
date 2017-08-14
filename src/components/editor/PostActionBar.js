@@ -6,10 +6,9 @@ import {
   ArrowIcon,
   BrowseIcon,
   CameraIcon,
-  CheckIconLG,
   MoneyIcon,
   ReplyAllIcon,
-  XIcon,
+  XIconLG,
 } from '../assets/Icons'
 import { openModal, closeModal } from '../../actions/modals'
 import { updateBuyLink } from '../../actions/editor'
@@ -18,34 +17,53 @@ import { selectDeviceSize } from '../../selectors/gui'
 import { css, disabled, hover, media, modifier, parent, select } from '../../styles/jss'
 import * as s from '../../styles/jso'
 
-const buttonStyle = css(
-  s.wv40,
+const wrapperStyle = css(
+  s.flex,
+  s.justifySpaceBetween,
   s.hv40,
   s.lh40,
-  { borderRadius: 20 },
-  s.pr10,
-  s.pl15,
-  s.overflowHidden,
-  { color: 'rgba(255, 255, 255, 0)' },
-  s.rightAlign,
-  s.nowrap,
-  s.alignMiddle,
-  s.bgcWhite,
-  { transition: `background-color 0.2s ease, color 0.2s ease, width 0.2s ${s.ease}` },
-  disabled(s.pointerNone, { opacity: 0.5 }),
-  hover({ width: 105 }, s.colorWhite, s.bgcBlack),
-  modifier('.forUpload', hover({ width: 110 })),
-  modifier('.forPost', hover({ width: 85 })),
-  modifier('.forMoney', hover({ width: 85 })),
-  modifier('.forComment', hover({ width: 125 })),
-  modifier('.forReplyAll', hover({ width: 115 })),
-  select('.PostGrid &', { marginRight: -10 }),
-  select('.no-touch .PostGrid &:hover', s.wv40),
-  select('& + &', { marginLeft: 5 }),
-  media('(min-width: 23.4375em)', select('& + &', s.ml10)), // (375 / 16 = 23.4375em)
-  media(s.minBreak2, select('& + &', s.ml20)),
+  s.mt10,
 )
-const labelStyle = css(s.absolute, { left: 20 }, parent('.PostGrid', s.opacity0))
+
+const leftStyle = css(
+  select('& button', s.mr10),
+  select('& button:last-child', s.mr0),
+)
+
+const rightStyle = css(
+  select('& button + button', s.ml10),
+  select('& button:first-child', s.ml0),
+)
+
+const buttonStyle = css(
+  s.bgcBlack,
+  s.colorWhite,
+  s.hv40,
+  s.lh40,
+  s.nowrap,
+  s.wv40,
+  { borderRadius: 5, transition: `background-color 0.2s ease, color 0.2s ease, width 0.2s ${s.ease}` },
+  disabled(s.pointerNone, s.bgcA),
+  hover(s.bgcGreen),
+  media(
+    s.minBreak2,
+    { width: 'auto' },
+  ),
+  modifier('.isBuyLinked', s.bgcGreen),
+  modifier('.forComment', s.bgcGreen, disabled(s.bgcA), hover(s.bgcBlack)),
+  modifier('.forPost', s.bgcGreen, disabled(s.bgcA), hover(s.bgcBlack), { width: 'auto' }),
+  parent('.isComment', s.wv40, media(s.minBreak2, s.wv40)),
+  parent('.PostGrid', s.wv40, media(s.minBreak2, s.wv40)),
+)
+const labelStyle = css(
+  s.displayNone,
+  s.ml20,
+  s.mr10,
+  media(s.minBreak2, s.inlineBlock, select('& + .SVGIcon', { marginRight: 20 })),
+  parent('.forPost', s.inlineBlock, select('& + .SVGIcon', { marginRight: 20 })),
+  parent('.isComment', s.displayNone, select('& + .SVGIcon', s.mr0)),
+  parent('.PostGrid', s.displayNone, select('& + .SVGIcon', s.mr0)),
+)
 const hide = css(s.hide)
 
 function mapStateToProps(state) {
@@ -121,49 +139,52 @@ class PostActionBar extends Component {
     const { deviceSize, disableSubmitAction, hasMedia, replyAllAction, submitText } = this.props
     const isBuyLinked = this.props.buyLink && this.props.buyLink.length
     return (
-      <div className="editor-actions">
-        <button
-          className={classNames('PostActionButton forMoney', { isBuyLinked }, `${buttonStyle}`)}
-          disabled={!hasMedia}
-          onClick={this.money}
-        >
-          <span className={labelStyle}>Sell</span>
-          <MoneyIcon />
-          <CheckIconLG />
-        </button>
+      <div className={wrapperStyle}>
+        <div className={leftStyle}>
+          <button
+            className={`PostActionButton forUpload ${buttonStyle}`}
+            onClick={this.browse}
+            ref={(comp) => { this.browseButton = comp }}
+          >
+            <span className={labelStyle}>Upload</span>
+            {deviceSize === 'mobile' ? <CameraIcon /> : <BrowseIcon />}
+          </button>
 
-        <button
-          className={`PostActionButton forUpload ${buttonStyle}`}
-          onClick={this.browse}
-          ref={(comp) => { this.browseButton = comp }}
-        >
-          <span className={labelStyle}>Upload</span>
-          {deviceSize === 'mobile' ? <CameraIcon /> : <BrowseIcon />}
-        </button>
+          <button
+            className={classNames('PostActionButton forMoney', { isBuyLinked }, `${buttonStyle}`)}
+            disabled={!hasMedia}
+            onClick={this.money}
+          >
+            <span className={labelStyle}>Sell</span>
+            <MoneyIcon />
+          </button>
 
-        <button className={`PostActionButton forCancel ${buttonStyle}`} onClick={this.cancel}>
-          <span className={labelStyle}>Cancel</span>
-          <XIcon />
-        </button>
+          <button className={`PostActionButton forCancel ${buttonStyle}`} onClick={this.cancel}>
+            <span className={labelStyle}>Cancel</span>
+            <XIconLG />
+          </button>
+        </div>
 
-        {
-          replyAllAction ?
-            <button className={`PostActionButton forReplyAll ${buttonStyle}`} onClick={replyAllAction}>
-              <span className={labelStyle}>Reply All</span>
-              <ReplyAllIcon />
-            </button> :
-            null
-        }
+        <div className={rightStyle}>
+          {
+            replyAllAction ?
+              <button className={`PostActionButton forReplyAll ${buttonStyle}`} onClick={replyAllAction}>
+                <span className={labelStyle}>Reply All</span>
+                <ReplyAllIcon />
+              </button> :
+              null
+          }
 
-        <button
-          className={`PostActionButton for${submitText} ${buttonStyle}`}
-          disabled={disableSubmitAction}
-          ref={(comp) => { this.submitButton = comp }}
-          onClick={this.submitted}
-        >
-          <span className={labelStyle}>{submitText}</span>
-          <ArrowIcon />
-        </button>
+          <button
+            className={`PostActionButton for${submitText} ${buttonStyle}`}
+            disabled={disableSubmitAction}
+            ref={(comp) => { this.submitButton = comp }}
+            onClick={this.submitted}
+          >
+            <span className={labelStyle}>{submitText}</span>
+            <ArrowIcon />
+          </button>
+        </div>
 
         <input
           className={hide}

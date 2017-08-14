@@ -7,7 +7,7 @@ import * as s from '../../styles/jso'
 
 const buttonStyle = css(
   s.absolute,
-  { top: 40, right: 30 },
+  { top: 50, right: 50 },
   s.zIndex2,
   s.wv40,
   s.hv40,
@@ -20,7 +20,7 @@ const buttonStyle = css(
   s.bgcGreen,
   { transition: 'background-color 0.2s ease, color 0.2s ease' },
   before(s.hitarea),
-  hover(s.colorBlack, s.bgcEA),
+  hover(s.bgcBlack),
   select('.editable[contenteditable] + &', s.displayNone),
   parent('.EmbedRegion', { top: 10, right: 10 }),
   parent('.RegionContent', { top: 10, right: 10 }),

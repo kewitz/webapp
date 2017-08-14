@@ -19,14 +19,6 @@
   transition: background-color var(--speed) ease;
 }
 
-.editor-actions {
-  height: 40px;
-  margin-top: 20px;
-  line-height: 40px;
-  text-align: right;
-  background-color: #fff;
-}
-
 .editor.isComment {
   margin-top: 10px;
 }
