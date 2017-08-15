@@ -19,13 +19,14 @@ const omnibarStyle = css(
 
 const revealButton = css(
   s.absolute,
-  { top: 15, right: 5, width: 20 },
+  { top: 15, right: 10, width: 20 },
   s.overflowHidden,
   s.fontSize14,
   s.nowrap,
   s.transitionWidth,
   hover({ width: 100 }),
-  media(s.minBreak2, { top: -20, right: 10 }),
+  media(s.minBreak2, { top: -20, right: 20 }),
+  media(s.minBreak4, { right: 40 }),
 )
 
 export const Omnibar = ({ classList, isActive, isFullScreen, onClickCloseOmnibar }) => {
