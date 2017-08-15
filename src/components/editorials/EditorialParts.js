@@ -27,7 +27,7 @@ type ToolButtonProps = {
   to?: string | null,
 }
 
-const ToolButton = (props: ToolButtonProps) => (
+export const ToolButton = (props: ToolButtonProps) => (
   props.to ?
     <Link className={`${buttonStyle} ${props.className || ''}`} to={props.to}>
       {props.children}

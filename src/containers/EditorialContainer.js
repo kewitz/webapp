@@ -62,6 +62,7 @@ class EditorialContainer extends Component {
     onClickLovePost: PropTypes.func,
     onClickOpenSignupModal: PropTypes.func,
     onClickSharePost: PropTypes.func.isRequired,
+    onClickShareExternal: PropTypes.func.isRequired,
   }
 
   getChildContext() {
@@ -70,6 +71,7 @@ class EditorialContainer extends Component {
       onClickLovePost: isLoggedIn ? this.onClickLovePost : this.onClickOpenSignupModal,
       onClickOpenSignupModal: isLoggedIn ? null : this.onClickOpenSignupModal,
       onClickSharePost: this.onClickSharePost,
+      onClickShareExternal: this.onClickShareExternal,
     }
   }
 
@@ -103,6 +105,12 @@ class EditorialContainer extends Component {
     const { post, postAuthor, trackOptions } = this.props
     const { openShareDialog } = this.context
     openShareDialog({ post, postAuthor, trackOptions })
+  }
+
+  onClickShareExternal = () => {
+    const { url, trackOptions } = this.props
+    const { openShareDialog } = this.context
+    openShareDialog({ externalUrl: url, trackOptions })
   }
 
   onClickEditorial = () => {
