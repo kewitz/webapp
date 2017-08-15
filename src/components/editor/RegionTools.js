@@ -9,7 +9,7 @@ import * as s from '../../styles/jso'
 
 const toolsStyle = css(
   s.absolute,
-  { top: 15, right: 15 },
+  { top: 10, right: 15 },
   s.zIndex2,
   s.colorA,
   media(s.minBreak2, { right: 35 }),
