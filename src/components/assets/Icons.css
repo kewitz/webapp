@@ -440,6 +440,12 @@
   fill: #fff;
 }
 
+.ElloBuyButton > .SVGIcon.MoneyIcon > g {
+  fill: #fff;
+  stroke: #fff;
+  stroke-width: 0.5;
+}
+
 .PostActionButton > .BrowseIcon > g {
   fill: transparent;
 }
@@ -449,7 +455,7 @@
   margin-left: -2px;
 }
 
-.SVGIcon.MoneyIcon path {
+.SVGIcon.MoneyIconCircle path {
   fill: #fff;
   stroke: none;
 }
@@ -472,6 +478,11 @@
   .no-touch .BlockRemove:hover > .XIcon {
     transition-delay: 0.5s, 0.5s, 0.7s;
     transform: rotate(360deg);
+  }
+
+  .no-touch .ElloBuyButton:hover > .SVGIcon.MoneyIcon > g {
+    fill: #000;
+    stroke: transparent;
   }
 }
 

@@ -20,7 +20,7 @@ const buttonStyle = css(
   s.bgcGreen,
   { transition: 'background-color 0.2s ease, color 0.2s ease' },
   before(s.hitarea),
-  hover(s.bgcBlack),
+  hover(s.colorBlack, s.bgcEA),
   select('.editable[contenteditable] + &', s.displayNone),
   parent('.EmbedRegion', { top: 10, right: 10 }),
   parent('.RegionContent', { top: 10, right: 10 }),

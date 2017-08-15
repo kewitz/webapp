@@ -6,7 +6,7 @@ import {
   ArrowIcon,
   BrowseIcon,
   CameraIcon,
-  MoneyIcon,
+  MoneyIconCircle,
   ReplyAllIcon,
   XIconLG,
 } from '../assets/Icons'
@@ -157,7 +157,7 @@ class PostActionBar extends Component {
             onClick={this.money}
           >
             <span className={labelStyle}>Sell</span>
-            <MoneyIcon />
+            <MoneyIconCircle />
           </button>
 
           <button className={`PostActionButton forCancel ${buttonStyle}`} onClick={this.cancel}>
