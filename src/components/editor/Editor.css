@@ -36,6 +36,7 @@
   position: absolute;
   top: 41px;
   left: 21px;
+  max-width: calc(100% - 40px);
   color: #999;
   pointer-events: none;
   content: attr(data-placeholder);
