@@ -11,7 +11,6 @@ import QuickEmoji from './QuickEmoji'
 import PostActionBar from './PostActionBar'
 import RepostBlock from './RepostBlock'
 import TextBlock from './TextBlock'
-import Avatar from '../assets/Avatar'
 import { XIcon } from '../assets/Icons'
 import {
   addBlock,
@@ -30,7 +29,6 @@ import { addDragObject, removeDragObject } from '../../interactions/Drag'
 import { scrollToLastTextBlock } from '../../lib/jello'
 import { selectIsMobileGridStream, selectIsNavbarHidden } from '../../selectors/gui'
 import { selectPropsPostId } from '../../selectors/post'
-import { selectAvatar } from '../../selectors/profile'
 import { selectIsPostDetail, selectPathname } from '../../selectors/routing'
 import { css, hover, media, parent, select } from '../../styles/jss'
 import * as s from '../../styles/jso'
@@ -91,7 +89,6 @@ function mapStateToProps(state, props) {
     artistInvite,
     artistInviteId: artistInvite ? artistInvite.get('id') : props.post.get('artistInviteId'),
     buyLink,
-    avatar: selectAvatar(state),
     collection,
     dragBlock: editor.get('dragBlock'),
     firstBlock,
@@ -115,7 +112,6 @@ class BlockCollection extends PureComponent {
   static propTypes = {
     artistInvite: PropTypes.object,
     artistInviteId: PropTypes.string,
-    avatar: PropTypes.object,
     blocks: PropTypes.object,
     buyLink: PropTypes.string,
     cancelAction: PropTypes.func.isRequired,
@@ -149,7 +145,6 @@ class BlockCollection extends PureComponent {
   static defaultProps = {
     artistInvite: null,
     artistInviteId: null,
-    avatar: null,
     buyLink: null,
     blocks: Immutable.List(),
     dragBlock: null,
@@ -471,7 +466,7 @@ class BlockCollection extends PureComponent {
 
   render() {
     const {
-      artistInvite, avatar, buyLink, cancelAction, collection, dragBlock, editorId, firstBlock,
+      artistInvite, buyLink, cancelAction, collection, dragBlock, editorId, firstBlock,
       hasContent, hasMedia, hasMention, isComment, isLoading, isMobileGridStream,
       isOwnPost, isPosting, order, orderLength, showArtistInviteSuccess, submitText,
     } = this.props
@@ -516,7 +511,6 @@ class BlockCollection extends PureComponent {
           onDragOver={this.onDragOver}
           onDrop={this.onDrop}
         >
-          {isComment && <Avatar sources={avatar} />}
           <div
             className="editor-region"
             data-num-blocks={orderLength}

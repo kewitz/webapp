@@ -24,7 +24,7 @@
 }
 
 .editor.isComment .editor-region {
-  min-height: 100px;
+  min-height: 75px;
 }
 
 .PostDetail .editor.isComment {
@@ -47,7 +47,7 @@
 }
 
 .editor.isComment::after {
-  top: 81px;
+  top: 56px;
   left: 21px;
 }
 
@@ -74,12 +74,16 @@
   outline: 0; /* stylelint-disable-line */
 }
 
+.isComment .editable {
+  padding: 20px 0;
+}
+
 .editor.withQuickEmoji .editable {
   padding-right: 30px;
 }
 
 .editor-block.readonly {
-  padding: 40px;
+  padding: 30px;
   white-space: pre-wrap;
   word-break: break-word; /* stylelint-disable-line */
   background: #e5e5e5;
@@ -106,7 +110,6 @@
 
   .editor.isComment {
     max-width: 640px;
-    padding-left: 60px;
   }
 
   .editor::after {
@@ -118,8 +121,7 @@
   }
 
   .editor.isComment::after {
-    top: 41px;
-    left: 101px;
+    left: 41px;
   }
 
   .editor.isComment .DragBlock {

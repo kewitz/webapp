@@ -28,11 +28,17 @@ const wrapperStyle = css(
 const leftStyle = css(
   select('& button', s.mr10),
   select('& button:last-child', s.mr0),
+  select('& .forCancel', s.inlineBlock),
+  select('.PostGrid & .forCancel', s.inlineBlock),
+  media(s.minBreak2, select('& .forCancel', s.displayNone)),
 )
 
 const rightStyle = css(
   select('& button + button', s.ml10),
   select('& button:first-child', s.ml0),
+  select('& .forCancel', s.displayNone),
+  select('.PostGrid & .forCancel', s.displayNone),
+  media(s.minBreak2, select('& .forCancel', s.inlineBlock)),
 )
 
 const buttonStyle = css(
@@ -44,25 +50,33 @@ const buttonStyle = css(
   s.wv40,
   { borderRadius: 5, transition: `background-color 0.2s ease, color 0.2s ease, width 0.2s ${s.ease}` },
   disabled(s.pointerNone, s.bgcA),
-  hover(s.bgcGreen),
+  hover({ backgroundColor: '#6a6a6a' }),
   media(
     s.minBreak2,
     { width: 'auto' },
   ),
   modifier('.isBuyLinked', s.bgcGreen),
-  modifier('.forComment', s.bgcGreen, disabled(s.bgcA), hover(s.bgcBlack), media(s.minBreak2, parent('.PostDetail', { width: 'auto' }))),
-  modifier('.forPost', s.bgcGreen, disabled(s.bgcA), hover(s.bgcBlack), { width: 'auto' }),
+  modifier('.forComment', parent('.isComment', s.bgcGreen, disabled(s.bgcA), hover({ backgroundColor: '#02B302' }), { width: 'auto' })),
+  modifier('.forPost', s.bgcGreen, disabled(s.bgcA), hover({ backgroundColor: '#02B302' }), { width: 'auto' }),
   parent('.isComment', s.wv40, media(s.minBreak2, s.wv40)),
   parent('.PostGrid', s.wv40, media(s.minBreak2, s.wv40)),
 )
+
+const cancelTextButtonStyle = css(
+  s.colorA,
+  s.px10,
+  { width: 'auto' },
+  hover(s.colorBlack),
+)
+
 const labelStyle = css(
   s.displayNone,
-  s.ml20,
-  s.mr10,
-  media(s.minBreak2, s.inlineBlock, select('& + .SVGIcon', { marginRight: 20 })),
-  media(s.minBreak2, parent('.PostDetail .forComment', s.inlineBlock, select('& + .SVGIcon', { marginRight: 20 }))),
-  parent('.forPost', s.inlineBlock, select('& + .SVGIcon', { marginRight: 20 })),
+  { marginLeft: 15, marginRight: 7 },
+  media(s.minBreak2, s.inlineBlock, select('& + .SVGIcon', { marginRight: 11 })),
+  media(s.minBreak2, parent('.PostDetail .forComment', s.inlineBlock, select('& + .SVGIcon', { marginRight: 11 }))),
+  parent('.forPost', s.inlineBlock, select('& + .SVGIcon', { marginRight: 11 })),
   parent('.isComment', s.displayNone, select('& + .SVGIcon', s.mr0)),
+  parent('.isComment .forComment', s.inlineBlock, select('& + .SVGIcon', { marginRight: 11 })),
   parent('.PostGrid', s.displayNone, select('& + .SVGIcon', s.mr0)),
 )
 const hide = css(s.hide)
@@ -150,7 +164,6 @@ class PostActionBar extends Component {
             <span className={labelStyle}>Upload</span>
             {deviceSize === 'mobile' ? <CameraIcon /> : <BrowseIcon />}
           </button>
-
           <button
             className={classNames('PostActionButton forMoney', { isBuyLinked }, `${buttonStyle}`)}
             disabled={!hasMedia}
@@ -159,14 +172,6 @@ class PostActionBar extends Component {
             <span className={labelStyle}>Sell</span>
             <MoneyIconCircle />
           </button>
-
-          <button className={`PostActionButton forCancel ${buttonStyle}`} onClick={this.cancel}>
-            <span className={labelStyle}>Cancel</span>
-            <XIconLG />
-          </button>
-        </div>
-
-        <div className={rightStyle}>
           {
             replyAllAction ?
               <button className={`PostActionButton forReplyAll ${buttonStyle}`} onClick={replyAllAction}>
@@ -175,7 +180,16 @@ class PostActionBar extends Component {
               </button> :
               null
           }
+          <button className={`PostActionButton forCancel ${buttonStyle}`} onClick={this.cancel}>
+            <span className={labelStyle}>Cancel</span>
+            <XIconLG />
+          </button>
+        </div>
 
+        <div className={rightStyle}>
+          <button className={`PostActionButton forCancel ${cancelTextButtonStyle}`} onClick={this.cancel}>
+            <span>Cancel</span>
+          </button>
           <button
             className={`PostActionButton for${submitText} ${buttonStyle}`}
             disabled={disableSubmitAction}
@@ -186,7 +200,6 @@ class PostActionBar extends Component {
             <ArrowIcon />
           </button>
         </div>
-
         <input
           className={hide}
           onChange={this.handleFileBrowser}
