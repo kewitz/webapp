@@ -304,7 +304,8 @@ class StreamContainer extends Component {
         {meta.renderStream[renderMethod](result.get('ids'), columnCount, isPostHeaderHidden, meta.renderProps)}
         <Paginator
           hasShowMoreButton={
-            hasShowMoreButton || (typeof meta.resultKey !== 'undefined' && typeof meta.updateKey !== 'undefined')
+            (hasShowMoreButton && stream.getIn(['payload', 'serverStatus']) !== 204) ||
+            (typeof meta.resultKey !== 'undefined' && typeof meta.updateKey !== 'undefined')
           }
           isCentered={paginatorCentered}
           isHidden={hidePaginator}
