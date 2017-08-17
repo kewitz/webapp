@@ -47,7 +47,7 @@
 }
 
 .editor.isComment::after {
-  top: 56px;
+  top: 28px;
   left: 21px;
 }
 
@@ -75,7 +75,7 @@
 }
 
 .isComment .editable {
-  padding: 20px 0;
+  padding: 27px 0;
 }
 
 .editor.withQuickEmoji .editable {
