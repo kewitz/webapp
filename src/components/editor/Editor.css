@@ -35,8 +35,8 @@
 .editor::after {
   position: absolute;
   top: 41px;
-  left: 21px;
-  max-width: calc(100% - 40px);
+  left: 31px;
+  max-width: calc(100% - 60px);
   color: #999;
   pointer-events: none;
   content: attr(data-placeholder);
@@ -68,7 +68,7 @@
   position: relative;
   min-height: 60px;
   padding: 40px 0 20px;
-  margin: 0 20px;
+  margin: 0 30px;
   white-space: pre-wrap;
   word-break: break-word; /* stylelint-disable-line */
   outline: 0; /* stylelint-disable-line */
@@ -108,6 +108,10 @@
     margin: 0 40px;
   }
 
+  .isComment .editable {
+    margin: 0 30px;
+  }
+
   .editor.isComment {
     max-width: 640px;
   }
@@ -121,7 +125,7 @@
   }
 
   .editor.isComment::after {
-    left: 41px;
+    left: 31px;
   }
 
   .editor.isComment .DragBlock {

@@ -56,7 +56,21 @@ const buttonStyle = css(
     { width: 'auto' },
   ),
   modifier('.isBuyLinked', s.bgcGreen),
-  modifier('.forComment', parent('.isComment', s.bgcGreen, disabled(s.bgcA), hover({ backgroundColor: '#02B302' }), { width: 'auto' })),
+  modifier(
+    '.forComment',
+    parent(
+      '.isComment',
+      s.bgcGreen,
+      s.wv40,
+      disabled(s.bgcA),
+      hover({ backgroundColor: '#02B302' }),
+      media(s.minBreak2, { width: 'auto' }),
+    ),
+    parent(
+      '.PostGrid .isComment',
+      s.wv40,
+    ),
+  ),
   modifier('.forPost', s.bgcGreen, disabled(s.bgcA), hover({ backgroundColor: '#02B302' }), { width: 'auto' }),
   parent('.isComment', s.wv40, media(s.minBreak2, s.wv40)),
   parent('.PostGrid', s.wv40, media(s.minBreak2, s.wv40)),
@@ -72,12 +86,25 @@ const cancelTextButtonStyle = css(
 const labelStyle = css(
   s.displayNone,
   { marginLeft: 15, marginRight: 7 },
-  media(s.minBreak2, s.inlineBlock, select('& + .SVGIcon', { marginRight: 11 })),
-  media(s.minBreak2, parent('.PostDetail .forComment', s.inlineBlock, select('& + .SVGIcon', { marginRight: 11 }))),
+  media(
+    s.minBreak2,
+    s.inlineBlock,
+    select('& + .SVGIcon', { marginRight: 11 }),
+    parent(
+      '.PostDetail .forComment',
+      s.inlineBlock,
+      select('& + .SVGIcon', { marginRight: 11 }),
+    ),
+    parent(
+      '.isComment .forComment',
+      s.inlineBlock,
+      select('& + .SVGIcon', { marginRight: 11 }),
+    ),
+  ),
   parent('.forPost', s.inlineBlock, select('& + .SVGIcon', { marginRight: 11 })),
   parent('.isComment', s.displayNone, select('& + .SVGIcon', s.mr0)),
-  parent('.isComment .forComment', s.inlineBlock, select('& + .SVGIcon', { marginRight: 11 })),
   parent('.PostGrid', s.displayNone, select('& + .SVGIcon', s.mr0)),
+  parent('.PostGrid .isComment .forComment', s.displayNone, select('& + .SVGIcon', s.mr0)),
 )
 const hide = css(s.hide)
 

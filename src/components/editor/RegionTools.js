@@ -9,10 +9,10 @@ import * as s from '../../styles/jso'
 
 const toolsStyle = css(
   s.absolute,
-  { top: 10, right: 15 },
+  { top: 10, right: 20 },
   s.zIndex2,
   s.colorA,
-  media(s.minBreak2, { right: 35 }),
+  media(s.minBreak2, { right: 40 }, parent('.isComment', { right: 30 })),
   parent('.BlockPlaceholder >', s.displayNone),
   parent('.ZeroState', s.displayNone),
 )
