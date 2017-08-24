@@ -60,6 +60,7 @@ class ShareDialog extends PureComponent {
 
   static propTypes = {
     author: PropTypes.object,
+    externalUrl: PropTypes.string,
     post: PropTypes.object,
     username: PropTypes.string,
     trackEvent: PropTypes.func.isRequired,
@@ -68,13 +69,17 @@ class ShareDialog extends PureComponent {
 
   static defaultProps = {
     author: null,
+    externalUrl: null,
     post: null,
     username: null,
     trackOptions: null,
   }
 
   componentWillMount() {
-    const { username } = this.props
+    const { externalUrl, username } = this.props
+    if (externalUrl) {
+      return this.getMountShareExternal()
+    }
     return username ? this.getMountShareUser() : this.getMountSharePost()
   }
 
@@ -93,6 +98,17 @@ class ShareDialog extends PureComponent {
       const eventType = username ? `share-user-to-${type}-profile` : `share-to-${type}`
       trackEvent(eventType, trackOptions || {})
     }
+  }
+
+  getMountShareExternal() {
+    const { externalUrl } = this.props
+    const summary = 'Seen on @ellohype'
+    this.shareLink = externalUrl
+    this.shareLinkSafe = window.encodeURIComponent(this.shareLink)
+    this.summarySafe = window.encodeURIComponent(summary)
+    this.tweetSummarySafe = this.summarySafe
+    this.emailSubjectSafe = this.summarySafe
+    this.emailBodySafe = `${this.summarySafe}%0D%0A${this.shareLinkSafe}`
   }
 
   getMountSharePost() {

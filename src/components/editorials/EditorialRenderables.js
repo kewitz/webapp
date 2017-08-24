@@ -1,17 +1,20 @@
 // @flow
 import React from 'react'
+import PropTypes from 'prop-types'
 import { Link } from 'react-router'
 import { loadPostStream } from '../../actions/editorials'
 import InvitationFormContainer from '../../containers/InvitationFormContainer'
 import StreamContainer from '../../containers/StreamContainer'
 import BackgroundImage from '../assets/BackgroundImage'
 import RegistrationRequestForm from '../forms/RegistrationRequestForm'
+import { ShareIcon } from '../assets/Icons'
 import {
   EditorialOverlay,
   EditorialTitle,
   EditorialSubtitle,
   EditorialTools,
   EditorialUsernameTitle,
+  ToolButton,
 } from './EditorialParts'
 import { css, media, select } from '../../styles/jss'
 import * as s from '../../styles/jso'
@@ -59,6 +62,7 @@ const linkStyle = css(
   s.bgcCurrentColor,
 )
 
+const shareButtonStyle = css(s.mlAuto, s.flex, s.pt10)
 const linkTextStyle = css(s.hidden)
 
 // -------------------------------------
@@ -168,7 +172,11 @@ export const CuratedPost = (props: PostProps) => (
 
 // -------------------------------------
 
-export const LinkEditorial = (props: EditorialProps) => (
+type ExternalEditorialContext = {
+  onClickShareExternal: () => {},
+}
+
+export const LinkEditorial = (props: EditorialProps, context: ExternalEditorialContext) => (
   <div className={baseStyle}>
     {props.path && props.kind === 'internal' &&
       <Link
@@ -197,6 +205,16 @@ export const LinkEditorial = (props: EditorialProps) => (
       <div className={subtitleStyle}>
         <EditorialSubtitle label={props.editorial.get('subtitle')} />
       </div>
+      {props.url && props.kind === 'external' &&
+        <div className={toolsStyle}>
+          <ToolButton
+            className={shareButtonStyle}
+            onClick={context.onClickShareExternal}
+          >
+            <ShareIcon />
+          </ToolButton>
+        </div>
+      }
     </div>
     <EditorialOverlay />
     <BackgroundImage
@@ -206,6 +224,9 @@ export const LinkEditorial = (props: EditorialProps) => (
     />
   </div>
 )
+LinkEditorial.contextTypes = {
+  onClickShareExternal: PropTypes.func.isRequired,
+}
 
 // -------------------------------------
 
