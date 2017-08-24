@@ -46,11 +46,6 @@
   display: none;
 }
 
-.editor.isComment::after {
-  top: 28px;
-  left: 21px;
-}
-
 /* // editor is dragged over with a droppable element - turn background green */
 .editor.hasDragOver > .editor-region {
   background-color: #cfc;
@@ -75,10 +70,10 @@
 }
 
 .isComment .editable {
-  padding: 27px 0;
+  padding: 40px 0 30px;
 }
 
-.editor.withQuickEmoji .editable {
+.editor.withQuickEmoji .editor-block:first-child .editable { /* stylelint-disable-line */
   padding-right: 30px;
 }
 

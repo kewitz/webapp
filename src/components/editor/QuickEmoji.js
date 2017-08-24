@@ -35,7 +35,7 @@ const wrapperStyle = css(
   s.color9,
   s.nowrap,
   // TODO: Set this from a prop
-  parent('.editor.isComment', { top: 28, right: 20 }, media(s.minBreak2, { right: 30 })),
+  parent('.editor.isComment', { top: 41, right: 20 }, media(s.minBreak2, { right: 30 })),
 )
 const wrapperActiveStyle = css(wrapperStyle, s.color5)
 

@@ -60,10 +60,8 @@ const buttonStyle = css(
     '.forComment',
     parent(
       '.isComment',
-      s.bgcGreen,
       s.wv40,
       disabled(s.bgcA),
-      hover({ backgroundColor: '#02B302' }),
       media(s.minBreak2, { width: 'auto' }),
     ),
     parent(
@@ -71,7 +69,7 @@ const buttonStyle = css(
       s.wv40,
     ),
   ),
-  modifier('.forPost', s.bgcGreen, disabled(s.bgcA), hover({ backgroundColor: '#02B302' }), { width: 'auto' }),
+  modifier('.forSubmit', s.bgcGreen, disabled(s.bgcA), hover({ backgroundColor: '#02B302' }), { width: 'auto' }),
   parent('.isComment', s.wv40, media(s.minBreak2, s.wv40)),
   parent('.PostGrid', s.wv40, media(s.minBreak2, s.wv40)),
 )
@@ -101,7 +99,7 @@ const labelStyle = css(
       select('& + .SVGIcon', { marginRight: 11 }),
     ),
   ),
-  parent('.forPost', s.inlineBlock, select('& + .SVGIcon', { marginRight: 11 })),
+  parent('.forSubmit', s.inlineBlock, select('& + .SVGIcon', { marginRight: 11 })),
   parent('.isComment', s.displayNone, select('& + .SVGIcon', s.mr0)),
   parent('.PostGrid', s.displayNone, select('& + .SVGIcon', s.mr0)),
   parent('.PostGrid .isComment .forComment', s.displayNone, select('& + .SVGIcon', s.mr0)),
@@ -218,7 +216,7 @@ class PostActionBar extends Component {
             <span>Cancel</span>
           </button>
           <button
-            className={`PostActionButton for${submitText} ${buttonStyle}`}
+            className={`PostActionButton forSubmit for${submitText} ${buttonStyle}`}
             disabled={disableSubmitAction}
             ref={(comp) => { this.submitButton = comp }}
             onClick={this.submitted}
