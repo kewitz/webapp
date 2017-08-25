@@ -14,7 +14,7 @@ An example for us us is users: [`UserContainer`](https://github.com/ello/webapp/
 
 The `Container` is a [`Component`](https://facebook.github.io/react/docs/react-api.html#react.component) connected to the redux store using [`react-redux`](https://github.com/reactjs/react-redux)'s `connect` method. This gives us the ability to define a `mapStateToProps` function that utilizes selectors from [`reselect`](https://github.com/reactjs/reselect) to grab [immutable objects](https://facebook.github.io/immutable-js/docs/#/) from the redux store to map back on to the react component.
 
-Using immutable objects is important here since it allows us to prevent react from calling `render` too often by hooking into the `shouldComponentUpdate` [lifecycle method](https://facebook.github.io/react/docs/react-component.html#shouldcomponentupdate).
+Using immutable objects is important here since it allows us to prevent react from calling `render` too often by hooking into the [`shouldComponentUpdate`](https://facebook.github.io/react/docs/react-component.html#shouldcomponentupdate) lifecycle method.
 
 #### Renderables
 
@@ -72,6 +72,19 @@ The keys within the `json` reducer are [`mappingTypes`](https://github.com/ello/
 
 Pages are typically tied directly to the pathname of the page ie: `/discover/recent`. But you can configure an action to have a `resultKey` which would override this default behavior for cases where more than one `StreamContainer` are on a page. Post detail pages are a good example of this since they have comments/lovers/reposters. If you store each of those with their own `resultKey` you will be able to switch between them without the need to refetch the data each time. The `type` property of a page is the collection that the `ids` will be pulled from and the `pagination` object contains how to get to the next page and page counts.
 
+### Sagas (WTF?)
+
+A saga is a type of [redux middleware](http://redux.js.org/docs/advanced/Middleware.html) that utilizes javascript [generators](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Iterators_and_Generators) to create side effects during the redux `dispatch` flow using [`redux-saga`](https://github.com/redux-saga/redux-saga).
+
+Sagas allow the app to intercept actions that were dispatched and create other side effects from them. An easy example would be when we logout of the app we set a cookie and redirect the user back to `/enter` as seen [here](https://github.com/ello/webapp/blob/master/src/sagas/authentication.js#L28).
+
+Sagas are very testable due to the nature of a generator and the fact that you can step through them by calling the `next` function and determining that the return value is what was expected.
+
+#### requester
+
+This is saga middleware that handles all api requests in the app and is the only place that `fetch` is ever called. It also handles generating other actions for a request. If you dispatch a `LOAD_STREAM` action it's actually the requester that creates the `LOAD_STREAM_REQUEST`, `LOAD_STREAM_SUCCESS`, and `LOAD_STREAM_FAILURE` actions based off of what happens during the `fetch`. These actions can now be added to a `switch` of a reducer to modify state before it ends up in a cnnected component's `mapStateToProps` function. It is also responsible for obtaining the json and parsing the paging headers from a request.
+
+----
 
 ## Helpful links:
 
@@ -82,8 +95,9 @@ Pages are typically tied directly to the pathname of the page ie: `/discover/rec
 - [`react-redux`](https://github.com/reactjs/react-redux)
 - [`reselect`](https://github.com/reactjs/reselect)
 - [Immutable Docs](https://facebook.github.io/immutable-js/docs/#/)
+- [`redux-saga`](https://github.com/redux-saga/redux-saga)
 
-# Other
+----
 
 ## Emoji autocompleter in dev
 To get the emojis.json file run:
