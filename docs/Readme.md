@@ -84,6 +84,20 @@ Sagas are very testable due to the nature of a generator and the fact that you c
 
 This is saga middleware that handles all api requests in the app and is the only place that `fetch` is ever called. It also handles generating other actions for a request. If you dispatch a `LOAD_STREAM` action it's actually the requester that creates the `LOAD_STREAM_REQUEST`, `LOAD_STREAM_SUCCESS`, and `LOAD_STREAM_FAILURE` actions based off of what happens during the `fetch`. These actions can now be added to a `switch` of a reducer to modify state before it ends up in a cnnected component's `mapStateToProps` function. It is also responsible for obtaining the json and parsing the paging headers from a request.
 
+### Action flow
+
+1. Call `dispatch` from a connected component
+2. Middleware can act on the action and can also `dispatch` side effects
+3. Reducers respond to actions and update application state
+4. `mapStateToProps` is called on _all_ connected components with updated state
+
+#### preventing unnecessary renders
+
+When `mapStateToProps` gets called the component will try to `render` unless you prevent it from doing so. Here are a couple ways to prevent this from happening:
+
+1. Implement `shouldComponentUpdate` in connected components. If this method returns `false`, `render` won't get called again.
+2. Make `Renderables` extend `PureComponent`, which does a shallow compare to prevent re-renders.
+
 ----
 
 ## Helpful links:
