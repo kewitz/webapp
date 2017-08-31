@@ -6,6 +6,7 @@ import { createSelector } from 'reselect'
 import sample from 'lodash/sample'
 import { connect } from 'react-redux'
 import { trackEvent } from '../actions/analytics'
+import { trackPostViews } from '../actions/posts'
 import {
   setLastDiscoverBeaconVersion,
   setLastFollowingBeaconVersion,
@@ -181,6 +182,7 @@ class HeroContainer extends Component {
         break
     }
   }
+
   shouldComponentUpdate(nextProps, nextState) {
     return !Immutable.is(nextState.promotion, this.state.promotion) ||
       ['dpi', 'isLoggedIn', 'isMobile', 'pathname', 'viewName', 'userId'].some(prop =>
@@ -188,6 +190,15 @@ class HeroContainer extends Component {
       ) ||
       ['broadcast', 'renderType'].some(prop => nextState[prop] !== this.state[prop])
   }
+
+  componentDidUpdate() {
+    const { dispatch } = this.props
+    const { promotion } = this.state
+    if (promotion && promotion.get('postToken')) {
+      dispatch(trackPostViews([], [promotion.get('postToken')], 'promo'))
+    }
+  }
+
 
   onClickShareProfile = () => {
     const { dispatch, username } = this.props

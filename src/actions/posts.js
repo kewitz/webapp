@@ -185,6 +185,17 @@ export function toggleReposting(post, isReposting) {
   }
 }
 
+export function trackPostViews(ids, tokens, streamKind, streamId) {
+  return {
+    type: POST.TRACK_VIEWS,
+    payload: {
+      endpoint: api.trackPostViews(ids, tokens, streamKind, streamId),
+      method: 'GET',
+    },
+    meta: {},
+  }
+}
+
 // Currently not tracking unlove's but trying to keep the api similar to the `lovePost` action.
 export function unlovePost({ post, trackLabel, trackOptions }) {
   const postId = post.get('id')
