@@ -320,9 +320,10 @@ class PostContainer extends Component {
   }
 
   onClickToggleComments = () => {
-    const { detailPath, dispatch, isLoggedIn, isRelatedPost, post, showCommentEditor } = this.props
+    const { detailPath, deviceSize, dispatch, isGridMode, isLoggedIn,
+      isRelatedPost, post, showCommentEditor } = this.props
     if (isLoggedIn && !isRelatedPost) {
-      if (isElloAndroid()) {
+      if ((isGridMode && deviceSize === 'mobile') || isElloAndroid()) {
         dispatch(push(detailPath))
       } else {
         const nextShowComments = !showCommentEditor
