@@ -102,10 +102,10 @@
 /* This is actually in the PostContainer */
 .WatchTool.isPill {
   position: absolute;
-  right: 0;
+  right: -8px;
   display: none;
   height: 22px;
-  margin-top: 15px;
+  margin-top: -15px;
   line-height: 22px;
   color: #fff;
 }

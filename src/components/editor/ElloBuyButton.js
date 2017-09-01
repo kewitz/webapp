@@ -7,7 +7,7 @@ import * as s from '../../styles/jso'
 
 const buttonStyle = css(
   s.absolute,
-  { top: 40, right: 30 },
+  { top: 50, right: 50 },
   s.zIndex2,
   s.wv40,
   s.hv40,

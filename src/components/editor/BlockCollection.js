@@ -11,7 +11,6 @@ import QuickEmoji from './QuickEmoji'
 import PostActionBar from './PostActionBar'
 import RepostBlock from './RepostBlock'
 import TextBlock from './TextBlock'
-import Avatar from '../assets/Avatar'
 import { XIcon } from '../assets/Icons'
 import {
   addBlock,
@@ -30,10 +29,19 @@ import { addDragObject, removeDragObject } from '../../interactions/Drag'
 import { scrollToLastTextBlock } from '../../lib/jello'
 import { selectIsMobileGridStream, selectIsNavbarHidden } from '../../selectors/gui'
 import { selectPropsPostId } from '../../selectors/post'
-import { selectAvatar } from '../../selectors/profile'
 import { selectIsPostDetail, selectPathname } from '../../selectors/routing'
-import { css, hover, media, select } from '../../styles/jss'
+import { css, hover, media, parent, select } from '../../styles/jss'
 import * as s from '../../styles/jso'
+
+const editorWrapperStyle = css(
+  { maxWidth: 1440 },
+  parent('.Omnibar',
+    s.p10,
+    s.mxAuto,
+    media(s.minBreak2, s.p20, s.mt40),
+    media(s.minBreak4, s.p40),
+  ),
+)
 
 const inviteTitleStyle = css(
   s.colorBlack,
@@ -81,7 +89,6 @@ function mapStateToProps(state, props) {
     artistInvite,
     artistInviteId: artistInvite ? artistInvite.get('id') : props.post.get('artistInviteId'),
     buyLink,
-    avatar: selectAvatar(state),
     collection,
     dragBlock: editor.get('dragBlock'),
     firstBlock,
@@ -105,7 +112,6 @@ class BlockCollection extends PureComponent {
   static propTypes = {
     artistInvite: PropTypes.object,
     artistInviteId: PropTypes.string,
-    avatar: PropTypes.object,
     blocks: PropTypes.object,
     buyLink: PropTypes.string,
     cancelAction: PropTypes.func.isRequired,
@@ -139,7 +145,6 @@ class BlockCollection extends PureComponent {
   static defaultProps = {
     artistInvite: null,
     artistInviteId: null,
-    avatar: null,
     buyLink: null,
     blocks: Immutable.List(),
     dragBlock: null,
@@ -461,7 +466,7 @@ class BlockCollection extends PureComponent {
 
   render() {
     const {
-      artistInvite, avatar, buyLink, cancelAction, collection, dragBlock, editorId, firstBlock,
+      artistInvite, buyLink, cancelAction, collection, dragBlock, editorId, firstBlock,
       hasContent, hasMedia, hasMention, isComment, isLoading, isMobileGridStream,
       isOwnPost, isPosting, order, orderLength, showArtistInviteSuccess, submitText,
     } = this.props
@@ -480,7 +485,7 @@ class BlockCollection extends PureComponent {
     })
     if (showArtistInviteSuccess) {
       return (
-        <div className="editorWrapper">
+        <div className={editorWrapperStyle}>
           <div className={successWrapperStyle}>
             <h2 className={successTitleStyle}>Submission received!</h2>
             <div className={successBodyStyle}>
@@ -495,18 +500,17 @@ class BlockCollection extends PureComponent {
       )
     }
     return (
-      <div className="editorWrapper">
+      <div className={editorWrapperStyle}>
         {artistInvite &&
           <h2 className={inviteTitleStyle}><span>Submit to:</span>{` ${artistInvite.get('title')}`}</h2>
         }
         <div
           className={editorClassNames}
-          data-placeholder={isComment ? 'Comment...' : 'Add images, embeds, text & links.'}
+          data-placeholder={isComment ? 'Comment...' : 'Drag & drop images, paste embeds, enter text and links.'}
           onDragLeave={this.onDragLeave}
           onDragOver={this.onDragOver}
           onDrop={this.onDrop}
         >
-          {isComment && <Avatar sources={avatar} />}
           <div
             className="editor-region"
             data-num-blocks={orderLength}

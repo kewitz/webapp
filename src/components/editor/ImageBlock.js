@@ -10,11 +10,10 @@ import * as s from '../../styles/jso'
 
 const busyWrapperStyle = css(
   s.absolute,
-  s.flood,
   s.flex,
   s.itemsCenter,
   s.justifyCenter,
-  { backgroundColor: 'rgba(0, 0, 0, 0.5)' },
+  { backgroundColor: 'rgba(0, 0, 0, 0.5)', top: 0, right: -40, bottom: 0, left: -40 },
 )
 
 const arrowStyle = css(
@@ -59,7 +58,7 @@ export default class ImageBlock extends Component {
     return (
       <Block {...this.props}>
         <div className={classNames('editable image', { isUploading })}>
-          { isUploading && <Busy /> }
+          {isUploading && <Busy /> }
           <ImageAsset
             alt={data.get('alt')}
             onLoadSuccess={this.onLoadSuccess}

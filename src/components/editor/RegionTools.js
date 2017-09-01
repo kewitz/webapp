@@ -4,14 +4,15 @@ import { connect } from 'react-redux'
 import { openModal, closeModal } from '../../actions/modals'
 import { DragIcon, XIcon } from '../assets/Icons'
 import ConfirmDialog from '../dialogs/ConfirmDialog'
-import { css, hover, parent } from '../../styles/jss'
+import { css, hover, media, parent } from '../../styles/jss'
 import * as s from '../../styles/jso'
 
 const toolsStyle = css(
   s.absolute,
-  { top: 5, right: 5 },
+  { top: 10, right: 20 },
   s.zIndex2,
   s.colorA,
+  media(s.minBreak2, { right: 40 }, parent('.isComment', { right: 30 })),
   parent('.BlockPlaceholder >', s.displayNone),
   parent('.ZeroState', s.displayNone),
 )

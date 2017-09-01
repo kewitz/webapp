@@ -5,64 +5,26 @@
   user-select: none;
 }
 
-.editorWrapper {
-  max-width: 840px;
-}
-
 .editor {
   position: relative;
   font-size: 14px;
   color: #000;
 }
 
-.editor::before {
-  position: absolute;
-  top: 30px;
-  left: 0;
-  width: 0;
-  height: 0;
-  content: "";
-  border-color: transparent;
-  border-style: solid;
-  border-width: 10px;
-  border-right-color: #e5e5e5;
-  transition: border-color var(--speed) ease;
-}
-
-.editor.LaunchCommentEditorButton.isComment::before {
-  border-right-color: #000;
-}
-
-.Omnibar > .editorWrapper {
-  padding: 20px;
-  margin: 0 auto;
-}
-
-.Omnibar > .editor::before {
-  display: none;
-}
-
 .editor-region {
-  min-height: 100px;
-  padding: 20px;
-  background-color: #e5e5e5;
+  min-height: 290px;
+  overflow: hidden;
+  background-color: #f2f2f2;
+  border-radius: 5px;
   transition: background-color var(--speed) ease;
-}
-
-.editor-actions {
-  height: 40px;
-  margin-top: 20px;
-  line-height: 40px;
-  text-align: right;
-  background-color: #fff;
 }
 
 .editor.isComment {
   margin-top: 10px;
 }
 
-.editor.isComment::before {
-  display: none;
+.editor.isComment .editor-region {
+  min-height: 91px;
 }
 
 .PostDetail .editor.isComment {
@@ -72,8 +34,9 @@
 /* // "Say Ello" placeholder text */
 .editor::after {
   position: absolute;
-  top: 51px;
-  left: 41px;
+  top: 41px;
+  left: 31px;
+  max-width: calc(100% - 60px);
   color: #999;
   pointer-events: none;
   content: attr(data-placeholder);
@@ -83,25 +46,7 @@
   display: none;
 }
 
-.editor.isComment::after {
-  top: 91px;
-  left: 41px;
-}
-
-/* // editor has a mention - turn background yellow */
-.editor.hasMention .editor-region {
-  background-color: #ffc;
-}
-
-.editor.hasMention::before {
-  border-right-color: #ffc;
-}
-
 /* // editor is dragged over with a droppable element - turn background green */
-.editor.hasDragOver::before {
-  border-right-color: #cfc;
-}
-
 .editor.hasDragOver > .editor-region {
   background-color: #cfc;
 }
@@ -110,49 +55,42 @@
   position: relative;
 }
 
+.editor-block:not(:last-child) {
+  border-bottom: 1px solid #e5e5e5;
+}
+
 .editable {
   position: relative;
   min-height: 60px;
-  padding: 30px 20px;
+  padding: 40px 0 20px;
+  margin: 0 30px;
   white-space: pre-wrap;
   word-break: break-word; /* stylelint-disable-line */
-  border: 1px dashed #666;
   outline: 0; /* stylelint-disable-line */
 }
 
-.editor.withQuickEmoji .editable {
+.isComment .editable {
+  padding: 40px 0 30px;
+}
+
+.editor.withQuickEmoji .editor-block:first-child .editable { /* stylelint-disable-line */
   padding-right: 30px;
 }
 
 .editor-block.readonly {
-  padding: 20px;
+  padding: 30px;
   white-space: pre-wrap;
   word-break: break-word; /* stylelint-disable-line */
-  border: 1px solid #aaa;
-}
-
-/* // .editor-block.reposted-content [contenteditable="false"] */
-/* //   border: 0 */
-/* //   padding: 0 */
-
-.editor-block + .editor-block {
-  margin-top: 20px;
+  background: #e5e5e5;
 }
 
 .DragBlock {
   position: absolute;
-  right: 20px;
-  left: 20px;
+  right: 0;
+  left: 0;
   z-index: 2;
-}
-
-.Omnibar .DragBlock {
-  right: 40px;
-  left: 40px;
-}
-
-.editor.isComment .DragBlock {
-  left: 20px;
+  background: #e5e5e5;
+  border-radius: 5px;
 }
 
 .RepostBlockLabel {
@@ -160,15 +98,21 @@
 }
 
 @media (--break-2) {
-  .editor.isComment {
-    max-width: 640px;
-    padding-left: 60px;
+  .editable {
+    padding: 40px 0;
+    margin: 0 40px;
   }
 
-  .editor.isComment::before {
-    top: 10px;
-    left: 40px;
-    display: block;
+  .isComment .editable {
+    margin: 0 30px;
+  }
+
+  .editor.isComment {
+    max-width: 640px;
+  }
+
+  .editor::after {
+    left: 41px;
   }
 
   .editor.hasContent::after {
@@ -176,16 +120,11 @@
   }
 
   .editor.isComment::after {
-    top: 51px;
-    left: 101px;
+    left: 31px;
   }
 
   .editor.isComment .DragBlock {
     left: 80px;
-  }
-
-  .Omnibar > .editorWrapper {
-    margin-top: 40px;
   }
 
   /* stylelint-disable selector-max-compound-selectors, selector-max-specificity, selector-no-qualifying-type */
@@ -208,10 +147,6 @@
   color: #666;
 }
 
-.ZeroState .editor::before {
-  display: none;
-}
-
 .ZeroState .editor-region {
   min-height: 60px;
 }
@@ -220,10 +155,6 @@
   min-height: 0;
   padding: 0;
   border: 0;
-}
-
-.ZeroState .editor.hasMention .editor-region {
-  background-color: #e5e5e5;
 }
 
 .ZeroState .PostActionButton {
