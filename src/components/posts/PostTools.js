@@ -269,6 +269,7 @@ export class PostTools extends PureComponent {
     isMobile: PropTypes.bool.isRequired,
     isOwnOriginalPost: PropTypes.bool.isRequired,
     isOwnPost: PropTypes.bool.isRequired,
+    isPostDetail: PropTypes.bool.isRequired,
     isRelatedPost: PropTypes.bool.isRequired,
     isRepostAnimating: PropTypes.bool.isRequired,
     isWatchingPost: PropTypes.bool.isRequired,
