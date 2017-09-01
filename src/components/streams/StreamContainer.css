@@ -93,8 +93,7 @@
 }
 
 .PostDetails .TabListStreamContainer,
-.RelatedPostsTitleWrapper,
-.PostDetailStreamContainer {
+.RelatedPostsTitleWrapper {
   max-width: 1440px;
   padding: 0 10px;
   margin: 40px auto 0;
@@ -107,8 +106,7 @@
 }
 
 @media (--break-2) {
-  .PostDetails .TabListStreamContainer,
-  .PostDetailStreamContainer {
+  .PostDetails .TabListStreamContainer {
     padding: 0 20px;
     margin-top: 0;
   }
@@ -124,8 +122,7 @@
 
 @media (--break-4) {
   .PostDetails .TabListStreamContainer,
-  .RelatedPostsTitleWrapper,
-  .PostDetailStreamContainer {
+  .RelatedPostsTitleWrapper {
     padding: 0 40px;
   }
 }

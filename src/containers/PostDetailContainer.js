@@ -11,7 +11,7 @@ import { POST } from '../constants/action_types'
 import { scrollToPosition, scrollToSelector } from '../lib/jello'
 import { postLovers, postReposters } from '../networking/api'
 import { selectIsLoggedIn } from '../selectors/authentication'
-import { selectColumnCount, selectInnerHeight } from '../selectors/gui'
+import { selectColumnCount, selectDeviceSize, selectInnerHeight } from '../selectors/gui'
 import { selectParamsToken, selectParamsUsername } from '../selectors/params'
 import {
   selectPost,
@@ -30,6 +30,7 @@ function mapStateToProps(state, props) {
     author: selectPostAuthor(state, props),
     avatar: selectAvatar(state),
     columnCount: selectColumnCount(state, props),
+    deviceSize: selectDeviceSize(state, props),
     hasRelatedPostsButton: selectPostHasRelatedButton(state, props),
     innerHeight: selectInnerHeight(state, props),
     isLoggedIn: selectIsLoggedIn(state),
@@ -50,6 +51,7 @@ class PostDetailContainer extends Component {
     author: PropTypes.object,
     avatar: PropTypes.object,
     columnCount: PropTypes.number.isRequired,
+    deviceSize: PropTypes.string.isRequired,
     dispatch: PropTypes.func.isRequired,
     hasRelatedPostsButton: PropTypes.bool.isRequired,
     innerHeight: PropTypes.number.isRequired,
@@ -128,7 +130,7 @@ class PostDetailContainer extends Component {
   shouldComponentUpdate(nextProps, nextState) {
     if (!nextProps.author || !nextProps.post) { return false }
     return !Immutable.is(nextProps.post, this.props.post) ||
-      ['hasRelatedPostsButton', 'paramsToken', 'paramsUsername'].some(prop =>
+      ['deviceSize', 'hasRelatedPostsButton', 'paramsToken', 'paramsUsername'].some(prop =>
         nextProps[prop] !== this.props[prop],
       ) ||
       ['activeType', 'renderType'].some(prop => nextState[prop] !== this.state[prop])
@@ -168,6 +170,7 @@ class PostDetailContainer extends Component {
       author,
       avatar,
       columnCount,
+      deviceSize,
       hasRelatedPostsButton,
       isLoggedIn,
       isPostEmpty,
@@ -198,6 +201,7 @@ class PostDetailContainer extends Component {
       author,
       avatar,
       columnCount,
+      deviceSize,
       hasEditor: author && author.get('hasCommentingEnabled') && !(post.get('isReposting') || post.get('isEditing')),
       hasRelatedPostsButton,
       isLoggedIn,
