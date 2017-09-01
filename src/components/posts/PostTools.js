@@ -293,6 +293,7 @@ export class PostTools extends PureComponent {
       isMobile,
       isOwnOriginalPost,
       isOwnPost,
+      isPostDetail,
       isRelatedPost,
       isRepostAnimating,
       isWatchingPost,
@@ -306,14 +307,16 @@ export class PostTools extends PureComponent {
       postViewsCountRounded,
     } = this.props
     const cells = []
-    cells.push(
-      <ViewsTool
-        detailPath={detailPath}
-        isLoggedIn={isLoggedIn}
-        key={`ViewsTool_${postId}`}
-        postViewsCountRounded={postViewsCountRounded}
-      />,
-    )
+    if (!isPostDetail) {
+      cells.push(
+        <ViewsTool
+          detailPath={detailPath}
+          isLoggedIn={isLoggedIn}
+          key={`ViewsTool_${postId}`}
+          postViewsCountRounded={postViewsCountRounded}
+        />,
+      )
+    }
     if (!isRelatedPost) {
       cells.push(
         <TimeAgoTool
@@ -351,6 +354,16 @@ export class PostTools extends PureComponent {
           key={`RepostTool_${postId}`}
           postReposted={postReposted}
           postRepostsCount={postRepostsCount}
+        />,
+      )
+    }
+    if (isPostDetail) {
+      cells.push(
+        <ViewsTool
+          detailPath={detailPath}
+          isLoggedIn={isLoggedIn}
+          key={`ViewsTool_${postId}`}
+          postViewsCountRounded={postViewsCountRounded}
         />,
       )
     }

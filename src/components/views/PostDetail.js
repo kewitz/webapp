@@ -7,7 +7,7 @@ import { MainView } from '../views/MainView'
 import { loadRelatedPosts } from '../../actions/posts'
 import { LaunchCommentEditorButton, RelatedPostsButton } from '../posts/PostRenderables'
 import { TabListButtons } from '../tabs/TabList'
-import { css, media, select } from '../../styles/jss'
+import { css, hover, media, modifier, parent, select } from '../../styles/jss'
 import * as s from '../../styles/jso'
 import * as ElloAndroidInterface from '../../lib/android_interface'
 
@@ -15,8 +15,8 @@ const postDetailStyle = css(
   s.relative,
   media(
     s.minBreak2,
-    select('& .PostList .PostHeader', s.displayNone),
-    select('& .PostList .PostTools', s.displayNone),
+    select('& .PostList .Post .PostHeader', s.displayNone),
+    select('& .PostList .Post .PostTools', s.displayNone),
   ),
 )
 
@@ -38,12 +38,35 @@ const streamStyle = css(
 const asideCommentStyle = css(
   s.absolute,
   s.fullHeight,
-  { width: 420, borderLeft: '1px solid #f2f2f2', top: 0, right: 0 },
-  select('& .CommentContent', s.m20, s.absolute, { top: 140 }),
+  { width: 420, borderLeft: '1px solid #f2f2f2', top: 0, right: 0, overflowY: 'scroll' },
+  select('& .ViewsTool.isPill > a', s.colorA, { backgroundColor: 'transparent' }, hover({ backgroundColor: 'transparent' })),
+  select('& .CommentContent', s.m20),
   select('.PostDetails & .TabListStreamContainer', s.px0),
-  select('& .PostBody', s.displayNone),
-  select('& .PostHeader', s.px20, { borderBottom: '1px solid #f2f2f2' }),
-  select('& .PostTools', s.px20, { borderBottom: '1px solid #f2f2f2' }),
+  select('& .PostTools', s.flex, s.justifySpaceBetween, s.itemsCenter, s.p0),
+  select('& .PostTool .SVGIcon + .PostToolValue', s.fontSize18, { marginLeft: 15 }),
+  select('& .PostToolValue', s.fontSize18, s.ml10),
+  parent('.PostDetail .Posts.asList',
+    select('& .TimeAgoTool', s.displayNone),
+  ),
+  select('& .asideTopPost',
+    select('& .SVGIcon', { transform: 'scale(1.5)' }),
+    select('& .PostBody', s.displayNone),
+    select('& .PostHeader', s.px20, { borderBottom: '1px solid #f2f2f2' }),
+    select('& .PostTools', s.px20, { borderBottom: '1px solid #f2f2f2' }),
+    select('& .CommentTool', s.displayNone),
+    select('& .WatchTool', s.displayNone),
+    select('& .FlagTool', s.displayNone),
+    select('& .ViewsTool', s.pointerNone, modifier('.isPill', { marginRight: '0 !important' })),
+  ),
+  select('& .asideBottomPost',
+    select('& .PostBody', s.displayNone),
+    select('& .PostHeader', s.displayNone),
+    select('& .PostTools', s.px20),
+    select('& .PostTool', s.displayNone,
+      modifier('.WatchTool', s.block),
+      modifier('.FlagTool', s.block),
+    ),
+  ),
 )
 
 const CommentContent = (
@@ -114,8 +137,9 @@ export const PostDetail = (props) => {
         </article>
         {deviceSize !== 'mobile' &&
           <aside className={asideCommentStyle}>
-            <PostContainer postId={post.get('id')} />
+            <PostContainer className="asideTopPost" postId={post.get('id')} />
             <CommentContent {...props} />
+            <PostContainer className="asideBottomPost" postId={post.get('id')} />
           </aside>
         }
       </div>

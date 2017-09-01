@@ -136,6 +136,7 @@ class PostContainer extends Component {
     avatar: PropTypes.object,
     categoryName: PropTypes.string,
     categoryPath: PropTypes.string,
+    className: PropTypes.string,
     columnWidth: PropTypes.number.isRequired,
     commentOffset: PropTypes.number.isRequired,
     content: PropTypes.object,
@@ -184,6 +185,7 @@ class PostContainer extends Component {
     avatar: null,
     categoryName: null,
     categoryPath: null,
+    className: null,
     content: null,
     contentWarning: null,
     isPostHeaderHidden: false,
@@ -366,6 +368,7 @@ class PostContainer extends Component {
       avatar,
       categoryName,
       categoryPath,
+      className,
       columnWidth,
       commentOffset,
       content,
@@ -446,7 +449,7 @@ class PostContainer extends Component {
       }
     }
     return (
-      <div className={classNames('Post', { isPostHeaderHidden: isPostHeaderHidden && !isRepost })}>
+      <div className={classNames('Post', className, { isPostHeaderHidden: isPostHeaderHidden && !isRepost })}>
         {postHeader}
         {adminActions &&
           <PostAdminActions
@@ -483,6 +486,7 @@ class PostContainer extends Component {
           isMobile={isMobile}
           isOwnOriginalPost={isOwnOriginalPost}
           isOwnPost={isOwnPost}
+          isPostDetail={isPostDetail}
           isRelatedPost={isRelatedPost}
           isRepostAnimating={isRepostAnimating}
           isWatchingPost={isWatchingPost}
