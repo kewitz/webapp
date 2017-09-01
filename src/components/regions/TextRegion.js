@@ -12,7 +12,7 @@ export default class TextRegion extends PureComponent {
   }
 
   static contextTypes = {
-    onClickRegion: PropTypes.func,
+    onClickRenderedContent: PropTypes.func,
   }
 
   render() {
@@ -23,7 +23,7 @@ export default class TextRegion extends PureComponent {
         <div
           className={classNames('RegionContent', { isHot })}
           dangerouslySetInnerHTML={{ __html: content }}
-          onClick={this.context.onClickRegion}
+          onClick={e => this.context.onClickRenderedContent(e, detailPath)}
         />
       </div>
     )

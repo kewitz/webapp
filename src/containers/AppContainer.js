@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
+import { push } from 'react-router-redux'
 import classNames from 'classnames'
 import { trackEvent, trackInitialPage } from '../actions/analytics'
 import { loadBadges } from '../actions/badges'
@@ -26,9 +27,10 @@ import ModalContainer from '../containers/ModalContainer'
 import NavbarContainer from '../containers/NavbarContainer'
 import OmnibarContainer from '../containers/OmnibarContainer'
 import ViewportContainer from '../containers/ViewportContainer'
-import { scrollToPosition } from '../lib/jello'
+import { scrollToPosition, isLink } from '../lib/jello'
 import * as ElloAndroidInterface from '../lib/android_interface'
 import { selectIsLoggedIn } from '../selectors/authentication'
+import { selectIsGridMode } from '../selectors/gui'
 import { selectIsStaff } from '../selectors/profile'
 import {
   selectCategoryData,
@@ -47,6 +49,7 @@ function mapStateToProps(state) {
     isLoggedIn: selectIsLoggedIn(state),
     isPagePromotion: selectIsPagePromotion(state),
     isStaff: selectIsStaff(state),
+    isGridMode: selectIsGridMode(state),
   }
 }
 
@@ -59,6 +62,7 @@ class AppContainer extends Component {
     dispatch: PropTypes.func.isRequired,
     isAuthenticationView: PropTypes.bool.isRequired,
     isCategoryPromotion: PropTypes.bool.isRequired,
+    isGridMode: PropTypes.bool.isRequired,
     isLoggedIn: PropTypes.bool.isRequired,
     isPagePromotion: PropTypes.bool.isRequired,
     isStaff: PropTypes.bool.isRequired,
@@ -72,6 +76,7 @@ class AppContainer extends Component {
   static childContextTypes = {
     onClickOpenRegistrationRequestDialog: PropTypes.func,
     onClickScrollToContent: PropTypes.func,
+    onClickRenderedContent: PropTypes.func,
     onClickTrackCredits: PropTypes.func,
     onClickTrackCTA: PropTypes.func,
     onLaunchNativeEditor: PropTypes.func,
@@ -85,6 +90,7 @@ class AppContainer extends Component {
       onClickScrollToContent: this.onClickScrollToContent,
       onClickTrackCredits: this.onClickTrackCredits,
       onClickTrackCTA: this.onClickTrackCTA,
+      onClickRenderedContent: this.onClickRenderedContent,
       onLaunchNativeEditor: this.onLaunchNativeEditor,
       openShareDialog: this.openShareDialog,
       toggleLovePost: this.toggleLovePost,
@@ -150,6 +156,42 @@ class AppContainer extends Component {
 
   onClickScrollToContent = () => {
     scrollToPosition(0, document.querySelector('.Hero').offsetHeight)
+  }
+
+  onClickRenderedContent = (e, detailPath) => {
+    const { dispatch, isGridMode } = this.props
+    const { classList, dataset } = e.target
+    // Get the raw value instead of the property value which is always absolute
+    const href = e.target.getAttribute('href')
+    // Relative links get sent to push (usernames, raw links, hashtags)
+    if (href && href[0] === '/') {
+      e.preventDefault()
+      dispatch(push(href))
+    // TODO: We have a special `span` based fake link at the moment we have to test
+    // for. Once we change this back to an `<a> element we can rip this out.
+    } else if (classList.contains('hashtag-link')) {
+      e.preventDefault()
+      dispatch(push(dataset.href))
+    // Treat non links within grid layouts as a push to it's detail path
+    } else if (isGridMode && detailPath && !isLink(e.target)) {
+      e.preventDefault()
+
+      // if it's a command / control click or middle mouse fake a link and
+      // click it... I'm serious.
+      if (e.metaKey || e.ctrlKey || e.which === 2) {
+        const a = document.createElement('a')
+        a.href = detailPath
+        a.target = '_blank'
+        a.click()
+        this.onTrackRelatedPostClick()
+        return
+      }
+      // ..otherwise just push it through..
+      dispatch(push(detailPath))
+      this.onTrackRelatedPostClick()
+    }
+    // The alternative is it's either in list and we ignore it or it's an
+    // absolute link and we allow it's default behavior.
   }
 
   onClickTrackCredits = () => {

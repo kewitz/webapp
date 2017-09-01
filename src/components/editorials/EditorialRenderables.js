@@ -46,7 +46,7 @@ const bodyStyle = css(
 
 const subtitleStyle = css(
   s.relative,
-  s.zIndex2,
+  s.zIndex4,
 )
 
 const toolsStyle = css(
@@ -83,7 +83,10 @@ export const PostEditorial = (props: EditorialProps) => (
     </header>
     <div className={bodyStyle}>
       <div className={subtitleStyle}>
-        <EditorialSubtitle label={props.editorial.get('subtitle')} />
+        <EditorialSubtitle
+          label={props.editorial.get('renderedSubtitle')}
+          path={props.postPath}
+        />
       </div>
       <div className={toolsStyle}>
         <EditorialTools isPostLoved={props.isPostLoved} postPath={props.postPath} />
@@ -203,7 +206,10 @@ export const LinkEditorial = (props: EditorialProps, context: ExternalEditorialC
     </header>
     <div className={bodyStyle}>
       <div className={subtitleStyle}>
-        <EditorialSubtitle label={props.editorial.get('subtitle')} />
+        <EditorialSubtitle
+          label={props.editorial.get('renderedSubtitle')}
+          path={props.path}
+        />
       </div>
       {props.url && props.kind === 'external' &&
         <div className={toolsStyle}>
