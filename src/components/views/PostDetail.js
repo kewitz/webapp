@@ -7,17 +7,12 @@ import { MainView } from '../views/MainView'
 import { loadRelatedPosts } from '../../actions/posts'
 import { LaunchCommentEditorButton, RelatedPostsButton } from '../posts/PostRenderables'
 import { TabListButtons } from '../tabs/TabList'
-import { css, hover, media, modifier, parent, select } from '../../styles/jss'
+import { after, css, hover, media, modifier, select } from '../../styles/jss'
 import * as s from '../../styles/jso'
 import * as ElloAndroidInterface from '../../lib/android_interface'
 
 const postDetailStyle = css(
   s.relative,
-  media(
-    s.minBreak2,
-    select('& .PostList .Post .PostHeader', s.displayNone),
-    select('& .PostList .Post .PostTools', s.displayNone),
-  ),
 )
 
 const navStyle = css(
@@ -31,7 +26,17 @@ const streamStyle = css(
     s.minBreak2,
     s.px20,
     { width: 'calc(100vw - 420px)' },
-    select('& .PostHeader', s.absolute, { top: 0, right: 'calc(100vw - 420px)' }),
+  ),
+)
+
+const relatedPostsStyle = css(
+  select('& .Column',
+    media(s.minBreak2, { width: '100%' }),
+    media(s.minBreak3, { width: 'calc(50% - 20px)' }),
+    media(s.minBreak4, { width: 'calc(33.33333% - 40px)' }),
+    media(s.minBreak5, { width: 'calc(25% - 40px)' }),
+    media(s.minBreak6, { width: 'calc(20% - 40px)' }),
+    media(s.minBreak7, { width: 'calc(16.66666% - 40px)' }),
   ),
 )
 
@@ -45,27 +50,47 @@ const asideCommentStyle = css(
   select('& .PostTools', s.flex, s.justifySpaceBetween, s.itemsCenter, s.p0),
   select('& .PostTool .SVGIcon + .PostToolValue', s.fontSize18, { marginLeft: 15 }),
   select('& .PostToolValue', s.fontSize18, s.ml10),
-  parent('.PostDetail .Posts.asList',
-    select('& .TimeAgoTool', s.displayNone),
+  select('.Posts.asList & .PostDetailAsideTop .PostHeaderTimeAgoLink',
+    s.block,
+    s.pointerNone,
+    { right: 20 },
   ),
-  select('& .asideTopPost',
+  select('.no-touch .Posts.asList & .PostDetailAsideTop',
+    select('& .ShyTool',
+      s.absolute,
+      s.pointerAuto,
+      s.opacity1,
+      { top: -50 },
+      modifier('.EditTool', { right: 110 }),
+      modifier('.DeleteTool', { right: 70 }),
+    ),
     select('& .SVGIcon', { transform: 'scale(1.5)' }),
-    select('& .PostBody', s.displayNone),
     select('& .PostHeader', s.px20, { borderBottom: '1px solid #f2f2f2' }),
     select('& .PostTools', s.px20, { borderBottom: '1px solid #f2f2f2' }),
     select('& .CommentTool', s.displayNone),
     select('& .WatchTool', s.displayNone),
     select('& .FlagTool', s.displayNone),
+    select('& .TimeAgoTool', s.displayNone),
     select('& .ViewsTool', s.pointerNone, modifier('.isPill', { marginRight: '0 !important' })),
   ),
-  select('& .asideBottomPost',
-    select('& .PostBody', s.displayNone),
-    select('& .PostHeader', s.displayNone),
-    select('& .PostTools', s.px20),
+  select('.no-touch .Posts.asList & .PostDetailAsideBottom',
+    select('& .PostTools', s.px20, s.mt40, s.justifyEnd),
     select('& .PostTool', s.displayNone,
-      modifier('.WatchTool', s.block),
-      modifier('.FlagTool', s.block),
+      select('& .Hint', s.displayNone),
+      modifier('.TimeAgoTool', s.block, s.pointerNone, select('& .PostToolValue', s.fontSize14)),
+      modifier('.WatchTool',
+        s.block,
+        modifier('.isWatchingPost', select('& button', after({ content: '"Mute"' }))),
+        select(
+          '& button',
+          after({ content: '"Watch"', marginLeft: 2 }),
+        ),
+      ),
+      modifier('.FlagTool', s.block, s.opacity1, s.pointerAuto, select('& button', after(s.ml5, { content: '"Report Post"' }))),
     ),
+  ),
+  select('& .UserProfileCard',
+    media(s.minBreak2, s.mt20, { width: 'calc(100% - 40px)' }),
   ),
 )
 
@@ -127,19 +152,19 @@ export const PostDetail = (props) => {
     <MainView className={`PostDetail ${postDetailStyle}`}>
       <div className="PostDetails Posts asList">
         <article className={`PostList ${streamStyle}`} id={`Post_${post.get('id')}`}>
-          <PostContainer postId={post.get('id')} />
+          <PostContainer type={deviceSize === 'mobile' ? null : 'PostDetailBody'} postId={post.get('id')} />
           {deviceSize === 'mobile' && <CommentContent {...props} />}
           <StreamContainer
-            action={loadRelatedPosts(`~${post.get('token')}`, columnCount)}
-            className="RelatedPostsStreamContainer"
+            action={loadRelatedPosts(`~${post.get('token')}`, columnCount - 1)}
+            className={`RelatedPostsStreamContainer ${relatedPostsStyle}`}
             shouldInfiniteScroll={false}
           />
         </article>
         {deviceSize !== 'mobile' &&
           <aside className={asideCommentStyle}>
-            <PostContainer className="asideTopPost" postId={post.get('id')} />
+            <PostContainer type="PostDetailAsideTop" postId={post.get('id')} />
             <CommentContent {...props} />
-            <PostContainer className="asideBottomPost" postId={post.get('id')} />
+            <PostContainer type="PostDetailAsideBottom" postId={post.get('id')} />
           </aside>
         }
       </div>

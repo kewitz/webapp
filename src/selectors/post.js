@@ -87,7 +87,7 @@ export const selectPostViewsCount = createSelector([selectPost], post => countPr
 export const selectPostViewsCountRounded = createSelector(
   [selectPostViewsCount], count => numberToHuman(count, false),
 )
-export const selectPostWatching = createSelector([selectPost], post => post.get('watching'))
+export const selectPostWatching = createSelector([selectPost], post => post.get('watching') || false)
 
 // Nested properties on the post reducer
 export const selectPostMetaDescription = createSelector(

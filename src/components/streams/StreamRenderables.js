@@ -171,8 +171,9 @@ export const postsAsList = (postIds, columnCount, isPostHeaderHidden) => (
   </div>
 )
 
-export const postsAsRelated = (postIds, columnCount, isPostHeaderHidden) => {
+export const postsAsRelated = (postIds, colCount, isPostHeaderHidden) => {
   const columns = []
+  const columnCount = colCount - 1
   for (let i = 0; i < columnCount; i += 1) { columns.push([]) }
   postIds.forEach((value, index) => columns[index % columnCount].push(postIds.get(index)))
   return (

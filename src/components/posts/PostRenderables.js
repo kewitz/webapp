@@ -11,9 +11,13 @@ import {
   StarIcon,
   XBoxIcon,
 } from '../assets/Icons'
+import Editor from '../editor/Editor'
 import ContentWarningButton from '../posts/ContentWarningButton'
+import { PostTools, WatchTool } from '../posts/PostTools'
 import RelationshipContainer from '../../containers/RelationshipContainer'
+import StreamContainer from '../../containers/StreamContainer'
 import { RegionItems } from '../regions/RegionRenderables'
+import { loadComments } from '../../actions/posts'
 import { after, before, css, hover, modifier, select } from '../../styles/jss'
 import * as s from '../../styles/jso'
 
@@ -272,9 +276,12 @@ export class PostBody extends PureComponent {
     isGridMode: PropTypes.bool.isRequired,
     isPostDetail: PropTypes.bool.isRequired,
     isRepost: PropTypes.bool.isRequired,
+    post: PropTypes.object.isRequired,
     postId: PropTypes.string.isRequired,
     repostContent: PropTypes.object,
+    showEditor: PropTypes.bool.isRequired,
     summary: PropTypes.object.isRequired,
+    supportsNativeEditor: PropTypes.bool.isRequired,
   }
   static defaultProps = {
     contentWarning: null,
@@ -293,10 +300,17 @@ export class PostBody extends PureComponent {
       isGridMode,
       isPostDetail,
       isRepost,
+      post,
       postId,
       repostContent,
+      showEditor,
       summary,
+      supportsNativeEditor,
     } = this.props
+
+    if (showEditor && !supportsNativeEditor) {
+      return <Editor post={post} />
+    }
     const cells = []
 
     if (contentWarning && !isPostDetail) {
@@ -431,5 +445,318 @@ export const RelatedPostsButton = (props, { onClickScrollToRelatedPosts }) =>
   </button>)
 RelatedPostsButton.contextTypes = {
   onClickScrollToRelatedPosts: PropTypes.func.isRequired,
+}
+
+export const Post = ({
+  adminActions,
+  author,
+  avatar,
+  columnWidth,
+  commentOffset,
+  content,
+  contentWarning,
+  contentWidth,
+  detailPath,
+  innerHeight,
+  isCommentsActive,
+  isCommentsRequesting,
+  isGridMode,
+  isLoggedIn,
+  isMobile,
+  isOwnOriginalPost,
+  isOwnPost,
+  isPostDetail,
+  isPostHeaderHidden,
+  isRelatedPost,
+  isRepost,
+  isRepostAnimating,
+  isWatchingPost,
+  post,
+  postCommentsCount,
+  postCreatedAt,
+  postHeader,
+  postId,
+  postLoved,
+  postLovesCount,
+  postReposted,
+  postRepostsCount,
+  postViewsCountRounded,
+  repostContent,
+  showCommentEditor,
+  showEditor,
+  submissionStatus,
+  summary,
+  supportsNativeEditor,
+}) => (
+  <div className={classNames('Post', { isPostHeaderHidden: isPostHeaderHidden && !isRepost })}>
+    {postHeader}
+    {adminActions &&
+      <PostAdminActions
+        actions={adminActions}
+        status={submissionStatus}
+      />
+    }
+    <PostBody
+      {...{
+        author,
+        columnWidth,
+        commentOffset,
+        content,
+        contentWarning,
+        contentWidth,
+        detailPath,
+        innerHeight,
+        isGridMode,
+        isPostDetail,
+        isRepost,
+        post,
+        postId,
+        repostContent,
+        showEditor,
+        summary,
+        supportsNativeEditor,
+      }}
+    />
+    <PostTools
+      {...{
+        author,
+        detailPath,
+        isCommentsActive,
+        isCommentsRequesting,
+        isGridMode,
+        isLoggedIn,
+        isMobile,
+        isOwnOriginalPost,
+        isOwnPost,
+        isPostDetail,
+        isRelatedPost,
+        isRepostAnimating,
+        isWatchingPost,
+        postCreatedAt,
+        postCommentsCount,
+        postId,
+        postLoved,
+        postLovesCount,
+        postReposted,
+        postRepostsCount,
+        postViewsCountRounded,
+      }}
+    />
+    {isMobile && !isRelatedPost &&
+      <WatchTool
+        isMobile
+        isWatchingPost={isWatchingPost}
+        onClickWatchPost={this.onClickWatchPost}
+      />
+    }
+    {isLoggedIn && showCommentEditor && supportsNativeEditor &&
+      <LaunchCommentEditorButton avatar={avatar} post={post} />
+    }
+    {showCommentEditor && !supportsNativeEditor && <Editor post={post} isComment />}
+    {showCommentEditor &&
+      <StreamContainer
+        action={loadComments(postId)}
+        className="TabListStreamContainer isFullWidth"
+        paginatorText="See More"
+        paginatorTo={detailPath}
+        postCommentsCount={postCommentsCount}
+        shouldInfiniteScroll={false}
+      />
+    }
+  </div>
+)
+Post.propTypes = {
+  adminActions: PropTypes.object,
+  author: PropTypes.object.isRequired,
+  avatar: PropTypes.object,
+  columnWidth: PropTypes.number.isRequired,
+  commentOffset: PropTypes.number.isRequired,
+  content: PropTypes.object,
+  contentWarning: PropTypes.string,
+  contentWidth: PropTypes.number.isRequired,
+  detailPath: PropTypes.string.isRequired,
+  innerHeight: PropTypes.number.isRequired,
+  isCommentsActive: PropTypes.bool.isRequired,
+  isCommentsRequesting: PropTypes.bool.isRequired,
+  isGridMode: PropTypes.bool.isRequired,
+  isLoggedIn: PropTypes.bool.isRequired,
+  isMobile: PropTypes.bool.isRequired,
+  isOwnOriginalPost: PropTypes.bool.isRequired,
+  isOwnPost: PropTypes.bool.isRequired,
+  isPostDetail: PropTypes.bool.isRequired,
+  isPostHeaderHidden: PropTypes.bool,
+  isRelatedPost: PropTypes.bool,
+  isRepost: PropTypes.bool.isRequired,
+  isRepostAnimating: PropTypes.bool.isRequired,
+  isWatchingPost: PropTypes.bool.isRequired,
+  post: PropTypes.object.isRequired,
+  postCommentsCount: PropTypes.number,
+  postCreatedAt: PropTypes.string,
+  postHeader: PropTypes.node,
+  postId: PropTypes.string.isRequired,
+  postLoved: PropTypes.bool,
+  postLovesCount: PropTypes.number,
+  postReposted: PropTypes.bool,
+  postRepostsCount: PropTypes.number,
+  postViewsCountRounded: PropTypes.string,
+  repostContent: PropTypes.object,
+  showCommentEditor: PropTypes.bool.isRequired,
+  showEditor: PropTypes.bool.isRequired,
+  submissionStatus: PropTypes.string,
+  summary: PropTypes.object,
+  supportsNativeEditor: PropTypes.bool.isRequired,
+}
+
+export const PostDetailAsideTop = ({
+  author,
+  detailPath,
+  isCommentsActive,
+  isCommentsRequesting,
+  isGridMode,
+  isLoggedIn,
+  isMobile,
+  isOwnOriginalPost,
+  isOwnPost,
+  isPostDetail,
+  isRelatedPost,
+  isRepostAnimating,
+  isWatchingPost,
+  postCommentsCount,
+  postCreatedAt,
+  postHeader,
+  postId,
+  postLoved,
+  postLovesCount,
+  postReposted,
+  postRepostsCount,
+  postViewsCountRounded,
+}) => (
+  <div className="PostDetailAsideTop">
+    {postHeader}
+    <PostTools
+      {...{
+        author,
+        detailPath,
+        isCommentsActive,
+        isCommentsRequesting,
+        isGridMode,
+        isLoggedIn,
+        isMobile,
+        isOwnOriginalPost,
+        isOwnPost,
+        isPostDetail,
+        isRelatedPost,
+        isRepostAnimating,
+        isWatchingPost,
+        postCreatedAt,
+        postCommentsCount,
+        postId,
+        postLoved,
+        postLovesCount,
+        postReposted,
+        postRepostsCount,
+        postViewsCountRounded,
+      }}
+    />
+  </div>
+)
+PostDetailAsideTop.propTypes = {
+  author: PropTypes.object.isRequired,
+  detailPath: PropTypes.string.isRequired,
+  isCommentsActive: PropTypes.bool.isRequired,
+  isCommentsRequesting: PropTypes.bool.isRequired,
+  isGridMode: PropTypes.bool.isRequired,
+  isLoggedIn: PropTypes.bool.isRequired,
+  isMobile: PropTypes.bool.isRequired,
+  isOwnOriginalPost: PropTypes.bool.isRequired,
+  isOwnPost: PropTypes.bool.isRequired,
+  isPostDetail: PropTypes.bool.isRequired,
+  isRelatedPost: PropTypes.bool,
+  isRepostAnimating: PropTypes.bool.isRequired,
+  isWatchingPost: PropTypes.bool.isRequired,
+  postCommentsCount: PropTypes.number,
+  postCreatedAt: PropTypes.string,
+  postHeader: PropTypes.node,
+  postId: PropTypes.string.isRequired,
+  postLoved: PropTypes.bool,
+  postLovesCount: PropTypes.number,
+  postReposted: PropTypes.bool,
+  postRepostsCount: PropTypes.number,
+  postViewsCountRounded: PropTypes.string,
+}
+
+export const PostDetailAsideBottom = ({
+  author,
+  detailPath,
+  isCommentsActive,
+  isCommentsRequesting,
+  isGridMode,
+  isLoggedIn,
+  isMobile,
+  isOwnOriginalPost,
+  isOwnPost,
+  isPostDetail,
+  isRelatedPost,
+  isRepostAnimating,
+  isWatchingPost,
+  postCommentsCount,
+  postCreatedAt,
+  postId,
+  postLoved,
+  postLovesCount,
+  postReposted,
+  postRepostsCount,
+  postViewsCountRounded,
+}) => (
+  <div className="PostDetailAsideBottom">
+    <PostTools
+      {...{
+        author,
+        detailPath,
+        isCommentsActive,
+        isCommentsRequesting,
+        isGridMode,
+        isLoggedIn,
+        isMobile,
+        isOwnOriginalPost,
+        isOwnPost,
+        isPostDetail,
+        isRelatedPost,
+        isRepostAnimating,
+        isWatchingPost,
+        postCreatedAt,
+        postCommentsCount,
+        postId,
+        postLoved,
+        postLovesCount,
+        postReposted,
+        postRepostsCount,
+        postViewsCountRounded,
+      }}
+    />
+  </div>
+)
+PostDetailAsideBottom.propTypes = {
+  author: PropTypes.object.isRequired,
+  detailPath: PropTypes.string.isRequired,
+  isCommentsActive: PropTypes.bool.isRequired,
+  isCommentsRequesting: PropTypes.bool.isRequired,
+  isGridMode: PropTypes.bool.isRequired,
+  isLoggedIn: PropTypes.bool.isRequired,
+  isMobile: PropTypes.bool.isRequired,
+  isOwnOriginalPost: PropTypes.bool.isRequired,
+  isOwnPost: PropTypes.bool.isRequired,
+  isPostDetail: PropTypes.bool.isRequired,
+  isRelatedPost: PropTypes.bool,
+  isRepostAnimating: PropTypes.bool.isRequired,
+  isWatchingPost: PropTypes.bool.isRequired,
+  postCommentsCount: PropTypes.number,
+  postCreatedAt: PropTypes.string,
+  postId: PropTypes.string.isRequired,
+  postLoved: PropTypes.bool,
+  postLovesCount: PropTypes.number,
+  postReposted: PropTypes.bool,
+  postRepostsCount: PropTypes.number,
+  postViewsCountRounded: PropTypes.string,
 }
 
