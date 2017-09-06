@@ -487,7 +487,7 @@ export const Post = ({
   submissionStatus,
   summary,
   supportsNativeEditor,
-}) => (
+}, { onClickWatchPost }) => (
   <div className={classNames('Post', { isPostHeaderHidden: isPostHeaderHidden && !isRepost })}>
     {postHeader}
     {adminActions &&
@@ -546,7 +546,7 @@ export const Post = ({
       <WatchTool
         isMobile
         isWatchingPost={isWatchingPost}
-        onClickWatchPost={this.onClickWatchPost}
+        onClickWatchPost={onClickWatchPost}
       />
     }
     {isLoggedIn && showCommentEditor && supportsNativeEditor &&
@@ -605,6 +605,9 @@ Post.propTypes = {
   submissionStatus: PropTypes.string,
   summary: PropTypes.object,
   supportsNativeEditor: PropTypes.bool.isRequired,
+}
+Post.contextTypes = {
+  onClickWatchPost: PropTypes.func.isRequired,
 }
 
 export const PostDetailAsideTop = ({
