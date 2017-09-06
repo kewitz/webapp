@@ -40,10 +40,10 @@ const relatedPostsStyle = css(
   ),
 )
 
-const asideCommentStyle = css(
+const asideStyle = css(
   s.absolute,
   s.fullHeight,
-  { width: 420, borderLeft: '1px solid #f2f2f2', top: 0, right: 0, overflowY: 'scroll' },
+  { width: 420, borderLeft: '1px solid #f2f2f2', top: 0, right: 0, overflowY: 'scroll', paddingBottom: 80 },
   select('& .ViewsTool.isPill > a', s.colorA, { backgroundColor: 'transparent' }, hover({ backgroundColor: 'transparent' })),
   select('& .CommentContent', s.m20),
   select('.PostDetails & .TabListStreamContainer', s.px0),
@@ -161,7 +161,7 @@ export const PostDetail = (props) => {
           />
         </article>
         {deviceSize !== 'mobile' &&
-          <aside className={asideCommentStyle}>
+          <aside className={asideStyle}>
             <PostContainer type="PostDetailAsideTop" postId={post.get('id')} />
             <CommentContent {...props} />
             <PostContainer type="PostDetailAsideBottom" postId={post.get('id')} />
