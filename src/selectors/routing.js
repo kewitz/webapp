@@ -60,6 +60,9 @@ export const selectViewNameFromRoute = createSelector(
     if (AUTHENTICATION_ROUTES.some(route => route.test(pathname))) {
       return 'authentication'
     }
+    if (/^\/.*\/gallery/.test(pathname)) {
+      return 'gallery'
+    }
     // Yo! to get 'userDetail' you have to pass in props... for now
     if (username) {
       return 'userDetail'

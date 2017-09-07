@@ -14,7 +14,7 @@ import NotificationsRoute from './notifications'
 import InvitationsRoutes from './invitations'
 import SettingsRoutes from './settings'
 import OnboardingRoutes from './onboarding'
-import UserDetailRoute from './user_detail'
+import UserDetailRoutes from './user_detail'
 
 function createRedirect(from, to) {
   return {
@@ -80,7 +80,7 @@ const routes = (store) => {
         createRedirect('onboarding', '/onboarding/creator-type'),
         ...OnboardingRoutes(store).map(route => authenticate(route)),
         ...SearchRoutes,
-        UserDetailRoute,
+        ...UserDetailRoutes,
       ].filter(value => value !== null),
     },
   ]

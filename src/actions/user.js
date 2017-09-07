@@ -57,6 +57,21 @@ export function loadUserLoves(username, type) {
   }
 }
 
+export function loadUserLovesAsGallery(username) {
+  return {
+    type: ACTION_TYPES.LOAD_STREAM,
+    payload: { endpoint: api.userResources(username, 'loves') },
+    meta: {
+      mappingType: MAPPING_TYPES.LOVES,
+      renderStream: {
+        asList: StreamRenderables.postsAsGallery,
+        asGrid: StreamRenderables.postsAsGallery,
+      },
+      resultFilter: StreamFilters.postsFromLoves,
+    },
+  }
+}
+
 export function loadUserFollowing(username, priority) {
   const endpoint = api.userFollowing(username, priority)
   return {

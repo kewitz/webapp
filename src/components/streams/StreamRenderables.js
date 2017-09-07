@@ -6,6 +6,7 @@ import CommentContainer from '../../containers/CommentContainer'
 import NotificationContainer from '../../containers/NotificationContainer'
 import ArtistInviteSubmissionContainer from '../../containers/ArtistInviteSubmissionContainer'
 import PostContainer from '../../containers/PostContainer'
+import PostGallery from '../../containers/PostGalleryContainer'
 import UserContainer from '../../containers/UserContainer'
 import { SlickCarousel } from '../../components/carousels/CarouselRenderables'
 import EditorialLayout from '../../components/editorials/EditorialLayout'
@@ -196,6 +197,10 @@ export const postsAsRelated = (postIds, columnCount, isPostHeaderHidden) => {
     </div>
   )
 }
+
+export const postsAsGallery = (postIds, columnCount, isPostHeaderHidden) => (
+  <PostGallery postIds={postIds} />
+)
 
 // USERS
 export const usersAsCompact = userIds =>

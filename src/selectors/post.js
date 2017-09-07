@@ -20,6 +20,8 @@ const countProtector = count => (count < 0 ? 0 : count)
 export const selectPropsPostId = (state, props) =>
   get(props, 'postId') || get(props, 'post', Immutable.Map()).get('id')
 
+export const selectPropsPostIds = (state, props) => get(props, 'postIds')
+
 export const selectPropsPostIsRelated = (state, props) => get(props, 'isRelatedPost', false)
 export const selectPropsLocationStateFrom = (state, props) => get(props, ['location', 'state', 'from'], null)
 export const selectPosts = state => state.json.get(POSTS, Immutable.Map())
@@ -35,6 +37,23 @@ export const selectPost = createSelector(
     }
     return Immutable.Map()
   },
+)
+
+export const selectPostsByIds = createSelector(
+  [selectPropsPostIds, selectPosts], (ids, posts) => {
+    return ids.map(id => posts.get(id, Immutable.Map()))
+  },
+)
+
+export const selectPostsByIdsWithImages = createSelector(
+  [selectPostsByIds], (posts) => {
+    return posts.filter(post => {
+      return (
+        post.get('content', []).some(c => c.get('kind') === 'image') ||
+        post.get('repostContent', []).some(c => c.get('kind') === 'image')
+      )
+    })
+  }
 )
 
 export const addAssetToRegion = (region, assets) => {
