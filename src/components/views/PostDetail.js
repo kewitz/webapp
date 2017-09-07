@@ -26,6 +26,7 @@ const streamStyle = css(
     s.minBreak2,
     s.px20,
     { width: 'calc(100vw - 420px)' },
+    select('& .PostBody > div', s.flex, s.flexColumn, s.justifyCenter, s.itemsCenter, s.pt20),
   ),
 )
 

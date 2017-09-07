@@ -92,19 +92,6 @@
   min-height: 100vh;
 }
 
-.PostDetails .TabListStreamContainer,
-.RelatedPostsTitleWrapper {
-  max-width: 1440px;
-  padding: 0 10px;
-  margin: 40px auto 0;
-}
-
-.RelatedPostsTitleWrapper {
-  max-width: 1400px;
-  padding: 0 20px;
-  margin: 0 auto;
-}
-
 @media (--break-2) {
   .PostDetails .TabListStreamContainer {
     padding: 0 20px;
@@ -117,13 +104,6 @@
 
   .MainView > .StreamContainer .StreamBusyIndicator {
     top: 120px;
-  }
-}
-
-@media (--break-4) {
-  .PostDetails .TabListStreamContainer,
-  .RelatedPostsTitleWrapper {
-    padding: 0 40px;
   }
 }
 

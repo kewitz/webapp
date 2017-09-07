@@ -171,6 +171,13 @@ export const postsAsList = (postIds, columnCount, isPostHeaderHidden) => (
   </div>
 )
 
+const relatedPostsTitleStyle = css(
+  s.fontSize18,
+  s.colorA,
+  s.my10,
+  s.ml20,
+  media(s.minBreak4, s.ml40),
+)
 export const postsAsRelated = (postIds, colCount, isPostHeaderHidden) => {
   const columns = []
   const columnCount = colCount - 1
@@ -179,11 +186,9 @@ export const postsAsRelated = (postIds, colCount, isPostHeaderHidden) => {
   return (
     <div className="Posts asGrid">
       {postIds.size &&
-        <div className="RelatedPostsTitleWrapper">
-          <h2 className="RelatedPostsTitle">
-            Related Posts
-          </h2>
-        </div>
+        <h2 className={relatedPostsTitleStyle}>
+          Related Posts
+        </h2>
       }
       {columns.map((columnPostIds, i) =>
         (<div className="Column" key={`column_${i + 1}`}>
