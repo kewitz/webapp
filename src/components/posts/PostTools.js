@@ -369,14 +369,16 @@ export class PostTools extends PureComponent {
       )
     }
 
-    if (!isOwnPost && !isOwnOriginalPost && !isMobile && !isGridMode) {
-      cells.push(
-        <WatchTool
-          isMobile={isMobile}
-          isWatchingPost={isWatchingPost}
-          key={`WatchTool_${postId}`}
-        />,
-      )
+    if (!isOwnPost && !isOwnOriginalPost) {
+      if (isPostDetail || (!isMobile && !isGridMode)) {
+        cells.push(
+          <WatchTool
+            isMobile={isMobile}
+            isWatchingPost={isWatchingPost}
+            key={`WatchTool_${postId}`}
+          />,
+        )
+      }
     }
 
     if (author.get('hasSharingEnabled')) {

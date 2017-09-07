@@ -174,8 +174,7 @@ export const postsAsList = (postIds, columnCount, isPostHeaderHidden) => (
 const relatedPostsTitleStyle = css(
   s.fontSize18,
   s.colorA,
-  s.my10,
-  s.ml20,
+  s.m20,
   media(s.minBreak4, s.ml40),
 )
 export const postsAsRelated = (postIds, colCount, isPostHeaderHidden) => {

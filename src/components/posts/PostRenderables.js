@@ -13,7 +13,7 @@ import {
 } from '../assets/Icons'
 import Editor from '../editor/Editor'
 import ContentWarningButton from '../posts/ContentWarningButton'
-import { PostTools, WatchTool } from '../posts/PostTools'
+import { PostTools } from '../posts/PostTools'
 import RelationshipContainer from '../../containers/RelationshipContainer'
 import StreamContainer from '../../containers/StreamContainer'
 import { RegionItems } from '../regions/RegionRenderables'
@@ -487,7 +487,7 @@ export const Post = ({
   submissionStatus,
   summary,
   supportsNativeEditor,
-}, { onClickWatchPost }) => (
+}) => (
   <div className={classNames('Post', { isPostHeaderHidden: isPostHeaderHidden && !isRepost })}>
     {postHeader}
     {adminActions &&
@@ -542,13 +542,6 @@ export const Post = ({
         postViewsCountRounded,
       }}
     />
-    {isMobile && !isRelatedPost &&
-      <WatchTool
-        isMobile
-        isWatchingPost={isWatchingPost}
-        onClickWatchPost={onClickWatchPost}
-      />
-    }
     {isLoggedIn && showCommentEditor && supportsNativeEditor &&
       <LaunchCommentEditorButton avatar={avatar} post={post} />
     }
@@ -605,9 +598,6 @@ Post.propTypes = {
   submissionStatus: PropTypes.string,
   summary: PropTypes.object,
   supportsNativeEditor: PropTypes.bool.isRequired,
-}
-Post.contextTypes = {
-  onClickWatchPost: PropTypes.func.isRequired,
 }
 
 export const PostDetailAsideTop = ({
@@ -720,7 +710,7 @@ export const PostDetailAsideBottom = ({
         isCommentsRequesting,
         isGridMode,
         isLoggedIn,
-        isMobile,
+        isMobile: isMobile && !isPostDetail,
         isOwnOriginalPost,
         isOwnPost,
         isPostDetail,
