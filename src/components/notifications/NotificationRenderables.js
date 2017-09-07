@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import { Link } from 'react-router'
 import { XIcon } from '../assets/Icons'
+import Emoji from '../assets/Emoji'
 import ImageAsset from '../assets/ImageAsset'
 import { regionItemsForNotifications } from '../regions/RegionRenderables'
 import { Notification } from './Notification'
@@ -34,7 +35,7 @@ const UserTextLink = ({ user }) => {
   if (!user || !user.get('id')) { return null }
   return (
     <Link to={getActivityPath(user)}>
-      {`@${user.get('username')}`}
+      @{user.get('username')}
     </Link>
   )
 }
@@ -178,6 +179,33 @@ AnnouncementNotification.contextTypes = {
   onClickAnnouncementNotification: PropTypes.func.isRequired,
 }
 
+// Artist Invite Submission
+export const ApprovedAristInviteSubmissionNotification = (props) => {
+  const { createdAt, subject } = props
+  const activityPath = `/artist-invites/${subject.get('inviteSlug')}`
+  const body = (<p key={`ai-sub-${subject.get('inviteSlug')}`}>
+    Your submission to the {subject.get('inviteTitle')} Artist Invite has been accepted
+    <Emoji name="v" title="Yay!" />
+  </p>)
+  return (
+    <Notification
+      activityPath={activityPath}
+      className="ApprovedAristInviteSubmissionNotification"
+      createdAt={createdAt}
+      summary={{ texts: [body] }}
+    >
+      <p>Artist Invite Submission Accepted</p>
+    </Notification>
+  )
+}
+ApprovedAristInviteSubmissionNotification.propTypes = {
+  subject: PropTypes.object,
+  createdAt: PropTypes.string,
+}
+ApprovedAristInviteSubmissionNotification.defaultProps = {
+  subject: null,
+  createdAt: null,
+}
 
 // COMMENTS
 export const CommentNotification = (props) => {

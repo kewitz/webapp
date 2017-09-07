@@ -1,3 +1,5 @@
+import { camelize } from 'humps'
+
 // TODO: test these as they are data related
 export function findBy(params, collection, json) {
   const models = json ? json.get(collection) : null
@@ -18,7 +20,7 @@ export function getLinkObject(model, identifier, json) {
   const link = model.getIn(['links', identifier])
   if (!link) { return null }
   const key = link.get('id', link)
-  const mappingType = link.get('type', identifier)
+  const mappingType = camelize(link.get('type', identifier))
   const deletedCollection = json[`deleted_${mappingType}`]
   if (!deletedCollection || deletedCollection.indexOf(key) === -1) {
     return json.getIn([mappingType, key])
