@@ -28,6 +28,7 @@ const streamStyle = css(
     { width: 'calc(100vw - 420px)' },
     select('& .PostBody > div', s.flex, s.flexColumn, s.justifyCenter, s.itemsCenter, s.pt20),
   ),
+  select('.PostDetails & .TabListStreamContainer', s.px0),
 )
 
 const relatedPostsStyle = css(
