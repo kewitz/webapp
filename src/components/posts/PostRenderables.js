@@ -150,7 +150,7 @@ export class PostHeader extends PureComponent {
               {isPostDetail && author.get('name') ?
                 <span>
                   <span className="PostHeaderAuthorName">{author.get('name')}</span>
-                  <span className="PostHeaderAuthorUsername">@{author.get('username')}</span>
+                  <span className="PostHeaderAuthorUsername">{`@${author.get('username')}`}</span>
                 </span>
                 :
                 `@${author.get('username')}`

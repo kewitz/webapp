@@ -27,10 +27,6 @@
   min-height: 91px;
 }
 
-.PostDetail .editor.isComment {
-  margin-top: 43px;
-}
-
 /* // "Say Ello" placeholder text */
 .editor::after {
   position: absolute;

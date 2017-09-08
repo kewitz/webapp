@@ -184,7 +184,7 @@ export class WatchTool extends PureComponent {
       <span className={classNames('PostTool WatchTool', { isWatchingPost }, { isPill: isMobile })}>
         <button className={classNames({ isActive: isWatchingPost })} onClick={onClickWatchPost}>
           <BoltIcon />
-          <Hint>{ isWatchingPost ? 'Watching' : 'Watch' }</Hint>
+          <Hint>{ isWatchingPost ? 'Mute' : 'Watch' }</Hint>
         </button>
       </span>
     )
@@ -251,7 +251,7 @@ class FlagTool extends PureComponent {
       <span className="PostTool FlagTool ShyTool">
         <button onClick={this.context.onClickFlagPost}>
           <FlagIcon />
-          <Hint>Flag</Hint>
+          <Hint className="Flag">Report Post</Hint>
         </button>
       </span>
     )
