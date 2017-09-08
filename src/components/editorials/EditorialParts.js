@@ -1,4 +1,6 @@
 // @flow
+/* eslint-disable react/no-danger */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router'
@@ -128,17 +130,32 @@ export const EditorialUsernameTitle = ({ label }: { label: string }) => (
 // -------------------------------------
 
 const subtitleStyle = css(
-  s.colorWhite,
-  s.fontSize18,
-  { lineHeight: 24 },
-  media(s.minBreak2, s.fontSize24, { lineHeight: 30 }),
+  select(
+    '& p',
+    s.colorWhite,
+    s.fontSize18,
+    { lineHeight: 24, margin: 0 },
+    media(s.minBreak2, s.fontSize24, { lineHeight: 30 }),
+  ),
 )
 
-export const EditorialSubtitle = ({ label }: { label: string }) => (
-  <h3 className={subtitleStyle}>
-    <span>{label}</span>
-  </h3>
+export const EditorialSubtitle = ({ label, path }, { onClickRenderedContent }) => (
+  <div
+    className={subtitleStyle}
+    dangerouslySetInnerHTML={{ __html: label }}
+    onClick={e => onClickRenderedContent(e, path)}
+  />
 )
+EditorialSubtitle.propTypes = {
+  label: PropTypes.string.isRequired,
+  path: PropTypes.string,
+}
+EditorialSubtitle.defaultProps = {
+  path: null,
+}
+EditorialSubtitle.contextTypes = {
+  onClickRenderedContent: PropTypes.func,
+}
 
 // -------------------------------------
 
