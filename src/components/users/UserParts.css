@@ -130,10 +130,6 @@ User Names  */
     color: #ccc;
   }
 
-  .UserNamesCell {
-    max-height: 62px;
-  }
-
   .UserNamesCell.inUserProfile.isSingle {
     max-height: 40px;
   }
@@ -262,10 +258,6 @@ User Info */
   padding-left: 25px;
   margin: 0;
   color: #aaa;
-}
-
-.UserLocationCell {
-  text-align: left;
 }
 
 .UserLocation > .SVGIcon {

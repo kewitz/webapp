@@ -12,14 +12,13 @@ import {
   UserFiguresCell,
   UserInfoCell,
   UserLinksCell,
-  UserLocationCell,
   UserNamesCell,
   UserNamesCellCard,
   UserProfileButtons,
   UserShareButton,
   UserStatsCell,
 } from './UserParts'
-import { css, media, select } from '../../styles/jss'
+import { css, select } from '../../styles/jss'
 import * as s from '../../styles/jso'
 
 // -----------------
@@ -243,9 +242,9 @@ export class UserProfileCard extends PureComponent {
 
 // -----------------
 
-const mobileLocationStyle = media(s.maxBreak2,
-  s.inlineBlock, s.mb10, s.colorA, s.alignMiddle, { marginTop: -5 }, s.fontSize14,
-  select('& .MarkerIcon', s.mr5, { marginTop: -4 }),
+const locationStyle = css(
+  s.inlineBlock, s.mb10, s.colorA, s.alignMiddle, { marginTop: 2, marginLeft: -4 }, s.fontSize14,
+  select('& .MarkerIcon', s.mr5, { marginTop: -4, transform: 'scale(0.8)' }),
 )
 
 export class UserProfile extends PureComponent {
@@ -341,8 +340,8 @@ export class UserProfile extends PureComponent {
           name={name}
           username={username}
         >
-          { isMobile && location &&
-            <span className={mobileLocationStyle}>
+          { location &&
+            <span className={locationStyle}>
               <MarkerIcon />
               {location}
             </span>
@@ -380,12 +379,6 @@ export class UserProfile extends PureComponent {
           postsCount={postsCount}
           username={username}
         />
-        { !isMobile &&
-          <UserLocationCell
-            className="inUserProfile"
-            location={location}
-          />
-        }
         <UserInfoCell
           className="inUserProfile"
           onClickOpenBio={onClickOpenBio}
