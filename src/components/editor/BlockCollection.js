@@ -120,6 +120,7 @@ class BlockCollection extends PureComponent {
     dragBlock: PropTypes.object,
     editorId: PropTypes.string.isRequired,
     firstBlock: PropTypes.object,
+    hasComments: PropTypes.bool,
     hasContent: PropTypes.bool,
     hasMedia: PropTypes.bool,
     hasMention: PropTypes.bool,
@@ -149,6 +150,7 @@ class BlockCollection extends PureComponent {
     blocks: Immutable.List(),
     dragBlock: null,
     firstBlock: null,
+    hasComments: false,
     hasContent: false,
     hasMedia: false,
     hasMention: false,
@@ -467,8 +469,8 @@ class BlockCollection extends PureComponent {
   render() {
     const {
       artistInvite, buyLink, cancelAction, collection, dragBlock, editorId, firstBlock,
-      hasContent, hasMedia, hasMention, isComment, isLoading, isMobileGridStream,
-      isOwnPost, isPosting, order, orderLength, showArtistInviteSuccess, submitText,
+      hasContent, hasMedia, hasMention, isComment, isLoading, isPosting, order, orderLength,
+      showArtistInviteSuccess, submitText, hasComments, isOwnPost, isMobileGridStream,
     } = this.props
     const { dragBlockTop, hasDragOver } = this.state
     const firstBlockIsText = firstBlock ? /text/.test(firstBlock.get('kind')) : true
@@ -499,6 +501,7 @@ class BlockCollection extends PureComponent {
         </div>
       )
     }
+    const showReplyAll = hasComments && isComment && isOwnPost && !isMobileGridStream
     return (
       <div className={editorWrapperStyle}>
         {artistInvite &&
@@ -530,7 +533,7 @@ class BlockCollection extends PureComponent {
             editorId={editorId}
             handleFileAction={this.handleFiles}
             hasMedia={hasMedia}
-            replyAllAction={isComment && isOwnPost && !isMobileGridStream ? this.replyAll : null}
+            replyAllAction={showReplyAll ? this.replyAll : null}
             submitAction={this.submit}
             submitText={submitText}
           />
