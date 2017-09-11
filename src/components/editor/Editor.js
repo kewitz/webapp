@@ -21,6 +21,7 @@ import ConfirmDialog from '../dialogs/ConfirmDialog'
 import { selectIsLoggedIn } from '../../selectors/authentication'
 import {
   selectPost,
+  selectPostCommentsCount,
   selectPostIsEditing,
   selectPostIsEmpty,
   selectPostIsOwn,
@@ -51,6 +52,7 @@ export function getEditorId(post, comment, isComment, isZero) {
 function mapStateToProps(state, props) {
   return {
     allowsAutoWatch: selectHasAutoWatchEnabled(state),
+    hasComments: selectPostCommentsCount(state, props) > 0,
     isLoggedIn: selectIsLoggedIn(state),
     isOwnPage: selectIsOwnPage(state),
     isOwnPost: selectPostIsOwn(state, props),
@@ -68,6 +70,7 @@ class Editor extends Component {
     autoPopulate: PropTypes.string,
     comment: PropTypes.object,
     dispatch: PropTypes.func.isRequired,
+    hasComments: PropTypes.bool,
     isComment: PropTypes.bool,
     isLoggedIn: PropTypes.bool,
     isOwnPage: PropTypes.bool,
@@ -84,6 +87,7 @@ class Editor extends Component {
     allowsAutoWatch: false,
     autoPopulate: null,
     comment: null,
+    hasComments: false,
     isComment: false,
     isLoggedIn: false,
     isOwnPage: false,
@@ -220,6 +224,7 @@ class Editor extends Component {
     const {
       autoPopulate,
       comment,
+      hasComments,
       isComment,
       isLoggedIn,
       isOwnPost,
@@ -268,6 +273,7 @@ class Editor extends Component {
         blocks={blocks}
         cancelAction={this.cancel}
         editorId={editorId}
+        hasComments={hasComments}
         isComment={isComment}
         isOwnPost={isOwnPost}
         isPostEditing={isPostEditing}
