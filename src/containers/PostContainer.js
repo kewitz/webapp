@@ -16,6 +16,7 @@ import {
   unwatchPost,
   watchPost,
 } from '../actions/posts'
+import { loadUserDrawer } from '../actions/user'
 import ConfirmDialog from '../components/dialogs/ConfirmDialog'
 import FlagDialog from '../components/dialogs/FlagDialog'
 import {
@@ -27,8 +28,10 @@ import {
   PostHeader,
   RepostHeader,
 } from '../components/posts/PostRenderables'
+import StreamContainer from './StreamContainer'
 import { isElloAndroid } from '../lib/jello'
 import * as ElloAndroidInterface from '../lib/android_interface'
+import { postLovers, postReposters } from '../networking/api'
 import { selectIsLoggedIn } from '../selectors/authentication'
 import {
   selectColumnWidth,
@@ -209,6 +212,8 @@ class PostContainer extends Component {
     onClickRepostPost: PropTypes.func.isRequired,
     onClickSharePost: PropTypes.func.isRequired,
     onClickToggleComments: PropTypes.func.isRequired,
+    onClickToggleLovers: PropTypes.func.isRequired,
+    onClickToggleReposters: PropTypes.func.isRequired,
     onClickWatchPost: PropTypes.func.isRequired,
     onTrackRelatedPostClick: PropTypes.func.isRequired,
   }
@@ -230,6 +235,8 @@ class PostContainer extends Component {
       onClickRepostPost: isLoggedIn ? this.onClickRepostPost : this.onOpenSignupModal,
       onClickSharePost: this.onClickSharePost,
       onClickToggleComments: this.onClickToggleComments,
+      onClickToggleLovers: this.onClickToggleLovers,
+      onClickToggleReposters: this.onClickToggleReposters,
       onClickWatchPost: isLoggedIn ? this.onClickWatchPost : this.onOpenSignupModal,
       onTrackRelatedPostClick: this.onTrackRelatedPostClick,
     }
@@ -330,6 +337,24 @@ class PostContainer extends Component {
       dispatch(push(detailPath))
       if (isRelatedPost) { this.onTrackRelatedPostClick() }
     }
+  }
+
+  onClickToggleLovers = () => {
+    const { dispatch, postId } = this.props
+    dispatch(openModal(
+      <StreamContainer
+        action={loadUserDrawer(postLovers(postId), postId, 'loves')}
+      />,
+    ))
+  }
+
+  onClickToggleReposters = () => {
+    const { dispatch, postId } = this.props
+    dispatch(openModal(
+      <StreamContainer
+        action={loadUserDrawer(postReposters(postId), postId, 'reposts')}
+      />,
+    ))
   }
 
   onClickWatchPost = () => {

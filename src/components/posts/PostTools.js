@@ -103,10 +103,11 @@ class LoveTool extends PureComponent {
   }
   static contextTypes = {
     onClickLovePost: PropTypes.func.isRequired,
+    onClickToggleLovers: PropTypes.func.isRequired,
   }
   render() {
     const { postLoved, postLovesCount } = this.props
-    const { onClickLovePost } = this.context
+    const { onClickLovePost, onClickToggleLovers } = this.context
     return (
       <span className="PostTool LoveTool" data-count={postLovesCount}>
         <button
@@ -118,7 +119,7 @@ class LoveTool extends PureComponent {
         </button>
         <button
           className={classNames({ isActive: postLoved }, 'PostToolDrawerButton')}
-          style={{ pointerEvents: 'none' }}
+          onClick={onClickToggleLovers}
         >
           <span className="PostToolValue" >
             {numberToHuman(postLovesCount, false)}
@@ -139,12 +140,13 @@ class RepostTool extends PureComponent {
   }
   static contextTypes = {
     onClickRepostPost: PropTypes.func.isRequired,
+    onClickToggleReposters: PropTypes.func.isRequired,
   }
   render() {
     const {
       isOwnOriginalPost, isOwnPost, isRepostAnimating, postReposted, postRepostsCount,
     } = this.props
-    const { onClickRepostPost } = this.context
+    const { onClickRepostPost, onClickToggleReposters } = this.context
     return (
       <span className="PostTool RepostTool" data-count={postRepostsCount}>
         <button
@@ -157,7 +159,7 @@ class RepostTool extends PureComponent {
         </button>
         <button
           className="PostToolDrawerButton"
-          style={{ pointerEvents: 'none' }}
+          onClick={onClickToggleReposters}
         >
           <span className="PostToolValue" >
             {numberToHuman(postRepostsCount, false)}
