@@ -3,7 +3,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router'
 import classNames from 'classnames'
-import { MarkerIcon, ShareIcon } from '../assets/Icons'
+import { ShareIcon } from '../assets/Icons'
 import { BadgeButton, MiniPillButtonProfile } from '../buttons/Buttons'
 import Hint from '../hints/Hint'
 import { numberToHuman } from '../../lib/number_to_human'
@@ -186,26 +186,6 @@ UserStatsCell.propTypes = {
   lovesCount: PropTypes.number.isRequired,
   postsCount: PropTypes.number.isRequired,
   username: PropTypes.string.isRequired,
-}
-
-// -----------------
-
-export const UserLocationCell = ({ className, location }) =>
-  (<div className={classNames('UserCell UserLocationCell', className)}>
-    { location ?
-      <p className="UserLocation">
-        <MarkerIcon />
-        {location}
-      </p>
-      : null
-    }
-  </div>)
-UserLocationCell.propTypes = {
-  className: PropTypes.string.isRequired,
-  location: PropTypes.string,
-}
-UserLocationCell.defaultProps = {
-  location: null,
 }
 
 // -----------------
