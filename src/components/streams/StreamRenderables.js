@@ -178,7 +178,6 @@ const relatedPostsTitleStyle = css(
   media(s.minBreak4, s.ml40),
 )
 export const postsAsRelated = (postIds, colCount, isPostHeaderHidden) => {
-  console.log('COLUMN COUNT', colCount, postIds)
   const columns = []
   const columnCount = colCount > 2 ? colCount - 1 : colCount
   for (let i = 0; i < columnCount; i += 1) { columns.push([]) }
