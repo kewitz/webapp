@@ -12,6 +12,7 @@ import { css, hover, media, modifier, parent, select } from '../styles/jss'
 import * as s from '../styles/jso'
 
 const containerStyle = css(
+  s.fullWidth,
   { maxWidth: 490 },
 )
 

@@ -11,12 +11,14 @@ import { setSignupModalLaunched } from '../actions/gui'
 import { openModal } from '../actions/modals'
 import { loadAnnouncements, loadNotifications } from '../actions/notifications'
 import { lovePost, unlovePost } from '../actions/posts'
-import { loadProfile } from '../actions/profile'
+import { loadProfile, saveProfile } from '../actions/profile'
 import { fetchAuthenticationPromos } from '../actions/promotions'
 import DevTools from '../components/devtools/DevTools'
 import RegistrationRequestDialog from '../components/dialogs/RegistrationRequestDialog'
 import ShareDialog from '../components/dialogs/ShareDialog'
+import CreatorTypesModal from '../components/modals/CreatorTypesModal'
 import { addGlobalDrag, removeGlobalDrag } from '../components/viewport/GlobalDragComponent'
+import { ONBOARDING_VERSION } from '../constants/application_types'
 import AnalyticsContainer from '../containers/AnalyticsContainer'
 import FooterContainer from '../containers/FooterContainer'
 import HeroContainer from '../containers/HeroContainer'
@@ -31,7 +33,7 @@ import { scrollToPosition, isLink } from '../lib/jello'
 import * as ElloAndroidInterface from '../lib/android_interface'
 import { selectIsLoggedIn } from '../selectors/authentication'
 import { selectIsGridMode } from '../selectors/gui'
-import { selectIsStaff } from '../selectors/profile'
+import { selectIsStaff, selectShowCreatorTypeModal } from '../selectors/profile'
 import {
   selectCategoryData,
   selectIsCategoryPromotion,
@@ -50,6 +52,7 @@ function mapStateToProps(state) {
     isPagePromotion: selectIsPagePromotion(state),
     isStaff: selectIsStaff(state),
     isGridMode: selectIsGridMode(state),
+    showCreatorTypeModal: selectShowCreatorTypeModal(state),
   }
 }
 
@@ -67,6 +70,7 @@ class AppContainer extends Component {
     isPagePromotion: PropTypes.bool.isRequired,
     isStaff: PropTypes.bool.isRequired,
     params: PropTypes.object.isRequired,
+    showCreatorTypeModal: PropTypes.bool.isRequired,
   }
 
   static defaultProps = {
@@ -127,6 +131,12 @@ class AppContainer extends Component {
       dispatch(getCategories())
       dispatch(getPagePromotionals())
       dispatch(loadBadges())
+    }
+    if (nextProps.showCreatorTypeModal) {
+      setTimeout(() => {
+        dispatch(openModal(<CreatorTypesModal />))
+        dispatch(saveProfile({ web_onboarding_version: ONBOARDING_VERSION }))
+      }, 5000)
     }
   }
 
