@@ -6,6 +6,7 @@ import { Link } from 'react-router'
 import { before, css, hover, media, modifier, parent, select } from '../../styles/jss'
 import * as s from '../../styles/jso'
 import BackgroundImage from '../assets/BackgroundImage'
+import { HeroPromotionCredits } from '../heros/HeroParts'
 import ImageAsset from '../assets/ImageAsset'
 import { ArrowIcon } from '../assets/Icons'
 import { RoundedRect } from '../buttons/Buttons'
@@ -345,5 +346,70 @@ ArtistInviteDetail.propTypes = {
 ArtistInviteDetail.contextTypes = {
   onClickScrollToContent: PropTypes.func.isRequired,
   onClickSubmit: PropTypes.func.isRequired,
+}
+
+const headerStyle = css(
+  s.relative,
+  s.flex,
+  s.itemsCenter,
+  s.fullWidth,
+  s.overflowHidden,
+  s.colorWhite,
+  s.mb10,
+  { height: 600 },
+  media(
+    s.minBreak2,
+    s.mb20,
+  ),
+  media(
+    s.minBreak4,
+    s.mb40,
+  ),
+)
+
+const artistInviteCaptionStyle = css(
+  s.relative, s.py20, s.fontSize14, { marginLeft: 105 },
+  media(s.maxBreak2, s.px10, { minHeight: 200 }),
+  media(s.minBreak4, s.px0),
+)
+
+const artistInviteHeadingStyle = css(
+  s.sansBlack, s.fontSize48, { lineHeight: 88 },
+  media(s.minBreak2, { fontSize: 90 }),
+)
+
+const artistInviteSubHeadingStyle = css(
+  s.sansRegular, s.fontSize24, { lineHeight: 50 },
+  media(s.minBreak2, s.fontSize24),
+)
+
+export const ArtistInviteHeader = ({
+  dpi,
+  headerText,
+  subHeaderText,
+}) => (
+  <div className={headerStyle}>
+    <div>
+      <BackgroundImage className="hasOverlay4" dpi={dpi} />
+      <div className={artistInviteCaptionStyle}>
+        <h1 className={artistInviteHeadingStyle}>
+          <span>{headerText}</span>
+        </h1>
+        <p className={artistInviteSubHeadingStyle}>{subHeaderText}</p>
+      </div>
+    </div>
+    <div>
+      <HeroPromotionCredits
+        label="Posted by"
+        sources=""
+        username="scottbrag"
+      />
+    </div>
+  </div>
+)
+ArtistInviteHeader.propTypes = {
+  dpi: PropTypes.string.isRequired,
+  headerText: PropTypes.string.isRequired,
+  subHeaderText: PropTypes.string.isRequired,
 }
 
