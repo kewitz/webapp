@@ -11,6 +11,7 @@ import {
   StarIcon,
   XBoxIcon,
 } from '../assets/Icons'
+import { DismissButtonLG } from '../buttons/Buttons'
 import Editor from '../editor/Editor'
 import ContentWarningButton from '../posts/ContentWarningButton'
 import { PostTools } from '../posts/PostTools'
@@ -761,10 +762,12 @@ const userModalStyle = css(
   s.fullWidth,
   s.mxAuto,
   s.overflowScroll,
+  s.relative,
   { borderRadius: 5, maxWidth: 1000, minHeight: 400, maxHeight: 820 },
   select('& .Users.asGrid', media(s.minBreak4, { marginLeft: -20 })),
   select('& .UserProfileCard', media(s.minBreak4, s.mt20, s.ml20, { width: 'calc(33.33333% - 20px)' })),
   select('& .StreamContainer', media(s.minBreak4, s.p20)),
+  select('& .CloseModal', s.colorA, hover(s.colorBlack)),
 )
 
 const userModalTabsStyle = css(
@@ -810,6 +813,7 @@ export class UserModal extends PureComponent {
           tabs={[{ type: 'loves', children: 'Lovers' }, { type: 'reposts', children: 'Reposters' }]}
         />
         <StreamContainer key={`userModal_${activeType}`} action={streamAction} />
+        <DismissButtonLG />
       </div>
     )
   }

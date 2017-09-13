@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router'
-import { XIcon } from '../assets/Icons'
+import { XIcon, XIconLG } from '../assets/Icons'
 import ImageAsset from '../assets/ImageAsset'
 import Hint from '../hints/Hint'
 import { after, before, css, hover, media, modifier, parent, select } from '../../styles/jss'
@@ -112,6 +112,9 @@ const dismissButtonStyle = css(
 
 export const DismissButton = () =>
   <button className={`CloseModal ${dismissButtonStyle}`}><XIcon /></button>
+
+export const DismissButtonLG = () =>
+  <button className={`CloseModal ${dismissButtonStyle}`}><XIconLG /></button>
 
 // -------------------------------------
 
