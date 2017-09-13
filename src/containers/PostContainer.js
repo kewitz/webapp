@@ -16,7 +16,6 @@ import {
   unwatchPost,
   watchPost,
 } from '../actions/posts'
-import { loadUserDrawer } from '../actions/user'
 import ConfirmDialog from '../components/dialogs/ConfirmDialog'
 import FlagDialog from '../components/dialogs/FlagDialog'
 import {
@@ -27,11 +26,10 @@ import {
   PostBody,
   PostHeader,
   RepostHeader,
+  UserModal,
 } from '../components/posts/PostRenderables'
-import StreamContainer from './StreamContainer'
 import { isElloAndroid } from '../lib/jello'
 import * as ElloAndroidInterface from '../lib/android_interface'
-import { postLovers, postReposters } from '../networking/api'
 import { selectIsLoggedIn } from '../selectors/authentication'
 import {
   selectColumnWidth,
@@ -342,18 +340,14 @@ class PostContainer extends Component {
   onClickToggleLovers = () => {
     const { dispatch, postId } = this.props
     dispatch(openModal(
-      <StreamContainer
-        action={loadUserDrawer(postLovers(postId), postId, 'loves')}
-      />,
+      <UserModal activeType="loves" postId={postId} />,
     ))
   }
 
   onClickToggleReposters = () => {
     const { dispatch, postId } = this.props
     dispatch(openModal(
-      <StreamContainer
-        action={loadUserDrawer(postReposters(postId), postId, 'reposts')}
-      />,
+      <UserModal activeType="reposts" postId={postId} />,
     ))
   }
 

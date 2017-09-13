@@ -14,11 +14,14 @@ import {
 import Editor from '../editor/Editor'
 import ContentWarningButton from '../posts/ContentWarningButton'
 import { PostTools } from '../posts/PostTools'
+import { TabListButtons } from '../tabs/TabList'
 import RelationshipContainer from '../../containers/RelationshipContainer'
 import StreamContainer from '../../containers/StreamContainer'
 import { RegionItems } from '../regions/RegionRenderables'
+import { loadUserDrawer } from '../../actions/user'
 import { loadComments } from '../../actions/posts'
-import { after, before, css, hover, modifier, select } from '../../styles/jss'
+import { postLovers, postReposters } from '../../networking/api'
+import { after, before, css, hover, media, modifier, select } from '../../styles/jss'
 import * as s from '../../styles/jso'
 
 
@@ -751,5 +754,68 @@ PostDetailAsideBottom.propTypes = {
   postReposted: PropTypes.bool,
   postRepostsCount: PropTypes.number,
   postViewsCountRounded: PropTypes.string,
+}
+
+const userModalStyle = css(
+  s.bgcWhite,
+  s.fullWidth,
+  s.mxAuto,
+  s.overflowScroll,
+  { borderRadius: 5, maxWidth: 1000, minHeight: 400, maxHeight: 820 },
+  select('& .Users.asGrid', media(s.minBreak4, { marginLeft: -20 })),
+  select('& .UserProfileCard', media(s.minBreak4, s.mt20, s.ml20, { width: 'calc(33.33333% - 20px)' })),
+  select('& .StreamContainer', media(s.minBreak4, s.p20)),
+)
+
+const userModalTabsStyle = css(
+  s.center,
+  s.mt40,
+)
+
+const userModalTabStyle = css(
+  s.fontSize24,
+  s.sansBlack,
+  modifier(
+    '.LabelTab',
+    s.fontSize24,
+    media(s.minBreak2, { fontSize: '38px !important' }),
+  ),
+  select(':last-child', s.mr0),
+)
+
+export class UserModal extends PureComponent {
+
+  componentWillMount() {
+    this.state = { activeType: this.props.activeType }
+  }
+
+  onClickTab = ({ type }) => {
+    this.setState({ activeType: type })
+  }
+
+  render() {
+    const { activeType } = this.state
+    const { postId } = this.props
+    const streamAction = activeType === 'loves' ?
+      loadUserDrawer(postLovers(postId), postId, activeType) :
+      loadUserDrawer(postReposters(postId), postId, activeType)
+    return (
+      <div className={userModalStyle}>
+        <TabListButtons
+          activeType={activeType}
+          className={`${userModalTabsStyle}`}
+          key={`TabListButtons_${activeType}`}
+          onTabClick={this.onClickTab}
+          tabClasses={`LabelTab ${userModalTabStyle}`}
+          tabs={[{ type: 'loves', children: 'Lovers' }, { type: 'reposts', children: 'Reposters' }]}
+        />
+        <StreamContainer key={`userModal_${activeType}`} action={streamAction} />
+      </div>
+    )
+  }
+}
+UserModal.propTypes = {
+  activeType: PropTypes.string.isRequired,
+  postId: PropTypes.string.isRequired,
 }
 
