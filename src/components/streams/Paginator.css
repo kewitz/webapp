@@ -111,10 +111,6 @@
   display: none;
 }
 
-.TabListStreamContainer .ElloMark > .SmileShape {
-  fill: #fff !important;
-}
-
 @media (--break-2) {
   .BlockedUsers .Paginator,
   .MutedUsers .Paginator {

@@ -101,7 +101,6 @@ const CommentContent = (
           className="TabListStreamContainer"
           key={`TabListStreamContainer_${activeType}`}
           paginatorText="Load More"
-          paginatorCentered={activeType === 'loves' || activeType === 'reposts'}
           shouldInfiniteScroll={false}
         />
       }

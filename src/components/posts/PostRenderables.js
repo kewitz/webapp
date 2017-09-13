@@ -812,7 +812,14 @@ export class UserModal extends PureComponent {
           tabClasses={`LabelTab ${userModalTabStyle}`}
           tabs={[{ type: 'loves', children: 'Lovers' }, { type: 'reposts', children: 'Reposters' }]}
         />
-        <StreamContainer key={`userModal_${activeType}`} action={streamAction} />
+        <StreamContainer
+          action={streamAction}
+          className="TabListStreamContainer"
+          key={`userModal_${activeType}`}
+          paginatorCentered
+          paginatorText="Load More"
+          shouldInfiniteScroll={false}
+        />
         <DismissButtonLG />
       </div>
     )
