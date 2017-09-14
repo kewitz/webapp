@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { loadEditorials } from '../actions/editorials'
 import StreamContainer from '../containers/StreamContainer'
+import { HeroHeader } from '../components/heros/HeroRenderables'
 import { MainView } from '../components/views/MainView'
 import { selectQueryPreview } from '../selectors/routing'
 import { media } from '../styles/jss'
@@ -31,6 +32,11 @@ class EditorialPage extends Component {
   render() {
     return (
       <MainView className="Editorial">
+        <HeroHeader
+          dpi="hdpi"
+          headerText="THIS IS ELLO'S EDITORIAL HEADER"
+          subHeaderText="Ello is a Global Creative Community. Made by Creatives. Built by Creatives."
+        />
         <StreamContainer
           action={loadEditorials(this.props.isPreview)}
           className={`${streamStyle}`}

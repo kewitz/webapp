@@ -255,36 +255,50 @@ HeroPromotionPage.defaultProps = {
 
 const headerStyle = css(
   s.relative,
-  s.flex,
-  s.itemsCenter,
+  s.px10,
   s.fullWidth,
-  s.overflowHidden,
   s.colorWhite,
-  s.mb10,
-  { height: 600 },
+  s.mxAuto,
+  s.mt10,
+  { height: 400, maxWidth: 1440 },
+  parent('.Editorial', s.px0),
   media(
     s.minBreak2,
-    s.mb20,
+    s.mt20,
+    s.px20,
+    { height: 600 },
+    parent('.Editorial', s.px20),
   ),
   media(
     s.minBreak4,
-    s.mb40,
+    s.mt40,
+    s.px40,
+    parent('.Editorial', s.px40),
   ),
 )
 
+const imageContainerStyle = css(
+  s.flex,
+  s.justifyCenter,
+  s.itemsCenter,
+  s.relative,
+  { height: 400 },
+  media(s.minBreak2, { height: 600 }),
+)
+
 const HeroHeaderCaptionStyle = css(
-  s.relative, s.py20, s.fontSize14, { marginLeft: 105 },
-  media(s.maxBreak2, s.px10, { minHeight: 200 }),
-  media(s.minBreak4, s.px0),
+  s.absolute, s.pr20, { left: 20, top: 80 },
+  media(s.minBreak2, s.pr40, { left: 60, top: 40 }),
+  media(s.minBreak4, { left: 100, top: 180 }),
 )
 
 const HeroHeaderHeadingStyle = css(
-  s.sansBlack, s.fontSize48, { lineHeight: 88 },
-  media(s.minBreak2, { fontSize: 90 }),
+  s.sansBlack, s.fontSize48, { lineHeight: 48 },
+  media(s.minBreak2, { fontSize: 90, lineHeight: 90 }),
 )
 
 const HeroHeaderSubHeadingStyle = css(
-  s.sansRegular, s.fontSize24, { lineHeight: 50 },
+  s.sansRegular, s.fontSize24, { lineHeight: 24 },
   media(s.minBreak2, s.fontSize24),
 )
 
@@ -293,23 +307,19 @@ export const HeroHeader = ({
   headerText,
   subHeaderText,
 }) => (
-  <div className={headerStyle}>
-    <div>
+  <div className={`HeroHeader ${headerStyle}`}>
+    <div className={imageContainerStyle}>
       <BackgroundImage className="hasOverlay4" dpi={dpi} />
-      <div className={HeroHeaderCaptionStyle}>
-        <h1 className={HeroHeaderHeadingStyle}>
-          <span>{headerText}</span>
-        </h1>
-        <p className={HeroHeaderSubHeadingStyle}>{subHeaderText}</p>
-      </div>
     </div>
-    <div>
-      <HeroPromotionCredits
-        label="Posted by"
-        sources=""
-        username="scottbrag"
-      />
+    <div className={HeroHeaderCaptionStyle}>
+      <h1 className={HeroHeaderHeadingStyle}>{headerText}</h1>
+      <p className={HeroHeaderSubHeadingStyle}>{subHeaderText}</p>
     </div>
+    <HeroPromotionCredits
+      label="Posted by"
+      sources=""
+      username="scottbrag"
+    />
   </div>
 )
 HeroHeader.propTypes = {
