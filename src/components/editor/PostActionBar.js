@@ -5,7 +5,6 @@ import { connect } from 'react-redux'
 import {
   ArrowIcon,
   BrowseIcon,
-  CameraIcon,
   MoneyIconCircle,
   ReplyAllIcon,
   XIconLG,
@@ -13,7 +12,6 @@ import {
 import { openModal, closeModal } from '../../actions/modals'
 import { updateBuyLink } from '../../actions/editor'
 import BuyLinkDialog from '../dialogs/BuyLinkDialog'
-import { selectDeviceSize } from '../../selectors/gui'
 import { css, disabled, hover, media, modifier, parent, select } from '../../styles/jss'
 import * as s from '../../styles/jso'
 
@@ -109,18 +107,11 @@ const labelStyle = css(
 )
 const hide = css(s.hide)
 
-function mapStateToProps(state) {
-  return {
-    deviceSize: selectDeviceSize(state),
-  }
-}
-
 class PostActionBar extends Component {
 
   static propTypes = {
     buyLink: PropTypes.string,
     cancelAction: PropTypes.func.isRequired,
-    deviceSize: PropTypes.string.isRequired,
     dispatch: PropTypes.func.isRequired,
     disableSubmitAction: PropTypes.bool.isRequired,
     editorId: PropTypes.string.isRequired,
@@ -179,7 +170,7 @@ class PostActionBar extends Component {
   }
 
   render() {
-    const { deviceSize, disableSubmitAction, hasMedia, replyAllAction, submitText } = this.props
+    const { disableSubmitAction, hasMedia, replyAllAction, submitText } = this.props
     const isBuyLinked = this.props.buyLink && this.props.buyLink.length
     return (
       <div className={wrapperStyle}>
@@ -190,7 +181,7 @@ class PostActionBar extends Component {
             ref={(comp) => { this.browseButton = comp }}
           >
             <span className={labelStyle}>Upload</span>
-            {deviceSize === 'mobile' ? <CameraIcon /> : <BrowseIcon />}
+            <BrowseIcon />
           </button>
           <button
             className={classNames('PostActionButton forMoney', { isBuyLinked }, `${buttonStyle}`)}
@@ -241,5 +232,5 @@ class PostActionBar extends Component {
   }
 }
 
-export default connect(mapStateToProps)(PostActionBar)
+export default connect()(PostActionBar)
 

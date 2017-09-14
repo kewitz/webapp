@@ -36,7 +36,6 @@ export default() =>
         i.BoltIcon,
         i.BrowseIcon,
         i.BubbleIcon,
-        i.CameraIcon,
         i.CheckCircleIcon,
         i.CheckIconSM,
         i.CheckIcon,
