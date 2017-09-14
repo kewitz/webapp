@@ -253,3 +253,68 @@ HeroPromotionPage.defaultProps = {
   subheader: null,
 }
 
+const headerStyle = css(
+  s.relative,
+  s.flex,
+  s.itemsCenter,
+  s.fullWidth,
+  s.overflowHidden,
+  s.colorWhite,
+  s.mb10,
+  { height: 600 },
+  media(
+    s.minBreak2,
+    s.mb20,
+  ),
+  media(
+    s.minBreak4,
+    s.mb40,
+  ),
+)
+
+const HeroHeaderCaptionStyle = css(
+  s.relative, s.py20, s.fontSize14, { marginLeft: 105 },
+  media(s.maxBreak2, s.px10, { minHeight: 200 }),
+  media(s.minBreak4, s.px0),
+)
+
+const HeroHeaderHeadingStyle = css(
+  s.sansBlack, s.fontSize48, { lineHeight: 88 },
+  media(s.minBreak2, { fontSize: 90 }),
+)
+
+const HeroHeaderSubHeadingStyle = css(
+  s.sansRegular, s.fontSize24, { lineHeight: 50 },
+  media(s.minBreak2, s.fontSize24),
+)
+
+export const HeroHeader = ({
+  dpi,
+  headerText,
+  subHeaderText,
+}) => (
+  <div className={headerStyle}>
+    <div>
+      <BackgroundImage className="hasOverlay4" dpi={dpi} />
+      <div className={HeroHeaderCaptionStyle}>
+        <h1 className={HeroHeaderHeadingStyle}>
+          <span>{headerText}</span>
+        </h1>
+        <p className={HeroHeaderSubHeadingStyle}>{subHeaderText}</p>
+      </div>
+    </div>
+    <div>
+      <HeroPromotionCredits
+        label="Posted by"
+        sources=""
+        username="scottbrag"
+      />
+    </div>
+  </div>
+)
+HeroHeader.propTypes = {
+  dpi: PropTypes.string.isRequired,
+  headerText: PropTypes.string.isRequired,
+  subHeaderText: PropTypes.string.isRequired,
+}
+

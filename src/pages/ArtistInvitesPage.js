@@ -1,9 +1,8 @@
-// @flow
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { loadArtistInvites } from '../actions/artist_invites'
 import StreamContainer from '../containers/StreamContainer'
-import { ArtistInviteHeader } from '../components/artist_invites/ArtistInviteRenderables'
+import { HeroHeader } from '../components/heros/HeroRenderables'
 import { MainView } from '../components/views/MainView'
 import { selectQueryPreview } from '../selectors/routing'
 import { media } from '../styles/jss'
@@ -32,7 +31,7 @@ class ArtistInvitesPage extends Component {
   render() {
     return (
       <MainView className="ArtistInvites">
-        <ArtistInviteHeader
+        <HeroHeader
           dpi="hdpi"
           headerText="THIS IS ELLO'S AI HOMEPAGE HEADER"
           subHeaderText="Ello is a Global Creative Community. Made by Creatives. Built by Creatives."
