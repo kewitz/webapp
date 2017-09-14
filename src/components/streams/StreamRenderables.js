@@ -12,7 +12,6 @@ import EditorialLayout from '../../components/editorials/EditorialLayout'
 import Preference from '../../components/forms/Preference'
 import TreeButton from '../../components/navigation/TreeButton'
 import TreePanel from '../../components/navigation/TreePanel'
-import { ArtistInviteHeader } from '../../components/artist_invites/ArtistInviteRenderables'
 import { preferenceToggleChanged } from '../../helpers/junk_drawer'
 import { isElloAndroid } from '../../lib/jello'
 import { css, media, parent, select } from '../../styles/jss'
@@ -75,22 +74,13 @@ const artistInvitesStyle = css(
 // ARTIST INVITES
 export const artistInvites = artistInviteIds => (
   <div className={artistInvitesStyle}>
-    <div>
-      <ArtistInviteHeader
-        dpi="hdpi"
-        headerText="THIS IS ELLO'S AI HOMEPAGE HEADER"
-        subHeaderText="Ello is a Global Creative Community. Made by Creatives. Built by Creatives."
+    {artistInviteIds.map(id => (
+      <ArtistInviteContainer
+        artistInviteId={id}
+        key={`artistInvite_${id}`}
+        kind="grid"
       />
-    </div>
-    <div>
-      {artistInviteIds.map(id => (
-        <ArtistInviteContainer
-          artistInviteId={id}
-          key={`artistInvite_${id}`}
-          kind="grid"
-        />
-      ))}
-    </div>
+    ))}
   </div>
 )
 
