@@ -13,6 +13,7 @@
 .CategoryHeaderAuthor,
 .RepostHeaderAuthor,
 .CategoryHeaderCategory,
+.PostDetailHeaderUsername,
 .RepostHeaderReposter {
   position: relative;
 }
@@ -53,6 +54,10 @@
   line-height: 60px;
 }
 
+.PostDetail .PostHeader > .PostHeaderAuthor {
+  line-height: 45px;
+}
+
 .CategoryHeaderAuthor,
 .RepostHeaderAuthor {
   padding-left: 40px;
@@ -60,6 +65,7 @@
 }
 
 .CategoryHeaderCategory,
+.PostDetailHeaderUsername,
 .RepostHeaderReposter {
   max-width: calc(100% - 120px);
   margin-top: -12px;
@@ -127,6 +133,10 @@
     line-height: 80px;
   }
 
+  .PostDetail .PostHeader > .PostHeaderAuthor {
+    line-height: 60px;
+  }
+
   .CategoryHeaderAuthor,
   .RepostHeaderAuthor {
     padding-left: 60px;
@@ -134,6 +144,7 @@
   }
 
   .CategoryHeaderCategory,
+  .PostDetailHeaderUsername,
   .RepostHeaderReposter {
     margin-top: -20px;
     margin-left: 60px;

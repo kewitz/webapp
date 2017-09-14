@@ -154,7 +154,6 @@ export class PostHeader extends PureComponent {
               {isPostDetail && author.get('name') ?
                 <span>
                   <span className="PostHeaderAuthorName">{author.get('name')}</span>
-                  <span className="PostHeaderAuthorUsername">{`@${author.get('username')}`}</span>
                 </span>
                 :
                 `@${author.get('username')}`
@@ -163,6 +162,21 @@ export class PostHeader extends PureComponent {
           </Link>
         </div>
         <RelationshipContainer className="isInHeader" user={author} />
+        {isPostDetail && author.get('name') &&
+          <div className="PostDetailHeaderUsername">
+            <Link className="PostHeaderLink" to={`/${author.get('username')}`}>
+              <span
+                className="DraggableUsername PostHeaderAuthorUsername"
+                data-priority={author.get('relationshipPriority') || 'inactive'}
+                data-userid={author.get('id')}
+                data-username={author.get('username')}
+                draggable
+              >
+                {`@${author.get('username')}`}
+              </span>
+            </Link>
+          </div>
+        }
         <PostHeaderTimeAgoLink to={detailPath} createdAt={postCreatedAt} />
       </header>
     )
