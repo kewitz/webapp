@@ -259,21 +259,21 @@ const headerStyle = css(
   s.fullWidth,
   s.colorWhite,
   s.mxAuto,
-  s.mt10,
+  { marginTop: 0 },
   { height: 400, maxWidth: 1440 },
   parent('.Editorial', s.px0),
   media(
     s.minBreak2,
-    s.mt20,
     s.px20,
     { height: 600 },
     parent('.Editorial', s.px20),
+    { marginTop: 0 },
   ),
   media(
     s.minBreak4,
-    s.mt40,
     s.px40,
-    parent('.Editorial', s.px40),
+    parent('.Editorial', s.px40, s.mb20),
+    { marginTop: 0 },
   ),
 )
 
