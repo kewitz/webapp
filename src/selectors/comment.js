@@ -70,7 +70,8 @@ export const selectCommentIsOwnPost = createSelector(
 )
 
 export const selectCommentCanBeDeleted = createSelector(
-  [selectCommentIsOwnPost, selectCommentPostId, selectCommentOriginalPostId, selectCommentRepostId, selectIsStaff],
+  [selectCommentIsOwnPost, selectCommentPostId, selectCommentOriginalPostId,
+    selectCommentRepostId, selectIsStaff],
   (isOwnPost, postId, originalPostId, repostId, isStaff) =>
     isStaff || (repostId ? (isOwnPost && postId === originalPostId) : isOwnPost),
 )
