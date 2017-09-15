@@ -244,6 +244,12 @@ describe('comment selectors', () => {
   })
 
   context('#selectCommentCanBeDeleted', () => {
+    it('returns if the comment can be deleted when user is staff', () => {
+      state = { json, profile: Immutable.Map({ id: '666', isStaff: true }) }
+      const props = { commentId: '666' }
+      expect(selector.selectCommentCanBeDeleted(state, props)).to.equal(true)
+    })
+
     it('returns if the comment can be deleted when it is a repost', () => {
       state = { json, profile: Immutable.Map({ id: '2' }) }
       const props = { commentId: '666' }

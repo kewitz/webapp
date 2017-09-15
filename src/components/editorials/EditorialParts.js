@@ -1,4 +1,3 @@
-// @flow
 /* eslint-disable react/no-danger */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 import React from 'react'
