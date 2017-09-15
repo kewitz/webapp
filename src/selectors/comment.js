@@ -3,7 +3,7 @@ import { createSelector } from 'reselect'
 import get from 'lodash/get'
 import { COMMENTS } from '../constants/mapping_types'
 import { selectAssets } from '../selectors/assets'
-import { selectId as selectProfileId } from '../selectors/profile'
+import { selectId as selectProfileId, selectIsStaff } from '../selectors/profile'
 import { addAssetToRegion, selectPosts } from '../selectors/post'
 import { selectUsers } from './user'
 
@@ -70,7 +70,7 @@ export const selectCommentIsOwnPost = createSelector(
 )
 
 export const selectCommentCanBeDeleted = createSelector(
-  [selectCommentIsOwnPost, selectCommentPostId, selectCommentOriginalPostId, selectCommentRepostId],
-  (isOwnPost, postId, originalPostId, repostId) =>
-    (repostId ? (isOwnPost && postId === originalPostId) : isOwnPost),
+  [selectCommentIsOwnPost, selectCommentPostId, selectCommentOriginalPostId, selectCommentRepostId, selectIsStaff],
+  (isOwnPost, postId, originalPostId, repostId, isStaff) =>
+    isStaff || (repostId ? (isOwnPost && postId === originalPostId) : isOwnPost),
 )
