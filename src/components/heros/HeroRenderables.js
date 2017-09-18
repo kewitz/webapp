@@ -289,6 +289,7 @@ const imageContainerStyle = css(
 const HeroHeaderCaptionStyle = css(
   s.absolute, s.pr20, { left: 20, top: 80 },
   media(s.minBreak2, s.pr40, { left: 60, top: 40 }),
+  media(s.minBreak3, { left: 80, top: 110 }),
   media(s.minBreak4, { left: 100, top: 180 }),
 )
 
