@@ -307,10 +307,13 @@ export const HeroHeader = ({
   dpi,
   headerText,
   subHeaderText,
+  sources,
+  avatarSources,
+  username,
 }) => (
   <div className={`HeroHeader ${headerStyle}`}>
     <div className={imageContainerStyle}>
-      <BackgroundImage className="hasOverlay4" dpi={dpi} />
+      <BackgroundImage className="hasOverlay4" dpi={dpi} sources={sources} />
     </div>
     <div className={HeroHeaderCaptionStyle}>
       <h1 className={HeroHeaderHeadingStyle}>{headerText}</h1>
@@ -318,13 +321,16 @@ export const HeroHeader = ({
     </div>
     <HeroPromotionCredits
       label="Posted by"
-      sources=""
-      username="scottbrag"
+      sources={avatarSources}
+      username={username}
     />
   </div>
 )
 HeroHeader.propTypes = {
   dpi: PropTypes.string.isRequired,
+  sources: PropTypes.object.isRequired,
+  avatarSources: PropTypes.object.isRequired,
+  username: PropTypes.string.isRequired,
   headerText: PropTypes.string.isRequired,
   subHeaderText: PropTypes.string.isRequired,
 }
