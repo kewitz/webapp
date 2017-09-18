@@ -57,7 +57,7 @@ class ArtistInvitesPage extends Component {
         <HeroHeader
           dpi={dpi}
           headerText="NEXT-LEVEL COLLABORATION"
-          subHeaderText="Ello connects artists & brands in new ways -- delivering visibility, influence & opportunity."
+          subHeaderText="Ello connects artists & brands in new ways — delivering visibility, influence & opportunity."
           sources={sources}
           avatarSources={avatarSources}
           username="deanastacia"

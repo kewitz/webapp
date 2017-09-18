@@ -57,7 +57,7 @@ class EditorialPage extends Component {
         <HeroHeader
           dpi={dpi}
           headerText="THE CREATOR'S NETWORK"
-          subHeaderText="Ello is a global artist community dedicated to creative excellence -- made for artists by artists."
+          subHeaderText="Ello is a global artist community dedicated to creative excellence — made for artists by artists."
           sources={sources}
           avatarSources={avatarSources}
           username="velvetspectrum"
