@@ -34,8 +34,8 @@ class EditorialPage extends Component {
       <MainView className="Editorial">
         <HeroHeader
           dpi="hdpi"
-          headerText="THIS IS ELLO'S EDITORIAL HEADER"
-          subHeaderText="Ello is a Global Creative Community. Made by Creatives. Built by Creatives."
+          headerText="THE CREATOR'S NETWORK"
+          subHeaderText="Ello is a global artist community dedicated to creative excellence -- made for artists by artists."
         />
         <StreamContainer
           action={loadEditorials(this.props.isPreview)}

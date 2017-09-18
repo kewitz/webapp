@@ -33,8 +33,8 @@ class ArtistInvitesPage extends Component {
       <MainView className="ArtistInvites">
         <HeroHeader
           dpi="hdpi"
-          headerText="THIS IS ELLO'S AI HOMEPAGE HEADER"
-          subHeaderText="Ello is a Global Creative Community. Made by Creatives. Built by Creatives."
+          headerText="NEXT-LEVEL COLLABORATION"
+          subHeaderText="Ello connects artists & brands in new ways -- delivering visibility, influence & opportunity."
         />
         <StreamContainer
           action={loadArtistInvites(this.props.isPreview)}
