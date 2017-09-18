@@ -130,10 +130,6 @@ User Names  */
     color: #ccc;
   }
 
-  .UserNamesCell.inUserProfile.isSingle {
-    max-height: 40px;
-  }
-
   .UserNamesCell.inUserProfile.isSingle .UserName {
     max-width: calc(100% - 70px);
     margin-bottom: 0;
