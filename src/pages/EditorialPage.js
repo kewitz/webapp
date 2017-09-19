@@ -56,7 +56,7 @@ class EditorialPage extends Component {
       <MainView className="Editorial">
         <HeroHeader
           dpi={dpi}
-          headerText="THE CREATOR'S NETWORK"
+          headerText="THE CREATORS NETWORK"
           subHeaderText="Ello is a global artist community dedicated to creative excellence — made for artists by artists."
           sources={sources}
           avatarSources={avatarSources}
