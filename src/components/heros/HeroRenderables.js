@@ -253,3 +253,86 @@ HeroPromotionPage.defaultProps = {
   subheader: null,
 }
 
+const headerStyle = css(
+  s.relative,
+  s.px10,
+  s.fullWidth,
+  s.colorWhite,
+  s.mxAuto,
+  { marginTop: 0 },
+  { height: 400, maxWidth: 1440 },
+  parent('.Editorial', s.px0),
+  media(
+    s.minBreak2,
+    s.px20,
+    { height: 600 },
+    parent('.Editorial', s.px20),
+    { marginTop: 0 },
+  ),
+  media(
+    s.minBreak4,
+    s.px40,
+    parent('.Editorial', s.px40, s.mb20),
+    { marginTop: 0 },
+  ),
+)
+
+const imageContainerStyle = css(
+  s.flex,
+  s.justifyCenter,
+  s.itemsCenter,
+  s.relative,
+  { height: 400 },
+  media(s.minBreak2, { height: 600 }),
+)
+
+const HeroHeaderCaptionStyle = css(
+  s.absolute, s.pr20, { left: 20, top: 80 },
+  media(s.minBreak2, s.pr40, { left: 60, top: 40 }),
+  media(s.minBreak3, { left: 80, top: 110 }),
+  media(s.minBreak4, { left: 100, top: 180 }),
+)
+
+const HeroHeaderHeadingStyle = css(
+  s.sansBlack, s.fontSize38, { lineHeight: 38 },
+  media(s.minBreak2, { fontSize: 60, lineHeight: 60 }),
+  media(s.minBreak3, { fontSize: 90, lineHeight: 90 }),
+)
+
+const HeroHeaderSubHeadingStyle = css(
+  s.sansRegular, s.fontSize24, { lineHeight: 24 },
+  media(s.minBreak2, s.fontSize24),
+)
+
+export const HeroHeader = ({
+  dpi,
+  headerText,
+  subHeaderText,
+  sources,
+  avatarSources,
+  username,
+}) => (
+  <div className={`HeroHeader ${headerStyle}`}>
+    <div className={imageContainerStyle}>
+      <BackgroundImage className="hasOverlay4" dpi={dpi} sources={sources} />
+    </div>
+    <div className={HeroHeaderCaptionStyle}>
+      <h1 className={HeroHeaderHeadingStyle}>{headerText}</h1>
+      <p className={HeroHeaderSubHeadingStyle}>{subHeaderText}</p>
+    </div>
+    <HeroPromotionCredits
+      label="Posted by"
+      sources={avatarSources}
+      username={username}
+    />
+  </div>
+)
+HeroHeader.propTypes = {
+  dpi: PropTypes.string.isRequired,
+  sources: PropTypes.object.isRequired,
+  avatarSources: PropTypes.object.isRequired,
+  username: PropTypes.string.isRequired,
+  headerText: PropTypes.string.isRequired,
+  subHeaderText: PropTypes.string.isRequired,
+}
+

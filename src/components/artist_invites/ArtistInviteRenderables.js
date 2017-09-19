@@ -346,4 +346,3 @@ ArtistInviteDetail.contextTypes = {
   onClickScrollToContent: PropTypes.func.isRequired,
   onClickSubmit: PropTypes.func.isRequired,
 }
-
