@@ -13,8 +13,9 @@
 }
 
 .PostDetail.MainView {
-  min-height: 100vh;
+  height: calc(100vh - 80px);
   padding-bottom: 30px;
+  overflow: hidden;
 }
 
 .RelatedPostsTitle {
