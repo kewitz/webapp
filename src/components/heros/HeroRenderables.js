@@ -294,8 +294,9 @@ const HeroHeaderCaptionStyle = css(
 )
 
 const HeroHeaderHeadingStyle = css(
-  s.sansBlack, s.fontSize48, { lineHeight: 48 },
-  media(s.minBreak2, { fontSize: 90, lineHeight: 90 }),
+  s.sansBlack, s.fontSize38, { lineHeight: 38 },
+  media(s.minBreak2, { fontSize: 60, lineHeight: 60 }),
+  media(s.minBreak3, { fontSize: 90, lineHeight: 90 }),
 )
 
 const HeroHeaderSubHeadingStyle = css(
