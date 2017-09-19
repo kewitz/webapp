@@ -179,7 +179,8 @@ const relatedPostsTitleStyle = css(
 )
 export const postsAsRelated = (postIds, colCount, isPostHeaderHidden) => {
   const columns = []
-  const columnCount = colCount > 2 ? colCount - 1 : colCount
+  // this is for post detail when the comments are fixed to the right
+  const columnCount = colCount > 3 ? colCount - 1 : colCount
   for (let i = 0; i < columnCount; i += 1) { columns.push([]) }
   postIds.forEach((value, index) => columns[index % columnCount].push(postIds.get(index)))
   return (

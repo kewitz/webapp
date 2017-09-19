@@ -30,7 +30,7 @@
 /* // "Say Ello" placeholder text */
 .editor::after {
   position: absolute;
-  top: 41px;
+  top: 38px;
   left: 31px;
   max-width: calc(100% - 60px);
   color: #999;
@@ -58,7 +58,7 @@
 .editable {
   position: relative;
   min-height: 60px;
-  padding: 40px 0 20px;
+  padding: 37px 0 23px;
   margin: 0 30px;
   white-space: pre-wrap;
   word-break: break-word; /* stylelint-disable-line */
@@ -66,7 +66,7 @@
 }
 
 .isComment .editable {
-  padding: 40px 0 30px;
+  padding: 37px 0 33px;
 }
 
 .editor.withQuickEmoji .editor-block:first-child .editable { /* stylelint-disable-line */
@@ -95,7 +95,7 @@
 
 @media (--break-2) {
   .editable {
-    padding: 40px 0;
+    padding: 37px 0 43px;
     margin: 0 40px;
   }
 

@@ -21,14 +21,15 @@ const postDetailStyle = css(
     select('& .PostToolValue', s.fontSize18, s.ml10),
     select('& .PostTool .SVGIcon + .PostToolValue', s.fontSize18, { marginLeft: 15 }),
     select('& .PostHeaderTimeAgoLink',
-      media(s.minBreak2,
+      media(s.minBreak3,
         s.block,
         s.pointerNone,
         { right: 20 },
       ),
     ),
     select('& .PostTools',
-      s.flex, s.justifySpaceBetween, s.itemsCenter, s.p0,
+      s.flex, s.justifySpaceBetween, s.itemsCenter, s.p0, { maxWidth: 640 },
+      media(s.minBreak3, s.px10),
       select('& .ShyTool',
         s.absolute,
         s.pointerAuto,
@@ -47,7 +48,7 @@ const postDetailStyle = css(
     ),
   ),
   select('& .PostDetails.Posts.asList .PostDetailAsideBottom',
-    select('& .PostTools', s.px0, s.mt40, s.flex, s.justifyStart, media(s.minBreak2, s.justifyEnd)),
+    select('& .PostTools', s.px0, s.mt40, s.flex, s.justifyStart, media(s.minBreak3, s.justifyEnd, s.px10)),
     select('& .PostTool', s.displayNone,
       modifier('.WatchTool', s.block),
       modifier('.FlagTool', s.block, s.opacity1, s.pointerAuto),
@@ -60,7 +61,10 @@ const streamStyle = css(
   media(
     s.minBreak2,
     s.px20,
-    { width: 'calc(100vw - 420px)' },
+  ),
+  media(
+    s.minBreak3,
+    { width: 'calc(100vw - 360px)' },
     select('& .PostBody > div', s.flex, s.flexColumn, s.justifyCenter, s.itemsCenter, s.pt20),
   ),
   select('.PostDetails & .TabListStreamContainer', s.px0),
@@ -68,7 +72,6 @@ const streamStyle = css(
 
 const relatedPostsStyle = css(
   select('& .Column',
-    media(s.minBreak2, { width: '100%' }),
     media(s.minBreak3, { width: 'calc(50% - 20px)' }),
     media(s.minBreak4, { width: 'calc(33.33333% - 40px)' }),
     media(s.minBreak5, { width: 'calc(25% - 40px)' }),
@@ -80,11 +83,11 @@ const relatedPostsStyle = css(
 const asideStyle = css(
   s.absolute,
   s.fullHeight,
-  { width: 420, borderLeft: '1px solid #f2f2f2', top: 0, right: 0, overflowY: 'scroll', paddingBottom: 80 },
+  { width: 360, borderLeft: '1px solid #f2f2f2', top: 0, right: 0, overflowY: 'scroll', paddingBottom: 80 },
   select('& .CommentContent', s.m20),
   select('.PostDetails & .TabListStreamContainer', s.px0),
   select('& .UserProfileCard',
-    media(s.minBreak2, s.mt20, { width: 'calc(100% - 40px)' }),
+    media(s.minBreak3, s.mt20, { width: 'calc(100% - 40px)' }),
   ),
 )
 
@@ -124,21 +127,21 @@ CommentContent.contextTypes = {
 
 // TODO: Remove references to the PostDetailStreamContainer styles
 export const PostDetail = (props) => {
-  const { columnCount, deviceSize, post } = props
+  const { columnCount, post, shouldInlineComments } = props
   return (
     <MainView className={`PostDetail ${postDetailStyle}`}>
       <div className="PostDetails Posts asList">
         <article className={`PostList ${streamStyle}`} id={`Post_${post.get('id')}`}>
-          <PostContainer type={deviceSize === 'mobile' ? null : 'PostDetailBody'} postId={post.get('id')} />
-          {deviceSize === 'mobile' && <CommentContent {...props} />}
+          <PostContainer type={shouldInlineComments ? null : 'PostDetailBody'} postId={post.get('id')} />
+          {shouldInlineComments && <CommentContent {...props} />}
           <StreamContainer
             action={loadRelatedPosts(`~${post.get('token')}`, columnCount > 2 ? columnCount - 1 : columnCount)}
             className={`RelatedPostsStreamContainer ${relatedPostsStyle}`}
             shouldInfiniteScroll={false}
           />
-          {deviceSize === 'mobile' && <PostContainer type="PostDetailAsideBottom" postId={post.get('id')} />}
+          {shouldInlineComments && <PostContainer type="PostDetailAsideBottom" postId={post.get('id')} />}
         </article>
-        {deviceSize !== 'mobile' &&
+        {!shouldInlineComments &&
           <aside className={asideStyle}>
             <PostContainer type="PostDetailAsideTop" postId={post.get('id')} />
             <CommentContent {...props} />
@@ -151,8 +154,8 @@ export const PostDetail = (props) => {
 }
 PostDetail.propTypes = {
   columnCount: PropTypes.number.isRequired,
-  deviceSize: PropTypes.string.isRequired,
   post: PropTypes.object.isRequired,
+  shouldInlineComments: PropTypes.bool.isRequired,
 }
 PostDetail.contextTypes = {
   onLaunchNativeEditor: PropTypes.func.isRequired,
