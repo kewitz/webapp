@@ -1,6 +1,5 @@
-// @flow
-import { List } from 'immutable'
 import React from 'react'
+import PropTypes from 'prop-types'
 import EditorialContainer from '../../containers/EditorialContainer'
 import { css, media } from '../../styles/jss'
 import * as s from '../../styles/jso'
@@ -14,17 +13,16 @@ const rowStyle = css(
   media(s.minBreak4, s.mb40),
 )
 
-type RowProps = {
-  children?: React.Element<*>,
-}
-
-const Row = (props: RowProps) => (
+const Row = props => (
   <div className={rowStyle}>
     {props.children}
   </div>
 )
 Row.defaultProps = {
   children: null,
+}
+Row.propTypes = {
+  children: PropTypes.object,
 }
 
 // -------------------------------------
@@ -40,17 +38,18 @@ const cellStyle = css(
   media(s.minBreak3, s.fullHeight, s.pb0),
 )
 
-type CellProps = {
-  className: string,
-  children?: React.Element<*>,
-}
-
-const Cell = (props: CellProps) =>
+const Cell = props =>
   (<div className={`${cellStyle} ${props.className}`}>
     {props.children}
   </div>)
 
+Cell.propTypes = {
+  className: PropTypes.string,
+  children: PropTypes.object,
+}
+
 Cell.defaultProps = {
+  className: null,
   children: null,
 }
 
@@ -85,7 +84,7 @@ const sectionStyle = css(
   s.maxSiteWidth,
 )
 
-export default({ ids }: { ids: List<string> }) => (
+const EditorialLayout = ({ ids }) => (
   <section className={sectionStyle}>
     { /* Row 1 */ }
     { ids.get(0) &&
@@ -251,3 +250,8 @@ export default({ ids }: { ids: List<string> }) => (
   </section>
 )
 
+EditorialLayout.propTypes = {
+  ids: PropTypes.object.isRequired,
+}
+
+export default EditorialLayout

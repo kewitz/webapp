@@ -1,4 +1,3 @@
-// @flow
 /* eslint-disable react/no-multi-comp */
 import React, { Component, PureComponent } from 'react'
 import PropTypes from 'prop-types'
@@ -98,13 +97,12 @@ const linkTextStyle = css(
   media(s.minBreak2, s.mr20),
 )
 
-type LinkPropTypes = {
-  href: string,
-  label: string,
-}
-
 export class FooterLink extends PureComponent {
-  props: LinkPropTypes
+  static propTypes = {
+    href: PropTypes.string.isRequired,
+    label: PropTypes.string.isRequired,
+  }
+
   render() {
     const { href, label } = this.props
     return (
@@ -136,21 +134,19 @@ const toolTextStyle = css(
   select('.no-touch .FooterTool.LayoutTool:hover > &', { width: 66 }),
 )
 
-type ToolPropTypes = {
-  className?: string,
-  icon: React.Element<*>,
-  label: string,
-  onClick: () => void,
-}
-
 export class FooterTool extends Component {
-  props: ToolPropTypes
+  static propTypes = {
+    className: PropTypes.string,
+    icon: PropTypes.object.isRequired,
+    label: PropTypes.string.isRequired,
+    onClick: PropTypes.func.isRequired,
+  }
 
   static defaultProps = {
     className: '',
   }
 
-  shouldComponentUpdate(nextProps: ToolPropTypes) {
+  shouldComponentUpdate(nextProps) {
     return nextProps.label !== this.props.label || nextProps.className !== this.props.className
   }
 
