@@ -28,8 +28,8 @@ const postDetailStyle = css(
       ),
     ),
     select('& .PostTools',
-      s.flex, s.justifySpaceBetween, s.itemsCenter, s.p0, { maxWidth: 640 },
-      media(s.minBreak3, s.px10),
+      s.flex, s.justifySpaceBetween, s.itemsCenter, s.p0, { maxWidth: 310 },
+      media(s.minBreak3, s.px10, { maxWidth: 640 }),
       select('& .ShyTool',
         s.absolute,
         s.pointerAuto,
@@ -59,7 +59,7 @@ const postDetailStyle = css(
 const streamStyle = css(
   s.px10,
   s.overflowScroll,
-  { height: 'calc(100vh - 80px)' },
+  { height: 'calc(100vh - 80px)', paddingBottom: 80 },
   media(
     s.minBreak2,
     s.px20,
