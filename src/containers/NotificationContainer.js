@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import {
+  ApprovedAristInviteSubmissionNotification,
   CommentNotification,
   CommentMentionNotification,
   CommentOnOriginalPostNotification,
@@ -25,6 +26,7 @@ import { getLinkObject } from '../helpers/json_helper'
 import { selectJson } from '../selectors/store'
 
 const NOTIFICATION_KIND = {
+  APPROVED_ARTIST_INVITE_SUBMISSION: 'approved_artist_invite_submission',
   COMMENT: 'comment_notification',
   COMMENT_MENTION: 'comment_mention_notification',
   COMMENT_ORIGINAL: 'comment_on_original_post_notification',
@@ -49,6 +51,7 @@ const SUBJECT_TYPE = {
   POST: 'post',
   USER: 'user',
   WATCH: 'watch',
+  ARTIST_INVITE_SUBMISSION: 'artist_invite_submission',
 }
 
 function mapStateToProps(state, ownProps) {
@@ -177,6 +180,13 @@ class NotificationParser extends Component {
     } = this.props
 
     switch (kind) {
+      case NOTIFICATION_KIND.APPROVED_ARTIST_INVITE_SUBMISSION:
+        return (
+          <ApprovedAristInviteSubmissionNotification
+            subject={subject}
+            createdAt={createdAt}
+          />
+        )
       case NOTIFICATION_KIND.COMMENT:
         return (
           <CommentNotification
