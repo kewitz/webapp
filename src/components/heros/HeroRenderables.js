@@ -260,17 +260,17 @@ const headerStyle = css(
   s.colorWhite,
   s.mxAuto,
   { marginTop: 0 },
-  { height: 400, maxWidth: 1440 },
+  { height: 430, maxWidth: 1440 },
   parent('.Editorial', s.px0),
   media(
     s.minBreak2,
     s.px20,
-    { height: 600 },
     parent('.Editorial', s.px20),
     { marginTop: 0 },
   ),
   media(
     s.minBreak4,
+    { height: 600 },
     s.px40,
     parent('.Editorial', s.px40, s.mb20),
     { marginTop: 0 },
@@ -282,8 +282,8 @@ const imageContainerStyle = css(
   s.justifyCenter,
   s.itemsCenter,
   s.relative,
-  { height: 400 },
-  media(s.minBreak2, { height: 600 }),
+  { height: 430 },
+  media(s.minBreak4, { height: 600 }),
 )
 
 const HeroHeaderCaptionStyle = css(
