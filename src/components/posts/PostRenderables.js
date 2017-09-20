@@ -812,7 +812,7 @@ export class UserModal extends PureComponent {
 
   render() {
     const { activeType } = this.state
-    const { postId } = this.props
+    const { postId, tabs } = this.props
     const streamAction = activeType === 'loves' ?
       loadUserDrawer(postLovers(postId), postId, activeType) :
       loadUserDrawer(postReposters(postId), postId, activeType)
@@ -824,7 +824,7 @@ export class UserModal extends PureComponent {
           key={`TabListButtons_${activeType}`}
           onTabClick={this.onClickTab}
           tabClasses={`LabelTab ${userModalTabStyle}`}
-          tabs={[{ type: 'loves', children: 'Lovers' }, { type: 'reposts', children: 'Reposters' }]}
+          tabs={tabs}
         />
         <StreamContainer
           action={streamAction}
@@ -842,5 +842,6 @@ export class UserModal extends PureComponent {
 UserModal.propTypes = {
   activeType: PropTypes.string.isRequired,
   postId: PropTypes.string.isRequired,
+  tabs: PropTypes.array.isRequired,
 }
 

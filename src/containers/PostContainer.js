@@ -340,14 +340,14 @@ class PostContainer extends Component {
   onClickToggleLovers = () => {
     const { dispatch, postId } = this.props
     dispatch(openModal(
-      <UserModal activeType="loves" postId={postId} />,
+      <UserModal activeType="loves" postId={postId} tabs={this.getUserModalTabs()} />,
     ))
   }
 
   onClickToggleReposters = () => {
     const { dispatch, postId } = this.props
     dispatch(openModal(
-      <UserModal activeType="reposts" postId={postId} />,
+      <UserModal activeType="reposts" postId={postId} tabs={this.getUserModalTabs()} />,
     ))
   }
 
@@ -374,6 +374,18 @@ class PostContainer extends Component {
   onOpenSignupModal = () => {
     const { onClickOpenRegistrationRequestDialog } = this.context
     onClickOpenRegistrationRequestDialog('post-tools')
+  }
+
+  getUserModalTabs() {
+    const { postLovesCount, postRepostsCount } = this.props
+    const tabs = []
+    if (postLovesCount > 0) {
+      tabs.push({ type: 'loves', children: 'Lovers' })
+    }
+    if (postRepostsCount > 0) {
+      tabs.push({ type: 'reposts', children: 'Reposters' })
+    }
+    return tabs
   }
 
   render() {
