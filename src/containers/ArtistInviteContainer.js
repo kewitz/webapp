@@ -9,6 +9,7 @@ import {
 } from '../components/artist_invites/ArtistInviteRenderables'
 import { getEditorId } from '../components/editor/Editor'
 import { EDITOR } from '../constants/action_types'
+import * as ElloAndroidInterface from '../lib/android_interface'
 import { scrollToPosition } from '../lib/jello'
 import {
   selectArtistInvite,
@@ -82,6 +83,10 @@ class ArtistInviteContainer extends PureComponent {
     hasSubmissions: false,
   }
 
+  static contextTypes = {
+    onLaunchNativeEditor: PropTypes.func.isRequired,
+  }
+
   static childContextTypes = {
     onClickArtistInviteDetail: PropTypes.func,
     onClickScrollToContent: PropTypes.func,
@@ -115,8 +120,13 @@ class ArtistInviteContainer extends PureComponent {
         artistInvite,
       },
     })
-    dispatch(openOmnibar())
-    scrollToPosition(0, 0)
+    if (ElloAndroidInterface.supportsNativeEditor()) {
+      dispatch(trackEvent('opened_omnibar'))
+      this.context.onLaunchNativeEditor(null, false, null)
+    } else {
+      dispatch(openOmnibar())
+      scrollToPosition(0, 0)
+    }
   }
 
   render() {
