@@ -25,7 +25,7 @@ class ArtistInvitesPage extends Component {
 
   static propTypes = {
     dpi: PropTypes.string.isRequired,
-    isPreview: PropTypes.boolean,
+    isPreview: PropTypes.bool,
     sources: PropTypes.object,
     avatarSources: PropTypes.object,
   }
