@@ -1,3 +1,4 @@
+/* eslint-disable react/no-danger */
 import React from 'react'
 import PropTypes from 'prop-types'
 import BackgroundImage from '../assets/BackgroundImage'
@@ -318,7 +319,10 @@ export const HeroHeader = ({
     </div>
     <div className={HeroHeaderCaptionStyle}>
       <h1 className={HeroHeaderHeadingStyle}>{headerText}</h1>
-      <p className={HeroHeaderSubHeadingStyle}>{subHeaderText}</p>
+      <p
+        className={HeroHeaderSubHeadingStyle}
+        dangerouslySetInnerHTML={{ __html: subHeaderText }}
+      />
     </div>
     <HeroPromotionCredits
       label="Posted by"
