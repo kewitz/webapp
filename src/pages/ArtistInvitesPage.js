@@ -56,8 +56,8 @@ class ArtistInvitesPage extends Component {
       <MainView className="ArtistInvites">
         <HeroHeader
           dpi={dpi}
-          headerText="NEXT-LEVEL COLLABORATION"
-          subHeaderText="Ello connects artists & brands in new ways — delivering visibility, influence & opportunity."
+          headerText="ARTIST INVITES™"
+          subHeaderText="Next-level <a href='https://ello.co/wtf/artists/'>Artist</a> x <a href='https://ello.co/wtf/brands-and-agencies/'>Brand</a> collaboration."
           sources={sources}
           avatarSources={avatarSources}
           username="deanastacia"
