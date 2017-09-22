@@ -69,7 +69,7 @@ PostDetailTags.defaultProps = {
 PostDetailTags.propTypes = {
   canonicalUrl: PropTypes.string,
   card: PropTypes.string.isRequired,
-  description: PropTypes.string,
+  description: PropTypes.string.isRequired,
   embeds: PropTypes.object.isRequired,
   images: PropTypes.object.isRequired,
   pathname: PropTypes.string.isRequired,

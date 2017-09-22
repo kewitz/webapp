@@ -1,21 +1,13 @@
-// @flow
 import React from 'react'
+import PropTypes from 'prop-types'
 import { Link } from 'react-router'
 import classNames from 'classnames'
-import type { CategoryTabProps } from '../../types/flowtypes'
-
-type TabProps = {
-  isActive: boolean,
-  label: string,
-  source: string,
-  to: string,
-}
 
 const backgroundStyles = source => ({
   backgroundImage: `url("${source}")`,
 })
 
-const CategoryTab = (props: TabProps) => {
+const CategoryTab = (props) => {
   const { isActive, label, source, to } = props
   return (
     <Link
@@ -28,12 +20,14 @@ const CategoryTab = (props: TabProps) => {
   )
 }
 
-type TabBarProps = {
-  pathname: string,
-  tabs: Array<CategoryTabProps>,
+CategoryTab.propTypes = {
+  isActive: PropTypes.bool.isRequired,
+  label: PropTypes.string.isRequired,
+  source: PropTypes.string.isRequired,
+  to: PropTypes.string.isRequired,
 }
 
-export const CategoryTabBar = (props: TabBarProps) => {
+export const CategoryTabBar = (props) => {
   const { pathname, tabs } = props
   return (
     <div className="CategoryTabBar">
@@ -61,5 +55,9 @@ export const CategoryTabBar = (props: TabBarProps) => {
   )
 }
 
-export default CategoryTabBar
+CategoryTabBar.propTypes = {
+  pathname: PropTypes.string.isRequired,
+  tabs: PropTypes.array.isRequired,
+}
 
+export default CategoryTabBar

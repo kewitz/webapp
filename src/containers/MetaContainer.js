@@ -1,5 +1,5 @@
-// @flow
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { createSelector } from 'reselect'
 import { DefaultTags, PostDetailTags } from '../components/head/TagRenderables'
@@ -118,23 +118,21 @@ function mapStateToProps(state, props) {
   }
 }
 
-type MetaProps = {
-  canonicalUrl?: string | null,
-  card: string,
-  description: string,
-  embeds: Object,
-  image: string,
-  images: Object,
-  nextPage?: string | null,
-  pathname: string,
-  robots?: string | null,
-  title: string,
-  url: string,
-  viewName: string,
-}
-
 class MetaContainer extends Component {
-  props: MetaProps
+  static propTypes = {
+    canonicalUrl: PropTypes.string,
+    card: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+    embeds: PropTypes.Object.isRequired,
+    image: PropTypes.string.isRequired,
+    images: PropTypes.Object.isRequired,
+    nextPage: PropTypes.string,
+    pathname: PropTypes.string.isRequired,
+    robots: PropTypes.string,
+    title: PropTypes.string.isRequired,
+    url: PropTypes.string.isRequired,
+    viewName: PropTypes.string.isRequired,
+  }
 
   static defaultProps = {
     canonicalUrl: null,

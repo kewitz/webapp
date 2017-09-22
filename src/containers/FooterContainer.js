@@ -21,31 +21,8 @@ import { selectIsModalActive } from '../selectors/modal'
 import { selectAvailability } from '../selectors/profile'
 import { selectPathname, selectViewNameFromRoute } from '../selectors/routing'
 import { selectStreamType } from '../selectors/stream'
-import type { Availability } from '../types/flowtypes'
 
 let emailValue = ''
-
-type Props = {
-  availability: Availability,
-  dispatch: () => void,
-  formActionPath: string,
-  isEditorial: boolean,
-  isGridMode: boolean,
-  isLayoutToolHidden: boolean,
-  isLoggedIn: boolean,
-  isMobile: boolean,
-  isModalActive: boolean,
-  isPaginatoring: boolean,
-  pathname: string,
-}
-
-type State = {
-  emailStatus: string,
-  formMessage: string,
-  formStatus: string,
-  isFormDisabled: boolean,
-  isFormFocused: boolean,
-}
 
 function mapStateToProps(state, props) {
   const streamType = selectStreamType(state)
@@ -69,8 +46,19 @@ function mapStateToProps(state, props) {
 }
 
 class FooterContainer extends Component {
-  props: Props
-  state: State
+  static propTypes = {
+    availability: PropTypes.object.isRequired,
+    dispatch: PropTypes.func.isRequired,
+    formActionPath: PropTypes.string.isRequired,
+    isEditorial: PropTypes.bool.isRequired,
+    isGridMode: PropTypes.bool.isRequired,
+    isLayoutToolHidden: PropTypes.bool.isRequired,
+    isLoggedIn: PropTypes.bool.isRequired,
+    isMobile: PropTypes.bool.isRequired,
+    isModalActive: PropTypes.bool.isRequired,
+    isPaginatoring: PropTypes.bool.isRequired,
+    pathname: PropTypes.string.isRequired,
+  }
 
   static childContextTypes = {
     onClickScrollToTop: PropTypes.func.isRequired,

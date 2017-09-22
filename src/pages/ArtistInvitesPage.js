@@ -22,7 +22,6 @@ const mapStateToProps = state => ({
 })
 
 class ArtistInvitesPage extends Component {
-
   static propTypes = {
     dpi: PropTypes.string.isRequired,
     isPreview: PropTypes.bool,

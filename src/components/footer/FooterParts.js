@@ -13,16 +13,14 @@ import * as s from '../../styles/jso'
 
 const formStyle = css(s.flex, s.itemsCenter, s.leftAlign)
 
-type FormPropTypes = {
-  formActionPath: string,
-  formMessage: string,
-  formStatus: string,
-  isDisabled: boolean,
-  isMobile: boolean,
-}
-
 export class FooterForm extends PureComponent {
-  props: FormPropTypes
+  static propTypes = {
+    formActionPath: PropTypes.string.isRequired,
+    formMessage: PropTypes.string.isRequired,
+    formStatus: PropTypes.string.isRequired,
+    isDisabled: PropTypes.bool.isRequired,
+    isMobile: PropTypes.bool.isRequired,
+  }
 
   static contextTypes = {
     onBlur: PropTypes.func.isRequired,
