@@ -45,7 +45,6 @@ NavbarLayoutTool.propTypes = {
 const linkLabelStyle = css(
   s.relative,
   s.inlineBlock,
-  s.alignMiddle,
   parent('.NavbarLink.isActive >', s.colorBlack),
   parent('.NavbarLink:active >', s.colorBlack),
   parent('.no-touch .NavbarLink:hover >', s.colorBlack),
