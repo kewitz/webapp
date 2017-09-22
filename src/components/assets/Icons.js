@@ -167,16 +167,6 @@ export const BubbleIcon = () =>
     </g>
   </SVGIcon>)
 
-export const CameraIcon = () =>
-  (<SVGIcon className="CameraIcon">
-    <g>
-      <rect height="12" width="16" x="2.5" y="4.5" />
-    </g>
-    <g>
-      <circle cx="10.5" cy="10.5" r="3" />
-    </g>
-  </SVGIcon>)
-
 export const CheckCircleIcon = () =>
   (<SVGIcon className="CheckCircleIcon">
     <g>

@@ -111,16 +111,7 @@
   display: none;
 }
 
-.TabListStreamContainer .ElloMark > .SmileShape {
-  fill: #fff !important;
-}
-
 @media (--break-2) {
-  .Posts:not(.asGrid) .TabListStreamContainer .Paginator {
-    margin-left: 60px;
-  }
-
-  .TabListStreamContainer .Paginator,
   .BlockedUsers .Paginator,
   .MutedUsers .Paginator {
     margin-top: 60px;

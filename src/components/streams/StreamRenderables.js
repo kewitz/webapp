@@ -171,18 +171,24 @@ export const postsAsList = (postIds, columnCount, isPostHeaderHidden) => (
   </div>
 )
 
-export const postsAsRelated = (postIds, columnCount, isPostHeaderHidden) => {
+const relatedPostsTitleStyle = css(
+  s.fontSize18,
+  s.colorA,
+  s.m20,
+  media(s.minBreak4, s.ml40),
+)
+export const postsAsRelated = (postIds, colCount, isPostHeaderHidden) => {
   const columns = []
+  // this is for post detail when the comments are fixed to the right
+  const columnCount = colCount > 3 ? colCount - 1 : colCount
   for (let i = 0; i < columnCount; i += 1) { columns.push([]) }
   postIds.forEach((value, index) => columns[index % columnCount].push(postIds.get(index)))
   return (
     <div className="Posts asGrid">
       {postIds.size &&
-        <div className="RelatedPostsTitleWrapper">
-          <h2 className="RelatedPostsTitle">
-            Related Posts
-          </h2>
-        </div>
+        <h2 className={relatedPostsTitleStyle}>
+          Related Posts
+        </h2>
       }
       {columns.map((columnPostIds, i) =>
         (<div className="Column" key={`column_${i + 1}`}>

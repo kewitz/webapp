@@ -103,10 +103,11 @@ class LoveTool extends PureComponent {
   }
   static contextTypes = {
     onClickLovePost: PropTypes.func.isRequired,
+    onClickToggleLovers: PropTypes.func.isRequired,
   }
   render() {
     const { postLoved, postLovesCount } = this.props
-    const { onClickLovePost } = this.context
+    const { onClickLovePost, onClickToggleLovers } = this.context
     return (
       <span className="PostTool LoveTool" data-count={postLovesCount}>
         <button
@@ -118,7 +119,7 @@ class LoveTool extends PureComponent {
         </button>
         <button
           className={classNames({ isActive: postLoved }, 'PostToolDrawerButton')}
-          style={{ pointerEvents: 'none' }}
+          onClick={onClickToggleLovers}
         >
           <span className="PostToolValue" >
             {numberToHuman(postLovesCount, false)}
@@ -139,12 +140,13 @@ class RepostTool extends PureComponent {
   }
   static contextTypes = {
     onClickRepostPost: PropTypes.func.isRequired,
+    onClickToggleReposters: PropTypes.func.isRequired,
   }
   render() {
     const {
       isOwnOriginalPost, isOwnPost, isRepostAnimating, postReposted, postRepostsCount,
     } = this.props
-    const { onClickRepostPost } = this.context
+    const { onClickRepostPost, onClickToggleReposters } = this.context
     return (
       <span className="PostTool RepostTool" data-count={postRepostsCount}>
         <button
@@ -157,7 +159,7 @@ class RepostTool extends PureComponent {
         </button>
         <button
           className="PostToolDrawerButton"
-          style={{ pointerEvents: 'none' }}
+          onClick={onClickToggleReposters}
         >
           <span className="PostToolValue" >
             {numberToHuman(postRepostsCount, false)}
@@ -184,7 +186,7 @@ export class WatchTool extends PureComponent {
       <span className={classNames('PostTool WatchTool', { isWatchingPost }, { isPill: isMobile })}>
         <button className={classNames({ isActive: isWatchingPost })} onClick={onClickWatchPost}>
           <BoltIcon />
-          <Hint>{ isWatchingPost ? 'Watching' : 'Watch' }</Hint>
+          <Hint>{ isWatchingPost ? 'Mute' : 'Watch' }</Hint>
         </button>
       </span>
     )
@@ -251,7 +253,7 @@ class FlagTool extends PureComponent {
       <span className="PostTool FlagTool ShyTool">
         <button onClick={this.context.onClickFlagPost}>
           <FlagIcon />
-          <Hint>Flag</Hint>
+          <Hint className="Flag">Report Post</Hint>
         </button>
       </span>
     )
@@ -269,6 +271,7 @@ export class PostTools extends PureComponent {
     isMobile: PropTypes.bool.isRequired,
     isOwnOriginalPost: PropTypes.bool.isRequired,
     isOwnPost: PropTypes.bool.isRequired,
+    isPostDetail: PropTypes.bool.isRequired,
     isRelatedPost: PropTypes.bool.isRequired,
     isRepostAnimating: PropTypes.bool.isRequired,
     isWatchingPost: PropTypes.bool.isRequired,
@@ -293,6 +296,7 @@ export class PostTools extends PureComponent {
       isMobile,
       isOwnOriginalPost,
       isOwnPost,
+      isPostDetail,
       isRelatedPost,
       isRepostAnimating,
       isWatchingPost,
@@ -306,14 +310,16 @@ export class PostTools extends PureComponent {
       postViewsCountRounded,
     } = this.props
     const cells = []
-    cells.push(
-      <ViewsTool
-        detailPath={detailPath}
-        isLoggedIn={isLoggedIn}
-        key={`ViewsTool_${postId}`}
-        postViewsCountRounded={postViewsCountRounded}
-      />,
-    )
+    if (!isPostDetail) {
+      cells.push(
+        <ViewsTool
+          detailPath={detailPath}
+          isLoggedIn={isLoggedIn}
+          key={`ViewsTool_${postId}`}
+          postViewsCountRounded={postViewsCountRounded}
+        />,
+      )
+    }
     if (!isRelatedPost) {
       cells.push(
         <TimeAgoTool
@@ -354,15 +360,27 @@ export class PostTools extends PureComponent {
         />,
       )
     }
-
-    if (!isOwnPost && !isOwnOriginalPost && !isMobile && !isGridMode) {
+    if (isPostDetail) {
       cells.push(
-        <WatchTool
-          isMobile={isMobile}
-          isWatchingPost={isWatchingPost}
-          key={`WatchTool_${postId}`}
+        <ViewsTool
+          detailPath={detailPath}
+          isLoggedIn={isLoggedIn}
+          key={`ViewsTool_${postId}`}
+          postViewsCountRounded={postViewsCountRounded}
         />,
       )
+    }
+
+    if (!isOwnPost && !isOwnOriginalPost) {
+      if (isPostDetail || (!isMobile && !isGridMode)) {
+        cells.push(
+          <WatchTool
+            isMobile={isMobile}
+            isWatchingPost={isWatchingPost}
+            key={`WatchTool_${postId}`}
+          />,
+        )
+      }
     }
 
     if (author.get('hasSharingEnabled')) {

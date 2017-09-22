@@ -3,14 +3,12 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { push, replace } from 'react-router-redux'
-import classNames from 'classnames'
 import set from 'lodash/set'
 import { trackEvent } from '../actions/analytics'
 import { openModal, closeModal } from '../actions/modals'
 import {
   deletePost,
   flagPost,
-  loadComments,
   loadEditablePost,
   toggleComments,
   toggleEditing,
@@ -20,17 +18,16 @@ import {
 } from '../actions/posts'
 import ConfirmDialog from '../components/dialogs/ConfirmDialog'
 import FlagDialog from '../components/dialogs/FlagDialog'
-import Editor from '../components/editor/Editor'
 import {
   CategoryHeader,
-  LaunchCommentEditorButton,
-  PostAdminActions,
+  Post,
+  PostDetailAsideBottom,
+  PostDetailAsideTop,
   PostBody,
   PostHeader,
   RepostHeader,
+  UserModal,
 } from '../components/posts/PostRenderables'
-import { PostTools, WatchTool } from '../components/posts/PostTools'
-import StreamContainer from '../containers/StreamContainer'
 import { isElloAndroid } from '../lib/jello'
 import * as ElloAndroidInterface from '../lib/android_interface'
 import { selectIsLoggedIn } from '../selectors/authentication'
@@ -177,6 +174,7 @@ class PostContainer extends Component {
     showEditor: PropTypes.bool.isRequired,
     submissionStatus: PropTypes.string,
     summary: PropTypes.object,
+    type: PropTypes.string,
   }
 
   static defaultProps = {
@@ -201,6 +199,7 @@ class PostContainer extends Component {
     repostContent: null,
     submissionStatus: null,
     summary: null,
+    type: null,
   }
 
   static childContextTypes = {
@@ -211,6 +210,8 @@ class PostContainer extends Component {
     onClickRepostPost: PropTypes.func.isRequired,
     onClickSharePost: PropTypes.func.isRequired,
     onClickToggleComments: PropTypes.func.isRequired,
+    onClickToggleLovers: PropTypes.func.isRequired,
+    onClickToggleReposters: PropTypes.func.isRequired,
     onClickWatchPost: PropTypes.func.isRequired,
     onTrackRelatedPostClick: PropTypes.func.isRequired,
   }
@@ -232,6 +233,8 @@ class PostContainer extends Component {
       onClickRepostPost: isLoggedIn ? this.onClickRepostPost : this.onOpenSignupModal,
       onClickSharePost: this.onClickSharePost,
       onClickToggleComments: this.onClickToggleComments,
+      onClickToggleLovers: this.onClickToggleLovers,
+      onClickToggleReposters: this.onClickToggleReposters,
       onClickWatchPost: isLoggedIn ? this.onClickWatchPost : this.onOpenSignupModal,
       onTrackRelatedPostClick: this.onTrackRelatedPostClick,
     }
@@ -334,6 +337,20 @@ class PostContainer extends Component {
     }
   }
 
+  onClickToggleLovers = () => {
+    const { dispatch, postId } = this.props
+    dispatch(openModal(
+      <UserModal activeType="loves" postId={postId} tabs={this.getUserModalTabs()} />,
+    ))
+  }
+
+  onClickToggleReposters = () => {
+    const { dispatch, postId } = this.props
+    dispatch(openModal(
+      <UserModal activeType="reposts" postId={postId} tabs={this.getUserModalTabs()} />,
+    ))
+  }
+
   onClickWatchPost = () => {
     const { dispatch, post, isWatchingPost } = this.props
     if (isWatchingPost) {
@@ -357,6 +374,18 @@ class PostContainer extends Component {
   onOpenSignupModal = () => {
     const { onClickOpenRegistrationRequestDialog } = this.context
     onClickOpenRegistrationRequestDialog('post-tools')
+  }
+
+  getUserModalTabs() {
+    const { postLovesCount, postRepostsCount } = this.props
+    const tabs = []
+    if (postLovesCount > 0) {
+      tabs.push({ type: 'loves', children: 'Lovers' })
+    }
+    if (postRepostsCount > 0) {
+      tabs.push({ type: 'reposts', children: 'Reposters' })
+    }
+    return tabs
   }
 
   render() {
@@ -403,6 +432,7 @@ class PostContainer extends Component {
       showEditor,
       submissionStatus,
       summary,
+      type,
     } = this.props
     const { onLaunchNativeEditor } = this.context
     if (isPostEmpty || !author || !author.get('id')) { return null }
@@ -445,78 +475,135 @@ class PostContainer extends Component {
         onLaunchNativeEditor(post, false, null)
       }
     }
-    return (
-      <div className={classNames('Post', { isPostHeaderHidden: isPostHeaderHidden && !isRepost })}>
-        {postHeader}
-        {adminActions &&
-          <PostAdminActions
-            actions={adminActions}
-            status={submissionStatus}
+    switch (type) {
+      case 'PostDetailAsideBottom':
+        return (
+          <PostDetailAsideBottom
+            {...{
+              author,
+              detailPath,
+              isCommentsActive: this.state.isCommentsActive,
+              isCommentsRequesting,
+              isGridMode,
+              isLoggedIn,
+              isMobile,
+              isOwnOriginalPost,
+              isOwnPost,
+              isPostDetail,
+              isRelatedPost,
+              isRepostAnimating,
+              isWatchingPost,
+              postCommentsCount,
+              postCreatedAt,
+              postId,
+              postLoved,
+              postLovesCount,
+              postReposted,
+              postRepostsCount,
+              postViewsCountRounded,
+            }}
           />
-        }
-        {showEditor && !supportsNativeEditor ?
-          <Editor post={post} /> :
+        )
+      case 'PostDetailAsideTop':
+        return (
+          <PostDetailAsideTop
+            {...{
+              author,
+              detailPath,
+              isCommentsActive: this.state.isCommentsActive,
+              isCommentsRequesting,
+              isGridMode,
+              isLoggedIn,
+              isMobile,
+              isOwnOriginalPost,
+              isOwnPost,
+              isPostDetail,
+              isRelatedPost,
+              isRepostAnimating,
+              isWatchingPost,
+              postCommentsCount,
+              postCreatedAt,
+              postHeader,
+              postId,
+              postLoved,
+              postLovesCount,
+              postReposted,
+              postRepostsCount,
+              postViewsCountRounded,
+            }}
+          />
+        )
+      case 'PostDetailBody':
+        return (
           <PostBody
-            author={author}
-            columnWidth={columnWidth}
-            commentOffset={commentOffset}
-            content={content}
-            contentWarning={contentWarning}
-            contentWidth={contentWidth}
-            detailPath={detailPath}
-            innerHeight={innerHeight}
-            isGridMode={isGridMode}
-            isPostDetail={isPostDetail}
-            isRepost={isRepost}
-            postId={postId}
-            repostContent={repostContent}
-            summary={summary}
+            {...{
+              author,
+              columnWidth,
+              commentOffset,
+              content,
+              contentWarning,
+              contentWidth,
+              detailPath,
+              innerHeight,
+              isGridMode,
+              isPostDetail,
+              isRepost,
+              post,
+              postId,
+              repostContent,
+              showEditor,
+              summary,
+              supportsNativeEditor,
+            }}
           />
-        }
-        <PostTools
-          author={author}
-          detailPath={detailPath}
-          isCommentsActive={this.state.isCommentsActive}
-          isCommentsRequesting={isCommentsRequesting}
-          isGridMode={isGridMode}
-          isLoggedIn={isLoggedIn}
-          isMobile={isMobile}
-          isOwnOriginalPost={isOwnOriginalPost}
-          isOwnPost={isOwnPost}
-          isRelatedPost={isRelatedPost}
-          isRepostAnimating={isRepostAnimating}
-          isWatchingPost={isWatchingPost}
-          postCreatedAt={postCreatedAt}
-          postCommentsCount={postCommentsCount}
-          postId={postId}
-          postLoved={postLoved}
-          postLovesCount={postLovesCount}
-          postReposted={postReposted}
-          postRepostsCount={postRepostsCount}
-          postViewsCountRounded={postViewsCountRounded}
-        />
-        {isMobile && !isRelatedPost &&
-          <WatchTool
-            isMobile
-            isWatchingPost={isWatchingPost}
-            onClickWatchPost={this.onClickWatchPost}
+        )
+      default:
+        return (
+          <Post
+            {...{
+              adminActions,
+              author,
+              avatar,
+              columnWidth,
+              commentOffset,
+              content,
+              contentWarning,
+              contentWidth,
+              detailPath,
+              innerHeight,
+              isCommentsActive: this.state.isCommentsActive,
+              isCommentsRequesting,
+              isGridMode,
+              isLoggedIn,
+              isMobile,
+              isOwnOriginalPost,
+              isOwnPost,
+              isPostDetail,
+              isPostHeaderHidden,
+              isRelatedPost,
+              isRepost,
+              isRepostAnimating,
+              isWatchingPost,
+              post,
+              postCommentsCount,
+              postCreatedAt,
+              postHeader,
+              postId,
+              postLoved,
+              postLovesCount,
+              postReposted,
+              postRepostsCount,
+              postViewsCountRounded,
+              repostContent,
+              showCommentEditor,
+              showEditor,
+              submissionStatus,
+              summary,
+              supportsNativeEditor,
+            }}
           />
-        }
-        {isLoggedIn && showCommentEditor && supportsNativeEditor &&
-          <LaunchCommentEditorButton avatar={avatar} post={post} />
-        }
-        {showCommentEditor && !supportsNativeEditor && <Editor post={post} isComment />}
-        {showCommentEditor &&
-          <StreamContainer
-            action={loadComments(postId)}
-            className="TabListStreamContainer isFullWidth"
-            paginatorText="See More"
-            paginatorTo={detailPath}
-            postCommentsCount={postCommentsCount}
-            shouldInfiniteScroll={false}
-          />
-        }
-      </div>)
+        )
+    }
   }
 }
 

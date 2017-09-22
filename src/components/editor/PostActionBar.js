@@ -5,7 +5,6 @@ import { connect } from 'react-redux'
 import {
   ArrowIcon,
   BrowseIcon,
-  CameraIcon,
   MoneyIconCircle,
   ReplyAllIcon,
   XIconLG,
@@ -13,7 +12,6 @@ import {
 import { openModal, closeModal } from '../../actions/modals'
 import { updateBuyLink } from '../../actions/editor'
 import BuyLinkDialog from '../dialogs/BuyLinkDialog'
-import { selectDeviceSize } from '../../selectors/gui'
 import { css, disabled, hover, media, modifier, parent, select } from '../../styles/jss'
 import * as s from '../../styles/jso'
 
@@ -45,9 +43,6 @@ const buttonStyle = css(
   s.bgcBlack,
   s.colorWhite,
   s.hv40,
-  s.inlineFlex,
-  s.itemsCenter,
-  s.justifyCenter,
   s.lh40,
   s.nowrap,
   s.wv40,
@@ -75,6 +70,13 @@ const buttonStyle = css(
   modifier('.forSubmit', s.bgcGreen, disabled(s.bgcA), hover({ backgroundColor: '#02B302' }), { width: 'auto' }),
   parent('.isComment', s.wv40, media(s.minBreak2, s.wv40)),
   parent('.PostGrid', s.wv40, media(s.minBreak2, s.wv40)),
+)
+
+const buttonContentsStyle = css(
+  s.inlineFlex,
+  s.itemsCenter,
+  s.justifyCenter,
+  { height: '100%' },
 )
 
 const cancelTextButtonStyle = css(
@@ -109,18 +111,11 @@ const labelStyle = css(
 )
 const hide = css(s.hide)
 
-function mapStateToProps(state) {
-  return {
-    deviceSize: selectDeviceSize(state),
-  }
-}
-
 class PostActionBar extends Component {
 
   static propTypes = {
     buyLink: PropTypes.string,
     cancelAction: PropTypes.func.isRequired,
-    deviceSize: PropTypes.string.isRequired,
     dispatch: PropTypes.func.isRequired,
     disableSubmitAction: PropTypes.bool.isRequired,
     editorId: PropTypes.string.isRequired,
@@ -179,7 +174,7 @@ class PostActionBar extends Component {
   }
 
   render() {
-    const { deviceSize, disableSubmitAction, hasMedia, replyAllAction, submitText } = this.props
+    const { disableSubmitAction, hasMedia, replyAllAction, submitText } = this.props
     const isBuyLinked = this.props.buyLink && this.props.buyLink.length
     return (
       <div className={wrapperStyle}>
@@ -189,28 +184,34 @@ class PostActionBar extends Component {
             onClick={this.browse}
             ref={(comp) => { this.browseButton = comp }}
           >
-            <span className={labelStyle}>Upload</span>
-            {deviceSize === 'mobile' ? <CameraIcon /> : <BrowseIcon />}
+            <div className={buttonContentsStyle}>
+              <span className={labelStyle}>Upload</span>
+              <BrowseIcon />
+            </div>
           </button>
           <button
             className={classNames('PostActionButton forMoney', { isBuyLinked }, `${buttonStyle}`)}
             disabled={!hasMedia}
             onClick={this.money}
           >
-            <span className={labelStyle}>Sell</span>
-            <MoneyIconCircle />
+            <div className={buttonContentsStyle}>
+              <span className={labelStyle}>Sell</span>
+              <MoneyIconCircle />
+            </div>
           </button>
-          {
-            replyAllAction ?
-              <button className={`PostActionButton forReplyAll ${buttonStyle}`} onClick={replyAllAction}>
+          {replyAllAction &&
+            <button className={`PostActionButton forReplyAll ${buttonStyle}`} onClick={replyAllAction}>
+              <div className={buttonContentsStyle}>
                 <span className={labelStyle}>Reply All</span>
                 <ReplyAllIcon />
-              </button> :
-              null
+              </div>
+            </button>
           }
           <button className={`PostActionButton forCancel ${buttonStyle}`} onClick={this.cancel}>
-            <span className={labelStyle}>Cancel</span>
-            <XIconLG />
+            <div className={buttonContentsStyle}>
+              <span className={labelStyle}>Cancel</span>
+              <XIconLG />
+            </div>
           </button>
         </div>
 
@@ -224,8 +225,10 @@ class PostActionBar extends Component {
             ref={(comp) => { this.submitButton = comp }}
             onClick={this.submitted}
           >
-            <span className={labelStyle}>{submitText}</span>
-            <ArrowIcon />
+            <div className={buttonContentsStyle}>
+              <span className={labelStyle}>{submitText}</span>
+              <ArrowIcon />
+            </div>
           </button>
         </div>
         <input
@@ -241,5 +244,5 @@ class PostActionBar extends Component {
   }
 }
 
-export default connect(mapStateToProps)(PostActionBar)
+export default connect()(PostActionBar)
 

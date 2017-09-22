@@ -140,7 +140,6 @@
 }
 
 .BlockedUsers .ElloMark.isSpinner > .SmileShape,
-.TabListStreamContainer .ElloMark.isSpinner > .SmileShape,
 .MutedUsers .ElloMark.isSpinner > .SmileShape {
   fill: #fff !important;
 }
@@ -446,11 +445,11 @@
   stroke-width: 0.5;
 }
 
-.PostActionButton > .BrowseIcon > g {
+.PostActionButton .BrowseIcon > g {
   fill: transparent;
 }
 
-.PostActionButton > .XIconLG {
+.PostActionButton .XIconLG {
   margin-top: -2px;
   margin-left: -2px;
 }
@@ -460,7 +459,7 @@
   stroke: none;
 }
 
-.PostActionButton > .SVGIcon > g {
+.PostActionButton .SVGIcon > g {
   stroke: #fff;
 }
 

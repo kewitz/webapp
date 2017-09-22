@@ -11,7 +11,7 @@ import { POST } from '../constants/action_types'
 import { scrollToPosition, scrollToSelector } from '../lib/jello'
 import { postLovers, postReposters } from '../networking/api'
 import { selectIsLoggedIn } from '../selectors/authentication'
-import { selectColumnCount, selectInnerHeight } from '../selectors/gui'
+import { selectColumnCount, selectInnerHeight, selectInnerWidth } from '../selectors/gui'
 import { selectParamsToken, selectParamsUsername } from '../selectors/params'
 import {
   selectPost,
@@ -32,6 +32,7 @@ function mapStateToProps(state, props) {
     columnCount: selectColumnCount(state, props),
     hasRelatedPostsButton: selectPostHasRelatedButton(state, props),
     innerHeight: selectInnerHeight(state, props),
+    innerWidth: selectInnerWidth(state, props),
     isLoggedIn: selectIsLoggedIn(state),
     isPostEmpty: selectPostIsEmpty(state, props),
     locationKey: selectPropsLocationKey(state, props),
@@ -53,6 +54,7 @@ class PostDetailContainer extends Component {
     dispatch: PropTypes.func.isRequired,
     hasRelatedPostsButton: PropTypes.bool.isRequired,
     innerHeight: PropTypes.number.isRequired,
+    innerWidth: PropTypes.number.isRequired,
     isLoggedIn: PropTypes.bool.isRequired,
     isPostEmpty: PropTypes.bool.isRequired,
     locationKey: PropTypes.string,
@@ -127,6 +129,10 @@ class PostDetailContainer extends Component {
 
   shouldComponentUpdate(nextProps, nextState) {
     if (!nextProps.author || !nextProps.post) { return false }
+    // only allow innerWidth to allow a render if we cross the break 3
+    // threshold on either side since innerWidth is calculated on resize
+    if ((nextProps.innerWidth >= 960 && this.props.innerWidth < 960) ||
+        (nextProps.innerWidth < 960 && this.props.innerWidth >= 960)) { return true }
     return !Immutable.is(nextProps.post, this.props.post) ||
       ['hasRelatedPostsButton', 'paramsToken', 'paramsUsername'].some(prop =>
         nextProps[prop] !== this.props[prop],
@@ -168,6 +174,7 @@ class PostDetailContainer extends Component {
       author,
       avatar,
       columnCount,
+      innerWidth,
       hasRelatedPostsButton,
       isLoggedIn,
       isPostEmpty,
@@ -203,6 +210,7 @@ class PostDetailContainer extends Component {
       isLoggedIn,
       key: `postDetail_${paramsToken}`,
       post,
+      shouldInlineComments: innerWidth < 960,
       streamAction: this.getStreamAction(),
       tabs,
     }

@@ -31,6 +31,7 @@
 }
 
 .TextRegion {
+  width: 100%;
   max-width: 780px;
   word-wrap: break-word;
 }
