@@ -95,12 +95,10 @@ const labelStyle = css(
     select('& + .SVGIcon', { marginRight: 11 }),
     parent(
       '.PostDetail .forComment',
-      s.inlineBlock,
-      select('& + .SVGIcon', { marginRight: 11 }),
+      select('& + .SVGIcon', { marginRight: 11, marginLeft: 11 }),
     ),
     parent(
       '.isComment .forComment',
-      s.inlineBlock,
       select('& + .SVGIcon', { marginRight: 11 }),
     ),
   ),
