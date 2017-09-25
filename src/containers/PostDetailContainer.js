@@ -86,11 +86,7 @@ class PostDetailContainer extends Component {
   }
 
   componentWillMount() {
-    const { dispatch, paramsToken, paramsUsername, post, isPostEmpty } = this.props
-    if (!isPostEmpty) {
-      this.lovesWasOpen = post.get('showLovers')
-      this.repostsWasOpen = post.get('showReposters')
-    }
+    const { dispatch, paramsToken, paramsUsername } = this.props
     this.state = { activeType: 'comments', renderType: POST.DETAIL_REQUEST }
     dispatch(loadPostDetail(`~${paramsToken}`, `~${paramsUsername}`))
   }
