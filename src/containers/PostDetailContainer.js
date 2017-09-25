@@ -76,18 +76,20 @@ class PostDetailContainer extends Component {
   }
 
   static childContextTypes = {
+    onToggleInlineCommenting: PropTypes.func.isRequired,
     onClickScrollToRelatedPosts: PropTypes.func.isRequired,
   }
 
   getChildContext() {
     return {
+      onToggleInlineCommenting: this.onToggleInlineCommenting,
       onClickScrollToRelatedPosts: this.onClickScrollToRelatedPosts,
     }
   }
 
   componentWillMount() {
     const { dispatch, paramsToken, paramsUsername } = this.props
-    this.state = { activeType: 'comments', renderType: POST.DETAIL_REQUEST }
+    this.state = { activeType: 'comments', isInlineCommenting: false, renderType: POST.DETAIL_REQUEST }
     dispatch(loadPostDetail(`~${paramsToken}`, `~${paramsUsername}`))
   }
 
@@ -131,9 +133,11 @@ class PostDetailContainer extends Component {
       ['hasRelatedPostsButton', 'paramsToken', 'paramsUsername'].some(prop =>
         nextProps[prop] !== this.props[prop],
       ) ||
-      ['activeType', 'renderType'].some(prop => nextState[prop] !== this.state[prop])
+      ['activeType', 'isInlineCommenting', 'renderType'].some(prop => nextState[prop] !== this.state[prop])
   }
 
+  onToggleInlineCommenting = () => {
+    this.setState({ isInlineCommenting: !this.state.isInlineCommenting })
   }
 
   onClickScrollToRelatedPosts = () => {
@@ -172,7 +176,7 @@ class PostDetailContainer extends Component {
       post,
       tabs,
     } = this.props
-    const { activeType, renderType } = this.state
+    const { activeType, isInlineCommenting, renderType } = this.state
     // render loading/failure if we don't have an initial post
     if (isPostEmpty) {
       if (renderType === POST.DETAIL_REQUEST) {
@@ -197,6 +201,7 @@ class PostDetailContainer extends Component {
       columnCount,
       hasEditor: author && author.get('hasCommentingEnabled') && !(post.get('isReposting') || post.get('isEditing')),
       hasRelatedPostsButton,
+      isInlineCommenting,
       isLoggedIn,
       key: `postDetail_${paramsToken}`,
       post,

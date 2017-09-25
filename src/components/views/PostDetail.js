@@ -5,7 +5,7 @@ import PostContainer from '../../containers/PostContainer'
 import StreamContainer from '../../containers/StreamContainer'
 import { MainView } from '../views/MainView'
 import { loadRelatedPosts } from '../../actions/posts'
-import { LaunchNativeCommentEditorButton } from '../posts/PostRenderables'
+import { LaunchMobileCommentEditorButton, LaunchNativeCommentEditorButton } from '../posts/PostRenderables'
 import { css, hover, media, modifier, select } from '../../styles/jss'
 import * as s from '../../styles/jso'
 import * as ElloAndroidInterface from '../../lib/android_interface'
@@ -94,9 +94,14 @@ const asideStyle = css(
 )
 
 const CommentContent = (
-  { activeType, avatar, hasEditor, isLoggedIn, post, streamAction }) => (
+  { activeType, avatar, hasEditor, isInlineCommenting, isLoggedIn, post, streamAction },
+  { onToggleInlineCommenting },
+  ) => (
     <div className="CommentContent">
-      {hasEditor && activeType === 'comments' && !ElloAndroidInterface.supportsNativeEditor() &&
+      {!isInlineCommenting &&
+        <LaunchMobileCommentEditorButton avatar={avatar} post={post} />
+      }
+      {isInlineCommenting && hasEditor && activeType === 'comments' && !ElloAndroidInterface.supportsNativeEditor() &&
         <Editor post={post} isComment onCancel={onToggleInlineCommenting} />
       }
       {isLoggedIn && ElloAndroidInterface.supportsNativeEditor() &&
@@ -117,15 +122,18 @@ CommentContent.propTypes = {
   activeType: PropTypes.string.isRequired,
   avatar: PropTypes.object,
   hasEditor: PropTypes.bool.isRequired,
+  isInlineCommenting: PropTypes.bool,
   isLoggedIn: PropTypes.bool.isRequired,
   post: PropTypes.object.isRequired,
   streamAction: PropTypes.object,
 }
 CommentContent.defaultProps = {
   avatar: null,
+  isInlineCommenting: false,
   streamAction: null,
 }
 CommentContent.contextTypes = {
+  onToggleInlineCommenting: PropTypes.func.isRequired,
 }
 
 // TODO: Remove references to the PostDetailStreamContainer styles
