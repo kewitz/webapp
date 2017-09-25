@@ -5,7 +5,7 @@ import PostContainer from '../../containers/PostContainer'
 import StreamContainer from '../../containers/StreamContainer'
 import { MainView } from '../views/MainView'
 import { loadRelatedPosts } from '../../actions/posts'
-import { LaunchCommentEditorButton } from '../posts/PostRenderables'
+import { LaunchNativeCommentEditorButton } from '../posts/PostRenderables'
 import { css, hover, media, modifier, select } from '../../styles/jss'
 import * as s from '../../styles/jso'
 import * as ElloAndroidInterface from '../../lib/android_interface'
@@ -96,9 +96,11 @@ const asideStyle = css(
 const CommentContent = (
   { activeType, avatar, hasEditor, isLoggedIn, post, streamAction }) => (
     <div className="CommentContent">
-      {hasEditor && activeType === 'comments' && !ElloAndroidInterface.supportsNativeEditor() && <Editor post={post} isComment />}
+      {hasEditor && activeType === 'comments' && !ElloAndroidInterface.supportsNativeEditor() &&
+        <Editor post={post} isComment onCancel={onToggleInlineCommenting} />
+      }
       {isLoggedIn && ElloAndroidInterface.supportsNativeEditor() &&
-        <LaunchCommentEditorButton avatar={avatar} post={post} />
+        <LaunchNativeCommentEditorButton avatar={avatar} post={post} />
       }
       {streamAction &&
         <StreamContainer
