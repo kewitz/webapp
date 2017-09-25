@@ -58,6 +58,7 @@ const contentContainerStyle = css(
   { height: 330 },
   s.p10,
   s.relative,
+  media(s.maxBreak2, s.relative, s.pb0, { height: 'auto' }),
   media(s.minBreak3, s.py30, s.px20, { height: 285 }),
   media(s.minBreak4, { height: 250 }),
 )
@@ -141,6 +142,7 @@ const shortDescriptionStyle = css(
   select('& br', { display: 'none' }),
   media(s.minBreak3, s.mt40),
   media(s.maxBreak4, s.absolute, s.mt0, s.pr20, { bottom: 0 }),
+  media(s.maxBreak2, s.relative, { bottom: 'auto' }),
 )
 
 const getStatusText = (status) => {
