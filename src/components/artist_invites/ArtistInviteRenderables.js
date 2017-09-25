@@ -55,7 +55,7 @@ const logoImageStyle = css(
 )
 
 const contentContainerStyle = css(
-  { height: 305 },
+  { height: 330 },
   s.p10,
   s.relative,
   media(s.minBreak3, s.py30, s.px20, { height: 285 }),
@@ -140,6 +140,7 @@ const dateRangeStyle = css(
 const shortDescriptionStyle = css(
   select('& br', { display: 'none' }),
   media(s.minBreak3, s.mt40),
+  media(s.maxBreak4, s.absolute, s.mt0, s.pr20, { bottom: 0 }),
 )
 
 const getStatusText = (status) => {
