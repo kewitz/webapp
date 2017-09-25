@@ -34,6 +34,11 @@
   max-width: calc(100% - 80px);
 }
 
+.isOwnPost .PostHeaderAuthor,
+.isOwnPost .RepostHeaderAuthor {
+  max-width: calc(100% - 125px);
+}
+
 .PostHeader .RelationshipContainer,
 .CategoryHeader .RelationshipContainer,
 .RepostHeader .RelationshipContainer {
@@ -71,6 +76,11 @@
   margin-top: -12px;
   margin-left: 40px;
   line-height: 15px;
+}
+
+.isOwnPost .PostDetailHeaderUsername,
+.isOwnPost .RepostHeaderReposter {
+  max-width: calc(100% - 190px);
 }
 
 .CategoryHeaderCategoryName {

@@ -128,14 +128,18 @@ export class PostHeader extends PureComponent {
   static propTypes = {
     author: PropTypes.object.isRequired,
     detailPath: PropTypes.string.isRequired,
+    isOwnPost: PropTypes.string.isRequired,
     isPostDetail: PropTypes.bool.isRequired,
     postCreatedAt: PropTypes.string.isRequired,
     postId: PropTypes.string.isRequired,
   }
   render() {
-    const { author, detailPath, isPostDetail, postCreatedAt, postId } = this.props
+    const { author, detailPath, isOwnPost, isPostDetail, postCreatedAt, postId } = this.props
     return (
-      <header className="PostHeader" key={`PostHeader_${postId}`}>
+      <header
+        className={classNames('PostHeader', { isOwnPost })}
+        key={`PostHeader_${postId}`}
+      >
         <div className="PostHeaderAuthor">
           <Link className="PostHeaderLink" to={`/${author.get('username')}`}>
             <Avatar
@@ -232,15 +236,24 @@ export class RepostHeader extends PureComponent {
   static propTypes = {
     detailPath: PropTypes.string.isRequired,
     inUserDetail: PropTypes.bool.isRequired,
+    isOwnPost: PropTypes.bool.isRequired,
     postCreatedAt: PropTypes.string.isRequired,
     postId: PropTypes.string.isRequired,
     repostAuthor: PropTypes.object.isRequired,
     repostedBy: PropTypes.object.isRequired,
   }
   render() {
-    const { detailPath, inUserDetail, postCreatedAt, postId, repostAuthor, repostedBy } = this.props
+    const {
+      detailPath,
+      inUserDetail,
+      isOwnPost,
+      postCreatedAt,
+      postId,
+      repostAuthor,
+      repostedBy,
+    } = this.props
     return (
-      <header className={classNames('RepostHeader', { inUserDetail })} key={`RepostHeader_${postId}`}>
+      <header className={classNames('RepostHeader', { inUserDetail, isOwnPost })} key={`RepostHeader_${postId}`}>
         <div className="RepostHeaderAuthor">
           <Link className="PostHeaderLink" to={`/${repostAuthor.get('username')}`}>
             <Avatar

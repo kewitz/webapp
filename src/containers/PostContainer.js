@@ -443,6 +443,7 @@ class PostContainer extends Component {
         <RepostHeader
           {...headerProps}
           inUserDetail={isPostHeaderHidden}
+          isOwnPost={isOwnPost}
           repostAuthor={repostAuthor}
           repostedBy={author}
         />
@@ -463,6 +464,7 @@ class PostContainer extends Component {
         <PostHeader
           {...headerProps}
           author={author}
+          isOwnPost={isOwnPost}
           isPostDetail={isPostDetail}
         />
       )
