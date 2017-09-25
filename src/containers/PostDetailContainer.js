@@ -76,13 +76,11 @@ class PostDetailContainer extends Component {
   }
 
   static childContextTypes = {
-    onClickDetailTab: PropTypes.func.isRequired,
     onClickScrollToRelatedPosts: PropTypes.func.isRequired,
   }
 
   getChildContext() {
     return {
-      onClickDetailTab: this.onClickDetailTab,
       onClickScrollToRelatedPosts: this.onClickScrollToRelatedPosts,
     }
   }
@@ -140,10 +138,6 @@ class PostDetailContainer extends Component {
       ['activeType', 'renderType'].some(prop => nextState[prop] !== this.state[prop])
   }
 
-  onClickDetailTab = (vo) => {
-    if (vo.type) {
-      this.setState({ activeType: vo.type })
-    }
   }
 
   onClickScrollToRelatedPosts = () => {

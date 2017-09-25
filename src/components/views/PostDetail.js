@@ -124,7 +124,6 @@ CommentContent.defaultProps = {
   streamAction: null,
 }
 CommentContent.contextTypes = {
-  onClickDetailTab: PropTypes.func.isRequired,
 }
 
 // TODO: Remove references to the PostDetailStreamContainer styles
