@@ -302,9 +302,7 @@ export const ArtistInviteDetail = ({
               See Submissions
             </RoundedRect>
           }
-          <div>
-            <p dangerouslySetInnerHTML={{ __html: description }} />
-          </div>
+          <div dangerouslySetInnerHTML={{ __html: description }} />
         </div>
         <div className={contentColumnStyle}>
           {status === 'open' && isLoggedIn &&
