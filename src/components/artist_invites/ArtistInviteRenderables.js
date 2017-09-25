@@ -138,6 +138,7 @@ const dateRangeStyle = css(
 )
 
 const shortDescriptionStyle = css(
+  select('& br', { display: 'none' }),
   media(s.minBreak3, s.mt40),
 )
 
@@ -193,9 +194,7 @@ export const ArtistInviteGrid = ({
         <p className={inviteTypeStyle}>{inviteType}</p>
         {renderBulletStatus(status)}
         <p className={dateRangeStyle}>{`${moment(openedAt).format('MMM D')} — ${moment(closedAt).format('MMM D, YYYY')}`}</p>
-        <div className={shortDescriptionStyle}>
-          <p dangerouslySetInnerHTML={{ __html: shortDescription }} />
-        </div>
+        <div className={shortDescriptionStyle} dangerouslySetInnerHTML={{ __html: shortDescription }} />
       </div>
     </article>
   </Link>
