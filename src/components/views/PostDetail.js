@@ -96,17 +96,20 @@ const asideStyle = css(
 const CommentContent = (
   { activeType, avatar, hasEditor, isInlineCommenting, isLoggedIn, post, streamAction },
   { onToggleInlineCommenting },
-  ) => (
+  ) => {
+  let editorOrButton = null
+  if (isLoggedIn && ElloAndroidInterface.supportsNativeEditor()) {
+    editorOrButton = <LaunchNativeCommentEditorButton avatar={avatar} post={post} />
+  } else if (hasEditor && activeType === 'comments') {
+    if (isInlineCommenting) {
+      editorOrButton = <Editor post={post} isComment onCancel={onToggleInlineCommenting} />
+    } else {
+      editorOrButton = <LaunchMobileCommentEditorButton avatar={avatar} post={post} />
+    }
+  }
+  return (
     <div className="CommentContent">
-      {!isInlineCommenting &&
-        <LaunchMobileCommentEditorButton avatar={avatar} post={post} />
-      }
-      {isInlineCommenting && hasEditor && activeType === 'comments' && !ElloAndroidInterface.supportsNativeEditor() &&
-        <Editor post={post} isComment onCancel={onToggleInlineCommenting} />
-      }
-      {isLoggedIn && ElloAndroidInterface.supportsNativeEditor() &&
-        <LaunchNativeCommentEditorButton avatar={avatar} post={post} />
-      }
+      {editorOrButton}
       {streamAction &&
         <StreamContainer
           action={streamAction}
@@ -118,6 +121,7 @@ const CommentContent = (
       }
     </div>
   )
+}
 CommentContent.propTypes = {
   activeType: PropTypes.string.isRequired,
   avatar: PropTypes.object,
@@ -155,7 +159,7 @@ export const PostDetail = (props) => {
         {!shouldInlineComments &&
           <aside className={asideStyle}>
             <PostContainer type="PostDetailAsideTop" postId={post.get('id')} />
-            <CommentContent {...props} />
+            <CommentContent {...props} isInlineCommenting />
             <PostContainer type="PostDetailAsideBottom" postId={post.get('id')} />
           </aside>
         }
