@@ -45,6 +45,10 @@ function mapStateToProps(state, props) {
   }
 }
 
+function getShouldInlineComments(innerWidth) {
+  return innerWidth < 960
+}
+
 class PostDetailContainer extends Component {
 
   static propTypes = {
@@ -127,8 +131,10 @@ class PostDetailContainer extends Component {
     if (!nextProps.author || !nextProps.post) { return false }
     // only allow innerWidth to allow a render if we cross the break 3
     // threshold on either side since innerWidth is calculated on resize
-    if ((nextProps.innerWidth >= 960 && this.props.innerWidth < 960) ||
-        (nextProps.innerWidth < 960 && this.props.innerWidth >= 960)) { return true }
+    if (getShouldInlineComments(nextProps.innerWidth) !==
+      getShouldInlineComments(this.props.innerWidth)) {
+      return true
+    }
     return !Immutable.is(nextProps.post, this.props.post) ||
       ['hasRelatedPostsButton', 'paramsToken', 'paramsUsername'].some(prop =>
         nextProps[prop] !== this.props[prop],
@@ -168,7 +174,6 @@ class PostDetailContainer extends Component {
       author,
       avatar,
       columnCount,
-      innerWidth,
       hasRelatedPostsButton,
       isLoggedIn,
       isPostEmpty,
@@ -205,7 +210,7 @@ class PostDetailContainer extends Component {
       isLoggedIn,
       key: `postDetail_${paramsToken}`,
       post,
-      shouldInlineComments: innerWidth < 960,
+      shouldInlineComments: getShouldInlineComments(this.props.innerWidth),
       streamAction: this.getStreamAction(),
       tabs,
     }
