@@ -158,9 +158,6 @@ PostDetail.propTypes = {
   post: PropTypes.object.isRequired,
   shouldInlineComments: PropTypes.bool.isRequired,
 }
-PostDetail.contextTypes = {
-  onLaunchNativeEditor: PropTypes.func.isRequired,
-}
 
 export const PostDetailError = ({ children }) =>
   (<MainView className="PostDetail">
