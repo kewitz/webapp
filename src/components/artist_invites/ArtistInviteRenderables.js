@@ -58,7 +58,7 @@ const contentContainerStyle = css(
   { height: 305 },
   s.p10,
   s.relative,
-  media(s.minBreak3, s.py30, s.px20),
+  media(s.minBreak3, s.py30, s.px20, { height: 285 }),
   media(s.minBreak4, { height: 250 }),
 )
 
