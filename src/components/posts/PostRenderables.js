@@ -424,20 +424,6 @@ const launchCommentEditorButtonStyle = css(
 export const LaunchNativeCommentEditorButton = ({ avatar, post }, { onLaunchNativeEditor }) =>
   <LaunchCommentEditorButton avatar={avatar} post={post} onLaunch={onLaunchNativeEditor} />
 
-export const LaunchMobileCommentEditorButton = ({ avatar, post }, { onToggleInlineCommenting }) =>
-  <LaunchCommentEditorButton avatar={avatar} post={post} onLaunch={onToggleInlineCommenting} />
-
-const LaunchCommentEditorButton = ({ avatar, post, onLaunch }) =>
-  (<div className={launchCommentEditorStyle}>
-    <Avatar className={`${launchCommentEditorAvatarStyle}`} sources={avatar} />
-    <button
-      className={launchCommentEditorButtonStyle}
-      onClick={() => onLaunch(post, true, null)}
-    >
-      Comment...
-    </button>
-  </div>)
-
 LaunchNativeCommentEditorButton.propTypes = {
   avatar: PropTypes.object,
   post: PropTypes.object,
@@ -450,6 +436,9 @@ LaunchNativeCommentEditorButton.contextTypes = {
   onLaunchNativeEditor: PropTypes.func.isRequired,
 }
 
+export const LaunchMobileCommentEditorButton = ({ avatar, post }, { onToggleInlineCommenting }) =>
+  <LaunchCommentEditorButton avatar={avatar} post={post} onLaunch={onToggleInlineCommenting} />
+
 LaunchMobileCommentEditorButton.propTypes = {
   avatar: PropTypes.object,
   post: PropTypes.object,
@@ -461,6 +450,17 @@ LaunchMobileCommentEditorButton.defaultProps = {
 LaunchMobileCommentEditorButton.contextTypes = {
   onToggleInlineCommenting: PropTypes.func.isRequired,
 }
+
+const LaunchCommentEditorButton = ({ avatar, post, onLaunch }) =>
+  (<div className={launchCommentEditorStyle}>
+    <Avatar className={`${launchCommentEditorAvatarStyle}`} sources={avatar} />
+    <button
+      className={launchCommentEditorButtonStyle}
+      onClick={() => onLaunch(post, true, null)}
+    >
+      Comment...
+    </button>
+  </div>)
 
 LaunchCommentEditorButton.propTypes = {
   avatar: PropTypes.object,
