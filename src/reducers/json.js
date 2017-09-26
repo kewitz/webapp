@@ -82,40 +82,39 @@ methods.removePageId = (state, pageName, id) => {
 }
 
 methods.mergeModel = (state, type, params) => {
-  if (params.id) {
-    // make the model's id a string for later comparisons
-    // the API sent them back as a number at one point
-    params.id = `${params.id}`
-    return state.setIn(
-      [type, params.id],
-      state.getIn([type, params.id], Immutable.Map()).mergeDeep(params),
-    )
-  }
-  return state
+  if (!params.id) { return state }
+
+  // make the model's id a string for later comparisons
+  // the API sent them back as a number at one point
+  params.id = `${params.id}`
+  return state.setIn(
+    [type, params.id],
+    state.getIn([type, params.id], Immutable.Map()).mergeDeep(params),
+  )
 }
 
 methods.addModels = (state, type, data) => {
   // add state['modelType']
   const camelType = camelize(type)
   let ids = Immutable.List()
+  if (!data[camelType]) { return { ids, state } }
+
   // need to clobber the invite submissions since we want to replace
   // their actions and not merge them with what we had previously
   if (type === MAPPING_TYPES.ARTIST_INVITE_SUBMISSIONS) {
-    if (data[camelType]) {
-      if (data[camelType].length) {
-        // add arrays of models to state['modelType']['id']
-        data[camelType].forEach((item) => {
-          const id = `${item.id}`
-          state = state.setIn([camelType, id], Immutable.fromJS(item))
-          ids = ids.push(id)
-        })
-      } else if (typeof data[camelType] === 'object') {
-        // add single model objects to state['modelType']['id']
-        const model = data[camelType]
-        const id = `${model.id}`
-        state = state.setIn([camelType, id], Immutable.fromJS(model))
+    if (data[camelType].length) {
+      // add arrays of models to state['modelType']['id']
+      data[camelType].forEach((item) => {
+        const id = `${item.id}`
+        state = state.setIn([camelType, id], Immutable.fromJS(item))
         ids = ids.push(id)
-      }
+      })
+    } else if (typeof data[camelType] === 'object') {
+      // add single model objects to state['modelType']['id']
+      const model = data[camelType]
+      const id = `${model.id}`
+      state = state.setIn([camelType, id], Immutable.fromJS(model))
+      ids = ids.push(id)
     }
   } else if (type === MAPPING_TYPES.CATEGORIES || type === MAPPING_TYPES.PAGE_PROMOTIONALS) {
     data[camelType].forEach((item) => {
@@ -126,13 +125,13 @@ methods.addModels = (state, type, data) => {
       )
       ids = ids.push(id)
     })
-  } else if (data[camelType] && data[camelType].length) {
+  } else if (data[camelType].length) {
     // add arrays of models to state['modelType']['id']
     data[camelType].forEach((model) => {
       state = methods.mergeModel(state, camelType, model)
       ids = ids.push(`${model.id}`)
     })
-  } else if (data[camelType] && typeof data[camelType] === 'object') {
+  } else if (typeof data[camelType] === 'object') {
     // add single model objects to state['modelType']['id']
     const model = data[camelType]
     state = methods.mergeModel(state, camelType, model)
