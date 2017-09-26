@@ -54,7 +54,6 @@ const buttonStyle = css(
 const mapStateToProps = (state, props) => {
   const links = (props.links || Immutable.Map([])).filter(l => l.get('type') === 'artist_invite_submission_stream')
   const selectedKey = links.size > 0 ? selectSubmissionType(state, props) || KEYS[0] : KEYS[0]
-  console.log({selectedKey})
   return {
     links,
     selectedKey,
