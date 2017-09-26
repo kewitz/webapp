@@ -3,10 +3,14 @@ import Immutable from 'immutable'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { loadArtistInvites } from '../actions/artist_invites'
+import { getLinkObject } from '../helpers/json_helper'
+import { trackPostViews } from '../actions/posts'
 import StreamContainer from '../containers/StreamContainer'
 import { HeroHeader } from '../components/heros/HeroRenderables'
 import { MainView } from '../components/views/MainView'
 import { selectQueryPreview } from '../selectors/routing'
+import { selectRandomArtistInvitePromotion } from '../selectors/promotions'
+import { selectJson } from '../selectors/store'
 import { media } from '../styles/jss'
 import { maxBreak2 } from '../styles/jso'
 import { selectDPI } from '../selectors/gui'
@@ -19,49 +23,62 @@ const streamStyle = media(maxBreak2, {
 const mapStateToProps = state => ({
   dpi: selectDPI(state),
   isPreview: selectQueryPreview(state) === 'true',
+  json: selectJson(state),
+  randomPromotion: selectRandomArtistInvitePromotion(state),
 })
 
 class ArtistInvitesPage extends Component {
 
   static propTypes = {
+    dispatch: PropTypes.func.isRequired,
     dpi: PropTypes.string.isRequired,
     isPreview: PropTypes.bool,
-    sources: PropTypes.object,
-    avatarSources: PropTypes.object,
+    json: PropTypes.object,
+    randomPromotion: PropTypes.object,
   }
 
   static defaultProps = {
     isPreview: false,
-    sources: Immutable.fromJS({
-      optimized: { url: 'https://assets1.ello.co/uploads/asset/attachment/6068843/ello-optimized-d8de29f9.jpg', metadata: 'optimized' },
-      mdpi: { url: 'https://assets1.ello.co/uploads/asset/attachment/6068843/ello-mdpi-d8de29f9.jpg', metadata: 'mdpi' },
-      hdpi: { url: 'https://assets0.ello.co/uploads/asset/attachment/6068843/ello-hdpi-d8de29f9.jpg', metadata: 'hdpi' },
-      xhdpi: { url: 'https://assets1.ello.co/uploads/asset/attachment/6068843/ello-xhdpi-d8de29f9.jpg', metadata: 'xhdpi' },
-    }),
-    avatarSources: Immutable.fromJS({
-      original: { url: 'https://assets0.ello.co/uploads/user/avatar/2994948/ello-ed873787-1511-4aaa-a690-f7ee88903523.jpeg', metadata: 'optimized' },
-      small: { url: 'https://assets0.ello.co/uploads/user/avatar/2994948/ello-small-a12660d4.png', metadata: 'mdpi' },
-      regular: { url: 'https://assets0.ello.co/uploads/user/avatar/2994948/ello-regular-a12660d4.png', metadata: 'hdpi' },
-      large: { url: 'https://assets2.ello.co/uploads/user/avatar/2994948/ello-large-a12660d4.png', metadata: 'xhdpi' },
-    }),
+    json: null,
+    randomPromotion: null,
   }
 
-  shouldComponentUpdate() {
-    return false
+  shouldComponentUpdate(nextProps) {
+    return !Immutable.is(nextProps.randomPromotion, this.props.randomPromotion) ||
+      ['dpi'].some(prop =>
+        nextProps[prop] !== this.props[prop],
+      )
+  }
+
+  componentDidUpdate() {
+    const { dispatch, randomPromotion } = this.props
+    if (randomPromotion && randomPromotion.get('postToken')) {
+      dispatch(trackPostViews([], [randomPromotion.get('postToken')], 'promo'))
+    }
   }
 
   render() {
-    const { dpi, sources, avatarSources } = this.props
+    const { dpi, json, randomPromotion } = this.props
+    let hero
+    if (randomPromotion) {
+      const header = randomPromotion.get('header', '')
+      const subheader = randomPromotion.get('subheader', '')
+      const user = getLinkObject(randomPromotion, 'user', json) || Immutable.Map()
+      const avatarSources = user.get('avatar', null)
+      const username = user.get('username', null)
+      const sources = randomPromotion.get('image', null)
+      hero = (<HeroHeader
+        dpi={dpi}
+        headerText={header}
+        subHeaderText={subheader}
+        sources={sources}
+        avatarSources={avatarSources}
+        username={username}
+      />)
+    }
     return (
       <MainView className="ArtistInvites">
-        <HeroHeader
-          dpi={dpi}
-          headerText="ARTIST INVITES™"
-          subHeaderText="Next-level <a href='https://ello.co/wtf/artists/'>Artist</a> x <a href='https://ello.co/wtf/brands-and-agencies/'>Brand</a> collaboration."
-          sources={sources}
-          avatarSources={avatarSources}
-          username="luisagolden"
-        />
+        {hero}
         <StreamContainer
           action={loadArtistInvites(this.props.isPreview)}
           className={`${streamStyle}`}
