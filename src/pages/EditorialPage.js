@@ -33,16 +33,16 @@ class EditorialPage extends Component {
   static defaultProps = {
     isPreview: false,
     sources: Immutable.fromJS({
-      optimized: { url: 'https://assets1.ello.co/uploads/asset/attachment/2542523/ello-optimized-c553b9c7.jpg', metadata: 'optimized' },
-      mdpi: { url: 'https://assets1.ello.co/uploads/asset/attachment/2542523/ello-mdpi-c553b9c7.jpg', metadata: 'mdpi' },
-      hdpi: { url: 'https://assets2.ello.co/uploads/asset/attachment/2542523/ello-hdpi-c553b9c7.jpg', metadata: 'hdpi' },
-      xhdpi: { url: 'https://assets0.ello.co/uploads/asset/attachment/2542523/ello-xhdpi-c553b9c7.jpg', metadata: 'xhdpi' },
+      optimized: { url: 'https://assets1.ello.co/uploads/asset/attachment/6047062/ello-optimized-aecd3299.jpg', metadata: 'optimized' },
+      mdpi: { url: 'https://assets1.ello.co/uploads/asset/attachment/6047062/ello-mdpi-aecd3299.jpg', metadata: 'mdpi' },
+      hdpi: { url: 'https://assets0.ello.co/uploads/asset/attachment/6047062/ello-hdpi-aecd3299.jpg', metadata: 'hdpi' },
+      xhdpi: { url: 'https://assets0.ello.co/uploads/asset/attachment/6047062/ello-xhdpi-aecd3299.jpg', metadata: 'xhdpi' },
     }),
     avatarSources: Immutable.fromJS({
-      original: { url: 'https://assets1.ello.co/uploads/user/avatar/930194/ello-b7ae736f-cb24-4994-898e-219be1b0f29d.gif', metadata: 'optimized' },
-      small: { url: 'https://assets1.ello.co/uploads/user/avatar/930194/ello-small-b851c6c6.png', metadata: 'mdpi' },
-      regular: { url: 'https://assets0.ello.co/uploads/user/avatar/930194/ello-regular-b851c6c6.png', metadata: 'hdpi' },
-      large: { url: 'https://assets0.ello.co/uploads/user/avatar/930194/ello-large-b851c6c6.png', metadata: 'xhdpi' },
+      original: { url: 'https://assets2.ello.co/uploads/user/avatar/14290/ello-ac835574-22c4-43e5-a437-a7364fedcc61.jpeg', metadata: 'optimized' },
+      small: { url: 'https://assets1.ello.co/uploads/user/avatar/14290/ello-small-16f0276b.png', metadata: 'mdpi' },
+      regular: { url: 'https://assets1.ello.co/uploads/user/avatar/14290/ello-regular-16f0276b.png', metadata: 'hdpi' },
+      large: { url: 'https://assets2.ello.co/uploads/user/avatar/14290/ello-large-16f0276b.png', metadata: 'xhdpi' },
     }),
   }
 
@@ -60,7 +60,7 @@ class EditorialPage extends Component {
           subHeaderText="Ello is a global <a href='https://ello.co/wtf/artists/'>community of artists</a> dedicated to creative excellence. Built by artists, for artists."
           sources={sources}
           avatarSources={avatarSources}
-          username="velvetspectrum"
+          username="skiphursh"
         />
         <StreamContainer
           action={loadEditorials(this.props.isPreview)}

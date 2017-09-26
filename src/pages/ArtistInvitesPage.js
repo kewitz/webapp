@@ -33,16 +33,16 @@ class ArtistInvitesPage extends Component {
   static defaultProps = {
     isPreview: false,
     sources: Immutable.fromJS({
-      optimized: { url: 'https://assets2.ello.co/uploads/asset/attachment/5428169/ello-optimized-1ca21ad6.jpg', metadata: 'optimized' },
-      mdpi: { url: 'https://assets0.ello.co/uploads/asset/attachment/5428169/ello-mdpi-1ca21ad6.jpg', metadata: 'mdpi' },
-      hdpi: { url: 'https://assets0.ello.co/uploads/asset/attachment/5428169/ello-hdpi-1ca21ad6.jpg', metadata: 'hdpi' },
-      xhdpi: { url: 'https://assets1.ello.co/uploads/asset/attachment/5428169/ello-xhdpi-1ca21ad6.jpg', metadata: 'xhdpi' },
+      optimized: { url: 'https://assets1.ello.co/uploads/asset/attachment/6068843/ello-optimized-d8de29f9.jpg', metadata: 'optimized' },
+      mdpi: { url: 'https://assets1.ello.co/uploads/asset/attachment/6068843/ello-mdpi-d8de29f9.jpg', metadata: 'mdpi' },
+      hdpi: { url: 'https://assets0.ello.co/uploads/asset/attachment/6068843/ello-hdpi-d8de29f9.jpg', metadata: 'hdpi' },
+      xhdpi: { url: 'https://assets1.ello.co/uploads/asset/attachment/6068843/ello-xhdpi-d8de29f9.jpg', metadata: 'xhdpi' },
     }),
     avatarSources: Immutable.fromJS({
-      original: { url: 'https://assets2.ello.co/uploads/user/avatar/293083/ello-ebffe9cd-a071-4ea9-9a87-2c2e5be00ac2.jpeg', metadata: 'optimized' },
-      small: { url: 'https://assets0.ello.co/uploads/user/avatar/293083/ello-small-ca6f2068.png', metadata: 'mdpi' },
-      regular: { url: 'https://assets0.ello.co/uploads/user/avatar/293083/ello-regular-ca6f2068.png', metadata: 'hdpi' },
-      large: { url: 'https://assets1.ello.co/uploads/user/avatar/293083/ello-large-ca6f2068.png', metadata: 'xhdpi' },
+      original: { url: 'https://assets0.ello.co/uploads/user/avatar/2994948/ello-ed873787-1511-4aaa-a690-f7ee88903523.jpeg', metadata: 'optimized' },
+      small: { url: 'https://assets0.ello.co/uploads/user/avatar/2994948/ello-small-a12660d4.png', metadata: 'mdpi' },
+      regular: { url: 'https://assets0.ello.co/uploads/user/avatar/2994948/ello-regular-a12660d4.png', metadata: 'hdpi' },
+      large: { url: 'https://assets2.ello.co/uploads/user/avatar/2994948/ello-large-a12660d4.png', metadata: 'xhdpi' },
     }),
   }
 
@@ -60,7 +60,7 @@ class ArtistInvitesPage extends Component {
           subHeaderText="Next-level <a href='https://ello.co/wtf/artists/'>Artist</a> x <a href='https://ello.co/wtf/brands-and-agencies/'>Brand</a> collaboration."
           sources={sources}
           avatarSources={avatarSources}
-          username="deanastacia"
+          username="luisagolden"
         />
         <StreamContainer
           action={loadArtistInvites(this.props.isPreview)}
