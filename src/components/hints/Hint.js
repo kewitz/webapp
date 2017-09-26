@@ -37,6 +37,8 @@ const hintStyle = css(
   parent('.no-touch', s.inlineBlock),
   parent('.no-touch a:hover >', showHintStyle),
   parent('.no-touch button:hover >', showHintStyle),
+  parent('.PostTool.DeleteTool', { left: -16 }, s.fontSize14),
+  parent('.PostTool.EditTool', { left: -10 }, s.fontSize14),
   parent('.BlockMuteButton', { top: 5, left: 30 }, s.fontSize14),
   media(s.minBreak2,
     parent('.BlockMuteButton', { top: 5, left: 30 }, s.fontSize14),
