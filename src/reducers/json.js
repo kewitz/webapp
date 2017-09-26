@@ -81,6 +81,15 @@ methods.removePageId = (state, pageName, id) => {
   return state
 }
 
+function normalizeModel(type, model) {
+  if (type !== MAPPING_TYPES.POSTS) { return model }
+
+  const content = model.get('content', Immutable.List()).map((region, index) =>
+    region.set('id', `${model.get('id')}-${index}`)
+  )
+  return model.set('content', content)
+}
+
 methods.mergeModel = (state, type, params) => {
   if (!params.id) { return state }
 
@@ -89,7 +98,7 @@ methods.mergeModel = (state, type, params) => {
   params.id = `${params.id}`
   return state.setIn(
     [type, params.id],
-    state.getIn([type, params.id], Immutable.Map()).mergeDeep(params),
+    normalizeModel(type, state.getIn([type, params.id], Immutable.Map()).mergeDeep(params)),
   )
 }
 
