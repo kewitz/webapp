@@ -64,6 +64,7 @@ const mapStateToProps = (state, props) => {
 
 class ArtistInviteSubmissionsContainer extends PureComponent {
   static propTypes = {
+    dispatch: PropTypes.func.isRequired,
     links: PropTypes.object.isRequired,
     slug: PropTypes.string.isRequired,
     status: PropTypes.string,
