@@ -32,6 +32,9 @@ if (isIOS()) {
 
 function shouldScroll(prevRouterProps, currentRouterProps) {
   const { location } = currentRouterProps
+  if (location.action === 'PUSH' && location.query.submissionType) {
+    return false
+  }
   return location.action !== 'REPLACE'
 }
 
