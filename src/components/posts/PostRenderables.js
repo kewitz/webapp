@@ -300,8 +300,8 @@ export class RepostHeader extends PureComponent {
           <PostHeaderTimeAgoLink to={detailPath} createdAt={postCreatedAt} />
           {isOwnPost &&
             <span>
-              <DeleteTool />
               <EditTool />
+              <DeleteTool />
             </span>
           }
         </div>

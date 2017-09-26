@@ -261,6 +261,12 @@
     padding-left: 12px;
   }
 
+  .Posts.asList .PostTool.EditTool > button,
+  .Posts.asList .PostTool.DeleteTool > button {
+    padding-right: 5px;
+    padding-left: 5px;
+  }
+
   .Posts.asList .ViewsTool.isPill {
     margin-right: 15px;
   }
