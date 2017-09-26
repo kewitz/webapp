@@ -185,8 +185,8 @@ export class PostHeader extends PureComponent {
           <PostHeaderTimeAgoLink to={detailPath} createdAt={postCreatedAt} />
           {isPostDetail && isOwnPost &&
             <span>
-              <DeleteTool />
               <EditTool />
+              <DeleteTool />
             </span>
           }
         </div>
