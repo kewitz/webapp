@@ -85,8 +85,7 @@ function normalizeModel(type, model) {
   if (type !== MAPPING_TYPES.POSTS) { return model }
 
   const content = model.get('content', Immutable.List()).map((region, index) =>
-    region.set('id', `${model.get('id')}-${index}`)
-  )
+    region.set('id', `${model.get('id')}-${index}`))
   return model.set('content', content)
 }
 
