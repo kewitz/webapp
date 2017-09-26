@@ -14,12 +14,15 @@ const creatorTypeModalStyle = css(
 
 const titleStyle = css(
   s.colorBlack,
-  s.fontSize18,
+  s.fontSize14,
+  { marginRight: 60, marginBottom: 40 },
 )
 
 export default () => (
   <div className={creatorTypeModalStyle}>
-    <h3 className={titleStyle}>Choose your creator type:</h3>
+    <h3 className={titleStyle}>We&apos;re doing a quick survey to find out a little more about the
+      artistic composition of the Ello Community. You can always update your answers on your
+      settings page. Thank you!</h3>
     <CreatorTypeContainer />
   </div>
 )

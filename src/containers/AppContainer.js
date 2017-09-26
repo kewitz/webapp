@@ -11,14 +11,13 @@ import { setSignupModalLaunched } from '../actions/gui'
 import { openModal } from '../actions/modals'
 import { loadAnnouncements, loadNotifications } from '../actions/notifications'
 import { lovePost, unlovePost } from '../actions/posts'
-import { loadProfile, saveProfile } from '../actions/profile'
+import { loadProfile } from '../actions/profile'
 import { fetchAuthenticationPromos } from '../actions/promotions'
 import DevTools from '../components/devtools/DevTools'
 import RegistrationRequestDialog from '../components/dialogs/RegistrationRequestDialog'
 import ShareDialog from '../components/dialogs/ShareDialog'
 import CreatorTypesModal from '../components/modals/CreatorTypesModal'
 import { addGlobalDrag, removeGlobalDrag } from '../components/viewport/GlobalDragComponent'
-import { ONBOARDING_VERSION } from '../constants/application_types'
 import AnalyticsContainer from '../containers/AnalyticsContainer'
 import FooterContainer from '../containers/FooterContainer'
 import HeroContainer from '../containers/HeroContainer'
@@ -135,7 +134,6 @@ class AppContainer extends Component {
     if (nextProps.showCreatorTypeModal) {
       setTimeout(() => {
         dispatch(openModal(<CreatorTypesModal />))
-        dispatch(saveProfile({ web_onboarding_version: ONBOARDING_VERSION }))
       }, 5000)
     }
   }
