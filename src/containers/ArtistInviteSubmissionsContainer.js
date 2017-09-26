@@ -2,7 +2,13 @@ import Immutable from 'immutable'
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import { push } from 'react-router-redux'
 import { loadArtistInviteSubmissions } from '../actions/artist_invites'
+import {
+  selectSubmissionType,
+  selectPathname,
+} from '../selectors/routing'
+import { updateQueryParams } from '../helpers/uri_helper'
 import { css, hover, media, modifier, parent } from '../styles/jss'
 import * as s from '../styles/jso'
 import StreamContainer from './StreamContainer'
@@ -47,9 +53,13 @@ const buttonStyle = css(
 
 const mapStateToProps = (state, props) => {
   const links = (props.links || Immutable.Map([])).filter(l => l.get('type') === 'artist_invite_submission_stream')
+  const selectedKey = links.size > 0 ? selectSubmissionType(state, props) || KEYS[0] : KEYS[0]
+  console.log({selectedKey})
   return {
     links,
-    streamAction: links.size > 0 ? loadArtistInviteSubmissions(links.getIn([KEYS[0], 'href']), KEYS[0], props.slug) : null,
+    selectedKey,
+    pathname: selectPathname(state),
+    streamAction: links.size > 0 ? loadArtistInviteSubmissions(links.getIn([selectedKey, 'href']), selectedKey, props.slug) : null,
   }
 }
 
@@ -59,6 +69,8 @@ class ArtistInviteSubmissionsContainer extends PureComponent {
     slug: PropTypes.string.isRequired,
     status: PropTypes.string,
     streamAction: PropTypes.object,
+    selectedKey: PropTypes.string.isRequired,
+    pathname: PropTypes.string.isRequired,
   }
 
   static defaultProps = {
@@ -67,7 +79,7 @@ class ArtistInviteSubmissionsContainer extends PureComponent {
   }
 
   componentWillMount() {
-    this.state = { selectedKey: KEYS[0], streamAction: this.props.streamAction }
+    this.state = { streamAction: this.props.streamAction }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -78,13 +90,15 @@ class ArtistInviteSubmissionsContainer extends PureComponent {
 
   onClickSubmissionType = (e) => {
     const key = e.target.dataset.key
-    const { links, slug } = this.props
-    this.setState({ selectedKey: key, streamAction: loadArtistInviteSubmissions(links.getIn([`${key}`, 'href']), key, slug) })
+    const { links, slug, pathname, dispatch } = this.props
+    const search = updateQueryParams({ submissionType: key })
+    this.setState({ streamAction: loadArtistInviteSubmissions(links.getIn([`${key}`, 'href']), key, slug) })
+    dispatch(push({ pathname, search }))
   }
 
   renderAdmin() {
-    const { links } = this.props
-    const { selectedKey, streamAction } = this.state
+    const { selectedKey, links } = this.props
+    const { streamAction } = this.state
     return (
       <div>
         <div className={titleWrapperStyle}>

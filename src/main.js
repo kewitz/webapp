@@ -30,7 +30,11 @@ if (isIOS()) {
 }
 /* eslint-enable global-require */
 
-function shouldScroll() {
+function shouldScroll(prevRouterProps, currentRouterProps) {
+  const { location } = currentRouterProps
+  console.log({prevRouterProps})
+  console.log({currentRouterProps})
+  console.log({location})
   return location.action !== 'REPLACE'
 }
 

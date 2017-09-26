@@ -26,6 +26,7 @@ export const selectPreviousPath = state => state.routing.get('previousPath')
 export const selectPathname = state => state.routing.getIn(['location', 'pathname'])
 export const selectQueryTerms = state => state.routing.getIn(['location', 'terms'])
 export const selectQueryPreview = state => state.routing.getIn(['location', 'preview'])
+export const selectSubmissionType = state => state.routing.getIn(['location', 'submissionType'])
 
 // Memoized selectors
 export const selectViewNameFromRoute = createSelector(
