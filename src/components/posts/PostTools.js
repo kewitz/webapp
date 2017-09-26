@@ -212,7 +212,7 @@ class ShareTool extends PureComponent {
   }
 }
 
-class EditTool extends PureComponent {
+export class EditTool extends PureComponent {
   static contextTypes = {
     onClickEditPost: PropTypes.func.isRequired,
   }
@@ -228,7 +228,7 @@ class EditTool extends PureComponent {
   }
 }
 
-class DeleteTool extends PureComponent {
+export class DeleteTool extends PureComponent {
   static contextTypes = {
     onClickDeletePost: PropTypes.func.isRequired,
   }
@@ -392,10 +392,7 @@ export class PostTools extends PureComponent {
       )
     }
     if (isLoggedIn) {
-      if (isOwnPost) {
-        cells.push(<EditTool key={`EditTool_${postId}`} />)
-        cells.push(<DeleteTool key={`DeleteTool_${postId}`} />)
-      } else {
+      if (!isOwnPost) {
         cells.push(<FlagTool key={`FlagTool_${postId}`} />)
       }
     }

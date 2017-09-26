@@ -14,7 +14,7 @@ import {
 import { DismissButtonLG } from '../buttons/Buttons'
 import Editor from '../editor/Editor'
 import ContentWarningButton from '../posts/ContentWarningButton'
-import { PostTools } from '../posts/PostTools'
+import { PostTools, EditTool, DeleteTool } from '../posts/PostTools'
 import { TabListButtons } from '../tabs/TabList'
 import RelationshipContainer from '../../containers/RelationshipContainer'
 import StreamContainer from '../../containers/StreamContainer'
@@ -128,7 +128,7 @@ export class PostHeader extends PureComponent {
   static propTypes = {
     author: PropTypes.object.isRequired,
     detailPath: PropTypes.string.isRequired,
-    isOwnPost: PropTypes.string.isRequired,
+    isOwnPost: PropTypes.bool.isRequired,
     isPostDetail: PropTypes.bool.isRequired,
     postCreatedAt: PropTypes.string.isRequired,
     postId: PropTypes.string.isRequired,
@@ -181,7 +181,15 @@ export class PostHeader extends PureComponent {
             </Link>
           </div>
         }
-        <PostHeaderTimeAgoLink to={detailPath} createdAt={postCreatedAt} />
+        <div className="PostHeaderTools">
+          <PostHeaderTimeAgoLink to={detailPath} createdAt={postCreatedAt} />
+          {isPostDetail && isOwnPost &&
+            <span>
+              <DeleteTool />
+              <EditTool />
+            </span>
+          }
+        </div>
       </header>
     )
   }
@@ -288,7 +296,15 @@ export class RepostHeader extends PureComponent {
             </span>
           </Link>
         </div>
-        <PostHeaderTimeAgoLink to={detailPath} createdAt={postCreatedAt} />
+        <div className="PostHeaderTools">
+          <PostHeaderTimeAgoLink to={detailPath} createdAt={postCreatedAt} />
+          {isOwnPost &&
+            <span>
+              <DeleteTool />
+              <EditTool />
+            </span>
+          }
+        </div>
       </header>
     )
   }
