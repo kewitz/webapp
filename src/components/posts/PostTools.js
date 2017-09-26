@@ -218,7 +218,7 @@ export class EditTool extends PureComponent {
   }
   render() {
     return (
-      <span className="PostTool EditTool ShyTool">
+      <span className="PostTool EditTool">
         <button onClick={this.context.onClickEditPost}>
           <PencilIcon />
           <Hint>Edit</Hint>
@@ -234,7 +234,7 @@ export class DeleteTool extends PureComponent {
   }
   render() {
     return (
-      <span className="PostTool DeleteTool ShyTool">
+      <span className="PostTool DeleteTool">
         <button onClick={this.context.onClickDeletePost}>
           <XBoxIcon />
           <Hint>Delete</Hint>
