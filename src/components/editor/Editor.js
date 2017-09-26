@@ -78,6 +78,7 @@ class Editor extends Component {
     isPostEditing: PropTypes.bool.isRequired,
     isPostEmpty: PropTypes.bool.isRequired,
     isPostReposting: PropTypes.bool.isRequired,
+    onCancel: PropTypes.func,
     onSubmit: PropTypes.func,
     post: PropTypes.object,
     shouldPersist: PropTypes.bool,
@@ -92,6 +93,7 @@ class Editor extends Component {
     isLoggedIn: false,
     isOwnPage: false,
     isOwnPost: false,
+    onCancel: null,
     onSubmit: null,
     post: null,
     shouldPersist: false,
@@ -207,7 +209,7 @@ class Editor extends Component {
   }
 
   cancelConfirmed = () => {
-    const { comment, dispatch, isPostEmpty, post } = this.props
+    const { comment, dispatch, isPostEmpty, onCancel, post } = this.props
     this.closeModal()
     dispatch(resetEditor(this.getEditorIdentifier()))
     dispatch(closeOmnibar())
@@ -218,6 +220,7 @@ class Editor extends Component {
     if (comment) {
       dispatch(toggleCommentEditing(comment, false))
     }
+    if (onCancel) { onCancel() }
   }
 
   render() {

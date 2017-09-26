@@ -5,7 +5,7 @@ import PostContainer from '../../containers/PostContainer'
 import StreamContainer from '../../containers/StreamContainer'
 import { MainView } from '../views/MainView'
 import { loadRelatedPosts } from '../../actions/posts'
-import { LaunchCommentEditorButton } from '../posts/PostRenderables'
+import { LaunchMobileCommentEditorButton, LaunchNativeCommentEditorButton } from '../posts/PostRenderables'
 import { css, hover, media, modifier, select } from '../../styles/jss'
 import * as s from '../../styles/jso'
 import * as ElloAndroidInterface from '../../lib/android_interface'
@@ -94,12 +94,22 @@ const asideStyle = css(
 )
 
 const CommentContent = (
-  { activeType, avatar, hasEditor, isLoggedIn, post, streamAction }) => (
+  { activeType, avatar, hasEditor, isInlineCommenting, isLoggedIn, post, streamAction },
+  { onToggleInlineCommenting },
+  ) => {
+  let editorOrButton = null
+  if (isLoggedIn && ElloAndroidInterface.supportsNativeEditor()) {
+    editorOrButton = <LaunchNativeCommentEditorButton avatar={avatar} post={post} />
+  } else if (hasEditor && activeType === 'comments') {
+    if (isInlineCommenting) {
+      editorOrButton = <Editor post={post} isComment onCancel={onToggleInlineCommenting} />
+    } else {
+      editorOrButton = <LaunchMobileCommentEditorButton avatar={avatar} post={post} />
+    }
+  }
+  return (
     <div className="CommentContent">
-      {hasEditor && activeType === 'comments' && !ElloAndroidInterface.supportsNativeEditor() && <Editor post={post} isComment />}
-      {isLoggedIn && ElloAndroidInterface.supportsNativeEditor() &&
-        <LaunchCommentEditorButton avatar={avatar} post={post} />
-      }
+      {editorOrButton}
       {streamAction &&
         <StreamContainer
           action={streamAction}
@@ -111,20 +121,23 @@ const CommentContent = (
       }
     </div>
   )
+}
 CommentContent.propTypes = {
   activeType: PropTypes.string.isRequired,
   avatar: PropTypes.object,
   hasEditor: PropTypes.bool.isRequired,
+  isInlineCommenting: PropTypes.bool,
   isLoggedIn: PropTypes.bool.isRequired,
   post: PropTypes.object.isRequired,
   streamAction: PropTypes.object,
 }
 CommentContent.defaultProps = {
   avatar: null,
+  isInlineCommenting: false,
   streamAction: null,
 }
 CommentContent.contextTypes = {
-  onClickDetailTab: PropTypes.func.isRequired,
+  onToggleInlineCommenting: PropTypes.func.isRequired,
 }
 
 // TODO: Remove references to the PostDetailStreamContainer styles
@@ -146,7 +159,7 @@ export const PostDetail = (props) => {
         {!shouldInlineComments &&
           <aside className={asideStyle}>
             <PostContainer type="PostDetailAsideTop" postId={post.get('id')} />
-            <CommentContent {...props} />
+            <CommentContent {...props} isInlineCommenting />
             <PostContainer type="PostDetailAsideBottom" postId={post.get('id')} />
           </aside>
         }
@@ -158,9 +171,6 @@ PostDetail.propTypes = {
   columnCount: PropTypes.number.isRequired,
   post: PropTypes.object.isRequired,
   shouldInlineComments: PropTypes.bool.isRequired,
-}
-PostDetail.contextTypes = {
-  onLaunchNativeEditor: PropTypes.func.isRequired,
 }
 
 export const PostDetailError = ({ children }) =>

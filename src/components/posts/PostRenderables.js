@@ -421,26 +421,56 @@ const launchCommentEditorButtonStyle = css(
   ),
 )
 
-export const LaunchCommentEditorButton = ({ avatar, post }, { onLaunchNativeEditor }) =>
+export const LaunchNativeCommentEditorButton = ({ avatar, post }, { onLaunchNativeEditor }) =>
+  <LaunchCommentEditorButton avatar={avatar} post={post} onLaunch={onLaunchNativeEditor} />
+
+export const LaunchMobileCommentEditorButton = ({ avatar, post }, { onToggleInlineCommenting }) =>
+  <LaunchCommentEditorButton avatar={avatar} post={post} onLaunch={onToggleInlineCommenting} />
+
+const LaunchCommentEditorButton = ({ avatar, post, onLaunch }) =>
   (<div className={launchCommentEditorStyle}>
     <Avatar className={`${launchCommentEditorAvatarStyle}`} sources={avatar} />
     <button
       className={launchCommentEditorButtonStyle}
-      onClick={() => onLaunchNativeEditor(post, true, null)}
+      onClick={() => onLaunch(post, true, null)}
     >
       Comment...
     </button>
   </div>)
+
+LaunchNativeCommentEditorButton.propTypes = {
+  avatar: PropTypes.object,
+  post: PropTypes.object,
+}
+LaunchNativeCommentEditorButton.defaultProps = {
+  avatar: null,
+  post: null,
+}
+LaunchNativeCommentEditorButton.contextTypes = {
+  onLaunchNativeEditor: PropTypes.func.isRequired,
+}
+
+LaunchMobileCommentEditorButton.propTypes = {
+  avatar: PropTypes.object,
+  post: PropTypes.object,
+}
+LaunchMobileCommentEditorButton.defaultProps = {
+  avatar: null,
+  post: null,
+}
+LaunchMobileCommentEditorButton.contextTypes = {
+  onToggleInlineCommenting: PropTypes.func.isRequired,
+}
+
 LaunchCommentEditorButton.propTypes = {
   avatar: PropTypes.object,
   post: PropTypes.object,
+  onLaunch: PropTypes.func,
 }
 LaunchCommentEditorButton.defaultProps = {
   avatar: null,
   post: null,
-}
-LaunchCommentEditorButton.contextTypes = {
-  onLaunchNativeEditor: PropTypes.func.isRequired,
+  onLaunch: null,
 }
 
 const relatedPostButtonStyle = css(
@@ -561,7 +591,7 @@ export const Post = ({
       }}
     />
     {isLoggedIn && showCommentEditor && supportsNativeEditor &&
-      <LaunchCommentEditorButton avatar={avatar} post={post} />
+      <LaunchNativeCommentEditorButton avatar={avatar} post={post} />
     }
     {showCommentEditor && !supportsNativeEditor && <Editor post={post} isComment />}
     {showCommentEditor &&
