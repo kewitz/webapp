@@ -197,7 +197,10 @@ export const ArtistInviteGrid = ({
         <p className={inviteTypeStyle}>{inviteType}</p>
         {renderBulletStatus(status)}
         <p className={dateRangeStyle}>{`${moment(openedAt).format('MMM D')} — ${moment(closedAt).format('MMM D, YYYY')}`}</p>
-        <div className={shortDescriptionStyle} dangerouslySetInnerHTML={{ __html: shortDescription }} />
+        <div
+          className={shortDescriptionStyle}
+          dangerouslySetInnerHTML={{ __html: shortDescription }}
+        />
       </div>
     </article>
   </Link>
