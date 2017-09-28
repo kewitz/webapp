@@ -3,7 +3,6 @@ import Immutable from 'immutable'
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import debounce from 'lodash/debounce'
 import { getCategories } from '../actions/discover'
 import { saveProfile } from '../actions/profile'
 import { selectCreatorTypeCategories } from '../selectors/categories'
@@ -130,7 +129,6 @@ class CreatorTypeContainer extends PureComponent {
       categoryIds: creatorTypeIds,
       fanActive: creatorTypeIds.length === 0 && classModifier === 'inSettings',
     }
-    this.updateCreatorTypes = debounce(this.updateCreatorTypes, 1000)
     dispatch(getCategories())
   }
 
@@ -142,7 +140,7 @@ class CreatorTypeContainer extends PureComponent {
     } else {
       ids.splice(index, 1)
     }
-    this.setState({ categoryIds: ids }, this.updateCreatorTypes)
+    this.setState({ categoryIds: ids })
   }
 
   onClickArtist = () => {
@@ -154,19 +152,16 @@ class CreatorTypeContainer extends PureComponent {
       artistActive: false,
       categoryIds: [],
       fanActive: true,
-    }, this.updateCreatorTypes)
+    })
   }
 
   onClickModalSubmit = () => {
     const { dispatch } = this.props
-    dispatch(saveProfile({ web_onboarding_version: ONBOARDING_VERSION }))
-    dispatch(closeModal(<CreatorTypesModal />))
-  }
-
-  updateCreatorTypes = () => {
-    const { dispatch } = this.props
     const { categoryIds } = this.state
-    dispatch(saveProfile({ creator_type_category_ids: categoryIds }))
+    dispatch(
+      saveProfile({ creator_type_category_ids: categoryIds,
+        web_onboarding_version: ONBOARDING_VERSION }))
+    dispatch(closeModal(<CreatorTypesModal />))
   }
 
   render() {
