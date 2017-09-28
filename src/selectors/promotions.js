@@ -34,22 +34,53 @@ export const selectIsCategoryPromotion = createSelector(
 
 export const selectLoggedInPagePromotions = createSelector(
   [selectPagePromotionals], promos =>
-    promos.filter(value => value.get('isLoggedIn')),
+    promos.filter(value => value.get('isLoggedIn') && !value.get('isArtistInvite') && !value.get('isEditorial')),
 )
 
 export const selectLoggedOutPagePromotions = createSelector(
   [selectPagePromotionals], promos =>
-    promos.filterNot(value => value.get('isLoggedIn')),
+    promos.filter(value => !value.get('isLoggedIn') && !value.get('isArtistInvite') && !value.get('isEditorial')),
 )
 
-export const selectRandomAuthPromotion = createSelector(
-  [selectAuthPromotionals], (authPromos) => {
+export const selectArtistInvitePagePromotions = createSelector(
+  [selectPagePromotionals], promos =>
+    promos.filter(value => value.get('isArtistInvite')),
+)
+
+export const selectRandomArtistInvitePromotion = createSelector(
+  [selectArtistInvitePagePromotions], (promos) => {
     const keyArr = []
-    authPromos.keySeq().forEach((key) => {
+    promos.keySeq().forEach((key) => {
       keyArr.push(key)
     })
     const randomKey = sample(keyArr)
-    return authPromos.get(randomKey)
+    return promos.get(randomKey)
   },
 )
 
+export const selectEditorialPagePromotions = createSelector(
+  [selectPagePromotionals], promos =>
+    promos.filter(value => value.get('isEditorial')),
+)
+
+export const selectRandomEditorialPromotion = createSelector(
+  [selectEditorialPagePromotions], (promos) => {
+    const keyArr = []
+    promos.keySeq().forEach((key) => {
+      keyArr.push(key)
+    })
+    const randomKey = sample(keyArr)
+    return promos.get(randomKey)
+  },
+)
+
+export const selectRandomAuthPromotion = createSelector(
+  [selectAuthPromotionals], (promos) => {
+    const keyArr = []
+    promos.keySeq().forEach((key) => {
+      keyArr.push(key)
+    })
+    const randomKey = sample(keyArr)
+    return promos.get(randomKey)
+  },
+)
