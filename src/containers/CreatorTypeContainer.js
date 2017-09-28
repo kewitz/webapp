@@ -30,7 +30,7 @@ const headerStyle = css(
 
 const catHeaderStyle = css(
   { ...headerStyle },
-  { marginTop: 60 },
+  { marginTop: 30 },
   parent('.inSettings', s.mt20),
 )
 
@@ -39,7 +39,6 @@ const buttonStyle = css(
   s.borderA,
   s.center,
   s.colorA,
-  s.mb10,
   s.mr10,
   s.px5,
   s.truncate,
@@ -103,11 +102,10 @@ export class CategoryButton extends PureComponent {
   }
 }
 
-function mapStateToProps(state, props) {
+function mapStateToProps(state) {
   return {
     categories: selectCreatorTypeCategories(state),
     creatorTypeIds: (selectCreatorTypeCategoryIds(state) || Immutable.List()).toArray(),
-    isOnboarding: props.authState === 'creator-type',
   }
 }
 
@@ -118,7 +116,6 @@ class CreatorTypeContainer extends PureComponent {
     classModifier: PropTypes.string,
     creatorTypeIds: PropTypes.array,
     dispatch: PropTypes.func.isRequired,
-    isOnboarding: PropTypes.bool.isRequired,
   }
 
   static defaultProps = {
@@ -131,7 +128,7 @@ class CreatorTypeContainer extends PureComponent {
     this.state = {
       artistActive: creatorTypeIds.length > 0,
       categoryIds: creatorTypeIds,
-      fanActive: creatorTypeIds.length === 0 && classModifier !== 'inOnboarding',
+      fanActive: creatorTypeIds.length === 0 && classModifier === 'inSettings',
     }
     this.updateCreatorTypes = debounce(this.updateCreatorTypes, 1000)
     dispatch(getCategories())
@@ -173,9 +170,9 @@ class CreatorTypeContainer extends PureComponent {
   }
 
   render() {
-    const { categories, classModifier, isOnboarding } = this.props
+    const { categories, classModifier } = this.props
     const { artistActive, categoryIds, fanActive } = this.state
-    const showSubmit = !isOnboarding && (fanActive || categoryIds.length > 0)
+    const showSubmit = classModifier !== 'inOnboarding' && classModifier !== 'inSettings' && (fanActive || categoryIds.length > 0)
     return (
       <div className={`${classModifier} ${containerStyle}`}>
         <h2 className={headerStyle}>I am here as:</h2>

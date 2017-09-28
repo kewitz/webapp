@@ -50,8 +50,8 @@ export const selectIsAvatarBlank = createSelector(
 )
 
 export const selectShowCreatorTypeModal = createSelector(
-  [selectIsLoggedIn, selectWebOnboardingVersion],
-  (isLoggedIn, webOnboardingVersion) => isLoggedIn && webOnboardingVersion < 3,
+  [selectIsLoggedIn, selectWebOnboardingVersion], (isLoggedIn, webOnboardingVersion) =>
+    isLoggedIn && webOnboardingVersion < 3 && webOnboardingVersion !== null,
 )
 
 export const selectIsCoverImageBlank = createSelector(
