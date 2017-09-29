@@ -21,15 +21,16 @@ class ViewsTool extends PureComponent {
   static propTypes = {
     detailPath: PropTypes.string.isRequired,
     isLoggedIn: PropTypes.bool.isRequired,
+    isPostDetail: PropTypes.string.isRequired,
     postViewsCountRounded: PropTypes.string.isRequired,
   }
   static contextTypes = {
     onTrackRelatedPostClick: PropTypes.func.isRequired,
   }
   render() {
-    const { detailPath, isLoggedIn, postViewsCountRounded } = this.props
+    const { detailPath, isLoggedIn, isPostDetail, postViewsCountRounded } = this.props
     return (
-      <span className={classNames('PostTool', 'ViewsTool', { isPill: isLoggedIn })}>
+      <span className={classNames('PostTool', 'ViewsTool', { isPill: isLoggedIn, isPostDetail })}>
         <Link to={detailPath} onClick={this.context.onTrackRelatedPostClick}>
           <EyeIcon />
           <span className="PostToolValue">{postViewsCountRounded}</span>
@@ -315,6 +316,7 @@ export class PostTools extends PureComponent {
         <ViewsTool
           detailPath={detailPath}
           isLoggedIn={isLoggedIn}
+          isPostDetail={isPostDetail}
           key={`ViewsTool_${postId}`}
           postViewsCountRounded={postViewsCountRounded}
         />,
@@ -364,6 +366,7 @@ export class PostTools extends PureComponent {
       cells.push(
         <ViewsTool
           detailPath={detailPath}
+          isPostDetail={isPostDetail}
           isLoggedIn={isLoggedIn}
           key={`ViewsTool_${postId}`}
           postViewsCountRounded={postViewsCountRounded}
