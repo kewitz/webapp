@@ -291,7 +291,7 @@ const HeroHeaderCaptionStyle = css(
   s.absolute, s.pl20, s.pr20, { width: '100%', left: 0, top: 80 },
   media(s.minBreak2, { paddingLeft: 60, paddingRight: 60, top: 40 }),
   media(s.minBreak3, s.containedAlignMiddle, { paddingLeft: 80, paddingRight: 80, left: 0 }),
-  media(s.minBreak4, { paddingLeft: 100, paddingRight: 100 }), // left: 100
+  media(s.minBreak4, { paddingLeft: 100, paddingRight: 100 }),
 )
 
 const HeroHeaderHeadingStyle = css(

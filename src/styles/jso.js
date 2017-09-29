@@ -253,7 +253,7 @@ export const alignBaseline = { verticalAlign: 'baseline' }
 export const alignTop = { verticalAlign: 'top' }
 export const alignMiddle = { verticalAlign: 'middle' }
 export const alignBottom = { verticalAlign: 'bottom' }
-// needs to be inside a another container with a height
+// containedAlignMiddle - needs to be inside another container with a height
 export const containedAlignMiddle = { top: '50%', transform: 'translateY(-50%)' }
 
 // -------------------------------------
