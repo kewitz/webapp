@@ -12,7 +12,7 @@ import * as ElloAndroidInterface from '../../lib/android_interface'
 
 const postDetailStyle = css(
   s.relative,
-  select('& .ViewsTool.isPill > a', s.colorA, { backgroundColor: 'transparent' }, hover({ backgroundColor: 'transparent' })),
+  select('& .ViewsTool.isPill.isPostDetail > a', s.colorA, { backgroundColor: 'transparent' }, hover({ backgroundColor: 'transparent' })),
   select('& .PostDetails.Posts.asList aside .PostDetailAsideTop',
     select('& header', s.px20, { borderBottom: '1px solid #f2f2f2' }),
     select('& footer', s.px20, { borderBottom: '1px solid #f2f2f2' }),

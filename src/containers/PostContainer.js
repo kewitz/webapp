@@ -100,7 +100,7 @@ export function makeMapStateToProps() {
       isMobile: selectIsMobile(state),
       isOwnOriginalPost: selectPostIsOwnOriginal(state, props),
       isOwnPost: selectPostIsOwn(state, props),
-      isPostDetail: selectIsPostDetail(state, props),
+      isPostDetail: !props.isRelatedPost && selectIsPostDetail(state, props),
       isPostEmpty: selectPostIsEmpty(state, props),
       isRepost: selectPostIsRepost(state, props),
       isReposting: selectPostIsReposting(state, props),
