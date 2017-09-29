@@ -21,7 +21,7 @@ const titleStyle = css(
 export default () => (
   <div className={creatorTypeModalStyle}>
     <h3 className={titleStyle}>We&apos;re doing a quick survey to find out a little more about the
-      artistic composition of the Ello Community. You can always update your answers on your
+      artistic composition of the Ello Community. You can always update your selection(s) on your
       settings page. Thank you!</h3>
     <CreatorTypeContainer />
   </div>
