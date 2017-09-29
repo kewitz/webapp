@@ -14,7 +14,7 @@ import {
 import { DismissButtonLG } from '../buttons/Buttons'
 import Editor from '../editor/Editor'
 import ContentWarningButton from '../posts/ContentWarningButton'
-import { PostTools } from '../posts/PostTools'
+import { PostTools, EditTool, DeleteTool } from '../posts/PostTools'
 import { TabListButtons } from '../tabs/TabList'
 import RelationshipContainer from '../../containers/RelationshipContainer'
 import StreamContainer from '../../containers/StreamContainer'
@@ -128,14 +128,18 @@ export class PostHeader extends PureComponent {
   static propTypes = {
     author: PropTypes.object.isRequired,
     detailPath: PropTypes.string.isRequired,
+    isOwnPost: PropTypes.bool.isRequired,
     isPostDetail: PropTypes.bool.isRequired,
     postCreatedAt: PropTypes.string.isRequired,
     postId: PropTypes.string.isRequired,
   }
   render() {
-    const { author, detailPath, isPostDetail, postCreatedAt, postId } = this.props
+    const { author, detailPath, isOwnPost, isPostDetail, postCreatedAt, postId } = this.props
     return (
-      <header className="PostHeader" key={`PostHeader_${postId}`}>
+      <header
+        className={classNames('PostHeader', { isOwnPost })}
+        key={`PostHeader_${postId}`}
+      >
         <div className="PostHeaderAuthor">
           <Link className="PostHeaderLink" to={`/${author.get('username')}`}>
             <Avatar
@@ -177,7 +181,15 @@ export class PostHeader extends PureComponent {
             </Link>
           </div>
         }
-        <PostHeaderTimeAgoLink to={detailPath} createdAt={postCreatedAt} />
+        <div className="PostHeaderTools">
+          <PostHeaderTimeAgoLink to={detailPath} createdAt={postCreatedAt} />
+          {isPostDetail && isOwnPost &&
+            <span>
+              <EditTool />
+              <DeleteTool />
+            </span>
+          }
+        </div>
       </header>
     )
   }
@@ -232,15 +244,24 @@ export class RepostHeader extends PureComponent {
   static propTypes = {
     detailPath: PropTypes.string.isRequired,
     inUserDetail: PropTypes.bool.isRequired,
+    isOwnPost: PropTypes.bool.isRequired,
     postCreatedAt: PropTypes.string.isRequired,
     postId: PropTypes.string.isRequired,
     repostAuthor: PropTypes.object.isRequired,
     repostedBy: PropTypes.object.isRequired,
   }
   render() {
-    const { detailPath, inUserDetail, postCreatedAt, postId, repostAuthor, repostedBy } = this.props
+    const {
+      detailPath,
+      inUserDetail,
+      isOwnPost,
+      postCreatedAt,
+      postId,
+      repostAuthor,
+      repostedBy,
+    } = this.props
     return (
-      <header className={classNames('RepostHeader', { inUserDetail })} key={`RepostHeader_${postId}`}>
+      <header className={classNames('RepostHeader', { inUserDetail, isOwnPost })} key={`RepostHeader_${postId}`}>
         <div className="RepostHeaderAuthor">
           <Link className="PostHeaderLink" to={`/${repostAuthor.get('username')}`}>
             <Avatar
@@ -275,7 +296,15 @@ export class RepostHeader extends PureComponent {
             </span>
           </Link>
         </div>
-        <PostHeaderTimeAgoLink to={detailPath} createdAt={postCreatedAt} />
+        <div className="PostHeaderTools">
+          <PostHeaderTimeAgoLink to={detailPath} createdAt={postCreatedAt} />
+          {isOwnPost &&
+            <span>
+              <EditTool />
+              <DeleteTool />
+            </span>
+          }
+        </div>
       </header>
     )
   }
