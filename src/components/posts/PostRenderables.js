@@ -245,6 +245,7 @@ export class RepostHeader extends PureComponent {
     detailPath: PropTypes.string.isRequired,
     inUserDetail: PropTypes.bool.isRequired,
     isOwnPost: PropTypes.bool.isRequired,
+    isPostDetail: PropTypes.bool.isRequired,
     postCreatedAt: PropTypes.string.isRequired,
     postId: PropTypes.string.isRequired,
     repostAuthor: PropTypes.object.isRequired,
@@ -255,6 +256,7 @@ export class RepostHeader extends PureComponent {
       detailPath,
       inUserDetail,
       isOwnPost,
+      isPostDetail,
       postCreatedAt,
       postId,
       repostAuthor,
@@ -298,7 +300,7 @@ export class RepostHeader extends PureComponent {
         </div>
         <div className="PostHeaderTools">
           <PostHeaderTimeAgoLink to={detailPath} createdAt={postCreatedAt} />
-          {isOwnPost &&
+          {isPostDetail && isOwnPost &&
             <span>
               <EditTool />
               <DeleteTool />
