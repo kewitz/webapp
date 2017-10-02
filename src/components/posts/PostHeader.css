@@ -124,11 +124,11 @@
   transform: scale(1.5);
 }
 
-.PostHeaderTools .PostTool .SVGIcon > g {
+.PostHeaderTools .SVGIcon > g {
   stroke-width: 0.9375;
 }
 
-.PostHeaderTools .PostTool .SVGIcon line {
+.PostHeaderTools .SVGIcon line {
   stroke-width: 1;
 }
 
