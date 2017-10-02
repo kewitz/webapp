@@ -234,7 +234,9 @@ export class CategoryHeader extends PureComponent {
             <span className="CategoryHeaderCategoryName">{categoryName}</span>
           </Link>
         </div>
-        <PostHeaderTimeAgoLink to={detailPath} createdAt={postCreatedAt} />
+        <div className="PostHeaderTools">
+          <PostHeaderTimeAgoLink to={detailPath} createdAt={postCreatedAt} />
+        </div>
       </header>
     )
   }
