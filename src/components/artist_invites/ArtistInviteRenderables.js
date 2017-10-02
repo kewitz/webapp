@@ -65,8 +65,11 @@ const contentContainerStyle = css(
 const titleStyle = css(
   s.sansBlack,
   s.fontSize24,
-  s.truncate,
   media(s.minBreak3, s.mb20),
+  parent(
+    '.ArtistInvites',
+    s.truncate,
+  ),
   parent(
     '.ArtistInvitesDetail',
     media(s.minBreak2, { marginTop: -5 }),
