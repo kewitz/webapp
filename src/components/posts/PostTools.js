@@ -21,7 +21,7 @@ class ViewsTool extends PureComponent {
   static propTypes = {
     detailPath: PropTypes.string.isRequired,
     isLoggedIn: PropTypes.bool.isRequired,
-    isPostDetail: PropTypes.string.isRequired,
+    isPostDetail: PropTypes.bool.isRequired,
     postViewsCountRounded: PropTypes.string.isRequired,
   }
   static contextTypes = {
