@@ -121,7 +121,15 @@
 }
 
 .PostHeaderTools .PostTool .SVGIcon {
-  transform: scale(1.4);
+  transform: scale(1.5);
+}
+
+.PostHeaderTools .SVGIcon > g {
+  stroke-width: 0.9375;
+}
+
+.PostHeaderTools .SVGIcon line {
+  stroke-width: 1;
 }
 
 .PostHeaderTimeAgoLink {
