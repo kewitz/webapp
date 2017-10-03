@@ -37,11 +37,12 @@ const gridContainerStyle = css(
 )
 
 const imageContainerStyle = css(
+  s.maxViewWidth,
   s.flex,
   s.justifyCenter,
   s.itemsCenter,
   s.relative,
-  { height: 235 },
+  { height: 235, margin: '0 auto' },
   media(s.minBreak2, { height: 220 }, parent('.ArtistInvitesDetail', s.mb40, { height: 555 }, media(s.minBreak3, s.mb60))),
   parent('a:hover', select('> .BackgroundImage::before', { backgroundColor: 'rgba(0, 0, 0, 0.5)' })),
   parent('.ArtistInvitesDetail', s.mb20),
