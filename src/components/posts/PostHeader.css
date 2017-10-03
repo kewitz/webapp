@@ -107,6 +107,10 @@
 .PostHeaderTools {
   position: absolute;
   top: 20px;
+  right: 0;
+}
+
+.PostDetailAsideTop .PostHeaderTools {
   right: 20px;
 }
 
