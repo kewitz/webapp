@@ -22,6 +22,7 @@ export const minBreak6 = '(min-width: 130em)'     // 6: 2080 / 16 = 130em
 export const minBreak7 = '(min-width: 152.5em)'   // 7: 2440 / 16 = 152.5em
 
 export const maxBreak2 = '(max-width: 39.9375em)' // 2: 639  / 16 = 39.9375em
+export const maxBreak4 = '(max-width: 84.9375em)' // 4: 1359  / 16 = 84.9375em
 
 export const ease = 'cubic-bezier(0.23, 1, 0.32, 1)'
 export const easeInOutQuart = 'cubic-bezier(0.77, 0, 0.175, 1)'
@@ -103,6 +104,7 @@ export const fit = { maxWidth: '100%' }
 export const fullWidth = { width: '100%' }
 export const fullHeight = { height: '100%' }
 export const maxSiteWidth = { maxWidth: 1360 }
+export const maxSiteWidthPadded = { maxWidth: 1440, paddingLeft: 40, paddingRight: 40 }
 
 export const wv20 = { width: 20 }
 export const wv30 = { width: 30 }

@@ -220,7 +220,7 @@ ArtistInviteGrid.contextTypes = {
 }
 
 const detailContainerStyle = css(
-  s.maxSiteWidth,
+  s.fullWidth,
   s.px10,
   s.mxAuto,
   media(s.minBreak2, s.px20),
@@ -240,6 +240,11 @@ const detailContainerStyle = css(
       modifier('.SubmitButton', { marginBottom: 50 }),
     ),
   ),
+)
+
+const detailContentContainerStyle = css(
+  s.maxSiteWidthPadded, { margin: '0 auto' },
+  media(s.maxBreak4, s.pr0, s.pl0),
 )
 
 const contentColumnStyle = css(
@@ -294,7 +299,7 @@ export const ArtistInviteDetail = ({
         <BackgroundImage className="hasOverlay3" dpi={dpi} sources={headerImage} />
         <ImageAsset className={logoImageStyle} src={logoImage.getIn(['optimized', 'url'])} />
       </div>
-      <div>
+      <div className={detailContentContainerStyle}>
         <div className={contentColumnStyle}>
           <h1 className={titleStyle}>{title}</h1>
           <p className={inviteTypeStyle}>{inviteType}</p>
