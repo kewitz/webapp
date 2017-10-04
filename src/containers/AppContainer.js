@@ -16,6 +16,7 @@ import { fetchAuthenticationPromos } from '../actions/promotions'
 import DevTools from '../components/devtools/DevTools'
 import RegistrationRequestDialog from '../components/dialogs/RegistrationRequestDialog'
 import ShareDialog from '../components/dialogs/ShareDialog'
+import CreatorTypesModal from '../components/modals/CreatorTypesModal'
 import { addGlobalDrag, removeGlobalDrag } from '../components/viewport/GlobalDragComponent'
 import AnalyticsContainer from '../containers/AnalyticsContainer'
 import FooterContainer from '../containers/FooterContainer'
@@ -31,7 +32,7 @@ import { scrollToPosition, isLink } from '../lib/jello'
 import * as ElloAndroidInterface from '../lib/android_interface'
 import { selectIsLoggedIn } from '../selectors/authentication'
 import { selectIsGridMode } from '../selectors/gui'
-import { selectIsStaff } from '../selectors/profile'
+import { selectIsStaff, selectShowCreatorTypeModal } from '../selectors/profile'
 import {
   selectCategoryData,
   selectIsCategoryPromotion,
@@ -50,6 +51,7 @@ function mapStateToProps(state) {
     isPagePromotion: selectIsPagePromotion(state),
     isStaff: selectIsStaff(state),
     isGridMode: selectIsGridMode(state),
+    showCreatorTypeModal: selectShowCreatorTypeModal(state),
   }
 }
 
@@ -67,6 +69,7 @@ class AppContainer extends Component {
     isPagePromotion: PropTypes.bool.isRequired,
     isStaff: PropTypes.bool.isRequired,
     params: PropTypes.object.isRequired,
+    showCreatorTypeModal: PropTypes.bool.isRequired,
   }
 
   static defaultProps = {
@@ -127,6 +130,11 @@ class AppContainer extends Component {
       dispatch(getCategories())
       dispatch(getPagePromotionals())
       dispatch(loadBadges())
+    }
+    if (nextProps.showCreatorTypeModal) {
+      setTimeout(() => {
+        dispatch(openModal(<CreatorTypesModal />))
+      }, 5000)
     }
   }
 
