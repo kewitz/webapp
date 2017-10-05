@@ -33,6 +33,10 @@ const catHeaderStyle = css(
   parent('.inSettings', s.mt20),
 )
 
+const categoriesStyle = css(
+  { marginBottom: -10 },
+)
+
 const buttonStyle = css(
   s.bgcWhite,
   s.borderA,
@@ -55,6 +59,7 @@ const buttonStyle = css(
 
 const catButtonStyle = css(
   { ...buttonStyle },
+  s.mb10,
   modifier('.isActive', hover(s.bgc6, { border: '1px solid #666' })),
   media('(min-width: 26.25em)', // 420 / 16 = 26.25em
     { maxWidth: 150, width: 'calc(33% - 6px)' },
@@ -190,7 +195,7 @@ class CreatorTypeContainer extends PureComponent {
         {artistActive &&
           <div>
             <h2 className={catHeaderStyle}>I make:</h2>
-            <div>
+            <div className={categoriesStyle}>
               {categories.map(cat => (
                 <CategoryButton
                   category={cat}
