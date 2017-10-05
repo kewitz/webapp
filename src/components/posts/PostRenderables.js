@@ -195,6 +195,50 @@ export class PostHeader extends PureComponent {
   }
 }
 
+export class ArtistInviteSubmissionHeader extends PureComponent {
+  static propTypes = {
+    author: PropTypes.object.isRequired,
+    detailPath: PropTypes.string.isRequired,
+    postCreatedAt: PropTypes.string.isRequired,
+    postId: PropTypes.string.isRequired,
+  }
+  render() {
+    const { author, categoryName, categoryPath, detailPath, postCreatedAt, postId } = this.props
+    return (
+      <header className="ArtistInviteSubmissionHeader" key={`ArtistInviteSubmissionHeader_${postId}`}>
+        <div className="ArtistInviteSubmissionHeaderAuthor">
+          <Link className="PostHeaderLink" to={`/${author.get('username')}`}>
+            <Avatar
+              priority={author.get('relationshipPriority')}
+              sources={author.get('avatar')}
+              userId={`${author.get('id')}`}
+              username={author.get('username')}
+            />
+            <span
+              className="DraggableUsername"
+              data-priority={author.get('relationshipPriority') || 'inactive'}
+              data-userid={author.get('id')}
+              data-username={author.get('username')}
+              draggable
+            >
+              {`@${author.get('username')}`}
+            </span>
+          </Link>
+        </div>
+        <RelationshipContainer className="isInHeader" user={author} />
+        <div className="ArtistInviteSubmissionHeaderInvite">
+          <Link className="PostHeaderLink" to="/artist-invites">
+            <span className="ArtistInviteSubmissionHeaderInviteName">Artist Invite Submission</span>
+          </Link>
+        </div>
+        <div className="PostHeaderTools">
+          <PostHeaderTimeAgoLink to={detailPath} createdAt={postCreatedAt} />
+        </div>
+      </header>
+    )
+  }
+}
+
 export class CategoryHeader extends PureComponent {
   static propTypes = {
     author: PropTypes.object.isRequired,

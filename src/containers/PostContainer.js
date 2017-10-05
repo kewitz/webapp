@@ -19,6 +19,7 @@ import {
 import ConfirmDialog from '../components/dialogs/ConfirmDialog'
 import FlagDialog from '../components/dialogs/FlagDialog'
 import {
+  ArtistInviteSubmissionHeader,
   CategoryHeader,
   Post,
   PostDetailAsideBottom,
@@ -50,6 +51,7 @@ import {
   selectPostContentWarning,
   selectPostCreatedAt,
   selectPostDetailPath,
+  selectPostIsArtistInviteSubmission,
   selectPostIsCommentsRequesting,
   selectPostIsEmpty,
   selectPostIsGridMode,
@@ -93,6 +95,7 @@ export function makeMapStateToProps() {
       detailPath: selectPostDetailPath(state, props),
       deviceSize: selectDeviceSize(state),
       innerHeight: selectInnerHeight(state),
+      isArtistInviteSubmission: selectPostIsArtistInviteSubmission(state, props),
       isCommentsRequesting: selectPostIsCommentsRequesting(state, props),
       isDiscoverRoot: selectIsDiscoverRoot(state, props),
       isGridMode: selectPostIsGridMode(state, props),
@@ -402,6 +405,7 @@ class PostContainer extends Component {
       contentWidth,
       detailPath,
       innerHeight,
+      isArtistInviteSubmission,
       isCommentsRequesting,
       isDiscoverRoot,
       isGridMode,
@@ -458,6 +462,13 @@ class PostContainer extends Component {
           author={author}
           categoryName={categoryName}
           categoryPath={categoryPath}
+        />
+      )
+    } else if (isDiscoverRoot && isArtistInviteSubmission) {
+      postHeader = (
+        <ArtistInviteSubmissionHeader
+          {...headerProps}
+          author={author}
         />
       )
     } else {

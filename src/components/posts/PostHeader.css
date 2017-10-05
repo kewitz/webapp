@@ -2,6 +2,7 @@
 
 .PostHeader,
 .CategoryHeader,
+.ArtistInviteSubmissionHeader,
 .RepostHeader {
   position: relative;
   height: 60px;
@@ -11,6 +12,7 @@
 
 .PostHeaderAuthor,
 .CategoryHeaderAuthor,
+.ArtistInviteSubmissionHeaderAuthor,
 .RepostHeaderAuthor,
 .CategoryHeaderCategory,
 .PostDetailHeaderUsername,
@@ -22,9 +24,11 @@
 .PostHeaderAuthor,
 .RepostHeaderAuthor,
 .CategoryHeaderAuthor,
+.ArtistInviteSubmissionHeaderAuthor,
 .PostHeader .RelationshipContainer,
 .CategoryHeader .RelationshipContainer,
 .RepostHeader .RelationshipContainer,
+.ArtistInviteSubmissionHeader .RelationshipContainer,
 .OwnPostTools {
   display: inline-block;
   vertical-align: middle;
@@ -32,6 +36,7 @@
 
 .PostHeaderAuthor,
 .CategoryHeaderAuthor,
+.ArtistInviteSubmissionHeaderAuthor,
 .RepostHeaderAuthor {
   max-width: calc(100% - 80px);
 }
@@ -43,6 +48,7 @@
 
 .PostHeader .RelationshipContainer,
 .CategoryHeader .RelationshipContainer,
+.ArtistInviteSubmission .RelationshipContainer,
 .RepostHeader .RelationshipContainer {
   margin-top: -2px;
   margin-left: 10px;
@@ -66,12 +72,14 @@
 }
 
 .CategoryHeaderAuthor,
+.ArtistInviteSubmissionHeaderAuthor,
 .RepostHeaderAuthor {
   padding-left: 40px;
   line-height: 45px;
 }
 
 .CategoryHeaderCategory,
+.ArtistInviteSubmissionHeaderInvite,
 .PostDetailHeaderUsername,
 .RepostHeaderReposter {
   max-width: calc(100% - 120px);
@@ -85,7 +93,8 @@
   max-width: calc(100% - 160px);
 }
 
-.CategoryHeaderCategoryName {
+.CategoryHeaderCategoryName,
+.ArtistInviteSubmissionHeaderInviteName {
   text-decoration: underline;
 }
 
@@ -157,6 +166,7 @@
 }
 
 .RepostHeader.inUserDetail > .CategoryHeaderAuthor,
+.RepostHeader.inUserDetail > .ArtistInviteSubmissionHeaderAuthor,
 .RepostHeader.inUserDetail > .RepostHeaderAuthor {
   padding-left: 65px;
   line-height: 60px;
@@ -166,6 +176,7 @@
 @media (--break-2) {
   .PostHeader,
   .CategoryHeader,
+  .ArtistInviteSubmissionHeader,
   .RepostHeader {
     height: 80px;
   }
@@ -180,12 +191,14 @@
   }
 
   .CategoryHeaderAuthor,
+  .ArtistInviteSubmissionHeaderAuthor,
   .RepostHeaderAuthor {
     padding-left: 60px;
     line-height: 60px;
   }
 
   .CategoryHeaderCategory,
+  .ArtistInviteSubmissionHeaderInvite,
   .PostDetailHeaderUsername,
   .RepostHeaderReposter {
     margin-top: -20px;
@@ -198,6 +211,7 @@
   }
 
   .RepostHeader.inUserDetail > .CategoryHeaderAuthor,
+  .RepostHeader.inUserDetail > .ArtistInviteSubmissionHeaderAuthor,
   .RepostHeader.inUserDetail > .RepostHeaderAuthor {
     padding-left: 75px;
     line-height: 80px;
@@ -231,6 +245,7 @@
   .Posts.asGrid .PostHeaderTimeAgoLink,
   .Posts.asGrid .PostHeader .RelationshipContainer,
   .Posts.asGrid .CategoryHeader .RelationshipContainer,
+  .Posts.asGrid .ArtistInviteSubmissionHeader .RelationshipContainer,
   .Posts.asGrid .RepostHeader .RelationshipContainer {
     display: none;
   }
@@ -238,6 +253,8 @@
   .Posts.asGrid .PostHeaderAuthor,
   .Posts.asGrid .CategoryHeaderAuthor,
   .Posts.asGrid .CategoryHeaderCategory,
+  .Posts.asGrid .ArtistInviteSubmissionHeaderAuthor,
+  .Posts.asGrid .ArtistInviteSubmissionHeaderInvite,
   .Posts.asGrid .RepostHeaderAuthor,
   .Posts.asGrid .RepostHeaderReposter {
     max-width: 100%;
