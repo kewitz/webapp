@@ -145,6 +145,7 @@ class PostContainer extends Component {
     deviceSize: PropTypes.string.isRequired,
     dispatch: PropTypes.func.isRequired,
     innerHeight: PropTypes.number.isRequired,
+    isArtistInviteSubmission: PropTypes.bool.isRequired,
     isCommentsRequesting: PropTypes.bool.isRequired,
     isDiscoverRoot: PropTypes.bool.isRequired,
     isGridMode: PropTypes.bool.isRequired,

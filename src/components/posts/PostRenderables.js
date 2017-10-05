@@ -203,7 +203,7 @@ export class ArtistInviteSubmissionHeader extends PureComponent {
     postId: PropTypes.string.isRequired,
   }
   render() {
-    const { author, categoryName, categoryPath, detailPath, postCreatedAt, postId } = this.props
+    const { author, detailPath, postCreatedAt, postId } = this.props
     return (
       <header className="ArtistInviteSubmissionHeader" key={`ArtistInviteSubmissionHeader_${postId}`}>
         <div className="ArtistInviteSubmissionHeaderAuthor">

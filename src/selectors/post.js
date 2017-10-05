@@ -173,7 +173,7 @@ export const selectPostDetailPath = createSelector(
 )
 
 export const selectPostIsArtistInviteSubmission = createSelector(
-  [selectPost], post => post && !!post.get('artistInviteId')
+  [selectPost], post => post && !!post.get('artistInviteId'),
 )
 
 export const selectPostIsCommentsRequesting = createSelector(
