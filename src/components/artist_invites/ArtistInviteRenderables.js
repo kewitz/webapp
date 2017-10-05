@@ -1,5 +1,5 @@
 /* eslint-disable react/no-danger */
-import React from 'react'
+import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import moment from 'moment'
 import { Link } from 'react-router'
@@ -174,6 +174,79 @@ const renderBulletStatus = status => (
   </p>
 )
 
+function getSecondsRemaining(closedAt) {
+  const remaining = moment(closedAt).unix() - moment().unix()
+  return remaining < 0 ? 0 : remaining
+}
+
+class ArtistInviteCountDown extends PureComponent {
+  static propTypes = {
+    status: PropTypes.string.isRequired,
+    openedAt: PropTypes.string.isRequired,
+    closedAt: PropTypes.string.isRequired,
+    className: PropTypes.object.isRequired,
+  }
+
+  constructor(props) {
+    super(props)
+    this.state = { secondsRemaining: getSecondsRemaining(props.closedAt) }
+    this.timer = 0;
+  }
+
+  componentDidMount() {
+    const { status } = this.props
+    if (status === 'open') {
+      this.interval = setInterval(this.tick, 1000)
+    }
+  }
+
+  componentWillUnmount() {
+    if (this.interval) {
+      clearInterval(this.interval)
+    }
+  }
+
+  tick = () => {
+    const { closedAt } = this.props
+    this.setState({ secondsRemaining: getSecondsRemaining(closedAt) })
+  }
+
+  countDown() {
+    const { secondsRemaining } = this.state
+    const pad = n => `${n}`.padStart(2, '0')
+    const r = moment.duration(secondsRemaining, 'seconds')
+    if (r.days() > 1) {
+      return `${r.days()} Days Remaining`
+    }
+    return `${pad(r.hours())}:${pad(r.minutes())}:${pad(r.seconds())} Remaining`
+  }
+
+  renderByStatus() {
+    const { status, openedAt } = this.props
+    switch (status) {
+      case 'preview':
+      case 'upcoming':
+        return ''
+      case 'open':
+        return this.countDown()
+      case 'selecting':
+        return 'Hold Tight'
+      case 'closed':
+        return moment(openedAt).format('MMMM YYYY')
+      default:
+        return ''
+    }
+  }
+
+  render() {
+    const { className } = this.props
+    return (
+      <p className={className}>{this.renderByStatus()}</p>
+    )
+  }
+
+}
+
 export const ArtistInviteGrid = ({
   closedAt,
   dpi,
@@ -196,7 +269,12 @@ export const ArtistInviteGrid = ({
         <h2 className={titleStyle}>{title}</h2>
         <p className={inviteTypeStyle}>{inviteType}</p>
         {renderBulletStatus(status)}
-        <p className={dateRangeStyle}>{`${moment(openedAt).format('MMM D')} — ${moment(closedAt).format('MMM D, YYYY')}`}</p>
+        <ArtistInviteCountDown
+          className={dateRangeStyle}
+          status={status}
+          openedAt={openedAt}
+          closedAt={closedAt}
+        />
         <div className={shortDescriptionStyle}>
           <p dangerouslySetInnerHTML={{ __html: shortDescription }} />
         </div>
@@ -305,7 +383,12 @@ export const ArtistInviteDetail = ({
           <h1 className={titleStyle}>{title}</h1>
           <p className={inviteTypeStyle}>{inviteType}</p>
           {renderTextStatus(status)}
-          <p className={dateRangeStyle}>{`${moment(openedAt).format('MMM D')} — ${moment(closedAt).format('MMM D, YYYY')}`}</p>
+          <ArtistInviteCountDown
+            className={dateRangeStyle}
+            status={status}
+            openedAt={openedAt}
+            closedAt={closedAt}
+          />
           {links.size !== 0 && hasSubmissions &&
             <RoundedRect className="ScrollButton GreenBorder" onClick={onClickScrollToContent}>
               <ArrowIcon />
