@@ -239,15 +239,17 @@ class CommentContainer extends Component {
             isPostDetail={isPostDetail}
           />
         }
-        <CommentTools
-          canDeleteComment={canDeleteComment}
-          commentCreatedAt={commentCreatedAt}
-          commentId={commentId}
-          isLoggedIn={isLoggedIn}
-          isMoreToolActive={this.state.isMoreToolActive}
-          isOwnComment={isOwnComment}
-          key={`CommentTools_${commentId}`}
-        />
+        {!isEditing &&
+          <CommentTools
+            canDeleteComment={canDeleteComment}
+            commentCreatedAt={commentCreatedAt}
+            commentId={commentId}
+            isLoggedIn={isLoggedIn}
+            isMoreToolActive={this.state.isMoreToolActive}
+            isOwnComment={isOwnComment}
+            key={`CommentTools_${commentId}`}
+          />
+        }
       </div>
     )
   }
