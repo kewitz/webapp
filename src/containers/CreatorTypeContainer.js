@@ -183,8 +183,8 @@ class CreatorTypeContainer extends PureComponent {
   }
 
   render() {
-    const { categories, classModifier } = this.props
-    const { artistActive, categoryIds, fanActive, isModal } = this.state
+    const { categories, classModifier, isModal } = this.props
+    const { artistActive, categoryIds, fanActive } = this.state
     const showSubmit = isModal && (fanActive || categoryIds.length > 0)
     return (
       <div className={`${classModifier} ${containerStyle}`}>
