@@ -3,6 +3,7 @@ import Immutable from 'immutable'
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import debounce from 'lodash/debounce'
 import { getCategories } from '../actions/discover'
 import { saveProfile } from '../actions/profile'
 import { selectCreatorTypeCategories } from '../selectors/categories'
@@ -106,10 +107,12 @@ export class CategoryButton extends PureComponent {
   }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(state, props) {
+  const { classModifier } = props
   return {
     categories: selectCreatorTypeCategories(state),
     creatorTypeIds: (selectCreatorTypeCategoryIds(state) || Immutable.List()).toArray(),
+    isModal: classModifier !== 'inOnboarding' && classModifier !== 'inSettings',
   }
 }
 
@@ -120,6 +123,7 @@ class CreatorTypeContainer extends PureComponent {
     classModifier: PropTypes.string,
     creatorTypeIds: PropTypes.array,
     dispatch: PropTypes.func.isRequired,
+    isModal: PropTypes.bool.isRequired,
   }
 
   static defaultProps = {
@@ -134,6 +138,7 @@ class CreatorTypeContainer extends PureComponent {
       categoryIds: creatorTypeIds,
       fanActive: creatorTypeIds.length === 0 && classModifier === 'inSettings',
     }
+    this.updateCreatorTypes = debounce(this.updateCreatorTypes, 1000)
     dispatch(getCategories())
   }
 
@@ -145,7 +150,7 @@ class CreatorTypeContainer extends PureComponent {
     } else {
       ids.splice(index, 1)
     }
-    this.setState({ categoryIds: ids })
+    this.setState({ categoryIds: ids }, this.updateCreatorTypes)
   }
 
   onClickArtist = () => {
@@ -157,7 +162,7 @@ class CreatorTypeContainer extends PureComponent {
       artistActive: false,
       categoryIds: [],
       fanActive: true,
-    })
+    }, this.updateCreatorTypes)
   }
 
   onClickModalSubmit = () => {
@@ -169,10 +174,18 @@ class CreatorTypeContainer extends PureComponent {
     dispatch(closeModal(<CreatorTypesModal />))
   }
 
+  updateCreatorTypes = () => {
+    const { isModal, dispatch } = this.props
+    const { categoryIds } = this.state
+    if (!isModal) {
+      dispatch(saveProfile({ creator_type_category_ids: categoryIds }))
+    }
+  }
+
   render() {
     const { categories, classModifier } = this.props
-    const { artistActive, categoryIds, fanActive } = this.state
-    const showSubmit = classModifier !== 'inOnboarding' && classModifier !== 'inSettings' && (fanActive || categoryIds.length > 0)
+    const { artistActive, categoryIds, fanActive, isModal } = this.state
+    const showSubmit = isModal && (fanActive || categoryIds.length > 0)
     return (
       <div className={`${classModifier} ${containerStyle}`}>
         <h2 className={headerStyle}>I am here as:</h2>
