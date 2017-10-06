@@ -6,6 +6,8 @@ import { Link } from 'react-router'
 import classNames from 'classnames'
 import ImageAsset from '../assets/ImageAsset'
 import { ElloBuyButton } from '../editor/ElloBuyButton'
+import { css, select } from '../../styles/jss'
+import * as s from '../../styles/jso'
 
 const STATUS = {
   PENDING: 'isPending',
@@ -13,6 +15,47 @@ const STATUS = {
   SUCCESS: null,
   FAILURE: 'isFailing',
 }
+
+const lightBoxInactiveImageStyle = css(
+  select(
+    '> .LightBox > .ImageAttachment',
+    s.transitionTransform,
+    {
+      transform: 'scale(1.0)',
+    },
+  ),
+)
+
+const lightBoxImageStyle = css(
+  s.fullscreen,
+  s.fullWidth,
+  s.fullHeight,
+  {
+    zIndex: 5000,
+    backgroundColor: 'rgba(255,0,0,0.5)',
+  },
+  select(
+    '> .LightBox',
+    s.relative,
+    // s.containedAlignMiddle,
+    s.containedAlignMiddle,
+    // s.transitionTransform,
+    // s.transitionWidth,
+    {
+      // margin: '0 auto',
+      // width: '50%',
+      // transform: 'scale(50%)',
+    },
+    select(
+      '> .ImageAttachment',
+      {
+        // width: '50%',
+        transform: 'scale(0.5)',
+      },
+      s.transitionTransform,
+    ),
+  ),
+)
 
 class ImageRegion extends Component {
 
@@ -56,6 +99,7 @@ class ImageRegion extends Component {
     this.state = {
       marginBottom: null,
       scale: isNaN(scale) ? null : scale,
+      lightBox: false,
       status: shouldUseVideo ? STATUS.SUCCESS : STATUS.REQUEST,
     }
   }
@@ -73,15 +117,19 @@ class ImageRegion extends Component {
       ['buyLinkURL', 'columnWidth', 'contentWidth', 'innerHeight', 'isGridMode'].some(prop =>
         nextProps[prop] !== this.props[prop],
       ) ||
-      ['marginBottom', 'scale', 'status'].some(prop => nextState[prop] !== this.state[prop])
+      ['marginBottom', 'scale', 'lightBox', 'status'].some(prop => nextState[prop] !== this.state[prop])
   }
 
   onClickStaticImageRegion = () => {
-    const { scale } = this.state
-    if (scale) {
+    // const { scale } = this.state
+    // if (scale) {
+    //   return this.resetImageScale()
+    // } else if (!this.attachment) {
+    //   return null
+    // }
+    const { lightBox } = this.state
+    if (lightBox) {
       return this.resetImageScale()
-    } else if (!this.attachment) {
-      return null
     }
     return this.setImageScale()
   }
@@ -175,12 +223,13 @@ class ImageRegion extends Component {
       this.setState({
         scale: innerHeight / imageHeight,
         marginBottom: -(imageHeight - innerHeight),
+        lightBox: true,
       })
     }
   }
 
   resetImageScale() {
-    this.setState({ scale: null, marginBottom: null })
+    this.setState({ scale: null, marginBottom: null, lightBox: false })
   }
 
   isBasicAttachment() {
@@ -297,20 +346,23 @@ class ImageRegion extends Component {
   }
 
   renderRegionAsStatic() {
-    const { marginBottom, scale } = this.state
+    const { lightBox } = this.state
+    // const { scale } = this.state
     const { buyLinkURL } = this.props
     return (
       <div
-        className="RegionContent"
+        className={`${lightBox ? lightBoxImageStyle : lightBoxInactiveImageStyle}`}
         onClick={this.onClickStaticImageRegion}
-        style={{ transform: scale ? `scale(${scale})` : null, marginBottom }}
+        // style={{ transform: scale ? `scale(${scale})` : null }}
       >
-        {this.renderAttachment()}
-        {
-          buyLinkURL && buyLinkURL.length ?
-            <ElloBuyButton to={buyLinkURL} /> :
-            null
-        }
+        <div className="LightBox">
+          {this.renderAttachment()}
+          {
+            buyLinkURL && buyLinkURL.length ?
+              <ElloBuyButton to={buyLinkURL} /> :
+              null
+          }
+        </div>
       </div>
     )
   }
