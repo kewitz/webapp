@@ -17,8 +17,10 @@ const STATUS = {
 }
 
 const lightBoxInactiveImageStyle = css(
+  s.fullWidth,
+  s.bgcF2,
   select(
-    '> .LightBox > .ImageAttachment',
+    '> .LightBoxMask > .LightBox > .ImageAttachment',
     s.transitionTransform,
     {
       transform: 'scale(1.0)',
@@ -27,17 +29,19 @@ const lightBoxInactiveImageStyle = css(
 )
 
 const lightBoxImageStyle = css(
-  s.fullscreen,
   s.fullWidth,
-  s.fullHeight,
-  {
-    zIndex: 5000,
-    backgroundColor: 'rgba(255,0,0,0.5)',
-  },
+  s.bgcF2,
   select(
-    '> .LightBox',
+    '> .LightBoxMask',
+    s.fullscreen,
+    s.fullWidth,
+    s.fullHeight,
+    s.bgcModal,
+    s.zModal,
+  ),
+  select(
+    '> .LightBoxMask > .LightBox',
     s.relative,
-    // s.containedAlignMiddle,
     s.containedAlignMiddle,
     // s.transitionTransform,
     // s.transitionWidth,
@@ -97,8 +101,9 @@ class ImageRegion extends Component {
       scale = innerHeight / imageHeight
     }
     this.state = {
-      marginBottom: null,
       scale: isNaN(scale) ? null : scale,
+      marginBottom: null,
+      currentImageHeight: null,
       lightBox: false,
       status: shouldUseVideo ? STATUS.SUCCESS : STATUS.REQUEST,
     }
@@ -117,7 +122,7 @@ class ImageRegion extends Component {
       ['buyLinkURL', 'columnWidth', 'contentWidth', 'innerHeight', 'isGridMode'].some(prop =>
         nextProps[prop] !== this.props[prop],
       ) ||
-      ['marginBottom', 'scale', 'lightBox', 'status'].some(prop => nextState[prop] !== this.state[prop])
+      ['scale', 'marginBottom', 'currentImageHeight', 'lightBox', 'status'].some(prop => nextState[prop] !== this.state[prop])
   }
 
   onClickStaticImageRegion = () => {
@@ -219,17 +224,27 @@ class ImageRegion extends Component {
     const dimensions = this.getImageDimensions()
     const imageHeight = dimensions.height
     const innerHeight = this.props.innerHeight - 80
+    const imageHeightOnScreen = this.imageOnScreen.clientHeight
+
     if (imageHeight && imageHeight > innerHeight) {
       this.setState({
         scale: innerHeight / imageHeight,
         marginBottom: -(imageHeight - innerHeight),
+        currentImageHeight: imageHeightOnScreen,
         lightBox: true,
       })
     }
   }
 
   resetImageScale() {
-    this.setState({ scale: null, marginBottom: null, lightBox: false })
+    const imageHeightOnScreen = this.imageOnScreen.clientHeight
+
+    this.setState({
+      scale: null,
+      marginBottom: null,
+      currentImageHeight: imageHeightOnScreen,
+      lightBox: false,
+    })
   }
 
   isBasicAttachment() {
@@ -347,21 +362,26 @@ class ImageRegion extends Component {
 
   renderRegionAsStatic() {
     const { lightBox } = this.state
+    const { currentImageHeight } = this.state
     // const { scale } = this.state
     const { buyLinkURL } = this.props
     return (
       <div
         className={`${lightBox ? lightBoxImageStyle : lightBoxInactiveImageStyle}`}
+        ref={(imageOnScreen) => { this.imageOnScreen = imageOnScreen }}
         onClick={this.onClickStaticImageRegion}
         // style={{ transform: scale ? `scale(${scale})` : null }}
+        style={{ height: currentImageHeight }}
       >
-        <div className="LightBox">
-          {this.renderAttachment()}
-          {
-            buyLinkURL && buyLinkURL.length ?
-              <ElloBuyButton to={buyLinkURL} /> :
-              null
-          }
+        <div className="LightBoxMask">
+          <div className="LightBox">
+            {this.renderAttachment()}
+            {
+              buyLinkURL && buyLinkURL.length ?
+                <ElloBuyButton to={buyLinkURL} /> :
+                null
+            }
+          </div>
         </div>
       </div>
     )

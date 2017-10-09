@@ -18,7 +18,7 @@ const modalStyle = css(
     s.overflowScrollWebY,
     s.pointerAuto,
     s.opacity1,
-    { backgroundColor: 'rgba(26, 26, 26, 0.8)' },
+    s.bgcModal,
   ),
   modifier('.isActive.hasOverlay9', { backgroundColor: 'rgba(26, 26, 26, 0.9)' }),
   modifier('.isActive.isDangerZone', { backgroundColor: 'rgba(255, 0, 0, 0.95)' }),
