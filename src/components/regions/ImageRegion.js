@@ -20,11 +20,15 @@ const lightBoxInactiveImageStyle = css(
   s.fullWidth,
   s.bgcF2,
   select(
-    '> .LightBoxMask > .LightBox > .ImageAttachment',
-    s.transitionTransform,
-    {
-      transform: 'scale(1.0)',
-    },
+    '> .LightBoxMask',
+    s.bgcTransparent,
+    select(
+      '> .LightBox > .ImageAttachment',
+      s.transitionTransform,
+      {
+        transform: 'scale(1.0)',
+      },
+    ),
   ),
 )
 
@@ -38,22 +42,15 @@ const lightBoxImageStyle = css(
     s.fullHeight,
     s.bgcModal,
     s.zModal,
+    { transition: `background-color 0.4s ${s.ease}` },
   ),
   select(
     '> .LightBoxMask > .LightBox',
     s.relative,
     s.containedAlignMiddle,
-    // s.transitionTransform,
-    // s.transitionWidth,
-    {
-      // margin: '0 auto',
-      // width: '50%',
-      // transform: 'scale(50%)',
-    },
     select(
       '> .ImageAttachment',
       {
-        // width: '50%',
         transform: 'scale(0.5)',
       },
       s.transitionTransform,
