@@ -48,11 +48,9 @@ const lightBoxImageStyle = css(
     '> .LightBoxMask > .LightBox',
     s.relative,
     s.containedAlignMiddle,
+    s.center,
     select(
       '> .ImageAttachment',
-      {
-        transform: 'scale(0.5)',
-      },
       s.transitionTransform,
     ),
   ),
@@ -69,6 +67,7 @@ class ImageRegion extends Component {
     contentWidth: PropTypes.number,
     detailPath: PropTypes.string.isRequired,
     innerHeight: PropTypes.number,
+    innerWidth: PropTypes.number,
     isComment: PropTypes.bool,
     isGridMode: PropTypes.bool.isRequired,
     isNotification: PropTypes.bool,
@@ -82,6 +81,7 @@ class ImageRegion extends Component {
     commentOffset: 0,
     contentWidth: 0,
     innerHeight: 0,
+    innerWidth: 0,
     isComment: false,
     isNotification: false,
   }
@@ -91,15 +91,10 @@ class ImageRegion extends Component {
   }
 
   componentWillMount() {
-    const { asset, innerHeight, shouldUseVideo } = this.props
-    let scale = null
-    if (asset) {
-      const imageHeight = Number(asset.getIn(['attachment', 'original', 'metadata', 'height']))
-      scale = innerHeight / imageHeight
-    }
+    const { shouldUseVideo } = this.props
+
     this.state = {
-      scale: isNaN(scale) ? null : scale,
-      marginBottom: null,
+      scale: null,
       currentImageHeight: null,
       lightBox: false,
       status: shouldUseVideo ? STATUS.SUCCESS : STATUS.REQUEST,
@@ -116,19 +111,13 @@ class ImageRegion extends Component {
   shouldComponentUpdate(nextProps, nextState) {
     return !Immutable.is(nextProps.content, this.props.content) ||
       !Immutable.is(nextProps.asset, this.props.asset) ||
-      ['buyLinkURL', 'columnWidth', 'contentWidth', 'innerHeight', 'isGridMode'].some(prop =>
+      ['buyLinkURL', 'columnWidth', 'contentWidth', 'innerHeight', 'innerWidth', 'isGridMode'].some(prop =>
         nextProps[prop] !== this.props[prop],
       ) ||
-      ['scale', 'marginBottom', 'currentImageHeight', 'lightBox', 'status'].some(prop => nextState[prop] !== this.state[prop])
+      ['scale', 'currentImageHeight', 'lightBox', 'status'].some(prop => nextState[prop] !== this.state[prop])
   }
 
   onClickStaticImageRegion = () => {
-    // const { scale } = this.state
-    // if (scale) {
-    //   return this.resetImageScale()
-    // } else if (!this.attachment) {
-    //   return null
-    // }
     const { lightBox } = this.state
     if (lightBox) {
       return this.resetImageScale()
@@ -220,17 +209,29 @@ class ImageRegion extends Component {
   setImageScale() {
     const dimensions = this.getImageDimensions()
     const imageHeight = dimensions.height
-    const innerHeight = this.props.innerHeight - 80
+    const imageWidth = dimensions.width
+
+    const innerHeight = (this.props.innerHeight - 80)
+    const innerWidth = (this.props.innerWidth - 80)
+
     const imageHeightOnScreen = this.imageOnScreen.clientHeight
 
-    if (imageHeight && imageHeight > innerHeight) {
-      this.setState({
-        scale: innerHeight / imageHeight,
-        marginBottom: -(imageHeight - innerHeight),
-        currentImageHeight: imageHeightOnScreen,
-        lightBox: true,
-      })
+    const innerRatio = innerWidth / innerHeight
+    const imageRatio = imageWidth / imageHeight
+
+    let scale = null
+
+    if (imageRatio < innerRatio) {
+      scale = (innerHeight / imageHeight)
+    } else {
+      scale = (innerWidth / imageWidth)
     }
+
+    this.setState({
+      scale,
+      currentImageHeight: imageHeightOnScreen,
+      lightBox: true,
+    })
   }
 
   resetImageScale() {
@@ -238,7 +239,6 @@ class ImageRegion extends Component {
 
     this.setState({
       scale: null,
-      marginBottom: null,
       currentImageHeight: imageHeightOnScreen,
       lightBox: false,
     })
@@ -255,6 +255,7 @@ class ImageRegion extends Component {
 
   renderGifAttachment() {
     const { content, isNotification } = this.props
+    const { scale } = this.state
     const dimensions = this.getImageDimensions()
     return (
       <ImageAsset
@@ -266,12 +267,14 @@ class ImageRegion extends Component {
         role="presentation"
         src={this.attachment.getIn(['optimized', 'url'])}
         width={isNotification ? null : dimensions.width}
+        style={{ transform: scale ? `scale(${scale})` : null }}
       />
     )
   }
 
   renderImageAttachment() {
     const { content, isNotification } = this.props
+    const { scale } = this.state
     const srcset = this.getImageSourceSet()
     const dimensions = this.getImageDimensions()
     return (
@@ -285,6 +288,7 @@ class ImageRegion extends Component {
         srcSet={srcset}
         src={this.attachment.getIn(['hdpi', 'url'])}
         width={isNotification ? null : dimensions.width}
+        style={{ transform: scale ? `scale(${scale})` : null }}
       />
     )
   }
@@ -360,14 +364,12 @@ class ImageRegion extends Component {
   renderRegionAsStatic() {
     const { lightBox } = this.state
     const { currentImageHeight } = this.state
-    // const { scale } = this.state
     const { buyLinkURL } = this.props
     return (
       <div
         className={`${lightBox ? lightBoxImageStyle : lightBoxInactiveImageStyle}`}
         ref={(imageOnScreen) => { this.imageOnScreen = imageOnScreen }}
         onClick={this.onClickStaticImageRegion}
-        // style={{ transform: scale ? `scale(${scale})` : null }}
         style={{ height: currentImageHeight }}
       >
         <div className="LightBoxMask">

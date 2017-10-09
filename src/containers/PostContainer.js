@@ -38,6 +38,7 @@ import {
   selectContentWidth,
   selectDeviceSize,
   selectInnerHeight,
+  selectInnerWidth,
   selectIsMobile,
 } from '../selectors/gui'
 import {
@@ -95,6 +96,7 @@ export function makeMapStateToProps() {
       detailPath: selectPostDetailPath(state, props),
       deviceSize: selectDeviceSize(state),
       innerHeight: selectInnerHeight(state),
+      innerWidth: selectInnerWidth(state),
       isArtistInviteSubmission: selectPostIsArtistInviteSubmission(state, props),
       isCommentsRequesting: selectPostIsCommentsRequesting(state, props),
       isDiscoverRoot: selectIsDiscoverRoot(state, props),
@@ -145,6 +147,7 @@ class PostContainer extends Component {
     deviceSize: PropTypes.string.isRequired,
     dispatch: PropTypes.func.isRequired,
     innerHeight: PropTypes.number.isRequired,
+    innerWidth: PropTypes.number.isRequired,
     isArtistInviteSubmission: PropTypes.bool.isRequired,
     isCommentsRequesting: PropTypes.bool.isRequired,
     isDiscoverRoot: PropTypes.bool.isRequired,
@@ -254,7 +257,7 @@ class PostContainer extends Component {
     if (nextProps.isPostEmpty) { return false }
     return !Immutable.is(nextProps.post, this.props.post) ||
       !Immutable.is(nextProps.adminActions, this.props.adminActions) ||
-      ['columnWidth', 'contentWidth', 'innerHeight', 'isGridMode', 'isLoggedIn', 'isMobile', 'submissionStatus'].some(prop =>
+      ['columnWidth', 'contentWidth', 'innerHeight', 'innerWidth', 'isGridMode', 'isLoggedIn', 'isMobile', 'submissionStatus'].some(prop =>
         nextProps[prop] !== this.props[prop],
       )
   }
@@ -406,6 +409,7 @@ class PostContainer extends Component {
       contentWidth,
       detailPath,
       innerHeight,
+      innerWidth,
       isArtistInviteSubmission,
       isCommentsRequesting,
       isDiscoverRoot,
@@ -560,6 +564,7 @@ class PostContainer extends Component {
               contentWidth,
               detailPath,
               innerHeight,
+              innerWidth,
               isGridMode,
               isPostDetail,
               isRepost,
@@ -586,6 +591,7 @@ class PostContainer extends Component {
               contentWidth,
               detailPath,
               innerHeight,
+              innerWidth,
               isCommentsActive: this.state.isCommentsActive,
               isCommentsRequesting,
               isGridMode,
