@@ -242,6 +242,10 @@ class ImageRegion extends Component {
       currentImageHeight: imageHeightOnScreen,
       lightBox: false,
     })
+
+    setTimeout(() => {
+      this.setState({ currentImageHeight: null })
+    }, 100)
   }
 
   isBasicAttachment() {
