@@ -24,7 +24,7 @@ const lightBoxInactiveImageStyle = css(
     s.bgcTransparent,
     select(
       '> .LightBox > .ImageAttachment',
-      s.transitionTransform,
+      // s.transitionTransform,
       {
         transform: 'scale(1.0)',
       },
@@ -51,7 +51,7 @@ const lightBoxImageStyle = css(
     s.center,
     select(
       '> .ImageAttachment',
-      s.transitionTransform,
+      // s.transitionTransform,
     ),
   ),
 )
