@@ -17,14 +17,14 @@ const STATUS = {
 }
 
 const lightBoxInactiveImageStyle = css(
-  s.fullWidth,
+  s.block,
   s.bgcF2,
+  { float: 'left', clear: 'both' },
   select(
     '> .LightBoxMask',
     s.bgcTransparent,
     select(
       '> .LightBox > .ImageAttachment',
-      // s.transitionTransform,
       {
         transform: 'scale(1.0)',
       },
@@ -33,8 +33,9 @@ const lightBoxInactiveImageStyle = css(
 )
 
 const lightBoxImageStyle = css(
-  s.fullWidth,
+  s.block,
   s.bgcF2,
+  { float: 'left', clear: 'both' },
   select(
     '> .LightBoxMask',
     s.fullscreen,
@@ -51,7 +52,6 @@ const lightBoxImageStyle = css(
     s.center,
     select(
       '> .ImageAttachment',
-      // s.transitionTransform,
     ),
   ),
 )
@@ -96,6 +96,7 @@ class ImageRegion extends Component {
     this.state = {
       scale: null,
       currentImageHeight: null,
+      currentImageWidth: null,
       lightBox: false,
       status: shouldUseVideo ? STATUS.SUCCESS : STATUS.REQUEST,
     }
@@ -114,7 +115,7 @@ class ImageRegion extends Component {
       ['buyLinkURL', 'columnWidth', 'contentWidth', 'innerHeight', 'innerWidth', 'isGridMode'].some(prop =>
         nextProps[prop] !== this.props[prop],
       ) ||
-      ['scale', 'currentImageHeight', 'lightBox', 'status'].some(prop => nextState[prop] !== this.state[prop])
+      ['scale', 'currentImageHeight', 'currentImageWidth', 'lightBox', 'status'].some(prop => nextState[prop] !== this.state[prop])
   }
 
   onClickStaticImageRegion = () => {
@@ -215,6 +216,7 @@ class ImageRegion extends Component {
     const innerWidth = (this.props.innerWidth - 80)
 
     const imageHeightOnScreen = this.imageOnScreen.clientHeight
+    const imageWidthOnScreen = this.imageOnScreen.clientWidth
 
     const innerRatio = innerWidth / innerHeight
     const imageRatio = imageWidth / imageHeight
@@ -230,21 +232,27 @@ class ImageRegion extends Component {
     this.setState({
       scale,
       currentImageHeight: imageHeightOnScreen,
+      currentImageWidth: imageWidthOnScreen,
       lightBox: true,
     })
   }
 
   resetImageScale() {
     const imageHeightOnScreen = this.imageOnScreen.clientHeight
+    const imageWidthOnScreen = this.imageOnScreen.clientWidth
 
     this.setState({
       scale: null,
       currentImageHeight: imageHeightOnScreen,
+      currentImageWidth: imageWidthOnScreen,
       lightBox: false,
     })
 
     setTimeout(() => {
-      this.setState({ currentImageHeight: null })
+      this.setState({
+        currentImageHeight: null,
+        currentImageWidth: null,
+      })
     }, 100)
   }
 
@@ -368,13 +376,14 @@ class ImageRegion extends Component {
   renderRegionAsStatic() {
     const { lightBox } = this.state
     const { currentImageHeight } = this.state
+    const { currentImageWidth } = this.state
     const { buyLinkURL } = this.props
     return (
       <div
         className={`${lightBox ? lightBoxImageStyle : lightBoxInactiveImageStyle}`}
         ref={(imageOnScreen) => { this.imageOnScreen = imageOnScreen }}
         onClick={this.onClickStaticImageRegion}
-        style={{ height: currentImageHeight }}
+        style={{ height: currentImageHeight, width: currentImageWidth }}
       >
         <div className="LightBoxMask">
           <div className="LightBox">
