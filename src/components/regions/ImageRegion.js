@@ -5,6 +5,7 @@ import PropTypes from 'prop-types'
 import { Link } from 'react-router'
 import classNames from 'classnames'
 import ImageAsset from '../assets/ImageAsset'
+import { DismissButtonLGReverse } from '../buttons/Buttons'
 import { ElloBuyButton } from '../editor/ElloBuyButton'
 import { css, select } from '../../styles/jss'
 import * as s from '../../styles/jso'
@@ -44,14 +45,14 @@ const lightBoxImageStyle = css(
     s.bgcModal,
     s.zModal,
     { transition: `background-color 0.4s ${s.ease}` },
-  ),
-  select(
-    '> .LightBoxMask > .LightBox',
-    s.relative,
-    s.containedAlignMiddle,
-    s.center,
     select(
-      '> .ImageAttachment',
+      '> .LightBox',
+      s.relative,
+      s.containedAlignMiddle,
+      s.center,
+      select(
+        '> .ImageAttachment',
+      ),
     ),
   ),
 )
@@ -386,6 +387,9 @@ class ImageRegion extends Component {
         style={{ height: currentImageHeight, width: currentImageWidth }}
       >
         <div className="LightBoxMask">
+          {lightBox &&
+            <DismissButtonLGReverse />
+          }
           <div className="LightBox">
             {this.renderAttachment()}
             {
