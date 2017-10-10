@@ -13,7 +13,7 @@ import { css, hover, media, modifier, parent } from '../styles/jss'
 import * as s from '../styles/jso'
 import StreamContainer from './StreamContainer'
 
-const KEYS = ['unapprovedSubmissions', 'approvedSubmissions', 'selectedSubmissions']
+const KEYS = ['unapprovedSubmissions', 'approvedSubmissions', 'selectedSubmissions', 'declinedSubmissions']
 
 const containerStyle = css(
   { paddingBottom: 50 },
@@ -46,9 +46,11 @@ const buttonStyle = css(
   modifier('.approvedSubmissions', hover(s.colorGreen)),
   modifier('.selectedSubmissions', hover(s.colorYellow)),
   modifier('.unapprovedSubmissions', hover(s.colorBlack)),
+  modifier('.declinedSubmissions', hover(s.colorRed)),
   modifier('.approvedSubmissions.isActive', s.colorGreen),
   modifier('.selectedSubmissions.isActive', s.colorYellow),
   modifier('.unapprovedSubmissions.isActive', s.colorBlack),
+  modifier('.declinedSubmissions.isActive', s.colorRed),
 )
 
 const mapStateToProps = (state, props) => {
@@ -179,7 +181,7 @@ class ArtistInviteSubmissionsContainer extends PureComponent {
     if (links.size === 0) { return null }
     return (
       <section className={`Submissions ${containerStyle}`}>
-        {links.size === 3 && this.renderAdmin()}
+        {links.size >= 3 && this.renderAdmin()}
         {links.size > 0 && links.size < 3 && this.renderNormal()}
       </section>
     )

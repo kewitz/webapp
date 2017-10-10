@@ -340,6 +340,7 @@ export const colorC = { color: '#ccc' }
 export const colorWhite = { color: '#fff' }
 export const colorGreen = { color: '#00d100' }
 export const colorYellow = { color: '#ffc600' }
+export const colorRed = { color: '#c90000' }
 
 export const bgcCurrentColor = { backgroundColor: 'currentColor' }
 export const bgcTransparent = { backgroundColor: 'transparent' }
