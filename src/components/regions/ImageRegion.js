@@ -388,13 +388,15 @@ class ImageRegion extends Component {
         style={{ height: currentImageHeight, width: currentImageWidth }}
       >
         <div className="LightBoxMask">
-          {lightBox &&
-            <DismissButtonLGReverse />
+          {
+            lightBox ?
+              <DismissButtonLGReverse /> :
+              null
           }
           <div className="LightBox">
             {this.renderAttachment()}
             {
-              buyLinkURL && buyLinkURL.length ?
+              buyLinkURL && buyLinkURL.length && !lightBox ?
                 <ElloBuyButton to={buyLinkURL} /> :
                 null
             }
