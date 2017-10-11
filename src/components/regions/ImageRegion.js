@@ -18,6 +18,7 @@ const STATUS = {
 }
 
 const lightBoxInactiveImageStyle = css(
+  s.relative,
   s.block,
   s.bgcF2,
   { float: 'left', clear: 'both' },
