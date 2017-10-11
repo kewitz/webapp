@@ -41,6 +41,7 @@ export function RegionItems(props) {
             innerWidth={innerWidth}
             isComment={isComment}
             isGridMode={isGridMode}
+            isPostDetail={isPostDetail}
             key={`ImageRegion_${regionKey}`}
             shouldUseVideo={!!(asset && asset.getIn(['attachment', 'video'], Immutable.Map()).size) && !isIOS() && !isPostDetail}
           />,
@@ -71,13 +72,14 @@ RegionItems.propTypes = {
   contentWidth: PropTypes.number.isRequired,
   detailPath: PropTypes.string.isRequired,
   innerHeight: PropTypes.number.isRequired,
-  innerWidth: PropTypes.number.isRequired,
+  innerWidth: PropTypes.number,
   isComment: PropTypes.bool,
   isGridMode: PropTypes.bool.isRequired,
   isPostDetail: PropTypes.bool.isRequired,
 }
 RegionItems.defaultProps = {
   isComment: false,
+  innerWidth: null,
 }
 
 export function regionItemsForNotifications(content, detailPath) {

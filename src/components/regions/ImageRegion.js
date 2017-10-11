@@ -18,10 +18,10 @@ const STATUS = {
 }
 
 const lightBoxInactiveImageStyle = css(
+  s.inline,
   s.relative,
-  s.block,
+  s.center,
   s.bgcF2,
-  { float: 'left', clear: 'both' },
   select(
     '> .LightBoxMask',
     s.bgcTransparent,
@@ -36,8 +36,9 @@ const lightBoxInactiveImageStyle = css(
 
 const lightBoxImageStyle = css(
   s.block,
+  s.relative,
   s.bgcF2,
-  { float: 'left', clear: 'both' },
+  { margin: '0 auto' },
   select(
     '> .LightBoxMask',
     s.fullscreen,
@@ -74,6 +75,7 @@ class ImageRegion extends Component {
     isGridMode: PropTypes.bool.isRequired,
     isNotification: PropTypes.bool,
     shouldUseVideo: PropTypes.bool.isRequired,
+    isPostDetail: PropTypes.bool,
   }
 
   static defaultProps = {
@@ -86,6 +88,7 @@ class ImageRegion extends Component {
     innerWidth: 0,
     isComment: false,
     isNotification: false,
+    isPostDetail: false,
   }
 
   static contextTypes = {
@@ -99,17 +102,20 @@ class ImageRegion extends Component {
       scale: null,
       currentImageHeight: null,
       currentImageWidth: null,
+      measuredImageHeight: null,
+      measuredImageWidth: null,
       lightBox: false,
       status: shouldUseVideo ? STATUS.SUCCESS : STATUS.REQUEST,
     }
   }
 
-  componentWillReceiveProps() {
-    const { scale } = this.state
-    if (scale) {
-      this.setImageScale()
-    }
-  }
+  // componentWillReceiveProps() {
+  //   const { lightBox } = this.state
+  //   if (lightBox) {
+  //     return this.resetImageScale()
+  //   }
+  //   return this.setImageScale()
+  // }
 
   shouldComponentUpdate(nextProps, nextState) {
     return !Immutable.is(nextProps.content, this.props.content) ||
@@ -122,7 +128,9 @@ class ImageRegion extends Component {
 
   onClickStaticImageRegion = () => {
     const { lightBox } = this.state
-    if (lightBox) {
+    const { isPostDetail } = this.props
+
+    if (lightBox && isPostDetail) {
       return this.resetImageScale()
     }
     return this.setImageScale()
@@ -210,43 +218,47 @@ class ImageRegion extends Component {
   }
 
   setImageScale() {
+    const { measuredImageHeight, measuredImageWidth } = this.state
+    const { innerHeight, innerWidth } = this.props
+
     const dimensions = this.getImageDimensions()
     const imageHeight = dimensions.height
     const imageWidth = dimensions.width
 
-    const innerHeight = (this.props.innerHeight - 80)
-    const innerWidth = (this.props.innerWidth - 80)
+    const innerHeightPadded = (innerHeight - 80)
+    const innerWidthPadded = (innerWidth - 80)
 
-    const imageHeightOnScreen = this.imageOnScreen.clientHeight
-    const imageWidthOnScreen = this.imageOnScreen.clientWidth
-
-    const innerRatio = innerWidth / innerHeight
+    const innerRatio = innerWidthPadded / innerHeightPadded
     const imageRatio = imageWidth / imageHeight
 
     let scale = null
 
     if (imageRatio < innerRatio) {
-      scale = (innerHeight / imageHeight)
+      scale = (innerHeightPadded / imageHeight)
     } else {
-      scale = (innerWidth / imageWidth)
+      scale = (innerWidthPadded / imageWidth)
     }
 
     this.setState({
       scale,
-      currentImageHeight: imageHeightOnScreen,
-      currentImageWidth: imageWidthOnScreen,
+      currentImageHeight: measuredImageHeight,
+      currentImageWidth: measuredImageWidth,
       lightBox: true,
     })
   }
 
-  resetImageScale() {
-    const imageHeightOnScreen = this.imageOnScreen.clientHeight
-    const imageWidthOnScreen = this.imageOnScreen.clientWidth
+  handleScreenDimensions = (measuredDimensions) => {
+    if (measuredDimensions) {
+      this.setState({
+        measuredImageHeight: measuredDimensions.height,
+        measuredImageWidth: measuredDimensions.width,
+      })
+    }
+  }
 
+  resetImageScale() {
     this.setState({
       scale: null,
-      currentImageHeight: imageHeightOnScreen,
-      currentImageWidth: imageWidthOnScreen,
       lightBox: false,
     })
 
@@ -268,7 +280,7 @@ class ImageRegion extends Component {
   }
 
   renderGifAttachment() {
-    const { content, isNotification } = this.props
+    const { content, isNotification, isPostDetail } = this.props
     const { scale } = this.state
     const dimensions = this.getImageDimensions()
     return (
@@ -279,15 +291,21 @@ class ImageRegion extends Component {
         onLoadFailure={this.onLoadFailure}
         onLoadSuccess={this.onLoadSuccess}
         role="presentation"
+        isPostDetail={isPostDetail}
         src={this.attachment.getIn(['optimized', 'url'])}
         width={isNotification ? null : dimensions.width}
         style={{ transform: scale ? `scale(${scale})` : null }}
+        screenDimensions={
+          isPostDetail ?
+            ((measuredDimensions) => { this.handleScreenDimensions(measuredDimensions) }) :
+            null
+        }
       />
     )
   }
 
   renderImageAttachment() {
-    const { content, isNotification } = this.props
+    const { content, isNotification, isPostDetail } = this.props
     const { scale } = this.state
     const srcset = this.getImageSourceSet()
     const dimensions = this.getImageDimensions()
@@ -299,10 +317,16 @@ class ImageRegion extends Component {
         onLoadFailure={this.onLoadFailure}
         onLoadSuccess={this.onLoadSuccess}
         role="presentation"
+        isPostDetail={isPostDetail}
         srcSet={srcset}
         src={this.attachment.getIn(['hdpi', 'url'])}
         width={isNotification ? null : dimensions.width}
         style={{ transform: scale ? `scale(${scale})` : null }}
+        screenDimensions={
+          isPostDetail ?
+            ((measuredDimensions) => { this.handleScreenDimensions(measuredDimensions) }) :
+            null
+        }
       />
     )
   }
@@ -377,13 +401,11 @@ class ImageRegion extends Component {
 
   renderRegionAsStatic() {
     const { lightBox } = this.state
-    const { currentImageHeight } = this.state
-    const { currentImageWidth } = this.state
+    const { currentImageHeight, currentImageWidth } = this.state
     const { buyLinkURL } = this.props
     return (
       <div
         className={`${lightBox ? lightBoxImageStyle : lightBoxInactiveImageStyle}`}
-        ref={(imageOnScreen) => { this.imageOnScreen = imageOnScreen }}
         onClick={this.onClickStaticImageRegion}
         style={{ height: currentImageHeight, width: currentImageWidth }}
       >
