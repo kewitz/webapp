@@ -26,10 +26,16 @@ const lightBoxInactiveImageStyle = css(
     '> .LightBoxMask',
     s.bgcTransparent,
     select(
-      '> .LightBox > .ImageAttachment',
-      {
-        transform: 'scale(1.0)',
-      },
+      '> .LightBox',
+      s.relative,
+      s.alignTop,
+      s.inline,
+      select(
+        '> .ImageAttachment',
+        {
+          transform: 'scale(1.0)',
+        },
+      ),
     ),
   ),
 )
