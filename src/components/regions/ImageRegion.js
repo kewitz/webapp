@@ -78,10 +78,11 @@ class ImageRegion extends Component {
     contentWidth: PropTypes.number,
     detailPath: PropTypes.string.isRequired,
     isComment: PropTypes.bool,
+    isPostBody: PropTypes.bool,
+    isPostDetail: PropTypes.bool,
     isGridMode: PropTypes.bool.isRequired,
     isNotification: PropTypes.bool,
     shouldUseVideo: PropTypes.bool.isRequired,
-    isPostDetail: PropTypes.bool,
   }
 
   static defaultProps = {
@@ -92,7 +93,9 @@ class ImageRegion extends Component {
     contentWidth: 0,
     isComment: false,
     isNotification: false,
+    isPostBody: true,
     isPostDetail: false,
+    isGridMode: false,
   }
 
   static contextTypes = {
@@ -124,12 +127,15 @@ class ImageRegion extends Component {
 
   onClickStaticImageRegion = () => {
     const { lightBox } = this.state
-    const { isPostDetail } = this.props
+    const { isPostBody, isPostDetail, isGridMode } = this.props
 
-    if (lightBox && isPostDetail) {
-      return this.resetImageScale()
+    if (isPostBody && (isPostDetail || !isGridMode)) {
+      if (lightBox) {
+        return this.resetImageScale()
+      }
+      return this.setImageScale()
     }
-    return this.setImageScale()
+    return null
   }
 
   onLoadSuccess = (img) => {
@@ -288,7 +294,7 @@ class ImageRegion extends Component {
   }
 
   renderGifAttachment() {
-    const { content, isNotification, isPostDetail } = this.props
+    const { content, isNotification, isPostBody, isPostDetail, isGridMode } = this.props
     const { scale } = this.state
     const dimensions = this.getImageDimensions()
     return (
@@ -299,12 +305,14 @@ class ImageRegion extends Component {
         onLoadFailure={this.onLoadFailure}
         onLoadSuccess={this.onLoadSuccess}
         role="presentation"
+        isPostBody={isPostBody}
         isPostDetail={isPostDetail}
+        isGridMode={isGridMode}
         src={this.attachment.getIn(['optimized', 'url'])}
         width={isNotification ? null : dimensions.width}
         style={{ transform: scale ? `scale(${scale})` : null }}
         screenDimensions={
-          isPostDetail ?
+          isPostBody && (isPostDetail || !isGridMode) ?
             ((measuredDimensions) => { this.handleScreenDimensions(measuredDimensions) }) :
             null
         }
@@ -313,7 +321,7 @@ class ImageRegion extends Component {
   }
 
   renderImageAttachment() {
-    const { content, isNotification, isPostDetail } = this.props
+    const { content, isNotification, isPostBody, isPostDetail, isGridMode } = this.props
     const { scale } = this.state
     const srcset = this.getImageSourceSet()
     const dimensions = this.getImageDimensions()
@@ -325,13 +333,15 @@ class ImageRegion extends Component {
         onLoadFailure={this.onLoadFailure}
         onLoadSuccess={this.onLoadSuccess}
         role="presentation"
+        isPostBody={isPostBody}
         isPostDetail={isPostDetail}
+        isGridMode={isGridMode}
         srcSet={srcset}
         src={this.attachment.getIn(['hdpi', 'url'])}
         width={isNotification ? null : dimensions.width}
         style={{ transform: scale ? `scale(${scale})` : null }}
         screenDimensions={
-          isPostDetail ?
+          isPostBody && (isPostDetail || !isGridMode) ?
             ((measuredDimensions) => { this.handleScreenDimensions(measuredDimensions) }) :
             null
         }
@@ -340,7 +350,7 @@ class ImageRegion extends Component {
   }
 
   renderLegacyImageAttachment() {
-    const { content, isNotification, isPostDetail } = this.props
+    const { content, isNotification, isPostBody, isPostDetail, isGridMode } = this.props
     const attrs = { src: content.get('url') }
     const { scale, width, height } = this.state
     const stateDimensions = width ? { width, height } : {}
@@ -354,10 +364,12 @@ class ImageRegion extends Component {
         onLoadFailure={this.onLoadFailure}
         onLoadSuccess={this.onLoadSuccess}
         role="presentation"
+        isPostBody={isPostBody}
         isPostDetail={isPostDetail}
+        isGridMode={isGridMode}
         style={{ transform: scale ? `scale(${scale})` : null }}
         screenDimensions={
-          isPostDetail ?
+          isPostBody && (isPostDetail || !isGridMode) ?
             ((measuredDimensions) => { this.handleScreenDimensions(measuredDimensions) }) :
             null
         }

@@ -19,7 +19,9 @@ export default class ImageAsset extends PureComponent {
   static propTypes = {
     onLoadSuccess: PropTypes.func,
     onLoadFailure: PropTypes.func,
+    isPostBody: PropTypes.bool,
     isPostDetail: PropTypes.bool,
+    isGridMode: PropTypes.bool,
     screenDimensions: PropTypes.func,
     src: PropTypes.string,
     srcSet: PropTypes.string,
@@ -28,7 +30,9 @@ export default class ImageAsset extends PureComponent {
   static defaultProps = {
     onLoadSuccess: null,
     onLoadFailure: null,
+    isPostBody: false,
     isPostDetail: false,
+    isGridMode: false,
     screenDimensions: null,
     src: null,
     srcSet: null,
@@ -66,9 +70,9 @@ export default class ImageAsset extends PureComponent {
   }
 
   setScreenDimensions = () => {
-    const { isPostDetail } = this.props
+    const { isPostBody, isPostDetail, isGridMode } = this.props
 
-    if (isPostDetail) {
+    if (isPostBody && (isPostDetail || !isGridMode)) {
       const screenDimensions = {
         width: this.imgOnScreen.clientWidth,
         height: this.imgOnScreen.clientHeight,
@@ -102,7 +106,9 @@ export default class ImageAsset extends PureComponent {
     const elementProps = { ...this.props }
     delete elementProps.onLoadFailure
     delete elementProps.onLoadSuccess
+    delete elementProps.isPostBody
     delete elementProps.isPostDetail
+    delete elementProps.isGridMode
     delete elementProps.screenDimensions
     if (elementProps.isBackgroundImage) {
       const style = elementProps.src ? { backgroundImage: `url(${elementProps.src})` } : null
