@@ -8,7 +8,7 @@ import { isIOS } from '../../lib/jello'
 
 export function RegionItems(props) {
   const { columnWidth, commentOffset, content, contentWidth,
-    detailPath, innerHeight, innerWidth, isComment, isGridMode, isPostDetail } = props
+    detailPath, innerHeight, isComment, isGridMode, isPostDetail } = props
   // sometimes the content is null/undefined for some reason
   if (!content) { return null }
   const cells = []
@@ -38,7 +38,6 @@ export function RegionItems(props) {
             contentWidth={contentWidth}
             detailPath={detailPath}
             innerHeight={innerHeight}
-            innerWidth={innerWidth}
             isComment={isComment}
             isGridMode={isGridMode}
             isPostDetail={isPostDetail}
@@ -72,14 +71,12 @@ RegionItems.propTypes = {
   contentWidth: PropTypes.number.isRequired,
   detailPath: PropTypes.string.isRequired,
   innerHeight: PropTypes.number.isRequired,
-  innerWidth: PropTypes.number,
   isComment: PropTypes.bool,
   isGridMode: PropTypes.bool.isRequired,
   isPostDetail: PropTypes.bool.isRequired,
 }
 RegionItems.defaultProps = {
   isComment: false,
-  innerWidth: null,
 }
 
 export function regionItemsForNotifications(content, detailPath) {

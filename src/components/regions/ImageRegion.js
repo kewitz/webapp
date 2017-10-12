@@ -76,7 +76,6 @@ class ImageRegion extends Component {
     contentWidth: PropTypes.number,
     detailPath: PropTypes.string.isRequired,
     innerHeight: PropTypes.number,
-    innerWidth: PropTypes.number,
     isComment: PropTypes.bool,
     isGridMode: PropTypes.bool.isRequired,
     isNotification: PropTypes.bool,
@@ -91,7 +90,6 @@ class ImageRegion extends Component {
     commentOffset: 0,
     contentWidth: 0,
     innerHeight: 0,
-    innerWidth: 0,
     isComment: false,
     isNotification: false,
     isPostDetail: false,
@@ -126,7 +124,7 @@ class ImageRegion extends Component {
   shouldComponentUpdate(nextProps, nextState) {
     return !Immutable.is(nextProps.content, this.props.content) ||
       !Immutable.is(nextProps.asset, this.props.asset) ||
-      ['buyLinkURL', 'columnWidth', 'contentWidth', 'innerHeight', 'innerWidth', 'isGridMode'].some(prop =>
+      ['buyLinkURL', 'columnWidth', 'contentWidth', 'innerHeight', 'isGridMode'].some(prop =>
         nextProps[prop] !== this.props[prop],
       ) ||
       ['scale', 'currentImageHeight', 'currentImageWidth', 'lightBox', 'status'].some(prop => nextState[prop] !== this.state[prop])
@@ -225,14 +223,13 @@ class ImageRegion extends Component {
 
   setImageScale() {
     const { measuredImageHeight, measuredImageWidth } = this.state
-    const { innerHeight, innerWidth } = this.props
 
     const dimensions = this.getImageDimensions()
     const imageHeight = dimensions.height
     const imageWidth = dimensions.width
 
-    const innerHeightPadded = (innerHeight - 80)
-    const innerWidthPadded = (innerWidth - 80)
+    const innerHeightPadded = (window.innerHeight - 80)
+    const innerWidthPadded = (window.innerWidth - 80)
 
     const innerRatio = innerWidthPadded / innerHeightPadded
     const imageRatio = imageWidth / imageHeight
