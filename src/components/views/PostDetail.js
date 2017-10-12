@@ -47,6 +47,7 @@ const postDetailStyle = css(
       select('& .ViewsTool', s.pointerNone, modifier('.isPill', { marginRight: '0 !important' })),
     ),
   ),
+  select('> .PostDetails.Posts.asList', s.relative),
   select('& .PostDetails.Posts.asList .PostDetailAsideBottom',
     select('& .PostTools', s.px0, s.mt40, s.flex, s.justifyStart, media(s.minBreak3, s.justifyEnd, s.px10)),
     select('& .PostTool', s.displayNone,
