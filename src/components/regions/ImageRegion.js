@@ -4,9 +4,11 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router'
 import classNames from 'classnames'
+import Mousetrap from 'mousetrap'
 import ImageAsset from '../assets/ImageAsset'
-import { DismissButtonLGReverse } from '../buttons/Buttons'
 import { ElloBuyButton } from '../editor/ElloBuyButton'
+import { DismissButtonLGReverse } from '../buttons/Buttons'
+import { SHORTCUT_KEYS } from '../../constants/application_types'
 import { css, select } from '../../styles/jss'
 import * as s from '../../styles/jso'
 
@@ -112,14 +114,6 @@ class ImageRegion extends Component {
       status: shouldUseVideo ? STATUS.SUCCESS : STATUS.REQUEST,
     }
   }
-
-  // componentWillReceiveProps() {
-  //   const { lightBox } = this.state
-  //   if (lightBox) {
-  //     return this.resetImageScale()
-  //   }
-  //   return this.setImageScale()
-  // }
 
   shouldComponentUpdate(nextProps, nextState) {
     return !Immutable.is(nextProps.content, this.props.content) ||
@@ -257,6 +251,8 @@ class ImageRegion extends Component {
       currentImageWidth: measuredImageWidth,
       lightBox: true,
     })
+
+    Mousetrap.bind(SHORTCUT_KEYS.ESC, () => { this.resetImageScale() })
   }
 
   handleScreenDimensions = (measuredDimensions) => {
@@ -280,6 +276,8 @@ class ImageRegion extends Component {
         currentImageWidth: null,
       })
     }, 100)
+
+    Mousetrap.unbind(SHORTCUT_KEYS.ESC)
   }
 
   isBasicAttachment() {
