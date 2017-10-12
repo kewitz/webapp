@@ -33,10 +33,15 @@ const lightBoxInactiveImageStyle = css(
       s.alignTop,
       s.inline,
       select(
-        '> .ImageAttachment',
-        {
-          transform: 'scale(1.0)',
-        },
+        '> .ImgHolder',
+        s.relative,
+        s.inlineBlock,
+        select(
+          '> .ImageAttachment',
+          {
+            transform: 'scale(1.0)',
+          },
+        ),
       ),
     ),
   ),
@@ -443,12 +448,14 @@ class ImageRegion extends Component {
               null
           }
           <div className="LightBox">
-            {this.renderAttachment()}
-            {
-              buyLinkURL && buyLinkURL.length && !lightBox ?
-                <ElloBuyButton to={buyLinkURL} /> :
-                null
-            }
+            <div className="ImgHolder">
+              {this.renderAttachment()}
+              {
+                buyLinkURL && buyLinkURL.length && !lightBox ?
+                  <ElloBuyButton to={buyLinkURL} /> :
+                  null
+              }
+            </div>
           </div>
         </div>
       </div>
