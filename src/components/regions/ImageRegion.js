@@ -77,7 +77,6 @@ class ImageRegion extends Component {
     content: PropTypes.object.isRequired,
     contentWidth: PropTypes.number,
     detailPath: PropTypes.string.isRequired,
-    innerHeight: PropTypes.number,
     isComment: PropTypes.bool,
     isGridMode: PropTypes.bool.isRequired,
     isNotification: PropTypes.bool,
@@ -91,7 +90,6 @@ class ImageRegion extends Component {
     columnWidth: 0,
     commentOffset: 0,
     contentWidth: 0,
-    innerHeight: 0,
     isComment: false,
     isNotification: false,
     isPostDetail: false,
@@ -118,7 +116,7 @@ class ImageRegion extends Component {
   shouldComponentUpdate(nextProps, nextState) {
     return !Immutable.is(nextProps.content, this.props.content) ||
       !Immutable.is(nextProps.asset, this.props.asset) ||
-      ['buyLinkURL', 'columnWidth', 'contentWidth', 'innerHeight', 'isGridMode'].some(prop =>
+      ['buyLinkURL', 'columnWidth', 'contentWidth', 'isGridMode'].some(prop =>
         nextProps[prop] !== this.props[prop],
       ) ||
       ['scale', 'currentImageHeight', 'currentImageWidth', 'lightBox', 'status'].some(prop => nextState[prop] !== this.state[prop])
