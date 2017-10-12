@@ -225,8 +225,17 @@ class ImageRegion extends Component {
     const { measuredImageHeight, measuredImageWidth } = this.state
 
     const dimensions = this.getImageDimensions()
-    const imageHeight = dimensions.height
-    const imageWidth = dimensions.width
+    let imageHeight = null
+    let imageWidth = null
+
+    if (dimensions) {
+      imageHeight = dimensions.height
+      imageWidth = dimensions.width
+    } else {
+      const { width, height } = this.state
+      imageHeight = height
+      imageWidth = width
+    }
 
     const innerHeightPadded = (window.innerHeight - 80)
     const innerWidthPadded = (window.innerWidth - 80)
@@ -335,9 +344,9 @@ class ImageRegion extends Component {
   }
 
   renderLegacyImageAttachment() {
-    const { content, isNotification } = this.props
+    const { content, isNotification, isPostDetail } = this.props
     const attrs = { src: content.get('url') }
-    const { width, height } = this.state
+    const { scale, width, height } = this.state
     const stateDimensions = width ? { width, height } : {}
     if (isNotification) {
       attrs.height = 'auto'
@@ -349,6 +358,13 @@ class ImageRegion extends Component {
         onLoadFailure={this.onLoadFailure}
         onLoadSuccess={this.onLoadSuccess}
         role="presentation"
+        isPostDetail={isPostDetail}
+        style={{ transform: scale ? `scale(${scale})` : null }}
+        screenDimensions={
+          isPostDetail ?
+            ((measuredDimensions) => { this.handleScreenDimensions(measuredDimensions) }) :
+            null
+        }
         {...stateDimensions}
         {...attrs}
       />
