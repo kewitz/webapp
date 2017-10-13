@@ -316,7 +316,7 @@ class ImageRegion extends Component {
         src={this.attachment.getIn(['optimized', 'url'])}
         width={isNotification ? null : dimensions.width}
         style={{ transform: scale ? `scale(${scale})` : null }}
-        screenDimensions={
+        onScreenDimensions={
           isPostBody && (isPostDetail || !isGridMode) ?
             ((measuredDimensions) => { this.handleScreenDimensions(measuredDimensions) }) :
             null
@@ -345,7 +345,7 @@ class ImageRegion extends Component {
         src={this.attachment.getIn(['hdpi', 'url'])}
         width={isNotification ? null : dimensions.width}
         style={{ transform: scale ? `scale(${scale})` : null }}
-        screenDimensions={
+        onScreenDimensions={
           isPostBody && (isPostDetail || !isGridMode) ?
             ((measuredDimensions) => { this.handleScreenDimensions(measuredDimensions) }) :
             null
@@ -373,7 +373,7 @@ class ImageRegion extends Component {
         isPostDetail={isPostDetail}
         isGridMode={isGridMode}
         style={{ transform: scale ? `scale(${scale})` : null }}
-        screenDimensions={
+        onScreenDimensions={
           isPostBody && (isPostDetail || !isGridMode) ?
             ((measuredDimensions) => { this.handleScreenDimensions(measuredDimensions) }) :
             null

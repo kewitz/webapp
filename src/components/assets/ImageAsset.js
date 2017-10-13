@@ -22,7 +22,7 @@ export default class ImageAsset extends PureComponent {
     isPostBody: PropTypes.bool,
     isPostDetail: PropTypes.bool,
     isGridMode: PropTypes.bool,
-    screenDimensions: PropTypes.func,
+    onScreenDimensions: PropTypes.func,
     src: PropTypes.string,
     srcSet: PropTypes.string,
   }
@@ -33,7 +33,7 @@ export default class ImageAsset extends PureComponent {
     isPostBody: false,
     isPostDetail: false,
     isGridMode: false,
-    screenDimensions: null,
+    onScreenDimensions: null,
     src: null,
     srcSet: null,
   }
@@ -46,7 +46,7 @@ export default class ImageAsset extends PureComponent {
     if (!this.img && prevProps.src !== this.props.src) {
       this.createLoader()
     }
-    this.setScreenDimensions()
+    this.getDimensionsOnScreen()
   }
 
   componentWillUnmount() {
@@ -54,7 +54,7 @@ export default class ImageAsset extends PureComponent {
   }
 
   onLoadSuccess = () => {
-    this.setScreenDimensions()
+    this.getDimensionsOnScreen()
 
     if (typeof this.props.onLoadSuccess === 'function') {
       this.props.onLoadSuccess(this.img)
@@ -69,15 +69,15 @@ export default class ImageAsset extends PureComponent {
     }
   }
 
-  setScreenDimensions = () => {
+  getDimensionsOnScreen = () => {
     const { isPostBody, isPostDetail, isGridMode } = this.props
 
     if (isPostBody && (isPostDetail || !isGridMode)) {
-      const screenDimensions = {
+      const onScreenDimensions = {
         width: this.imgOnScreen.clientWidth,
         height: this.imgOnScreen.clientHeight,
       }
-      this.props.screenDimensions(screenDimensions)
+      this.props.onScreenDimensions(onScreenDimensions)
     }
   }
 
@@ -109,7 +109,7 @@ export default class ImageAsset extends PureComponent {
     delete elementProps.isPostBody
     delete elementProps.isPostDetail
     delete elementProps.isGridMode
-    delete elementProps.screenDimensions
+    delete elementProps.onScreenDimensions
     if (elementProps.isBackgroundImage) {
       const style = elementProps.src ? { backgroundImage: `url(${elementProps.src})` } : null
       delete elementProps.src
