@@ -131,7 +131,6 @@ class ImageRegion extends Component {
   }
 
   onClickStaticImageRegion = (event) => {
-    console.log(event.target.classList.contains('ElloBuyButton'))
     const { lightBox } = this.state
     const { isPostBody, isPostDetail, isGridMode } = this.props
     const buyButtonClick = event.target.classList.contains('ElloBuyButton')
