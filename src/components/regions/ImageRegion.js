@@ -130,11 +130,13 @@ class ImageRegion extends Component {
       ['scale', 'currentImageHeight', 'currentImageWidth', 'lightBox', 'status'].some(prop => nextState[prop] !== this.state[prop])
   }
 
-  onClickStaticImageRegion = () => {
+  onClickStaticImageRegion = (event) => {
+    console.log(event.target.classList.contains('ElloBuyButton'))
     const { lightBox } = this.state
     const { isPostBody, isPostDetail, isGridMode } = this.props
+    const buyButtonClick = event.target.classList.contains('ElloBuyButton')
 
-    if (isPostBody && (isPostDetail || !isGridMode)) {
+    if (isPostBody && !buyButtonClick && (isPostDetail || !isGridMode)) {
       if (lightBox) {
         return this.resetImageScale()
       }
