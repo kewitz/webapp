@@ -110,11 +110,19 @@ const dismissButtonStyle = css(
   media(s.minBreak2, { top: 10, right: 10 }),
 )
 
+const dismissButtonStyleReverse = css(
+  s.colorWhite,
+  hover(s.colorA),
+)
+
 export const DismissButton = () =>
   <button className={`CloseModal ${dismissButtonStyle}`}><XIcon /></button>
 
 export const DismissButtonLG = () =>
   <button className={`CloseModal ${dismissButtonStyle}`}><XIconLG /></button>
+
+export const DismissButtonLGReverse = () =>
+  <button className={`CloseModal ${dismissButtonStyle} ${dismissButtonStyleReverse}`}><XIconLG /></button>
 
 // -------------------------------------
 

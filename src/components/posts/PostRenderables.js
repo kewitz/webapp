@@ -370,6 +370,7 @@ export class PostBody extends PureComponent {
     innerHeight: PropTypes.number.isRequired,
     isGridMode: PropTypes.bool.isRequired,
     isPostDetail: PropTypes.bool.isRequired,
+    isPostBody: PropTypes.bool.isRequired,
     isRepost: PropTypes.bool.isRequired,
     post: PropTypes.object.isRequired,
     postId: PropTypes.string.isRequired,
@@ -381,6 +382,7 @@ export class PostBody extends PureComponent {
   static defaultProps = {
     contentWarning: null,
     repostContent: null,
+    isPostBody: true,
   }
   render() {
     const {
@@ -394,6 +396,7 @@ export class PostBody extends PureComponent {
       innerHeight,
       isGridMode,
       isPostDetail,
+      isPostBody,
       isRepost,
       post,
       postId,
@@ -420,6 +423,7 @@ export class PostBody extends PureComponent {
       innerHeight,
       isGridMode,
       isPostDetail,
+      isPostBody,
     }
     if (isRepost) {
       // this is weird, but the post summary is

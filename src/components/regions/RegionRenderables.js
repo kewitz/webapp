@@ -40,6 +40,7 @@ export function RegionItems(props) {
             innerHeight={innerHeight}
             isComment={isComment}
             isGridMode={isGridMode}
+            isPostDetail={isPostDetail}
             key={`ImageRegion_${regionKey}`}
             shouldUseVideo={!!(asset && asset.getIn(['attachment', 'video'], Immutable.Map()).size) && !isIOS() && !isPostDetail}
           />,

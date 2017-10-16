@@ -258,6 +258,11 @@ export const alignMiddle = { verticalAlign: 'middle' }
 export const alignBottom = { verticalAlign: 'bottom' }
 // containedAlignMiddle - needs to be inside another container with a height
 export const containedAlignMiddle = { top: '50%', transform: 'translateY(-50%)' }
+export const containedAlignFull = {
+  top: '50%',
+  left: '50%',
+  transform: 'translateY(-50%) translateX(-50%)',
+}
 
 // -------------------------------------
 // Typography
@@ -343,6 +348,7 @@ export const colorYellow = { color: '#ffc600' }
 
 export const bgcCurrentColor = { backgroundColor: 'currentColor' }
 export const bgcTransparent = { backgroundColor: 'transparent' }
+export const bgcModal = { backgroundColor: 'rgba(26, 26, 26, 0.9)' }
 export const bgcBlack = { backgroundColor: '#000' }
 export const bgc4 = { backgroundColor: '#4d4d4d' }
 export const bgc6 = { backgroundColor: '#666' }
