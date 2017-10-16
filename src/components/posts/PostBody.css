@@ -104,6 +104,10 @@
   background-color: #000;
 }
 
+.PostDetails .ImageRegion {
+  width: 100%;
+}
+
 .PostDetails .ImageRegion img {
   height: auto;
 }

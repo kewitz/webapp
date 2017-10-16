@@ -199,7 +199,6 @@ class HeroContainer extends Component {
     }
   }
 
-
   onClickShareProfile = () => {
     const { dispatch, username } = this.props
     const action = bindActionCreators(trackEvent, dispatch)

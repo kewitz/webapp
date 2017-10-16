@@ -34,14 +34,14 @@ export function emptyPagination() {
 
 methods.addNewIdsToResult = (state, action) => {
   const resultKey = get(action, 'payload.resultKey', path)
-  let result = state.getIn(['pages', resultKey])
+  let result = state.getIn([MAPPING_TYPES.PAGES, resultKey])
   if (!result || !result.get('morePostIds')) { return state }
   // if you have created a post it gets prepended to the result ids
   // when we come back with additional ids we want them to be unique
   // and in descending order, which fills in the gaps and is what union does
   // unfortunately it is not very performant to use the `toArray`
   result = result.set('ids', Immutable.List(union(result.get('morePostIds').toArray(), result.get('ids').toArray()))).delete('morePostIds')
-  return state.setIn(['pages', resultKey], result)
+  return state.setIn([MAPPING_TYPES.PAGES, resultKey], result)
 }
 
 methods.updateUserCount = (state, userId, prop, delta) => {
@@ -57,65 +57,72 @@ methods.updatePostCount = (state, postId, prop, delta) => {
 }
 
 methods.appendPageId = (state, pageName, mappingType, id) => {
-  const page = state.getIn(['pages', pageName])
+  const page = state.getIn([MAPPING_TYPES.PAGES, pageName])
   if (page) {
     const ids = page.get('ids', Immutable.List())
     if (!ids.includes(`${id}`)) {
-      return state.setIn(['pages', pageName, 'ids'], ids.unshift(`${id}`))
+      return state.setIn([MAPPING_TYPES.PAGES, pageName, 'ids'], ids.unshift(`${id}`))
     }
   }
-  return state.setIn(['pages', pageName], Immutable.fromJS({
+  return state.setIn([MAPPING_TYPES.PAGES, pageName], Immutable.fromJS({
     ids: [`${id}`], type: mappingType, pagination: emptyPagination(),
   }))
 }
 
 methods.removePageId = (state, pageName, id) => {
-  let existingIds = state.getIn(['pages', pageName, 'ids'])
+  let existingIds = state.getIn([MAPPING_TYPES.PAGES, pageName, 'ids'])
   if (existingIds) {
     const index = existingIds.indexOf(`${id}`)
     if (index !== -1) {
       existingIds = existingIds.splice(index, 1)
-      return state.setIn(['pages', pageName, 'ids'], existingIds)
+      return state.setIn([MAPPING_TYPES.PAGES, pageName, 'ids'], existingIds)
     }
   }
   return state
 }
 
+function normalizeModel(type, model) {
+  if (type !== MAPPING_TYPES.POSTS) { return model }
+
+  const content = model.get('content', Immutable.List()).map((region, index) =>
+    region.set('id', `${model.get('id')}-${index}`))
+  return model.set('content', content)
+}
+
 methods.mergeModel = (state, type, params) => {
-  if (params.id) {
-    // make the model's id a string for later comparisons
-    // the API sent them back as a number at one point
-    params.id = `${params.id}`
-    return state.setIn(
-      [type, params.id],
-      state.getIn([type, params.id], Immutable.Map()).mergeDeep(params),
-    )
-  }
-  return state
+  if (!params.id) { return state }
+
+  // make the model's id a string for later comparisons
+  // the API sent them back as a number at one point
+  params.id = `${params.id}`
+  return state.setIn(
+    [type, params.id],
+    normalizeModel(type, state.getIn([type, params.id], Immutable.Map()).mergeDeep(params)),
+  )
 }
 
 methods.addModels = (state, type, data) => {
   // add state['modelType']
   const camelType = camelize(type)
   let ids = Immutable.List()
+  if (!data[camelType]) { return { ids, state } }
+
   // need to clobber the invite submissions since we want to replace
   // their actions and not merge them with what we had previously
   if (type === MAPPING_TYPES.ARTIST_INVITE_SUBMISSIONS) {
-    if (data[camelType]) {
-      if (data[camelType].length) {
-        // add arrays of models to state['modelType']['id']
-        data[camelType].forEach((item) => {
-          const id = `${item.id}`
-          state = state.setIn([camelType, id], Immutable.fromJS(item))
-          ids = ids.push(id)
-        })
-      } else if (typeof data[camelType] === 'object') {
-        // add single model objects to state['modelType']['id']
-        const model = data[camelType]
-        const id = `${model.id}`
-        state = state.setIn([camelType, id], Immutable.fromJS(model))
+    if (data[camelType].length) {
+      // add arrays of models to state['modelType']['id']
+      data[camelType].forEach((item) => {
+        const id = `${item.id}`
+        state = state.setIn([camelType, id], Immutable.fromJS(item))
         ids = ids.push(id)
-      }
+      })
+    } else if (typeof data[camelType] === 'object') {
+      // add single model objects to state['modelType']['id']
+      const model = data[camelType]
+      const id = `${model.id}`
+      state = state.setIn([camelType, id], Immutable.fromJS(model))
+      ids = ids.push(id)
     }
   } else if (type === MAPPING_TYPES.CATEGORIES || type === MAPPING_TYPES.PAGE_PROMOTIONALS) {
     data[camelType].forEach((item) => {
@@ -126,13 +133,13 @@ methods.addModels = (state, type, data) => {
       )
       ids = ids.push(id)
     })
-  } else if (data[camelType] && data[camelType].length) {
+  } else if (data[camelType].length) {
     // add arrays of models to state['modelType']['id']
     data[camelType].forEach((model) => {
       state = methods.mergeModel(state, camelType, model)
       ids = ids.push(`${model.id}`)
     })
-  } else if (data[camelType] && typeof data[camelType] === 'object') {
+  } else if (typeof data[camelType] === 'object') {
     // add single model objects to state['modelType']['id']
     const model = data[camelType]
     state = methods.mergeModel(state, camelType, model)
@@ -203,9 +210,9 @@ methods.addParentPostIdToComments = (response, state, action) => {
 }
 
 methods.setLayoutMode = (action, state) => {
-  const result = state.getIn(['pages', path])
+  const result = state.getIn([MAPPING_TYPES.PAGES, path])
   if (!result || (result.get('mode') === action.payload.mode)) { return state }
-  return state.setIn(['pages', path, 'mode'], action.payload.mode)
+  return state.setIn([MAPPING_TYPES.PAGES, path, 'mode'], action.payload.mode)
 }
 
 methods.pagesKey = action =>
@@ -224,34 +231,34 @@ methods.updateResult = (response, state, action) => {
   const { newState, result } = methods.getResult(response, state, action)
   state = newState
   const resultPath = methods.pagesKey(action)
-  const existingResult = state.getIn(['pages', resultPath])
+  const existingResult = state.getIn([MAPPING_TYPES.PAGES, resultPath])
   if (existingResult) {
     if (action.type === ACTION_TYPES.LOAD_NEXT_CONTENT_SUCCESS) {
       dupArr = []
-      return state.setIn(['pages', resultPath], result.set('ids', existingResult.get('ids', Immutable.List()).concat(result.get('ids')).filter(removeDuplicates)))
+      return state.setIn([MAPPING_TYPES.PAGES, resultPath], result.set('ids', existingResult.get('ids', Immutable.List()).concat(result.get('ids')).filter(removeDuplicates)))
     } else if (existingResult.get('ids').isSuperset(result.get('ids'))) {
       return state
     } else if ((!existingResult.get('ids').includes(result.get('ids').last()) && existingResult.get('morePostIds', Immutable.List()).isEmpty()) ||
               (!existingResult.get('morePostIds', Immutable.List()).isEmpty() && !existingResult.get('morePostIds').includes(result.get('ids').last()))) {
-      return state.setIn(['pages', resultPath], result)
+      return state.setIn([MAPPING_TYPES.PAGES, resultPath], result)
     } else if (hasLoadedFirstStream && !get(action, 'meta.mergeResults')) {
       if (!existingResult.get('morePostIds', Immutable.List()).isEmpty()) {
         dupArr = []
         return state.setIn(
-          ['pages', resultPath, 'morePostIds'],
+          [MAPPING_TYPES.PAGES, resultPath, 'morePostIds'],
           Immutable.List(union(result.get('ids').toArray(), existingResult.get('morePostIds').toArray())).filter(removeDuplicates),
         )
       } else if (existingResult.get('ids').first() !== result.get('ids').first()) {
-        return state.setIn(['pages', resultPath, 'morePostIds'], result.get('ids'))
+        return state.setIn([MAPPING_TYPES.PAGES, resultPath, 'morePostIds'], result.get('ids'))
       }
     } else {
       return state.setIn(
-        ['pages', resultPath],
+        [MAPPING_TYPES.PAGES, resultPath],
         existingResult.set('ids', Immutable.List(union(result.get('ids').toArray(), existingResult.get('ids').toArray()))).delete('morePostIds'),
       )
     }
   }
-  return state.setIn(['pages', resultPath], result)
+  return state.setIn([MAPPING_TYPES.PAGES, resultPath], result)
 }
 
 methods.deleteModel = (state, action, mappingType) => {
@@ -337,7 +344,7 @@ export default function json(state = initialState, action = { type: '' }) {
     case ACTION_TYPES.PROFILE.DELETE_SUCCESS:
       return initialState
     case ACTION_TYPES.CLEAR_PAGE_RESULT:
-      return state.deleteIn(['pages', action.payload.resultKey])
+      return state.deleteIn([MAPPING_TYPES.PAGES, action.payload.resultKey])
     case ACTION_TYPES.COMMENT.CREATE_FAILURE:
     case ACTION_TYPES.COMMENT.CREATE_REQUEST:
     case ACTION_TYPES.COMMENT.CREATE_SUCCESS:

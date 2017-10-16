@@ -13,6 +13,7 @@ export function RegionItems(props) {
   if (!content) { return null }
   const cells = []
   content.forEach((region) => {
+    const regionKey = region.get('id', JSON.stringify(region.get('data')))
     switch (region.get('kind')) {
       case 'text':
         cells.push(
@@ -21,7 +22,7 @@ export function RegionItems(props) {
             detailPath={detailPath}
             isComment={isComment}
             isGridMode={isGridMode}
-            key={`TextRegion_${region.get('data')}`}
+            key={`TextRegion_${regionKey}`}
           />,
         )
         break
@@ -39,7 +40,8 @@ export function RegionItems(props) {
             innerHeight={innerHeight}
             isComment={isComment}
             isGridMode={isGridMode}
-            key={`ImageRegion_${JSON.stringify(region.get('data'))}`}
+            isPostDetail={isPostDetail}
+            key={`ImageRegion_${regionKey}`}
             shouldUseVideo={!!(asset && asset.getIn(['attachment', 'video'], Immutable.Map()).size) && !isIOS() && !isPostDetail}
           />,
         )
@@ -50,7 +52,7 @@ export function RegionItems(props) {
           <EmbedRegion
             detailPath={detailPath}
             isComment={isComment}
-            key={`EmbedRegion_${JSON.stringify(region.get('data'))}`}
+            key={`EmbedRegion_${regionKey}`}
             region={region}
           />,
         )

@@ -104,7 +104,9 @@ export const overflowScrollWebY = { WebkitOverflowScrolling: 'touch', overflowX:
 export const fit = { maxWidth: '100%' }
 export const fullWidth = { width: '100%' }
 export const fullHeight = { height: '100%' }
+export const maxViewWidth = { maxWidth: 1440 }
 export const maxSiteWidth = { maxWidth: 1360 }
+export const maxSiteWidthPadded = { maxWidth: 1440, paddingLeft: 40, paddingRight: 40 }
 
 export const wv20 = { width: 20 }
 export const wv30 = { width: 30 }
@@ -255,6 +257,13 @@ export const alignBaseline = { verticalAlign: 'baseline' }
 export const alignTop = { verticalAlign: 'top' }
 export const alignMiddle = { verticalAlign: 'middle' }
 export const alignBottom = { verticalAlign: 'bottom' }
+// containedAlignMiddle - needs to be inside another container with a height
+export const containedAlignMiddle = { top: '50%', transform: 'translateY(-50%)' }
+export const containedAlignFull = {
+  top: '50%',
+  left: '50%',
+  transform: 'translateY(-50%) translateX(-50%)',
+}
 
 // -------------------------------------
 // Typography
@@ -340,6 +349,7 @@ export const colorYellow = { color: '#ffc600' }
 
 export const bgcCurrentColor = { backgroundColor: 'currentColor' }
 export const bgcTransparent = { backgroundColor: 'transparent' }
+export const bgcModal = { backgroundColor: 'rgba(26, 26, 26, 0.9)' }
 export const bgcBlack = { backgroundColor: '#000' }
 export const bgc4 = { backgroundColor: '#4d4d4d' }
 export const bgc6 = { backgroundColor: '#666' }

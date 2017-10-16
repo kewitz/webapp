@@ -16,6 +16,7 @@ export const INVITATIONS = 'invitations'
 export const LOVES = 'loves'
 export const NOTIFICATIONS = 'notifications' /* this is only used internally */
 export const NO_CONTENT = '204'
+export const PAGES = 'pages'
 export const PAGE_PROMOTIONALS = 'page_promotionals'
 export const POSTS = 'posts'
 export const RELATIONSHIPS = 'relationships'

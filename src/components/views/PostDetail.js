@@ -5,14 +5,14 @@ import PostContainer from '../../containers/PostContainer'
 import StreamContainer from '../../containers/StreamContainer'
 import { MainView } from '../views/MainView'
 import { loadRelatedPosts } from '../../actions/posts'
-import { LaunchCommentEditorButton } from '../posts/PostRenderables'
+import { LaunchMobileCommentEditorButton, LaunchNativeCommentEditorButton } from '../posts/PostRenderables'
 import { css, hover, media, modifier, select } from '../../styles/jss'
 import * as s from '../../styles/jso'
 import * as ElloAndroidInterface from '../../lib/android_interface'
 
 const postDetailStyle = css(
   s.relative,
-  select('& .ViewsTool.isPill > a', s.colorA, { backgroundColor: 'transparent' }, hover({ backgroundColor: 'transparent' })),
+  select('& .ViewsTool.isPill.isPostDetail > a', s.colorA, { backgroundColor: 'transparent' }, hover({ backgroundColor: 'transparent' })),
   select('& .PostDetails.Posts.asList aside .PostDetailAsideTop',
     select('& header', s.px20, { borderBottom: '1px solid #f2f2f2' }),
     select('& footer', s.px20, { borderBottom: '1px solid #f2f2f2' }),
@@ -35,8 +35,8 @@ const postDetailStyle = css(
         s.pointerAuto,
         s.opacity1,
         { top: -50 },
-        modifier('.EditTool', { right: 110 }),
-        modifier('.DeleteTool', { right: 70 }),
+        modifier('.EditTool', { right: 0 }),
+        modifier('.DeleteTool', { right: 0 }),
       ),
       select('& .SVGIcon', { transform: 'scale(1.5)' }, select('& > g', { strokeWidth: 0.9375 })),
       select('& .CommentTool', s.displayNone),
@@ -47,6 +47,7 @@ const postDetailStyle = css(
       select('& .ViewsTool', s.pointerNone, modifier('.isPill', { marginRight: '0 !important' })),
     ),
   ),
+  select('> .PostDetails.Posts.asList', s.relative),
   select('& .PostDetails.Posts.asList .PostDetailAsideBottom',
     select('& .PostTools', s.px0, s.mt40, s.flex, s.justifyStart, media(s.minBreak3, s.justifyEnd, s.px10)),
     select('& .PostTool', s.displayNone,
@@ -85,7 +86,8 @@ const relatedPostsStyle = css(
 const asideStyle = css(
   s.absolute,
   s.fullHeight,
-  { width: 360, borderLeft: '1px solid #f2f2f2', top: 0, right: 0, overflowY: 'scroll', paddingBottom: 80 },
+  s.overflowScrollWebY,
+  { width: 360, borderLeft: '1px solid #f2f2f2', top: 0, right: 0, paddingBottom: 80 },
   select('& .CommentContent', s.m20),
   select('.PostDetails & .TabListStreamContainer', s.px0),
   select('& .UserProfileCard',
@@ -94,12 +96,22 @@ const asideStyle = css(
 )
 
 const CommentContent = (
-  { activeType, avatar, hasEditor, isLoggedIn, post, streamAction }) => (
+  { activeType, avatar, hasEditor, isInlineCommenting, isLoggedIn, post, streamAction },
+  { onToggleInlineCommenting },
+  ) => {
+  let editorOrButton = null
+  if (isLoggedIn && ElloAndroidInterface.supportsNativeEditor()) {
+    editorOrButton = <LaunchNativeCommentEditorButton avatar={avatar} post={post} />
+  } else if (hasEditor && activeType === 'comments') {
+    if (isInlineCommenting) {
+      editorOrButton = <Editor post={post} isComment onCancel={onToggleInlineCommenting} />
+    } else {
+      editorOrButton = <LaunchMobileCommentEditorButton avatar={avatar} post={post} />
+    }
+  }
+  return (
     <div className="CommentContent">
-      {hasEditor && activeType === 'comments' && !ElloAndroidInterface.supportsNativeEditor() && <Editor post={post} isComment />}
-      {isLoggedIn && ElloAndroidInterface.supportsNativeEditor() &&
-        <LaunchCommentEditorButton avatar={avatar} post={post} />
-      }
+      {editorOrButton}
       {streamAction &&
         <StreamContainer
           action={streamAction}
@@ -111,20 +123,23 @@ const CommentContent = (
       }
     </div>
   )
+}
 CommentContent.propTypes = {
   activeType: PropTypes.string.isRequired,
   avatar: PropTypes.object,
   hasEditor: PropTypes.bool.isRequired,
+  isInlineCommenting: PropTypes.bool,
   isLoggedIn: PropTypes.bool.isRequired,
   post: PropTypes.object.isRequired,
   streamAction: PropTypes.object,
 }
 CommentContent.defaultProps = {
   avatar: null,
+  isInlineCommenting: false,
   streamAction: null,
 }
 CommentContent.contextTypes = {
-  onClickDetailTab: PropTypes.func.isRequired,
+  onToggleInlineCommenting: PropTypes.func.isRequired,
 }
 
 // TODO: Remove references to the PostDetailStreamContainer styles
@@ -146,7 +161,7 @@ export const PostDetail = (props) => {
         {!shouldInlineComments &&
           <aside className={asideStyle}>
             <PostContainer type="PostDetailAsideTop" postId={post.get('id')} />
-            <CommentContent {...props} />
+            <CommentContent {...props} isInlineCommenting />
             <PostContainer type="PostDetailAsideBottom" postId={post.get('id')} />
           </aside>
         }
@@ -158,9 +173,6 @@ PostDetail.propTypes = {
   columnCount: PropTypes.number.isRequired,
   post: PropTypes.object.isRequired,
   shouldInlineComments: PropTypes.bool.isRequired,
-}
-PostDetail.contextTypes = {
-  onLaunchNativeEditor: PropTypes.func.isRequired,
 }
 
 export const PostDetailError = ({ children }) =>

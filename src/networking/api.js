@@ -188,7 +188,7 @@ export function categoryPosts(type) {
 }
 export function pagePromotionals() {
   return {
-    path: getAPIPath('page_promotionals'),
+    path: getAPIPath('page_promotionals?include_extras=true'),
   }
 }
 // Discover

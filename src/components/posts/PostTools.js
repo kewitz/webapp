@@ -21,15 +21,16 @@ class ViewsTool extends PureComponent {
   static propTypes = {
     detailPath: PropTypes.string.isRequired,
     isLoggedIn: PropTypes.bool.isRequired,
+    isPostDetail: PropTypes.bool.isRequired,
     postViewsCountRounded: PropTypes.string.isRequired,
   }
   static contextTypes = {
     onTrackRelatedPostClick: PropTypes.func.isRequired,
   }
   render() {
-    const { detailPath, isLoggedIn, postViewsCountRounded } = this.props
+    const { detailPath, isLoggedIn, isPostDetail, postViewsCountRounded } = this.props
     return (
-      <span className={classNames('PostTool', 'ViewsTool', { isPill: isLoggedIn })}>
+      <span className={classNames('PostTool', 'ViewsTool', { isPill: isLoggedIn, isPostDetail })}>
         <Link to={detailPath} onClick={this.context.onTrackRelatedPostClick}>
           <EyeIcon />
           <span className="PostToolValue">{postViewsCountRounded}</span>
@@ -212,13 +213,13 @@ class ShareTool extends PureComponent {
   }
 }
 
-class EditTool extends PureComponent {
+export class EditTool extends PureComponent {
   static contextTypes = {
     onClickEditPost: PropTypes.func.isRequired,
   }
   render() {
     return (
-      <span className="PostTool EditTool ShyTool">
+      <span className="PostTool EditTool">
         <button onClick={this.context.onClickEditPost}>
           <PencilIcon />
           <Hint>Edit</Hint>
@@ -228,13 +229,13 @@ class EditTool extends PureComponent {
   }
 }
 
-class DeleteTool extends PureComponent {
+export class DeleteTool extends PureComponent {
   static contextTypes = {
     onClickDeletePost: PropTypes.func.isRequired,
   }
   render() {
     return (
-      <span className="PostTool DeleteTool ShyTool">
+      <span className="PostTool DeleteTool">
         <button onClick={this.context.onClickDeletePost}>
           <XBoxIcon />
           <Hint>Delete</Hint>
@@ -315,6 +316,7 @@ export class PostTools extends PureComponent {
         <ViewsTool
           detailPath={detailPath}
           isLoggedIn={isLoggedIn}
+          isPostDetail={isPostDetail}
           key={`ViewsTool_${postId}`}
           postViewsCountRounded={postViewsCountRounded}
         />,
@@ -364,6 +366,7 @@ export class PostTools extends PureComponent {
       cells.push(
         <ViewsTool
           detailPath={detailPath}
+          isPostDetail={isPostDetail}
           isLoggedIn={isLoggedIn}
           key={`ViewsTool_${postId}`}
           postViewsCountRounded={postViewsCountRounded}
@@ -392,10 +395,7 @@ export class PostTools extends PureComponent {
       )
     }
     if (isLoggedIn) {
-      if (isOwnPost) {
-        cells.push(<EditTool key={`EditTool_${postId}`} />)
-        cells.push(<DeleteTool key={`DeleteTool_${postId}`} />)
-      } else {
+      if (!isOwnPost) {
         cells.push(<FlagTool key={`FlagTool_${postId}`} />)
       }
     }

@@ -2,6 +2,7 @@
 
 .PostHeader,
 .CategoryHeader,
+.ArtistInviteSubmissionHeader,
 .RepostHeader {
   position: relative;
   height: 60px;
@@ -11,9 +12,12 @@
 
 .PostHeaderAuthor,
 .CategoryHeaderAuthor,
+.ArtistInviteSubmissionHeaderAuthor,
 .RepostHeaderAuthor,
 .CategoryHeaderCategory,
+.ArtistInviteSubmissionHeaderInvite,
 .PostDetailHeaderUsername,
+.OwnPostTools,
 .RepostHeaderReposter {
   position: relative;
 }
@@ -21,21 +25,31 @@
 .PostHeaderAuthor,
 .RepostHeaderAuthor,
 .CategoryHeaderAuthor,
+.ArtistInviteSubmissionHeaderAuthor,
 .PostHeader .RelationshipContainer,
 .CategoryHeader .RelationshipContainer,
-.RepostHeader .RelationshipContainer {
+.RepostHeader .RelationshipContainer,
+.ArtistInviteSubmissionHeader .RelationshipContainer,
+.OwnPostTools {
   display: inline-block;
   vertical-align: middle;
 }
 
 .PostHeaderAuthor,
 .CategoryHeaderAuthor,
+.ArtistInviteSubmissionHeaderAuthor,
 .RepostHeaderAuthor {
   max-width: calc(100% - 80px);
 }
 
+.PostDetail .isOwnPost .PostHeaderAuthor,
+.PostDetail .isOwnPost .RepostHeaderAuthor {
+  max-width: calc(100% - 120px);
+}
+
 .PostHeader .RelationshipContainer,
 .CategoryHeader .RelationshipContainer,
+.ArtistInviteSubmission .RelationshipContainer,
 .RepostHeader .RelationshipContainer {
   margin-top: -2px;
   margin-left: 10px;
@@ -59,12 +73,14 @@
 }
 
 .CategoryHeaderAuthor,
+.ArtistInviteSubmissionHeaderAuthor,
 .RepostHeaderAuthor {
   padding-left: 40px;
   line-height: 45px;
 }
 
 .CategoryHeaderCategory,
+.ArtistInviteSubmissionHeaderInvite,
 .PostDetailHeaderUsername,
 .RepostHeaderReposter {
   max-width: calc(100% - 120px);
@@ -73,7 +89,13 @@
   line-height: 15px;
 }
 
-.CategoryHeaderCategoryName {
+.PostDetail .isOwnPost .PostDetailHeaderUsername,
+.PostDetail .isOwnPost .RepostHeaderReposter {
+  max-width: calc(100% - 160px);
+}
+
+.CategoryHeaderCategoryName,
+.ArtistInviteSubmissionHeaderInviteName {
   text-decoration: underline;
 }
 
@@ -92,10 +114,40 @@
   color: currentColor;
 }
 
-.PostHeaderTimeAgoLink {
+.PostHeaderTools {
   position: absolute;
   top: 20px;
   right: 0;
+}
+
+.PostDetailAsideTop .PostHeaderTools {
+  right: 20px;
+}
+
+.PostHeaderTools > a,
+.PostHeaderTools > span {
+  float: right;
+}
+
+.PostHeaderTools .PostTool > button {
+  padding-right: 5px;
+  padding-left: 5px;
+}
+
+.PostHeaderTools .PostTool .SVGIcon {
+  transform: scale(1.5);
+}
+
+.PostHeaderTools .SVGIcon > g {
+  stroke-width: 0.9375;
+}
+
+.PostHeaderTools .SVGIcon line {
+  stroke-width: 1;
+}
+
+.PostHeaderTimeAgoLink {
+  padding-left: 5px;
 }
 
 .no-touch .PostHeaderTimeAgoLink:hover {
@@ -115,6 +167,7 @@
 }
 
 .RepostHeader.inUserDetail > .CategoryHeaderAuthor,
+.RepostHeader.inUserDetail > .ArtistInviteSubmissionHeaderAuthor,
 .RepostHeader.inUserDetail > .RepostHeaderAuthor {
   padding-left: 65px;
   line-height: 60px;
@@ -124,6 +177,7 @@
 @media (--break-2) {
   .PostHeader,
   .CategoryHeader,
+  .ArtistInviteSubmissionHeader,
   .RepostHeader {
     height: 80px;
   }
@@ -138,12 +192,14 @@
   }
 
   .CategoryHeaderAuthor,
+  .ArtistInviteSubmissionHeaderAuthor,
   .RepostHeaderAuthor {
     padding-left: 60px;
     line-height: 60px;
   }
 
   .CategoryHeaderCategory,
+  .ArtistInviteSubmissionHeaderInvite,
   .PostDetailHeaderUsername,
   .RepostHeaderReposter {
     margin-top: -20px;
@@ -151,11 +207,12 @@
     line-height: 20px;
   }
 
-  .PostHeaderTimeAgoLink {
+  .PostHeaderTools {
     top: 30px;
   }
 
   .RepostHeader.inUserDetail > .CategoryHeaderAuthor,
+  .RepostHeader.inUserDetail > .ArtistInviteSubmissionHeaderAuthor,
   .RepostHeader.inUserDetail > .RepostHeaderAuthor {
     padding-left: 75px;
     line-height: 80px;
@@ -189,6 +246,7 @@
   .Posts.asGrid .PostHeaderTimeAgoLink,
   .Posts.asGrid .PostHeader .RelationshipContainer,
   .Posts.asGrid .CategoryHeader .RelationshipContainer,
+  .Posts.asGrid .ArtistInviteSubmissionHeader .RelationshipContainer,
   .Posts.asGrid .RepostHeader .RelationshipContainer {
     display: none;
   }
@@ -196,6 +254,8 @@
   .Posts.asGrid .PostHeaderAuthor,
   .Posts.asGrid .CategoryHeaderAuthor,
   .Posts.asGrid .CategoryHeaderCategory,
+  .Posts.asGrid .ArtistInviteSubmissionHeaderAuthor,
+  .Posts.asGrid .ArtistInviteSubmissionHeaderInvite,
   .Posts.asGrid .RepostHeaderAuthor,
   .Posts.asGrid .RepostHeaderReposter {
     max-width: 100%;

@@ -1,5 +1,6 @@
 import Immutable from 'immutable'
 import { createSelector } from 'reselect'
+import { selectIsLoggedIn } from '../selectors/authentication'
 import { selectPathname } from '../selectors/routing'
 
 // state.profile.xxx
@@ -46,6 +47,11 @@ export const selectIsAvatarBlank = createSelector(
     if (avatar && avatar.get('tmp')) { return false }
     return !hasAvatarPresent || !(avatar && (avatar.get('tmp') || avatar.get('original')))
   },
+)
+
+export const selectShowCreatorTypeModal = createSelector(
+  [selectIsLoggedIn, selectWebOnboardingVersion], (isLoggedIn, webOnboardingVersion) =>
+    isLoggedIn && webOnboardingVersion < 3 && webOnboardingVersion !== null,
 )
 
 export const selectIsCoverImageBlank = createSelector(

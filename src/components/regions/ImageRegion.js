@@ -4,8 +4,13 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router'
 import classNames from 'classnames'
+import Mousetrap from 'mousetrap'
 import ImageAsset from '../assets/ImageAsset'
 import { ElloBuyButton } from '../editor/ElloBuyButton'
+import { DismissButtonLGReverse } from '../buttons/Buttons'
+import { SHORTCUT_KEYS } from '../../constants/application_types'
+import { css, select } from '../../styles/jss'
+import * as s from '../../styles/jso'
 
 const STATUS = {
   PENDING: 'isPending',
@@ -13,6 +18,59 @@ const STATUS = {
   SUCCESS: null,
   FAILURE: 'isFailing',
 }
+
+const lightBoxInactiveImageStyle = css(
+  s.inline,
+  s.relative,
+  s.center,
+  s.bgcF2,
+  select(
+    '> .LightBoxMask',
+    s.bgcTransparent,
+    select(
+      '> .LightBox',
+      s.relative,
+      s.alignTop,
+      s.inline,
+      select(
+        '> .ImgHolder',
+        s.relative,
+        s.inlineBlock,
+        select(
+          '> .ImageAttachment',
+          {
+            transform: 'scale(1.0)',
+          },
+        ),
+      ),
+    ),
+  ),
+)
+
+const lightBoxImageStyle = css(
+  s.block,
+  s.relative,
+  s.bgcF2,
+  { margin: '0 auto' },
+  select(
+    '> .LightBoxMask',
+    s.fullscreen,
+    s.fullWidth,
+    s.fullHeight,
+    s.bgcModal,
+    s.zModal,
+    { transition: `background-color 0.4s ${s.ease}` },
+    select(
+      '> .LightBox',
+      s.relative,
+      s.containedAlignMiddle,
+      s.center,
+      select(
+        '> .ImageAttachment',
+      ),
+    ),
+  ),
+)
 
 class ImageRegion extends Component {
 
@@ -24,8 +82,9 @@ class ImageRegion extends Component {
     content: PropTypes.object.isRequired,
     contentWidth: PropTypes.number,
     detailPath: PropTypes.string.isRequired,
-    innerHeight: PropTypes.number,
     isComment: PropTypes.bool,
+    isPostBody: PropTypes.bool,
+    isPostDetail: PropTypes.bool,
     isGridMode: PropTypes.bool.isRequired,
     isNotification: PropTypes.bool,
     shouldUseVideo: PropTypes.bool.isRequired,
@@ -37,9 +96,11 @@ class ImageRegion extends Component {
     columnWidth: 0,
     commentOffset: 0,
     contentWidth: 0,
-    innerHeight: 0,
     isComment: false,
     isNotification: false,
+    isPostBody: true,
+    isPostDetail: false,
+    isGridMode: false,
   }
 
   static contextTypes = {
@@ -47,43 +108,40 @@ class ImageRegion extends Component {
   }
 
   componentWillMount() {
-    const { asset, innerHeight, shouldUseVideo } = this.props
-    let scale = null
-    if (asset) {
-      const imageHeight = Number(asset.getIn(['attachment', 'original', 'metadata', 'height']))
-      scale = innerHeight / imageHeight
-    }
-    this.state = {
-      marginBottom: null,
-      scale: isNaN(scale) ? null : scale,
-      status: shouldUseVideo ? STATUS.SUCCESS : STATUS.REQUEST,
-    }
-  }
+    const { shouldUseVideo } = this.props
 
-  componentWillReceiveProps() {
-    const { scale } = this.state
-    if (scale) {
-      this.setImageScale()
+    this.state = {
+      scale: null,
+      currentImageHeight: null,
+      currentImageWidth: null,
+      measuredImageHeight: null,
+      measuredImageWidth: null,
+      lightBox: false,
+      status: shouldUseVideo ? STATUS.SUCCESS : STATUS.REQUEST,
     }
   }
 
   shouldComponentUpdate(nextProps, nextState) {
     return !Immutable.is(nextProps.content, this.props.content) ||
       !Immutable.is(nextProps.asset, this.props.asset) ||
-      ['buyLinkURL', 'columnWidth', 'contentWidth', 'innerHeight', 'isGridMode'].some(prop =>
+      ['buyLinkURL', 'columnWidth', 'contentWidth', 'isGridMode'].some(prop =>
         nextProps[prop] !== this.props[prop],
       ) ||
-      ['marginBottom', 'scale', 'status'].some(prop => nextState[prop] !== this.state[prop])
+      ['scale', 'currentImageHeight', 'currentImageWidth', 'lightBox', 'status'].some(prop => nextState[prop] !== this.state[prop])
   }
 
-  onClickStaticImageRegion = () => {
-    const { scale } = this.state
-    if (scale) {
-      return this.resetImageScale()
-    } else if (!this.attachment) {
-      return null
+  onClickStaticImageRegion = (event) => {
+    const { lightBox } = this.state
+    const { isPostBody, isPostDetail, isGridMode } = this.props
+    const buyButtonClick = event.target.classList.contains('ElloBuyButton')
+
+    if (isPostBody && !buyButtonClick && (isPostDetail || !isGridMode)) {
+      if (lightBox) {
+        return this.resetImageScale()
+      }
+      return this.setImageScale()
     }
-    return this.setImageScale()
+    return null
   }
 
   onLoadSuccess = (img) => {
@@ -168,19 +226,68 @@ class ImageRegion extends Component {
   }
 
   setImageScale() {
+    const { measuredImageHeight, measuredImageWidth } = this.state
+
     const dimensions = this.getImageDimensions()
-    const imageHeight = dimensions.height
-    const innerHeight = this.props.innerHeight - 80
-    if (imageHeight && imageHeight > innerHeight) {
+    let imageHeight = null
+    let imageWidth = null
+
+    if (dimensions) {
+      imageHeight = dimensions.height
+      imageWidth = dimensions.width
+    } else {
+      const { width, height } = this.state
+      imageHeight = height
+      imageWidth = width
+    }
+
+    const innerHeightPadded = (window.innerHeight - 80)
+    const innerWidthPadded = (window.innerWidth - 80)
+
+    const innerRatio = innerWidthPadded / innerHeightPadded
+    const imageRatio = imageWidth / imageHeight
+
+    let scale = null
+
+    if (imageRatio < innerRatio) {
+      scale = (innerHeightPadded / imageHeight)
+    } else {
+      scale = (innerWidthPadded / imageWidth)
+    }
+
+    this.setState({
+      scale,
+      currentImageHeight: measuredImageHeight,
+      currentImageWidth: measuredImageWidth,
+      lightBox: true,
+    })
+
+    Mousetrap.bind(SHORTCUT_KEYS.ESC, () => { this.resetImageScale() })
+  }
+
+  handleScreenDimensions = (measuredDimensions) => {
+    if (measuredDimensions) {
       this.setState({
-        scale: innerHeight / imageHeight,
-        marginBottom: -(imageHeight - innerHeight),
+        measuredImageHeight: measuredDimensions.height,
+        measuredImageWidth: measuredDimensions.width,
       })
     }
   }
 
   resetImageScale() {
-    this.setState({ scale: null, marginBottom: null })
+    this.setState({
+      scale: null,
+      lightBox: false,
+    })
+
+    setTimeout(() => {
+      this.setState({
+        currentImageHeight: null,
+        currentImageWidth: null,
+      })
+    }, 100)
+
+    Mousetrap.unbind(SHORTCUT_KEYS.ESC)
   }
 
   isBasicAttachment() {
@@ -193,7 +300,8 @@ class ImageRegion extends Component {
   }
 
   renderGifAttachment() {
-    const { content, isNotification } = this.props
+    const { content, isNotification, isPostBody, isPostDetail, isGridMode } = this.props
+    const { scale } = this.state
     const dimensions = this.getImageDimensions()
     return (
       <ImageAsset
@@ -203,14 +311,24 @@ class ImageRegion extends Component {
         onLoadFailure={this.onLoadFailure}
         onLoadSuccess={this.onLoadSuccess}
         role="presentation"
+        isPostBody={isPostBody}
+        isPostDetail={isPostDetail}
+        isGridMode={isGridMode}
         src={this.attachment.getIn(['optimized', 'url'])}
         width={isNotification ? null : dimensions.width}
+        style={{ transform: scale ? `scale(${scale})` : null }}
+        onScreenDimensions={
+          isPostBody && (isPostDetail || !isGridMode) ?
+            ((measuredDimensions) => { this.handleScreenDimensions(measuredDimensions) }) :
+            null
+        }
       />
     )
   }
 
   renderImageAttachment() {
-    const { content, isNotification } = this.props
+    const { content, isNotification, isPostBody, isPostDetail, isGridMode } = this.props
+    const { scale } = this.state
     const srcset = this.getImageSourceSet()
     const dimensions = this.getImageDimensions()
     return (
@@ -221,17 +339,26 @@ class ImageRegion extends Component {
         onLoadFailure={this.onLoadFailure}
         onLoadSuccess={this.onLoadSuccess}
         role="presentation"
+        isPostBody={isPostBody}
+        isPostDetail={isPostDetail}
+        isGridMode={isGridMode}
         srcSet={srcset}
         src={this.attachment.getIn(['hdpi', 'url'])}
         width={isNotification ? null : dimensions.width}
+        style={{ transform: scale ? `scale(${scale})` : null }}
+        onScreenDimensions={
+          isPostBody && (isPostDetail || !isGridMode) ?
+            ((measuredDimensions) => { this.handleScreenDimensions(measuredDimensions) }) :
+            null
+        }
       />
     )
   }
 
   renderLegacyImageAttachment() {
-    const { content, isNotification } = this.props
+    const { content, isNotification, isPostBody, isPostDetail, isGridMode } = this.props
     const attrs = { src: content.get('url') }
-    const { width, height } = this.state
+    const { scale, width, height } = this.state
     const stateDimensions = width ? { width, height } : {}
     if (isNotification) {
       attrs.height = 'auto'
@@ -243,6 +370,15 @@ class ImageRegion extends Component {
         onLoadFailure={this.onLoadFailure}
         onLoadSuccess={this.onLoadSuccess}
         role="presentation"
+        isPostBody={isPostBody}
+        isPostDetail={isPostDetail}
+        isGridMode={isGridMode}
+        style={{ transform: scale ? `scale(${scale})` : null }}
+        onScreenDimensions={
+          isPostBody && (isPostDetail || !isGridMode) ?
+            ((measuredDimensions) => { this.handleScreenDimensions(measuredDimensions) }) :
+            null
+        }
         {...stateDimensions}
         {...attrs}
       />
@@ -297,20 +433,32 @@ class ImageRegion extends Component {
   }
 
   renderRegionAsStatic() {
-    const { marginBottom, scale } = this.state
+    const { lightBox } = this.state
+    const { currentImageHeight, currentImageWidth } = this.state
     const { buyLinkURL } = this.props
     return (
       <div
-        className="RegionContent"
+        className={`${lightBox ? lightBoxImageStyle : lightBoxInactiveImageStyle}`}
         onClick={this.onClickStaticImageRegion}
-        style={{ transform: scale ? `scale(${scale})` : null, marginBottom }}
+        style={{ height: currentImageHeight, width: currentImageWidth }}
       >
-        {this.renderAttachment()}
-        {
-          buyLinkURL && buyLinkURL.length ?
-            <ElloBuyButton to={buyLinkURL} /> :
-            null
-        }
+        <div className="LightBoxMask">
+          {
+            lightBox ?
+              <DismissButtonLGReverse /> :
+              null
+          }
+          <div className="LightBox">
+            <div className="ImgHolder">
+              {this.renderAttachment()}
+              {
+                buyLinkURL && buyLinkURL.length && !lightBox ?
+                  <ElloBuyButton to={buyLinkURL} /> :
+                  null
+              }
+            </div>
+          </div>
+        </div>
       </div>
     )
   }
