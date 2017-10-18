@@ -171,7 +171,7 @@ export function relationshipBatchPath() {
 // Badges
 export function badges() {
   return {
-    path: getAPIPath('badges.json'),
+    path: getAPIPath('badges.json', { timestamp: '1508355329' }),
   }
 }
 // Categories
