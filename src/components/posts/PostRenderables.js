@@ -51,6 +51,7 @@ const actionButtonStyle = css(
   select('> .SVGIcon.CheckCircleIcon', { marginTop: -2, marginRight: 7 }),
   select('> .StarIcon', { paddingTop: 2, paddingLeft: 2 }),
   select('> .XBoxIcon', s.displayNone),
+  select('.decline .XBoxIcon', s.inline),
   modifier(
     '.select',
     hover(
@@ -80,6 +81,8 @@ const actionButtonStyle = css(
 
 const getActionIcon = (type) => {
   switch (type) {
+    case 'decline':
+      return <XBoxIcon />
     case 'approve':
       return <CheckCircleIcon />
     case 'select':

@@ -219,7 +219,7 @@ class ArtistInviteCountDown extends PureComponent {
     const { secondsRemaining } = this.state
     const pad = n => `${n}`.padStart(2, '0')
     const r = moment.duration(secondsRemaining, 'seconds')
-    if (r.days() > 1) {
+    if (r.asDays() > 2.0) {
       return `${Math.floor(r.asDays())} Days Remaining`
     }
     return `${pad(r.hours())}:${pad(r.minutes())}:${pad(r.seconds())} Remaining`
