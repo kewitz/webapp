@@ -159,7 +159,7 @@ export const PostDetail = (props) => {
           {shouldInlineComments && <PostContainer type="PostDetailAsideBottom" postId={post.get('id')} />}
         </article>
         {!shouldInlineComments &&
-          <aside className={asideStyle}>
+          <aside className={`PostSideBar ${asideStyle}`}>
             <PostContainer type="PostDetailAsideTop" postId={post.get('id')} />
             <CommentContent {...props} isInlineCommenting />
             <PostContainer type="PostDetailAsideBottom" postId={post.get('id')} />
