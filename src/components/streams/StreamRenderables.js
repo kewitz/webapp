@@ -64,11 +64,15 @@ export const postsAsPostStream = (postIds, columnCount, isPostHeaderHidden, rend
 )
 
 const artistInvitesStyle = css(
-  s.maxSiteWidth,
-  s.mxAuto,
-  s.px10,
-  media(s.minBreak2, s.px0),
-  media(s.minBreak4, s.mt20),
+  s.flex,
+  // s.flexRow,
+  s.flexWrap,
+  s.justifySpaceBetween,
+  // s.maxSiteWidth,
+  // s.mxAuto,
+  // s.px10,
+  // media(s.minBreak2, s.px0),
+  // media(s.minBreak4, s.mt20),
 )
 
 // ARTIST INVITES
