@@ -79,7 +79,7 @@ const contentContainerStyle = css(
 const detailsStyle = css(
   s.block,
   s.fullWidth,
-  { backgroundColor: 'yellow', },
+  s.clearFix,
 )
 
 const titleStyle = css(
@@ -126,8 +126,9 @@ const textStatusStyle = css(
 
 const bulletStatusStyle = css(
   { ...textStatusStyle },
+  { float: 'right', width: '210px' },
   s.fontSize14,
-  s.mt10,
+  s.mt0,
   before(
     {
       borderRadius: 5,
@@ -150,12 +151,13 @@ const dateRangeStyle = css(
   s.colorA,
   s.my0,
   s.truncate,
-  media(s.minBreak3, s.absolute, { left: 'calc(100% - 200px)', top: 105 }),
+  { float: 'right', width: '180px' },
+  // media(s.minBreak3, s.absolute, { left: 'calc(100% - 200px)', top: 105 }),
   parent(
     '.ArtistInvitesDetail',
     s.fontSize24,
     s.sansLight,
-    { left: 'auto', position: 'inherit', top: 'auto' },
+    // { left: 'auto', position: 'inherit', top: 'auto' },
     media(s.minBreak3, s.fontSize38),
   ),
 
@@ -293,8 +295,8 @@ export const ArtistInviteGrid = ({
     <div className={contentContainerStyle}>
       <h2 className={titleStyle}>{title}</h2>
       <div className={detailsStyle}>
-        <p className={inviteTypeStyle}>{inviteType}</p>
         {renderBulletStatus(status)}
+        <p className={inviteTypeStyle}>{inviteType}</p>
         <ArtistInviteCountDown
           className={dateRangeStyle}
           status={status}
