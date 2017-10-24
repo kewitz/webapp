@@ -161,6 +161,16 @@ class FooterContainer extends Component {
 
   onClickScrollToTop = () => {
     scrollToPosition(0, 0)
+
+    // scroll the post detail panel and sidebar (if they exists)
+    const postList = document.getElementsByClassName('PostList')
+    const postSideBar = document.getElementsByClassName('PostSideBar')
+    if (postList.length) {
+      scrollToPosition(0, 0, { el: postList[0] })
+    }
+    if (postSideBar.length) {
+      scrollToPosition(0, 0, { el: postSideBar[0] })
+    }
   }
 
   onClickToggleLayoutMode = () => {
