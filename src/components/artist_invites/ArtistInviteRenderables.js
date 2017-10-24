@@ -12,26 +12,28 @@ import { RoundedRect } from '../buttons/Buttons'
 import ArtistInviteSubmissionsContainer from '../../containers/ArtistInviteSubmissionsContainer'
 
 const gridContainerStyle = css(
-  s.alignTop,
+  s.block,
+  s.mr20,
+  s.ml20,
+  s.mb40,
   s.bgcF2,
   s.fontSize14,
-  s.fullWidth,
-  s.mb10,
   s.sansRegular,
   s.transitionBgColor,
+  { width: 'calc(50% - 40px)' },
   media(
-    s.minBreak2,
-    s.mr20,
+    s.maxBreak4,
+    s.mr10,
+    s.ml10,
     s.mb20,
-    // .1 is MS Edge not calc-ing rems correctly
-    { width: 'calc(50% - 10.1px)' },
-    select(':nth-child(2n)', s.mr0),
+    { width: 'calc(50% - 20px)' },
   ),
   media(
-    s.minBreak4,
-    s.mr40,
-    s.mb40,
-    { width: 'calc(50% - 20.2px)' },
+    s.maxBreak2,
+    s.mr0,
+    s.ml0,
+    s.mb10,
+    s.fullWidth,
   ),
   hover(s.bgcE5),
 )
@@ -56,15 +58,20 @@ const logoImageStyle = css(
 )
 
 const contentContainerStyle = css(
-  { height: 330 },
   s.p10,
   s.relative,
-  media(s.maxBreak2, s.relative, s.pb0, { height: 'auto' }),
-  media(s.minBreak3, s.py30, s.px20, { height: 285 }),
-  media(s.minBreak4, { height: 250 }),
+  media(s.maxBreak2, s.relative),
+  media(s.minBreak3, s.py20, s.px20),
+)
+
+const detailsStyle = css(
+  s.block,
+  s.fullWidth,
+  s.clearFix,
 )
 
 const titleStyle = css(
+  s.block,
   s.sansBlack,
   s.fontSize24,
   media(s.minBreak3, s.mb20),
@@ -83,11 +90,17 @@ const inviteTypeStyle = css(
   s.colorA,
   s.my0,
   s.truncate,
-  media(s.minBreak3, { maxWidth: 'calc(100% - 220px)' }),
+  media(s.minBreak3, { width: 'calc(100% - 210px)', float: 'left' }),
+  media(s.maxBreak3, s.mb10),
   parent(
     '.ArtistInvitesDetail',
     s.fontSize24,
     s.sansLight,
+    s.fullWidth,
+    {
+      float: 'none',
+      clear: 'both',
+    },
     media(s.minBreak3, s.fontSize38, s.fit),
   ),
 )
@@ -102,13 +115,38 @@ const textStatusStyle = css(
   modifier('.preview', { color: '#0409fe' }),
   modifier('.selecting', { color: '#ffb100' }),
   modifier('.upcoming', { color: '#c000ff' }),
-  parent('.ArtistInvitesDetail', s.sansLight, media(s.minBreak3, s.fontSize38)),
+  parent(
+    '.ArtistInvitesDetail',
+    s.sansLight,
+    s.fullWidth,
+    {
+      float: 'none',
+      clear: 'both',
+    },
+    media(
+      s.minBreak3,
+      s.fontSize38,
+    ),
+  ),
+  media(
+    s.maxBreak3,
+    s.fullWidth,
+  ),
 )
 
 const bulletStatusStyle = css(
   { ...textStatusStyle },
+  { float: 'left', width: '210px' },
   s.fontSize14,
-  s.mt10,
+  s.mt0,
+  media(
+    s.maxBreak3,
+    s.fullWidth,
+    {
+      float: 'none',
+      clear: 'both',
+    },
+  ),
   before(
     {
       borderRadius: 5,
@@ -124,29 +162,41 @@ const bulletStatusStyle = css(
   modifier('.preview', before({ backgroundColor: '#0409fe' })),
   modifier('.selecting', before({ backgroundColor: '#ffb100' })),
   modifier('.upcoming', before({ backgroundColor: '#c000ff' })),
-  media(s.minBreak3, s.absolute, s.mt0, { left: 'calc(100% - 230px)', top: 85 }),
 )
 
 const dateRangeStyle = css(
   s.colorA,
   s.my0,
   s.truncate,
-  media(s.minBreak3, s.absolute, { left: 'calc(100% - 200px)', top: 105 }),
+  { float: 'right', width: '180px' },
+  media(
+    s.maxBreak3,
+    s.fullWidth,
+    {
+      float: 'none',
+      clear: 'both',
+    },
+  ),
   parent(
     '.ArtistInvitesDetail',
+    s.fullWidth,
+    {
+      float: 'none',
+      clear: 'both',
+    },
     s.fontSize24,
     s.sansLight,
-    { left: 'auto', position: 'inherit', top: 'auto' },
     media(s.minBreak3, s.fontSize38),
   ),
 
 )
 
 const shortDescriptionStyle = css(
+  s.block,
+  s.mt20,
   select('& br', { display: 'none' }),
-  media(s.minBreak3, s.mt40),
-  media(s.maxBreak4, s.absolute, s.mt0, s.pr20, { bottom: 0 }),
-  media(s.maxBreak2, s.relative, { bottom: 'auto' }),
+  select('& p:last-child', s.mb0),
+  media(s.maxBreak3, s.mt20),
 )
 
 const getStatusText = (status) => {
@@ -264,13 +314,13 @@ export const ArtistInviteGrid = ({
   title,
 }, { onClickArtistInviteDetail }) => (
   <Link to={`/artist-invites/${slug}`} onClick={onClickArtistInviteDetail} className={gridContainerStyle}>
-    <article>
-      <div className={imageContainerStyle}>
-        <BackgroundImage className="hasOverlay3" dpi={dpi} sources={headerImage} />
-        <ImageAsset className={logoImageStyle} src={logoImage.getIn(['optimized', 'url'])} />
-      </div>
-      <div className={contentContainerStyle}>
-        <h2 className={titleStyle}>{title}</h2>
+    <div className={imageContainerStyle}>
+      <BackgroundImage className="hasOverlay3" dpi={dpi} sources={headerImage} />
+      <ImageAsset className={logoImageStyle} src={logoImage.getIn(['optimized', 'url'])} />
+    </div>
+    <div className={contentContainerStyle}>
+      <h2 className={titleStyle}>{title}</h2>
+      <div className={detailsStyle}>
         <p className={inviteTypeStyle}>{inviteType}</p>
         {renderBulletStatus(status)}
         <ArtistInviteCountDown
@@ -279,12 +329,12 @@ export const ArtistInviteGrid = ({
           openedAt={openedAt}
           closedAt={closedAt}
         />
-        <div
-          className={shortDescriptionStyle}
-          dangerouslySetInnerHTML={{ __html: shortDescription }}
-        />
       </div>
-    </article>
+      <div
+        className={shortDescriptionStyle}
+        dangerouslySetInnerHTML={{ __html: shortDescription }}
+      />
+    </div>
   </Link>
 )
 ArtistInviteGrid.propTypes = {

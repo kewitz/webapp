@@ -1,6 +1,6 @@
 // @flow
 // JavaScript Style Objects (jso)
-import { css, media } from './jss'
+import { css, media, after } from './jss'
 
 // TODO: Note web vs native properties
 // TODO: Should web only props live in cso?
@@ -405,4 +405,11 @@ export const hitarea = {
   content: '""',
   backgroundColor: 'rgba(0, 0, 0, 0)',
 }
-
+// usually apply to :after of a container element
+export const clearFix = css(
+  after({
+    content: '""',
+    display: 'block',
+    clear: 'both',
+  }),
+)
