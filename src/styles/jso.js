@@ -1,6 +1,6 @@
 // @flow
 // JavaScript Style Objects (jso)
-import { css, media } from './jss'
+import { css, media, after } from './jss'
 
 // TODO: Note web vs native properties
 // TODO: Should web only props live in cso?
@@ -22,7 +22,8 @@ export const minBreak6 = '(min-width: 130em)'     // 6: 2080 / 16 = 130em
 export const minBreak7 = '(min-width: 152.5em)'   // 7: 2440 / 16 = 152.5em
 
 export const maxBreak2 = '(max-width: 39.9375em)' // 2: 639  / 16 = 39.9375em
-export const maxBreak4 = '(max-width: 84.9375em)' // 4: 1359  / 16 = 84.9375em
+export const maxBreak3 = '(max-width: 59.9375em)' // 3: 959  / 16 = 59.9375em
+export const maxBreak4 = '(max-width: 84.9375em)' // 4: 1359 / 16 = 84.9375em
 
 export const ease = 'cubic-bezier(0.23, 1, 0.32, 1)'
 export const easeInOutQuart = 'cubic-bezier(0.77, 0, 0.175, 1)'
@@ -404,4 +405,11 @@ export const hitarea = {
   content: '""',
   backgroundColor: 'rgba(0, 0, 0, 0)',
 }
-
+// usually apply to :after of a container element
+export const clearFix = css(
+  after({
+    content: '""',
+    display: 'block',
+    clear: 'both',
+  }),
+)

@@ -11,11 +11,10 @@ import { MainView } from '../components/views/MainView'
 import { selectQueryPreview } from '../selectors/routing'
 import { selectRandomArtistInvitePromotion } from '../selectors/promotions'
 import { selectJson } from '../selectors/store'
-import { media } from '../styles/jss'
-import { maxBreak2 } from '../styles/jso'
+import { css } from '../styles/jss'
 import { selectDPI } from '../selectors/gui'
 
-const streamStyle = media(maxBreak2, {
+const streamStyle = css({
   paddingLeft: '0 !important',
   paddingRight: '0 !important',
 })
