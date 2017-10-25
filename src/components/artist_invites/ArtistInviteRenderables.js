@@ -400,7 +400,7 @@ export const ArtistInviteDetail = ({
           </div>
         </div>
         <div className={contentColumnStyle}>
-          {status === 'open' && isLoggedIn &&
+          {status === 'open' &&
             <RoundedRect className="SubmitButton Green isXL" onClick={onClickSubmit}>
               SUBMIT
             </RoundedRect>

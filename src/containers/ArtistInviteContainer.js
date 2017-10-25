@@ -84,6 +84,7 @@ class ArtistInviteContainer extends PureComponent {
   }
 
   static contextTypes = {
+    onClickOpenRegistrationRequestDialog: PropTypes.func.isRequired,
     onLaunchNativeEditor: PropTypes.func.isRequired,
   }
 
@@ -111,21 +112,26 @@ class ArtistInviteContainer extends PureComponent {
   }
 
   onClickSubmit = () => {
-    const { artistInvite, dispatch } = this.props
-    const editorId = getEditorId()
-    dispatch({
-      type: EDITOR.ADD_ARTIST_INVITE,
-      payload: {
-        editorId,
-        artistInvite,
-      },
-    })
-    if (ElloAndroidInterface.supportsNativeEditor()) {
-      dispatch(trackEvent('opened_omnibar'))
-      this.context.onLaunchNativeEditor(null, false, null)
+    const { artistInvite, dispatch, isLoggedIn } = this.props
+    if (isLoggedIn) {
+      const editorId = getEditorId()
+      dispatch({
+        type: EDITOR.ADD_ARTIST_INVITE,
+        payload: {
+          editorId,
+          artistInvite,
+        },
+      })
+      if (ElloAndroidInterface.supportsNativeEditor()) {
+        dispatch(trackEvent('opened_omnibar'))
+        this.context.onLaunchNativeEditor(null, false, null)
+      } else {
+        dispatch(openOmnibar())
+        scrollToPosition(0, 0)
+      }
     } else {
-      dispatch(openOmnibar())
-      scrollToPosition(0, 0)
+      const { onClickOpenRegistrationRequestDialog } = this.context
+      onClickOpenRegistrationRequestDialog('artist-invites')
     }
   }
 
