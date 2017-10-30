@@ -24,6 +24,8 @@ export const selectNotificationScrollPositions = state => state.gui.get('notific
 export const selectSaidHelloTo = state => state.gui.get('saidHelloTo')
 export const selectTextToolsCoordinates = state => state.gui.get('textToolsCoordinates')
 export const selectTextToolsStates = state => state.gui.get('textToolsStates')
+export const selectOnboardToArtistInvite = state => state.gui.get('onboardToArtistInvite')
+export const selectIsCompletingOnboardingWithArtistInvite = state => state.gui.get('isCompletingOnboardToArtistInvite')
 
 // Memoized selectors
 export const selectActiveNotificationScrollPosition = createSelector(

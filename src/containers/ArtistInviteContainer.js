@@ -8,7 +8,7 @@ import {
   ArtistInviteGrid,
 } from '../components/artist_invites/ArtistInviteRenderables'
 import { getEditorId } from '../components/editor/Editor'
-import { EDITOR } from '../constants/action_types'
+import { EDITOR, GUI } from '../constants/action_types'
 import * as ElloAndroidInterface from '../lib/android_interface'
 import { scrollToPosition } from '../lib/jello'
 import {
@@ -29,7 +29,7 @@ import {
   selectTitle,
 } from '../selectors/artist_invites'
 import { selectIsLoggedIn } from '../selectors/authentication'
-import { selectDPI } from '../selectors/gui'
+import { selectDPI, selectIsCompletingOnboardingWithArtistInvite } from '../selectors/gui'
 
 function mapStateToProps(state, props) {
   return {
@@ -53,6 +53,7 @@ function mapStateToProps(state, props) {
     // other
     dpi: selectDPI(state),
     isLoggedIn: selectIsLoggedIn(state),
+    isCompletingOnboarding: selectIsCompletingOnboardingWithArtistInvite(state),
   }
 }
 
@@ -77,6 +78,7 @@ class ArtistInviteContainer extends PureComponent {
     status: PropTypes.string.isRequired,
     submissionBodyBlock: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
+    isCompletingOnboarding: PropTypes.bool.isRequired,
   }
 
   static defaultProps = {
@@ -84,6 +86,7 @@ class ArtistInviteContainer extends PureComponent {
   }
 
   static contextTypes = {
+    onClickOpenRegistrationRequestDialog: PropTypes.func.isRequired,
     onLaunchNativeEditor: PropTypes.func.isRequired,
   }
 
@@ -101,6 +104,17 @@ class ArtistInviteContainer extends PureComponent {
     }
   }
 
+  componentDidUpdate() {
+    const { dispatch, isCompletingOnboarding, kind } = this.props
+    if (isCompletingOnboarding && kind === 'detail') {
+      this.openArtistInviteOmnibar()
+      dispatch({
+        type: GUI.RESET_ONBOARD_TO_ARTIST_INVITE,
+        payload: {},
+      })
+    }
+  }
+
   onClickArtistInviteDetail = () => {
     const { dispatch, slug } = this.props
     dispatch(trackEvent('clicked_artist_invite_detail', { slug }))
@@ -111,6 +125,22 @@ class ArtistInviteContainer extends PureComponent {
   }
 
   onClickSubmit = () => {
+    const { artistInvite, dispatch, isLoggedIn } = this.props
+    if (isLoggedIn) {
+      this.openArtistInviteOmnibar()
+    } else {
+      const { onClickOpenRegistrationRequestDialog } = this.context
+      dispatch({
+        type: GUI.START_ONBOARD_TO_ARTIST_INVITE,
+        payload: {
+          artistInvite,
+        },
+      })
+      onClickOpenRegistrationRequestDialog('artist-invites')
+    }
+  }
+
+  openArtistInviteOmnibar = () => {
     const { artistInvite, dispatch } = this.props
     const editorId = getEditorId()
     dispatch({
@@ -128,6 +158,7 @@ class ArtistInviteContainer extends PureComponent {
       scrollToPosition(0, 0)
     }
   }
+
 
   render() {
     const {

@@ -46,6 +46,8 @@ describe('gui reducer', () => {
         'saidHelloTo',
         'textToolsCoordinates',
         'textToolsStates',
+        'onboardToArtistInvite',
+        'isCompletingOnboardToArtistInvite',
       )
     })
   })

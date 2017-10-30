@@ -453,7 +453,7 @@ export const ArtistInviteDetail = ({
           <div dangerouslySetInnerHTML={{ __html: description }} />
         </div>
         <div className={contentColumnStyle}>
-          {status === 'open' && isLoggedIn &&
+          {status === 'open' &&
             <RoundedRect className="SubmitButton Green isXL" onClick={onClickSubmit}>
               SUBMIT
             </RoundedRect>

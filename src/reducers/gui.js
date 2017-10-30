@@ -48,6 +48,8 @@ const initialNonPersistedState = Immutable.Map({
   isProfileMenuActive: false,
   isTextToolsActive: false,
   notificationScrollPositions: Immutable.Map(),
+  onboardToArtistInvite: null,
+  isCompletingOnboardToArtistInvite: false,
   saidHelloTo: Immutable.List(),
   textToolsCoordinates: Immutable.Map({ top: -200, left: -666 }),
   textToolsStates: Immutable.Map(),
@@ -129,6 +131,14 @@ export default (state = initialState, action = { type: '' }) => {
       return state.merge(payload)
     case GUI.TOGGLE_NOTIFICATIONS:
       return state.set('isNotificationsActive', payload.isNotificationsActive)
+    case GUI.START_ONBOARD_TO_ARTIST_INVITE:
+      return state.set('onboardToArtistInvite', payload.artistInvite)
+    case GUI.COMPLETE_ONBOARD_TO_ARTIST_INVITE:
+      return state.set('onboardToArtistInvite', null)
+        .set('isCompletingOnboardToArtistInvite', true)
+    case GUI.RESET_ONBOARD_TO_ARTIST_INVITE:
+      return state.set('onboardToArtistInvite', null)
+        .set('isCompletingOnboardToArtistInvite', false)
     case HEAD_FAILURE:
       return state.set('isNotificationsUnread', false)
     case HEAD_SUCCESS:
