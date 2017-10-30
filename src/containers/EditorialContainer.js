@@ -75,11 +75,6 @@ class EditorialContainer extends Component {
     }
   }
 
-  componentDidMount() {
-    const { dispatch, trackOptions } = this.props
-    dispatch(trackEvent('editorial-module-viewed', trackOptions))
-  }
-
   shouldComponentUpdate(nextProps) {
     return (
       nextProps.editorialId !== this.props.editorialId ||
