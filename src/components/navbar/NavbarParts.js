@@ -428,6 +428,7 @@ export const NavbarProfile = ({
 NavbarProfile.propTypes = {
   artistInvitesInProfileMenu: PropTypes.bool.isRequired,
   avatar: PropTypes.object,
+  isBrand: PropTypes.bool.isRequired,
   isProfileMenuActive: PropTypes.bool.isRequired,
   onClickAvatar: PropTypes.func.isRequired,
   onLogOut: PropTypes.func.isRequired,

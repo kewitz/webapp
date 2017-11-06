@@ -268,6 +268,7 @@ NavbarLoggedIn.propTypes = {
   categoryTabs: PropTypes.array,
   deviceSize: PropTypes.string.isRequired,
   hasLoadMoreButton: PropTypes.bool.isRequired,
+  isBrand: PropTypes.bool.isRequired,
   isGridMode: PropTypes.bool,
   isLayoutToolHidden: PropTypes.bool.isRequired,
   isNotificationsActive: PropTypes.bool.isRequired,
