@@ -3,6 +3,7 @@ import * as ENV from '../../env'
 
 const API_VERSION = 'v2'
 const PER_PAGE = 25
+const ARTIST_INVITES_PER_PAGE = 20
 const basePath = () => `${ENV.API_DOMAIN}/api`
 
 function getAPIPath(relPath, queryParams = {}) {
@@ -27,7 +28,10 @@ export function editorials(isPreview) {
 }
 // Artist Invites
 export function artistInvites(isPreview) {
-  const query = { per_page: PER_PAGE, ...getPagingQueryParams(window.location.search) }
+  const query = {
+    per_page: ARTIST_INVITES_PER_PAGE,
+    ...getPagingQueryParams(window.location.search),
+  }
   if (isPreview) { query.preview = true }
   return {
     path: getAPIPath('artist_invites', query),
@@ -171,7 +175,7 @@ export function relationshipBatchPath() {
 // Badges
 export function badges() {
   return {
-    path: getAPIPath('badges.json', { timestamp: '1508355329' }),
+    path: getAPIPath('badges.json', { timestamp: '1510255684' }),
   }
 }
 // Categories
